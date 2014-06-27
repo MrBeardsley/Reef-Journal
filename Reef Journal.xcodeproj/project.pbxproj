@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		83477AF2195B975A0039E2C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83477AF1195B975A0039E2C5 /* Settings.bundle */; };
 		83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */; };
-		83AA7EA41947D63A00CB9D0F /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA31947D63A00CB9D0F /* FirstViewController.swift */; };
-		83AA7EA61947D63A00CB9D0F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA51947D63A00CB9D0F /* SecondViewController.swift */; };
 		83AA7EA91947D63A00CB9D0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EA71947D63A00CB9D0F /* Main.storyboard */; };
 		83AA7EAB1947D63A00CB9D0F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EAA1947D63A00CB9D0F /* Images.xcassets */; };
 		83AA7EB71947D63B00CB9D0F /* Reef_JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EB61947D63B00CB9D0F /* Reef_JournalTests.swift */; };
 		83E0D5871947DD9400DE1779 /* Reef Journal Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83E0D5851947DD9400DE1779 /* Reef Journal Data.xcdatamodeld */; };
+		83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,8 +31,6 @@
 		83AA7E9C1947D63A00CB9D0F /* Reef Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reef Journal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AA7EA01947D63A00CB9D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		83AA7EA31947D63A00CB9D0F /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		83AA7EA51947D63A00CB9D0F /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		83AA7EA81947D63A00CB9D0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		83AA7EAA1947D63A00CB9D0F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		83AA7EB01947D63B00CB9D0F /* Reef JournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reef JournalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +38,7 @@
 		83AA7EB61947D63B00CB9D0F /* Reef_JournalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reef_JournalTests.swift; sourceTree = "<group>"; };
 		83E0D5841947DA3400DE1779 /* Reef Journal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Reef Journal.entitlements"; sourceTree = "<group>"; };
 		83E0D5861947DD9400DE1779 /* Reef Journal Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Reef Journal Data.xcdatamodel"; sourceTree = "<group>"; };
+		83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +83,7 @@
 			children = (
 				83E0D5841947DA3400DE1779 /* Reef Journal.entitlements */,
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
-				83AA7EA31947D63A00CB9D0F /* FirstViewController.swift */,
-				83AA7EA51947D63A00CB9D0F /* SecondViewController.swift */,
+				83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */,
 				83AA7EA71947D63A00CB9D0F /* Main.storyboard */,
 				83E0D5851947DD9400DE1779 /* Reef Journal Data.xcdatamodeld */,
 				83AA7EAA1947D63A00CB9D0F /* Images.xcassets */,
@@ -226,10 +223,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83AA7EA61947D63A00CB9D0F /* SecondViewController.swift in Sources */,
+				83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */,
 				83E0D5871947DD9400DE1779 /* Reef Journal Data.xcdatamodeld in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
-				83AA7EA41947D63A00CB9D0F /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
