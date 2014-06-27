@@ -16,11 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         // Override point for customization after application launch.
-
-        if let number = NSUserDefaults.standardUserDefaults().valueForKey("Salinity_Enabled") as? NSNumber {
-            let salinityEnabled = number.boolValue
-        }
-
         return true
     }
 

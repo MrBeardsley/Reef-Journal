@@ -10,9 +10,28 @@ import UIKit
 
 class ParametersTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let chemistryParameterList: Array<String> = ["Salinity", "Alkalinity", "Calcium", "Magnesium"]
+    let chemistryParameterList: Array<String> = ["Alkalinity", "Calcium", "Magnesium"]
     let nutrientParameterList: Array<String> = ["Nitrate", "Phosphate"]
 
+
+    // TODO: Need to use a loop rather than doing each parameter one by one.
+    // Also need to change the Name of the settings toggles to the name which will be displayed on the UI
+    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        if let number = NSUserDefaults.standardUserDefaults().valueForKey("Salinity_Enabled") as? NSNumber {
+            let salinityEnabled = number.boolValue
+
+            if salinityEnabled {
+                chemistryParameterList.append("Salinity")
+            }
+        }
+        
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    // UITableiew Data Source Methods
+    ////////////////////////////////////////////////////////////////////////////////////
+    
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
 
         switch section {
@@ -24,9 +43,6 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
             return 0
         }
     }
-
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
 
@@ -41,7 +57,7 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
             default:
                 cell.textLabel.text = "Not found"
             }
-            
+
             return cell
         }
         else {
@@ -51,7 +67,10 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////
     // UITableView delegate Methods
+    ////////////////////////////////////////////////////////////////////////////////////
+
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         return 2
     }
