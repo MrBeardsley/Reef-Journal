@@ -14,7 +14,7 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>Salinity_Enabled</string>
+			<string>Salinity</string>
 			<key>Title</key>
 			<string>Salinity</string>
 			<key>Type</key>
@@ -24,7 +24,7 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>Alkalinity_Enabled</string>
+			<string>Alkalinity</string>
 			<key>Title</key>
 			<string>Alkalinity</string>
 			<key>Type</key>
@@ -36,7 +36,7 @@
 			<key>Title</key>
 			<string>Calcium</string>
 			<key>Key</key>
-			<string>Calcium_Enabled</string>
+			<string>Calcium</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -46,7 +46,7 @@
 			<key>Title</key>
 			<string>Magnesium</string>
 			<key>Key</key>
-			<string>Magnesium_Enabled</string>
+			<string>Magnesium</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -54,9 +54,9 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>PH</string>
+			<string>pH</string>
 			<key>Key</key>
-			<string>PH_Enabled</string>
+			<string>pH</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -66,7 +66,7 @@
 			<key>Title</key>
 			<string>Strontium</string>
 			<key>Key</key>
-			<string>Strontium_Enabled</string>
+			<string>Strontium</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -76,7 +76,7 @@
 			<key>Title</key>
 			<string>Potasium</string>
 			<key>Key</key>
-			<string>Potasium_Enabled</string>
+			<string>Potasium</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -92,7 +92,7 @@
 			<key>Title</key>
 			<string>Nitrate</string>
 			<key>Key</key>
-			<string>Nitrate_Enabled</string>
+			<string>Nitrate</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -102,7 +102,7 @@
 			<key>Title</key>
 			<string>Phosphate</string>
 			<key>Key</key>
-			<string>Phosphate_Enabled</string>
+			<string>Phosphate</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -112,7 +112,7 @@
 			<key>Title</key>
 			<string>Ammonia</string>
 			<key>Key</key>
-			<string>Ammonia_Enabled</string>
+			<string>Ammonia</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -122,7 +122,7 @@
 			<key>Title</key>
 			<string>Nitrite</string>
 			<key>Key</key>
-			<string>Nitrite_Enabled</string>
+			<string>Nitrite</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
