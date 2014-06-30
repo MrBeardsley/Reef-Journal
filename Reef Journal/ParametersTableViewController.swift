@@ -19,8 +19,18 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet var tableView: UITableView
 
     override func awakeFromNib() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object: nil)
+        reloadTableView(nil)
+    }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
+    func reloadTableView(aNotification: NSNotification?) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
+        chemistrySection = []
+        nutrientsSection = []
 
         for item in chemistryParameters {
             if userDefaults.boolForKey(item) {
@@ -35,6 +45,7 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
         }
 
         tableView?.reloadData()
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
