@@ -8,15 +8,13 @@
 
 import UIKit
 
-class ParametersTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ParametersTableViewController: UITableViewController {
 
     let chemistryParameters = ["Salinity","Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium"]
     let nutrientParameters = ["Nitrate", "Phosphate", "Ammonia", "Nitrite" ]
 
     var chemistrySection: Array<String> = []
     var nutrientsSection: Array<String> = []
-
-    @IBOutlet var tableView: UITableView
 
     override func awakeFromNib() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object: nil)
@@ -52,7 +50,7 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
     // UITableiew Data Source Methods
     ////////////////////////////////////////////////////////////////////////////////////
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
 
         switch section {
         case 0:
@@ -64,7 +62,7 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
 
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
 
 
         let cellIdentifier = "ParameterCell";
@@ -91,11 +89,11 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
     // UITableView delegate Methods
     ////////////////////////////////////////////////////////////////////////////////////
 
-    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         return 2
     }
 
-    func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+    override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
         switch section {
         case 0:
             return "Chemistry"
