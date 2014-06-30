@@ -7,7 +7,7 @@
         <!--Root View Controller-->
         <scene sceneID="e2U-Tz-rNP">
             <objects>
-                <viewController id="V4n-ES-EIk" customClass="RootViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="V4n-ES-EIk" customClass="RootViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dk3-PO-8je"/>
                         <viewControllerLayoutGuide type="bottom" id="SCd-e2-YVq"/>
