@@ -10,22 +10,17 @@ import UIKit
 
 class ParametersTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let chemistryParameterList: Array<String> = ["Alkalinity", "Calcium", "Magnesium"]
-    let nutrientParameterList: Array<String> = ["Nitrate", "Phosphate"]
+    let chemistryParameterList: Array<String> = ["Salinity","Alkalinity", "Calcium", "Magnesium", "Strontium", "pH"]
+    let nutrientParameterList: Array<String> = ["Nitrate", "Phosphate", ]
 
 
     // TODO: Need to use a loop rather than doing each parameter one by one.
     // Also need to change the Name of the settings toggles to the name which will be displayed on the UI
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
-        if let number = NSUserDefaults.standardUserDefaults().valueForKey("Salinity_Enabled") as? NSNumber {
-            let salinityEnabled = number.boolValue
+    override func viewDidLoad() {
 
-            if salinityEnabled {
-                chemistryParameterList.append("Salinity")
-            }
-        }
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        let userDefaults = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()
+        println(userDefaults.description)
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////

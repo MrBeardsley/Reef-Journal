@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Parameters Table View Controller-->
         <scene sceneID="e2U-Tz-rNP">
             <objects>
-                <viewController id="V4n-ES-EIk" sceneMemberID="viewController">
+                <viewController id="V4n-ES-EIk" customClass="ParametersTableViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dk3-PO-8je"/>
                         <viewControllerLayoutGuide type="bottom" id="SCd-e2-YVq"/>
@@ -51,6 +51,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <connections>
+                        <outlet property="view" destination="SOa-ny-cxX" id="nYg-R0-bKA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Pl-ix-75a" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="pC4-9E-UE7" customClass="ParametersTableViewController" customModule="Reef_Journal" customModuleProvider="target"/>

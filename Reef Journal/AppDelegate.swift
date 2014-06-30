@@ -16,6 +16,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         // Override point for customization after application launch.
+
+        let mainBundlePath = NSBundle.mainBundle().bundlePath
+        let settingsPropertyListPath = mainBundlePath.stringByAppendingPathComponent("Settings.bundle/Root.plist");
+
+        let settingsPropertyList = NSDictionary(contentsOfFile: settingsPropertyListPath)
+
+        if let preferencesArray = settingsPropertyList.objectForKey("PreferenceSpecifiers") as? Array<AnyObject> {
+            var registerableDictionary = NSMutableDictionary()
+
+            for index in 0..preferencesArray.count {
+                let item: AnyObject = preferencesArray[index]
+                if let preference = item as? NSDictionary {
+                    if let type = preference.objectForKey("Type") as? NSString {
+                        if type != "PSGroupSpecifier" {
+                            registerableDictionary.setObject(preference.valueForKey("DefaultValue"), forKey: preference.valueForKey("Key") as NSString)
+                        }
+                    }
+                }
+            }
+
+            NSUserDefaults.standardUserDefaults().registerDefaults(registerableDictionary)
+
+        }
+
         return true
     }
 
