@@ -56,7 +56,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Pl-ix-75a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="pC4-9E-UE7" customClass="ParametersTableViewController" customModule="Reef_Journal" customModuleProvider="target"/>
+                <customObject id="pC4-9E-UE7" customClass="ParametersTableViewController" customModule="Reef_Journal" customModuleProvider="target">
+                    <connections>
+                        <outlet property="tableView" destination="SOa-ny-cxX" id="LvQ-hj-Czl"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="600" y="60"/>
         </scene>

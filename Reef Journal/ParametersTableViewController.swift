@@ -10,17 +10,31 @@ import UIKit
 
 class ParametersTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let chemistryParameterList: Array<String> = ["Salinity","Alkalinity", "Calcium", "Magnesium", "Strontium", "pH"]
-    let nutrientParameterList: Array<String> = ["Nitrate", "Phosphate", ]
+    let chemistryParameters = ["Salinity","Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium"]
+    let nutrientParameters = ["Nitrate", "Phosphate", "Ammonia", "Nitrite" ]
 
+    var chemistrySection: Array<String> = []
+    var nutrientsSection: Array<String> = []
 
-    // TODO: Need to use a loop rather than doing each parameter one by one.
-    // Also need to change the Name of the settings toggles to the name which will be displayed on the UI
-    override func viewDidLoad() {
+    @IBOutlet var tableView: UITableView
 
-        let userDefaults = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()
-        println(userDefaults.description)
+    override func awakeFromNib() {
 
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+
+        for item in chemistryParameters {
+            if userDefaults.boolForKey(item) {
+                chemistrySection.append(item)
+            }
+        }
+
+        for item in nutrientParameters {
+            if userDefaults.boolForKey(item) {
+                nutrientsSection.append(item)
+            }
+        }
+
+        tableView?.reloadData()
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -31,9 +45,9 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
 
         switch section {
         case 0:
-            return chemistryParameterList.count
+            return chemistrySection.count
         case 1:
-            return nutrientParameterList.count
+            return nutrientsSection.count
         default:
             return 0
         }
@@ -46,9 +60,9 @@ class ParametersTableViewController: UIViewController, UITableViewDelegate, UITa
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as? UITableViewCell {
             switch indexPath.section {
             case 0:
-                cell.textLabel.text = chemistryParameterList[indexPath.row]
+                cell.textLabel.text = chemistrySection[indexPath.row]
             case 1:
-                cell.textLabel.text = nutrientParameterList[indexPath.row]
+                cell.textLabel.text = nutrientsSection[indexPath.row]
             default:
                 cell.textLabel.text = "Not found"
             }
