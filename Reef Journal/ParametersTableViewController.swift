@@ -64,25 +64,28 @@ class ParametersTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
 
-
         let cellIdentifier = "ParameterCell";
-        if let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as? UITableViewCell {
-            switch indexPath.section {
-            case 0:
-                cell.textLabel.text = chemistrySection[indexPath.row]
-            case 1:
-                cell.textLabel.text = nutrientsSection[indexPath.row]
-            default:
-                cell.textLabel.text = "Not found"
-            }
+        var cell: UITableViewCell
 
-            return cell
+        if let tableViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as? UITableViewCell {
+            cell = tableViewCell
         }
         else {
-            var newCell = UITableViewCell(style: .Value1, reuseIdentifier: cellIdentifier)
-            newCell.textLabel.text = "Test 2"
-            return newCell
+            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellIdentifier)
         }
+
+        switch indexPath.section {
+        case 0:
+            cell.textLabel.text = chemistrySection[indexPath.row]
+        case 1:
+            cell.textLabel.text = nutrientsSection[indexPath.row]
+        default:
+            cell.textLabel.text = "Not found"
+        }
+
+        cell.detailTextLabel.text = "1.035"
+
+        return cell
     }
 
     ////////////////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		83477AF2195B975A0039E2C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83477AF1195B975A0039E2C5 /* Settings.bundle */; };
-		835476D719646E3E00D1994E /* ParameterTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835476D619646E3E00D1994E /* ParameterTableCell.swift */; };
 		835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EFCEA1961EFB900214EE4 /* DetailViewController.swift */; };
 		83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */; };
 		83AA7EA91947D63A00CB9D0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EA71947D63A00CB9D0F /* Main.storyboard */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		83477AF1195B975A0039E2C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		835476D619646E3E00D1994E /* ParameterTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterTableCell.swift; sourceTree = "<group>"; };
 		835EFCEA1961EFB900214EE4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		83AA7E9C1947D63A00CB9D0F /* Reef Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reef Journal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AA7EA01947D63A00CB9D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
 				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
 				83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */,
-				835476D619646E3E00D1994E /* ParameterTableCell.swift */,
 				835476D819646E9500D1994E /* Interface */,
 				835476D919646EB100D1994E /* Data Model */,
 				83AA7E9F1947D63A00CB9D0F /* Supporting Files */,
@@ -248,7 +245,6 @@
 				83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */,
 				83E0D5871947DD9400DE1779 /* Reef Journal Data.xcdatamodeld in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
-				835476D719646E3E00D1994E /* ParameterTableCell.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
