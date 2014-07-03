@@ -106,5 +106,13 @@ class ParametersTableViewController: UITableViewController {
             return "Error"
         }
     }
-    
+
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+
+        let path = self.tableView.indexPathForSelectedRow()
+        let title = self.tableView.cellForRowAtIndexPath(path).textLabel.text
+        if let detailViewController = segue.destinationViewController as? DetailViewController {
+            detailViewController.navigationItem.title = title
+        }
+    }
 }

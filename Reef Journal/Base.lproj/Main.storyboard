@@ -106,6 +106,9 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="ACq-wh-oKq"/>
+                    <connections>
+                        <outlet property="detailNavigationItem" destination="ACq-wh-oKq" id="O03-5L-yTw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQf-fM-5iK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
