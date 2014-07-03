@@ -11,5 +11,16 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet var detailNavigationItem: UINavigationItem
+    @IBOutlet var dateField: UILabel
 
+    override func viewDidLoad() {
+        let today = NSDate()
+        var formatter = NSDateFormatter()
+        formatter.formatterBehavior = .BehaviorDefault
+        formatter.dateFormat = "MMMM dd ',' yyyy"
+
+        if let dateString = formatter.stringFromDate(today) {
+            self.dateField.text = dateString
+        }
+    }
 }
