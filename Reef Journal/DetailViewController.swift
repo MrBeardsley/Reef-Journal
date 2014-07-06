@@ -14,12 +14,10 @@ class DetailViewController: UIViewController {
     @IBOutlet var dateField: UILabel
 
     override func viewDidLoad() {
-        let today = NSDate()
-        var formatter = NSDateFormatter()
-        formatter.formatterBehavior = .BehaviorDefault
-        formatter.dateFormat = "MMMM dd ',' yyyy"
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMMM dd ',' yyyy"
 
-        if let dateString = formatter.stringFromDate(today) {
+        if let dateString = dateFormatter.stringFromDate(NSDate()) {
             self.dateField.text = dateString
         }
     }
