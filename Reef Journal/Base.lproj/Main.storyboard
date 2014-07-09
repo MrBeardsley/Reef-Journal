@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gT1-E9-o3X">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gT1-E9-o3X">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <scenes>
-        <!--Parameters Table View Controller - Parameters-->
+        <!--Parameters-->
         <scene sceneID="d1s-iS-7Q0">
             <objects>
                 <tableViewController id="OSz-OV-Ox2" customClass="ParametersTableViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
@@ -12,7 +12,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ParameterCell" textLabel="Ave-k0-4N0" detailTextLabel="bQb-HZ-sl3" style="IBUITableViewCellStyleSubtitle" id="gPg-Ux-cIs">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -121,7 +120,7 @@
                                     <constraint firstAttribute="height" constant="39" id="GV8-1r-4Mo"/>
                                     <constraint firstAttribute="width" constant="76" id="U83-cQ-neD"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
@@ -149,7 +148,6 @@
                             <constraint firstAttribute="centerX" secondItem="nvJ-LL-tBX" secondAttribute="centerX" id="PIt-pO-IpY"/>
                             <constraint firstItem="En7-fl-I0G" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="163" id="wPM-gb-s9R"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="En7-fl-I0G"/>
@@ -157,10 +155,10 @@
                                 <exclude reference="BKa-ac-BjO"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="0iW-Gg-I1c"/>
-                                <exclude reference="PIt-pO-IpY"/>
                                 <exclude reference="1wg-Xs-QWR"/>
                                 <exclude reference="2sD-i6-RAa"/>
+                                <exclude reference="0iW-Gg-I1c"/>
+                                <exclude reference="PIt-pO-IpY"/>
                                 <exclude reference="5Op-XL-fhW"/>
                                 <exclude reference="wPM-gb-s9R"/>
                             </mask>
@@ -174,10 +172,10 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="0iW-Gg-I1c"/>
-                                <include reference="PIt-pO-IpY"/>
                                 <include reference="1wg-Xs-QWR"/>
                                 <include reference="2sD-i6-RAa"/>
+                                <include reference="0iW-Gg-I1c"/>
+                                <include reference="PIt-pO-IpY"/>
                                 <include reference="5Op-XL-fhW"/>
                                 <include reference="wPM-gb-s9R"/>
                             </mask>
