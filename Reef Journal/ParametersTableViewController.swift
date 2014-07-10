@@ -18,11 +18,14 @@ class ParametersTableViewController: UITableViewController {
 
     override func awakeFromNib() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object: nil)
-        reloadTableView(nil)
     }
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
+    override func viewDidLoad() {
+        reloadTableView(nil)
     }
 
     func reloadTableView(aNotification: NSNotification?) {
