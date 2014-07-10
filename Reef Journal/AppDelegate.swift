@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let preferencesArray = settingsPropertyList.objectForKey("PreferenceSpecifiers") as? Array<AnyObject> {
             var registerableDictionary = NSMutableDictionary()
 
-            for index in 0..preferencesArray.count {
+            for index in 0..<preferencesArray.count {
                 let item: AnyObject = preferencesArray[index]
                 if let preference = item as? NSDictionary {
                     if let type = preference.objectForKey("Type") as? NSString {
