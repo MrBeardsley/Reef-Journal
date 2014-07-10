@@ -114,14 +114,25 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKa-ac-BjO">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="BKa-ac-BjO">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="GV8-1r-4Mo"/>
-                                    <constraint firstAttribute="width" constant="76" id="U83-cQ-neD"/>
+                                    <constraint firstAttribute="height" constant="39" id="GV8-1r-4Mo">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="64"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="76" id="U83-cQ-neD">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="200"/>
+                                    </constraint>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="32.0">
+                                        <attributes>
+                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -146,7 +157,9 @@
                             <constraint firstItem="BKa-ac-BjO" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="84" id="2sD-i6-RAa"/>
                             <constraint firstAttribute="centerX" secondItem="En7-fl-I0G" secondAttribute="centerX" id="5Op-XL-fhW"/>
                             <constraint firstAttribute="centerX" secondItem="nvJ-LL-tBX" secondAttribute="centerX" id="PIt-pO-IpY"/>
-                            <constraint firstItem="En7-fl-I0G" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="163" id="wPM-gb-s9R"/>
+                            <constraint firstItem="En7-fl-I0G" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="163" id="wPM-gb-s9R">
+                                <variation key="heightClass=regular-widthClass=compact" constant="180"/>
+                            </constraint>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -198,10 +211,10 @@
             </objects>
             <point key="canvasLocation" x="1929" y="261.75"/>
         </scene>
-        <!--Graph View Controller-->
+        <!--Graph-->
         <scene sceneID="P7F-s3-Db6">
             <objects>
-                <viewController title="Graph View Controller" id="lRN-gf-Lq9" sceneMemberID="viewController">
+                <viewController title="Graph" id="lRN-gf-Lq9" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gr6-Sc-8qf"/>
                         <viewControllerLayoutGuide type="bottom" id="lfD-hW-gI8"/>
