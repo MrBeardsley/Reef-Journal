@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831386B0196F4A2900F0D0DD /* GraphViewController.swift */; };
 		83477AF2195B975A0039E2C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83477AF1195B975A0039E2C5 /* Settings.bundle */; };
 		835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EFCEA1961EFB900214EE4 /* DetailViewController.swift */; };
 		83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		831386B0196F4A2900F0D0DD /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		83477AF1195B975A0039E2C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		835EFCEA1961EFB900214EE4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		83AA7E9C1947D63A00CB9D0F /* Reef Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reef Journal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,8 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
-				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
 				83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */,
+				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
+				831386B0196F4A2900F0D0DD /* GraphViewController.swift */,
 				835476D819646E9500D1994E /* Interface */,
 				835476D919646EB100D1994E /* Data Model */,
 				83AA7E9F1947D63A00CB9D0F /* Supporting Files */,
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */,
+				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
 				83E0D5871947DD9400DE1779 /* Reef Journal Data.xcdatamodeld in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,

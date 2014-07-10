@@ -181,7 +181,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="ACq-wh-oKq"/>
+                    <navigationItem key="navigationItem" id="ACq-wh-oKq">
+                        <barButtonItem key="rightBarButtonItem" title="Graph" id="b9y-ym-WgD">
+                            <connections>
+                                <segue destination="lRN-gf-Lq9" kind="show" id="2vN-P4-N6d"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dateField" destination="nvJ-LL-tBX" id="Bqz-IW-Bft"/>
                         <outlet property="detailNavigationItem" destination="ACq-wh-oKq" id="O03-5L-yTw"/>
@@ -191,6 +197,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQf-fM-5iK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1929" y="261.75"/>
+        </scene>
+        <!--Graph View Controller-->
+        <scene sceneID="P7F-s3-Db6">
+            <objects>
+                <viewController title="Graph View Controller" id="lRN-gf-Lq9" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gr6-Sc-8qf"/>
+                        <viewControllerLayoutGuide type="bottom" id="lfD-hW-gI8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yEX-C3-XDX">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lix-aI-WKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2620.5" y="262.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JJR-Hg-79k">
