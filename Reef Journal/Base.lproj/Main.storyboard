@@ -177,13 +177,6 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="En7-fl-I0G"/>
-                                <include reference="nvJ-LL-tBX"/>
-                                <include reference="BKa-ac-BjO"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
                                 <include reference="1wg-Xs-QWR"/>
                                 <include reference="2sD-i6-RAa"/>
@@ -191,6 +184,13 @@
                                 <include reference="PIt-pO-IpY"/>
                                 <include reference="5Op-XL-fhW"/>
                                 <include reference="wPM-gb-s9R"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="En7-fl-I0G"/>
+                                <include reference="nvJ-LL-tBX"/>
+                                <include reference="BKa-ac-BjO"/>
                             </mask>
                         </variation>
                     </view>
@@ -220,8 +220,28 @@
                         <viewControllerLayoutGuide type="bottom" id="lfD-hW-gI8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yEX-C3-XDX">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ig-hT-3mz" customClass="GraphView" customModule="Reef_Journal" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="113" width="320" height="317"/>
+                                </variation>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="5Ig-hT-3mz"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="5Ig-hT-3mz"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lix-aI-WKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
