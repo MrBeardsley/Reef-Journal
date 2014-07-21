@@ -11,14 +11,21 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet var detailNavigationItem: UINavigationItem
+    @IBOutlet var valueTextLabel: UILabel
     @IBOutlet var dateField: UILabel
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMMM dd ',' yyyy"
 
         if let dateString = dateFormatter.stringFromDate(NSDate()) {
             self.dateField.text = dateString
         }
+
+        var valueString = NSMutableAttributedString(string: "420")
+
+        valueTextLabel.attributedText = valueString
     }
 }
