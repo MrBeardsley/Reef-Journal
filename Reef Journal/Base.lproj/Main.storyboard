@@ -122,14 +122,14 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ljf-5H-rbw">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ljf-5H-rbw">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="222" id="IvJ-0m-z09"/>
                                     <constraint firstAttribute="height" constant="30" id="itP-TB-WnR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="IvJ-0m-z09"/>
@@ -254,6 +254,7 @@
                     <connections>
                         <outlet property="dateField" destination="nvJ-LL-tBX" id="Bqz-IW-Bft"/>
                         <outlet property="detailNavigationItem" destination="ACq-wh-oKq" id="O03-5L-yTw"/>
+                        <outlet property="inputTextField" destination="Ljf-5H-rbw" id="Aul-h0-4HX"/>
                         <outlet property="valueTextLabel" destination="BKa-ac-BjO" id="DRr-VI-Ew6"/>
                         <outlet property="view" destination="E0j-4H-yXA" id="DP6-qF-nSd"/>
                     </connections>
