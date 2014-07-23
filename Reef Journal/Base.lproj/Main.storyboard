@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gT1-E9-o3X">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gT1-E9-o3X">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <scenes>
         <!--Parameters-->
         <scene sceneID="d1s-iS-7Q0">
             <objects>
                 <tableViewController id="OSz-OV-Ox2" customClass="ParametersTableViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="c8g-uu-ejm">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="c8g-uu-ejm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ParameterCell" textLabel="Ave-k0-4N0" detailTextLabel="bQb-HZ-sl3" style="IBUITableViewCellStyleSubtitle" id="gPg-Ux-cIs">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ParameterCell" textLabel="Ave-k0-4N0" detailTextLabel="bQb-HZ-sl3" style="IBUITableViewCellStyleSubtitle" id="gPg-Ux-cIs">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gPg-Ux-cIs" id="HsN-s7-v02">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -47,9 +47,6 @@
                         <variation key="widthClass=compact" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         </variation>
-                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
-                        </variation>
                         <connections>
                             <outlet property="dataSource" destination="OSz-OV-Ox2" id="ZzB-hX-Xqg"/>
                             <outlet property="delegate" destination="OSz-OV-Ox2" id="Amm-rp-ZHQ"/>
@@ -70,7 +67,7 @@
                         <viewControllerLayoutGuide type="bottom" id="gTd-0o-75E"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="E0j-4H-yXA">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvJ-LL-tBX">
@@ -118,13 +115,11 @@
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <mask key="constraints">
                                         <include reference="EJF-eE-I1w"/>
                                         <include reference="TTU-qa-dfX"/>
                                     </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 </variation>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ljf-5H-rbw">
@@ -151,7 +146,6 @@
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="b4P-fj-p55">
                                 <rect key="frame" x="-160" y="-81" width="320" height="162"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="4Rd-oc-LjB"/>
                                     <constraint firstAttribute="height" constant="162" id="pvY-eT-yGE"/>
                                 </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="427340794.05887902">
@@ -159,13 +153,11 @@
                                 </date>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="4Rd-oc-LjB"/>
                                         <exclude reference="pvY-eT-yGE"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="4Rd-oc-LjB"/>
                                         <include reference="pvY-eT-yGE"/>
                                     </mask>
                                 </variation>
@@ -216,32 +208,17 @@
                                 <exclude reference="IIv-jL-aVM"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="brS-5Y-MKK"/>
-                                <exclude reference="pSD-cd-X6N"/>
-                                <exclude reference="sQU-al-cm4"/>
-                                <exclude reference="1WF-sh-Dat"/>
-                                <exclude reference="HLQ-QD-73f"/>
                                 <exclude reference="SPV-1f-cS5"/>
                                 <exclude reference="eQB-LZ-AY4"/>
                                 <exclude reference="GaW-Bj-jk4"/>
                                 <exclude reference="0Tc-J2-zAV"/>
                                 <exclude reference="GR7-rO-tYF"/>
                                 <exclude reference="HSc-Ky-Kvb"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="brS-5Y-MKK"/>
-                                <include reference="pSD-cd-X6N"/>
-                                <include reference="sQU-al-cm4"/>
-                                <include reference="1WF-sh-Dat"/>
-                                <include reference="HLQ-QD-73f"/>
-                                <include reference="SPV-1f-cS5"/>
-                                <include reference="eQB-LZ-AY4"/>
-                                <include reference="GaW-Bj-jk4"/>
-                                <include reference="0Tc-J2-zAV"/>
-                                <include reference="GR7-rO-tYF"/>
-                                <include reference="HSc-Ky-Kvb"/>
+                                <exclude reference="1WF-sh-Dat"/>
+                                <exclude reference="HLQ-QD-73f"/>
+                                <exclude reference="brS-5Y-MKK"/>
+                                <exclude reference="pSD-cd-X6N"/>
+                                <exclude reference="sQU-al-cm4"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -251,6 +228,19 @@
                                 <include reference="Ljf-5H-rbw"/>
                                 <include reference="b4P-fj-p55"/>
                                 <include reference="IIv-jL-aVM"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="SPV-1f-cS5"/>
+                                <include reference="eQB-LZ-AY4"/>
+                                <include reference="GaW-Bj-jk4"/>
+                                <include reference="0Tc-J2-zAV"/>
+                                <include reference="GR7-rO-tYF"/>
+                                <include reference="HSc-Ky-Kvb"/>
+                                <include reference="1WF-sh-Dat"/>
+                                <include reference="HLQ-QD-73f"/>
+                                <include reference="brS-5Y-MKK"/>
+                                <include reference="pSD-cd-X6N"/>
+                                <include reference="sQU-al-cm4"/>
                             </mask>
                         </variation>
                     </view>
@@ -270,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQf-fM-5iK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1929" y="261.75"/>
+            <point key="canvasLocation" x="1965" y="261.75"/>
         </scene>
         <!--Graph-->
         <scene sceneID="P7F-s3-Db6">
@@ -281,7 +271,7 @@
                         <viewControllerLayoutGuide type="bottom" id="lfD-hW-gI8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yEX-C3-XDX">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ig-hT-3mz" customClass="GraphView" customModule="Reef_Journal" customModuleProvider="target">
@@ -307,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lix-aI-WKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2620.5" y="262.5"/>
+            <point key="canvasLocation" x="2656.5" y="262.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JJR-Hg-79k">

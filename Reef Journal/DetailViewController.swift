@@ -10,9 +10,9 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet var detailNavigationItem: UINavigationItem
-    @IBOutlet var valueTextLabel: UILabel
-    @IBOutlet var dateField: UILabel
+    @IBOutlet var detailNavigationItem: UINavigationItem!
+    @IBOutlet var valueTextLabel: UILabel!
+    @IBOutlet var dateField: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
