@@ -17,7 +17,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var dateField: UILabel!
     @IBOutlet weak var inputTextField: UITextField!
 
-    var measurementValue: Int?
+    var currentValue: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,33 +42,40 @@ class DetailViewController: UIViewController {
             self.dateField.text = dateString
         }
 
-        var valueString = NSMutableAttributedString(string: "420")
+        let tintColor = self.view.tintColor
+        valueTextLabel.textColor = tintColor
 
-        valueTextLabel.attributedText = valueString
     }
 
     //FIXME: Temporary fix for showing the keyboard until the custom control is implemented
     func keyboardDidShow(notification: NSNotification) {
+        // Get the current value displayed
+        if let intValue = valueTextLabel.text.toInt() {
+            currentValue = intValue
+        }
+
         //Assign new frame to your view
         let currentFrame = self.view.bounds
         self.view.frame = CGRect(x: currentFrame.origin.x, y: currentFrame.origin.y - keyboardOffset, width: currentFrame.width, height: currentFrame.height + keyboardOffset)
-        println(currentFrame)
-        println(self.view.frame)
     }
 
     func keyboardDidHide(notification: NSNotification) {
         let currentFrame = self.view.bounds
         self.view.frame = CGRect(x: currentFrame.origin.x, y: currentFrame.origin.y, width: currentFrame.width, height: currentFrame.height - keyboardOffset)
-        println(currentFrame)
-        println(self.view.frame)
     }
 
     func cancelNumberPad() {
+        inputTextField.text = ""
         inputTextField.resignFirstResponder()
     }
 
     func doneWithNumberPad() {
-        let numberFromTheKeyboard = inputTextField.text
+        if let numberFromKeyboard = inputTextField.text.toInt() {
+            valueTextLabel.text = String(numberFromKeyboard)
+            currentValue = numberFromKeyboard
+        }
+
+        inputTextField.text = ""
         inputTextField.resignFirstResponder()
     }
 }

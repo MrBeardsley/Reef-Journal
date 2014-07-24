@@ -92,33 +92,22 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="64" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="BKa-ac-BjO">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="64" text="12" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="360" translatesAutoresizingMaskIntoConstraints="NO" id="BKa-ac-BjO">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="EJF-eE-I1w"/>
-                                    <constraint firstAttribute="height" constant="64" id="TTU-qa-dfX"/>
+                                    <constraint firstAttribute="height" constant="64" id="Uxj-c4-pPX"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="25">
-                                        <attributes>
-                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="EJF-eE-I1w"/>
-                                        <exclude reference="TTU-qa-dfX"/>
+                                        <exclude reference="Uxj-c4-pPX"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <mask key="constraints">
-                                        <include reference="EJF-eE-I1w"/>
-                                        <include reference="TTU-qa-dfX"/>
+                                        <include reference="Uxj-c4-pPX"/>
                                     </mask>
                                 </variation>
                             </label>
@@ -189,11 +178,13 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ljf-5H-rbw" secondAttribute="trailing" constant="20" id="0Tc-J2-zAV"/>
                             <constraint firstAttribute="centerX" secondItem="nvJ-LL-tBX" secondAttribute="centerX" id="1WF-sh-Dat"/>
+                            <constraint firstItem="BKa-ac-BjO" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leading" constant="20" symbolic="YES" id="9jq-9x-9xh"/>
                             <constraint firstItem="Ljf-5H-rbw" firstAttribute="baseline" secondItem="IIv-jL-aVM" secondAttribute="baseline" id="GR7-rO-tYF"/>
                             <constraint firstItem="IIv-jL-aVM" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leading" constant="20" id="GaW-Bj-jk4"/>
                             <constraint firstItem="nvJ-LL-tBX" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="20" id="HLQ-QD-73f"/>
                             <constraint firstItem="Ljf-5H-rbw" firstAttribute="top" secondItem="BKa-ac-BjO" secondAttribute="bottom" constant="13" id="HSc-Ky-Kvb"/>
                             <constraint firstAttribute="centerX" secondItem="BKa-ac-BjO" secondAttribute="centerX" id="SPV-1f-cS5"/>
+                            <constraint firstAttribute="trailing" secondItem="BKa-ac-BjO" secondAttribute="trailing" constant="20" symbolic="YES" id="Vy6-52-9bE"/>
                             <constraint firstItem="b4P-fj-p55" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leading" id="brS-5Y-MKK"/>
                             <constraint firstItem="BKa-ac-BjO" firstAttribute="top" secondItem="b4P-fj-p55" secondAttribute="bottom" constant="13" id="eQB-LZ-AY4"/>
                             <constraint firstAttribute="trailing" secondItem="b4P-fj-p55" secondAttribute="trailing" id="pSD-cd-X6N"/>
@@ -208,17 +199,19 @@
                                 <exclude reference="IIv-jL-aVM"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="brS-5Y-MKK"/>
+                                <exclude reference="pSD-cd-X6N"/>
+                                <exclude reference="sQU-al-cm4"/>
+                                <exclude reference="1WF-sh-Dat"/>
+                                <exclude reference="HLQ-QD-73f"/>
+                                <exclude reference="9jq-9x-9xh"/>
                                 <exclude reference="SPV-1f-cS5"/>
+                                <exclude reference="Vy6-52-9bE"/>
                                 <exclude reference="eQB-LZ-AY4"/>
                                 <exclude reference="GaW-Bj-jk4"/>
                                 <exclude reference="0Tc-J2-zAV"/>
                                 <exclude reference="GR7-rO-tYF"/>
                                 <exclude reference="HSc-Ky-Kvb"/>
-                                <exclude reference="1WF-sh-Dat"/>
-                                <exclude reference="HLQ-QD-73f"/>
-                                <exclude reference="brS-5Y-MKK"/>
-                                <exclude reference="pSD-cd-X6N"/>
-                                <exclude reference="sQU-al-cm4"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -230,17 +223,19 @@
                                 <include reference="IIv-jL-aVM"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="brS-5Y-MKK"/>
+                                <include reference="pSD-cd-X6N"/>
+                                <include reference="sQU-al-cm4"/>
+                                <include reference="1WF-sh-Dat"/>
+                                <include reference="HLQ-QD-73f"/>
+                                <include reference="9jq-9x-9xh"/>
                                 <include reference="SPV-1f-cS5"/>
+                                <include reference="Vy6-52-9bE"/>
                                 <include reference="eQB-LZ-AY4"/>
                                 <include reference="GaW-Bj-jk4"/>
                                 <include reference="0Tc-J2-zAV"/>
                                 <include reference="GR7-rO-tYF"/>
                                 <include reference="HSc-Ky-Kvb"/>
-                                <include reference="1WF-sh-Dat"/>
-                                <include reference="HLQ-QD-73f"/>
-                                <include reference="brS-5Y-MKK"/>
-                                <include reference="pSD-cd-X6N"/>
-                                <include reference="sQU-al-cm4"/>
                             </mask>
                         </variation>
                     </view>
