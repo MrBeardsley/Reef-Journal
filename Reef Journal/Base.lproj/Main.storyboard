@@ -70,11 +70,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvJ-LL-tBX">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Date:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvJ-LL-tBX">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="vGp-Q5-KvC"/>
-                                    <constraint firstAttribute="width" constant="105" id="xaP-XW-NSI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -82,13 +81,11 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="vGp-Q5-KvC"/>
-                                        <exclude reference="xaP-XW-NSI"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="vGp-Q5-KvC"/>
-                                        <include reference="xaP-XW-NSI"/>
                                     </mask>
                                 </variation>
                             </label>
@@ -150,6 +147,9 @@
                                         <include reference="pvY-eT-yGE"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="pickerDidChange:" destination="Wqd-75-dBb" eventType="valueChanged" id="YSu-eh-cZI"/>
+                                </connections>
                             </datePicker>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIv-jL-aVM">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -177,8 +177,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ljf-5H-rbw" secondAttribute="trailing" constant="20" id="0Tc-J2-zAV"/>
-                            <constraint firstAttribute="centerX" secondItem="nvJ-LL-tBX" secondAttribute="centerX" id="1WF-sh-Dat"/>
                             <constraint firstItem="BKa-ac-BjO" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leading" constant="20" symbolic="YES" id="9jq-9x-9xh"/>
+                            <constraint firstItem="nvJ-LL-tBX" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leading" constant="20" symbolic="YES" id="E4r-Qz-WEd"/>
                             <constraint firstItem="Ljf-5H-rbw" firstAttribute="baseline" secondItem="IIv-jL-aVM" secondAttribute="baseline" id="GR7-rO-tYF"/>
                             <constraint firstItem="IIv-jL-aVM" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leading" constant="20" id="GaW-Bj-jk4"/>
                             <constraint firstItem="nvJ-LL-tBX" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="20" id="HLQ-QD-73f"/>
@@ -186,6 +186,7 @@
                             <constraint firstAttribute="centerX" secondItem="BKa-ac-BjO" secondAttribute="centerX" id="SPV-1f-cS5"/>
                             <constraint firstAttribute="trailing" secondItem="BKa-ac-BjO" secondAttribute="trailing" constant="20" symbolic="YES" id="Vy6-52-9bE"/>
                             <constraint firstItem="b4P-fj-p55" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leading" id="brS-5Y-MKK"/>
+                            <constraint firstAttribute="trailing" secondItem="nvJ-LL-tBX" secondAttribute="trailing" constant="20" symbolic="YES" id="e87-vW-TGC"/>
                             <constraint firstItem="BKa-ac-BjO" firstAttribute="top" secondItem="b4P-fj-p55" secondAttribute="bottom" constant="13" id="eQB-LZ-AY4"/>
                             <constraint firstAttribute="trailing" secondItem="b4P-fj-p55" secondAttribute="trailing" id="pSD-cd-X6N"/>
                             <constraint firstItem="b4P-fj-p55" firstAttribute="top" secondItem="nvJ-LL-tBX" secondAttribute="bottom" constant="8" id="sQU-al-cm4"/>
@@ -202,8 +203,9 @@
                                 <exclude reference="brS-5Y-MKK"/>
                                 <exclude reference="pSD-cd-X6N"/>
                                 <exclude reference="sQU-al-cm4"/>
-                                <exclude reference="1WF-sh-Dat"/>
+                                <exclude reference="E4r-Qz-WEd"/>
                                 <exclude reference="HLQ-QD-73f"/>
+                                <exclude reference="e87-vW-TGC"/>
                                 <exclude reference="9jq-9x-9xh"/>
                                 <exclude reference="SPV-1f-cS5"/>
                                 <exclude reference="Vy6-52-9bE"/>
@@ -226,8 +228,9 @@
                                 <include reference="brS-5Y-MKK"/>
                                 <include reference="pSD-cd-X6N"/>
                                 <include reference="sQU-al-cm4"/>
-                                <include reference="1WF-sh-Dat"/>
+                                <include reference="E4r-Qz-WEd"/>
                                 <include reference="HLQ-QD-73f"/>
+                                <include reference="e87-vW-TGC"/>
                                 <include reference="9jq-9x-9xh"/>
                                 <include reference="SPV-1f-cS5"/>
                                 <include reference="Vy6-52-9bE"/>
@@ -248,6 +251,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dateField" destination="nvJ-LL-tBX" id="Bqz-IW-Bft"/>
+                        <outlet property="datePicker" destination="b4P-fj-p55" id="ux7-Ta-F54"/>
                         <outlet property="detailNavigationItem" destination="ACq-wh-oKq" id="O03-5L-yTw"/>
                         <outlet property="inputTextField" destination="Ljf-5H-rbw" id="Aul-h0-4HX"/>
                         <outlet property="valueTextLabel" destination="BKa-ac-BjO" id="DRr-VI-Ew6"/>

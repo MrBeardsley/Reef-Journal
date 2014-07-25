@@ -16,6 +16,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var valueTextLabel: UILabel!
     @IBOutlet weak var dateField: UILabel!
     @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
 
     var currentValue: Int = 0
 
@@ -42,9 +43,20 @@ class DetailViewController: UIViewController {
             self.dateField.text = dateString
         }
 
+        datePicker.setDate(NSDate(), animated: true)
+
         let tintColor = self.view.tintColor
         valueTextLabel.textColor = tintColor
 
+    }
+
+    @IBAction func pickerDidChange(sender: UIDatePicker) {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMMM dd ',' yyyy"
+
+        if let dateString = dateFormatter.stringFromDate(sender.date) {
+            self.dateField.text = dateString
+        }
     }
 
     //FIXME: Temporary fix for showing the keyboard until the custom control is implemented
