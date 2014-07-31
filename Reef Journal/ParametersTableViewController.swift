@@ -49,9 +49,16 @@ class ParametersTableViewController: UITableViewController {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////
-    // UITableiew Data Source Methods
-    ////////////////////////////////////////////////////////////////////////////////////
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+
+        let path = self.tableView.indexPathForSelectedRow()
+        let title = self.tableView.cellForRowAtIndexPath(path).textLabel.text
+        if let detailViewController = segue.destinationViewController as? DetailViewController {
+            detailViewController.navigationItem.title = title
+        }
+    }
+
+    // MARK: - Tableview Datasource methods
     
     override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
 
@@ -91,9 +98,7 @@ class ParametersTableViewController: UITableViewController {
         return cell
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////
-    // UITableView delegate Methods
-    ////////////////////////////////////////////////////////////////////////////////////
+    // MARK: - UITableView delegate Methods
 
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         return 2
@@ -110,12 +115,5 @@ class ParametersTableViewController: UITableViewController {
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
 
-        let path = self.tableView.indexPathForSelectedRow()
-        let title = self.tableView.cellForRowAtIndexPath(path).textLabel.text
-        if let detailViewController = segue.destinationViewController as? DetailViewController {
-            detailViewController.navigationItem.title = title
-        }
-    }
 }
