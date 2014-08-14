@@ -36,6 +36,7 @@ class ParametersTableViewController: UITableViewController {
 
         let context = appDelegate.managedObjectContext
         let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
+        
     }
 
     func reloadTableView(aNotification: NSNotification?) {

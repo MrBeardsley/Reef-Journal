@@ -14,6 +14,7 @@
 		83AA7EA91947D63A00CB9D0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EA71947D63A00CB9D0F /* Main.storyboard */; };
 		83AA7EAB1947D63A00CB9D0F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EAA1947D63A00CB9D0F /* Images.xcassets */; };
 		83AA7EB71947D63B00CB9D0F /* Reef_JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EB61947D63B00CB9D0F /* Reef_JournalTests.swift */; };
+		83C3F2F2199D768700756164 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C3F2F1199D768700756164 /* Measurement.swift */; };
 		83C99868196F80C9008E23B1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C99867196F80C9008E23B1 /* GraphView.swift */; };
 		83E0D5871947DD9400DE1779 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83E0D5851947DD9400DE1779 /* DataModel.xcdatamodeld */; };
 		83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */; };
@@ -41,6 +42,8 @@
 		83AA7EB01947D63B00CB9D0F /* Reef JournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reef JournalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AA7EB51947D63B00CB9D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AA7EB61947D63B00CB9D0F /* Reef_JournalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reef_JournalTests.swift; sourceTree = "<group>"; };
+		83C3F2F0199D768600756164 /* Reef Journal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Reef Journal-Bridging-Header.h"; sourceTree = "<group>"; };
+		83C3F2F1199D768700756164 /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		83C99867196F80C9008E23B1 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		83E0D5841947DA3400DE1779 /* Reef Journal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Reef Journal.entitlements"; sourceTree = "<group>"; };
 		83E0D5861947DD9400DE1779 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -78,6 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				83E0D5851947DD9400DE1779 /* DataModel.xcdatamodeld */,
+				83C3F2F1199D768700756164 /* Measurement.swift */,
+				83C3F2F0199D768600756164 /* Reef Journal-Bridging-Header.h */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,
 				83C99868196F80C9008E23B1 /* GraphView.swift in Sources */,
+				83C3F2F2199D768700756164 /* Measurement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +377,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Reef Journal/Reef Journal.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -379,6 +386,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Reef Journal/Reef Journal-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -388,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Reef Journal/Reef Journal.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -396,6 +406,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Reef Journal/Reef Journal-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
