@@ -11,9 +11,10 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-                            
+
     var window: UIWindow?
 
+    // MARK: - Application Delegate Protocol Methods
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         // Override point for customization after application launch.
@@ -77,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("CoreData", withExtension: "momd")
+        let modelURL = NSBundle.mainBundle().URLForResource("Reef Journal Data", withExtension: "xcdatamodeld")
         return NSManagedObjectModel(contentsOfURL: modelURL)
     }()
 
@@ -129,7 +130,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
-
 }
 

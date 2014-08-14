@@ -12,13 +12,18 @@ class ParametersTableViewController: UITableViewController {
 
     let chemistryParameters = ["Salinity","Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium"]
     let nutrientParameters = ["Nitrate", "Phosphate", "Ammonia", "Nitrite" ]
+    let appDelegate: AppDelegate
 
     var chemistrySection: Array<String> = []
     var nutrientsSection: Array<String> = []
 
-    override func awakeFromNib() {
+    required init(coder aDecoder: NSCoder!) {
+        appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        super.init(coder: aDecoder)
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object: nil)
     }
+
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
