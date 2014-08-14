@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class ParametersTableViewController: UITableViewController {
 
     let chemistryParameters = ["Salinity","Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium"]
     let nutrientParameters = ["Nitrate", "Phosphate", "Ammonia", "Nitrite" ]
+    let entityName = "Measurement"
     let appDelegate: AppDelegate
 
     var chemistrySection: Array<String> = []
@@ -31,6 +33,9 @@ class ParametersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         reloadTableView(nil)
+
+        let context = appDelegate.managedObjectContext
+        let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
     }
 
     func reloadTableView(aNotification: NSNotification?) {
