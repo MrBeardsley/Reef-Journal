@@ -10,6 +10,10 @@ import UIKit
 
 class GraphView: UIView {
 
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
+    }
+
     override func drawRect(rect: CGRect) {
 
         var context = UIGraphicsGetCurrentContext()
