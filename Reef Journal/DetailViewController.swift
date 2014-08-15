@@ -123,6 +123,7 @@ class DetailViewController: UIViewController {
         valueTextLabel.text = inputTextField.text
         currentValue = NSString(string: valueTextLabel.text).doubleValue
 
+        // TODO: Need to only edit for if a value is entered for that date instead of always adding new.
         let type = self.navigationItem.title
         let context = appDelegate.managedObjectContext
         let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as Measurement
