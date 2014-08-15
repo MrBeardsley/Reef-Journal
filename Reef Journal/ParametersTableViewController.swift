@@ -33,15 +33,6 @@ class ParametersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         reloadTableView(nil)
-
-        let context = appDelegate.managedObjectContext
-        let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
-        let fetchRequest = NSFetchRequest(entityName: entityName)
-//        let salinityPredicate = NSPredicate(format: "type = %@", argumentArray: ["Salinity"])
-//        fetchRequest.predicate = salinityPredicate
-
-        var error: NSError?
-        var results = context?.executeFetchRequest(fetchRequest, error: &error)
     }
 
     func reloadTableView(aNotification: NSNotification?) {
