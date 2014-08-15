@@ -13,18 +13,24 @@ let keyboardOffset: CGFloat = 100.0
 
 class DetailViewController: UIViewController {
 
+    // MARK: - Interface Outlets
     @IBOutlet weak var detailNavigationItem: UINavigationItem!
     @IBOutlet weak var valueTextLabel: UILabel!
     @IBOutlet weak var dateField: UILabel!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
 
-    var currentValue: Double = 0
+    // MARK: - Class Properties
     let appDelegate: AppDelegate
     let entityName = "Measurement"
+    let format = "MMMM dd ',' yyyy"
+    let dateFormatter: NSDateFormatter
 
+    // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder!) {
         appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = format
         super.init(coder: aDecoder)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
@@ -35,22 +41,29 @@ class DetailViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
+    // MARK: - View Management
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Setup the controls
+        let today = NSDate()
+        if let dateString = dateFormatter.stringFromDate(today) {
+            self.dateField.text = dateString
+        }
+
+        datePicker.setDate(today, animated: false)
+        datePicker.maximumDate = NSDate()
+        valueTextLabel.textColor = self.view.tintColor
         let numberToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
         numberToolbar.items = [UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelNumberPad"),
                                UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
                                UIBarButtonItem(title: "Apply", style: UIBarButtonItemStyle.Done, target: self, action: "doneWithNumberPad")]
         numberToolbar.sizeToFit()
         inputTextField.inputAccessoryView = numberToolbar
-        datePicker.maximumDate = NSDate()
-        ///////////////////////////////////////////
 
         // Coredata fetch to find the most recent measurement
         let type = self.navigationItem.title
         let context = appDelegate.managedObjectContext
-        let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
         let fetchRequest = NSFetchRequest(entityName: entityName)
         let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
         fetchRequest.predicate = predicate
@@ -64,36 +77,21 @@ class DetailViewController: UIViewController {
                 valueTextLabel.text = NSString(format: "%.2f", aMeasurement.value)
             }
         }
-
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MMMM dd ',' yyyy"
-
-        if let dateString = dateFormatter.stringFromDate(NSDate()) {
-            self.dateField.text = dateString
-        }
-
-
-        datePicker.setDate(NSDate(), animated: false)
-
-        let tintColor = self.view.tintColor
-        valueTextLabel.textColor = tintColor
-
     }
 
+    // MARK: - Interface Responders
     @IBAction func pickerDidChange(sender: UIDatePicker) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MMMM dd ',' yyyy"
 
         if let dateString = dateFormatter.stringFromDate(sender.date) {
             self.dateField.text = dateString
         }
+
+        if let aMeasurement = self.measurementForDate(self.datePicker.date) {
+            valueTextLabel.text = NSString(format: "%.2f", aMeasurement.value)
+        }
     }
 
-    //FIXME: Temporary fix for showing the keyboard until the custom control is implemented
     func keyboardDidShow(notification: NSNotification) {
-        // Get the current value displayed
-
-        currentValue = NSString(string: valueTextLabel.text).doubleValue
 
         //Assign new frame to your view
         let currentFrame = self.view.bounds
@@ -112,38 +110,49 @@ class DetailViewController: UIViewController {
 
     func doneWithNumberPad() {
         valueTextLabel.text = inputTextField.text
-        currentValue = NSString(string: valueTextLabel.text).doubleValue
 
-        let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(flags, fromDate: self.datePicker.date)
-        let measurementDay = calendar.dateFromComponents(components)
-
-        // Determine if a measurement already exists for that day. If so edit, otherwise as a new value.
-        let type = self.navigationItem.title
-        let context = appDelegate.managedObjectContext
-        let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
-        let fetchRequest = NSFetchRequest(entityName: entityName)
-        let predicate = NSPredicate(format: "type == %@ AND day == %@", argumentArray: [type, measurementDay])
-        fetchRequest.predicate = predicate
-        fetchRequest.fetchLimit = 1
-
-        var error: NSError?
-        if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
-            if let aMeasurement = results.last as? Measurement {
-                aMeasurement.value = currentValue
-            }
-            else {
-                let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as Measurement
-                newMeasurement.value = currentValue
-                newMeasurement.type = type
-                newMeasurement.day = measurementDay.timeIntervalSinceReferenceDate
-            }
+        if let aMeasurement = self.measurementForDate(self.datePicker.date) {
+            aMeasurement.value = NSString(string: valueTextLabel.text).doubleValue
+        }
+        else {
+            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: appDelegate.managedObjectContext) as Measurement
+            newMeasurement.value = NSString(string: valueTextLabel.text).doubleValue
+            newMeasurement.type = self.navigationItem.title
+            newMeasurement.day = self.dayFromDate(self.datePicker.date).timeIntervalSinceReferenceDate
         }
 
         appDelegate.saveContext()
 
         inputTextField.text = ""
         inputTextField.resignFirstResponder()
+    }
+}
+
+// MARK: - Private Functions
+private extension DetailViewController {
+    func measurementForDate(date: NSDate) -> Measurement? {
+        let day = self.dayFromDate(date)
+        let type = self.navigationItem.title
+        let context = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: entityName)
+        let predicate = NSPredicate(format: "type == %@ AND day == %@", argumentArray: [type, day])
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+
+        var error: NSError?
+        if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
+            if let aMeasurement = results.last as? Measurement {
+                return aMeasurement
+            }
+        }
+
+        return nil
+    }
+
+    func dayFromDate(date: NSDate) -> NSDate {
+        let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(flags, fromDate: date)
+        return calendar.dateFromComponents(components)
     }
 }
