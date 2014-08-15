@@ -47,13 +47,6 @@ class DetailViewController: UIViewController {
         datePicker.maximumDate = NSDate()
         ///////////////////////////////////////////
 
-
-        // Get the date in day only format for comparison
-        let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(flags, fromDate: NSDate())
-        let today = calendar.dateFromComponents(components)
-
         // Coredata fetch to find the most recent measurement
         let type = self.navigationItem.title
         let context = appDelegate.managedObjectContext
@@ -67,8 +60,6 @@ class DetailViewController: UIViewController {
         var error: NSError?
         if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
             if let aMeasurement = results.last as? Measurement {
-                let measurementComponents = calendar.components(flags, fromDate: NSDate(timeIntervalSince1970: aMeasurement.day))
-                let measurementDay = calendar.dateFromComponents(measurementComponents)
 
                 valueTextLabel.text = NSString(format: "%.2f", aMeasurement.value)
             }
@@ -123,13 +114,32 @@ class DetailViewController: UIViewController {
         valueTextLabel.text = inputTextField.text
         currentValue = NSString(string: valueTextLabel.text).doubleValue
 
-        // TODO: Need to only edit for if a value is entered for that date instead of always adding new.
+        let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(flags, fromDate: self.datePicker.date)
+        let measurementDay = calendar.dateFromComponents(components)
+
+        // Determine if a measurement already exists for that day. If so edit, otherwise as a new value.
         let type = self.navigationItem.title
         let context = appDelegate.managedObjectContext
-        let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as Measurement
-        newMeasurement.value = currentValue
-        newMeasurement.type = type
-        newMeasurement.day = self.datePicker.date.timeIntervalSince1970
+        let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
+        let fetchRequest = NSFetchRequest(entityName: entityName)
+        let predicate = NSPredicate(format: "type == %@ AND day == %@", argumentArray: [type, measurementDay])
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+
+        var error: NSError?
+        if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
+            if let aMeasurement = results.last as? Measurement {
+                aMeasurement.value = currentValue
+            }
+            else {
+                let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as Measurement
+                newMeasurement.value = currentValue
+                newMeasurement.type = type
+                newMeasurement.day = measurementDay.timeIntervalSinceReferenceDate
+            }
+        }
 
         appDelegate.saveContext()
 
