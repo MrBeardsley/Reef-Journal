@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 let keyboardOffset: CGFloat = 100.0
 
@@ -19,14 +20,23 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
 
     var currentValue: Int = 0
+    let appDelegate: AppDelegate
+    let entityName = "Measurement"
+
+    required init(coder aDecoder: NSCoder!) {
+        appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        super.init(coder: aDecoder)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // These can be removed when changing to a slider instead of a text field
-        ///////////////////////////////////////////
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
 
         let numberToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
         numberToolbar.items = [UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelNumberPad"),
@@ -47,6 +57,28 @@ class DetailViewController: UIViewController {
 
         let tintColor = self.view.tintColor
         valueTextLabel.textColor = tintColor
+
+
+        // Coredata fetch to see if measurement already exists so we can update it
+        let type = self.navigationItem.title
+        println(type)
+        let context = appDelegate.managedObjectContext
+        let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
+        let fetchRequest = NSFetchRequest(entityName: entityName)
+        let salinityPredicate = NSPredicate(format: "type = %@", argumentArray: [type])
+        fetchRequest.predicate = salinityPredicate
+
+        var error: NSError?
+        if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
+            for item in results {
+                if let aMeasurement = item as? Measurement {
+                    let date = NSDate(timeIntervalSince1970: aMeasurement.day)
+                    print("Type: " + aMeasurement.type)
+                    print(" Date: \(date.description)")
+                    println(" Value: " + NSString(format: "%.2f", aMeasurement.value))
+                }
+            }
+        }
 
     }
 
@@ -85,6 +117,15 @@ class DetailViewController: UIViewController {
         if let numberFromKeyboard = inputTextField.text.toInt() {
             valueTextLabel.text = String(numberFromKeyboard)
             currentValue = numberFromKeyboard
+
+            let type = self.navigationItem.title
+            let context = appDelegate.managedObjectContext
+            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as Measurement
+            newMeasurement.value = NSString(string: inputTextField.text).doubleValue
+            newMeasurement.type = type
+            newMeasurement.day = self.datePicker.date.timeIntervalSince1970
+
+            appDelegate.saveContext()
         }
 
         inputTextField.text = ""
