@@ -44,6 +44,7 @@ class DetailViewController: UIViewController {
                                UIBarButtonItem(title: "Apply", style: UIBarButtonItemStyle.Done, target: self, action: "doneWithNumberPad")]
         numberToolbar.sizeToFit()
         inputTextField.inputAccessoryView = numberToolbar
+        datePicker.maximumDate = NSDate()
         ///////////////////////////////////////////
 
 
