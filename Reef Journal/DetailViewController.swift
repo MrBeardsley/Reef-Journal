@@ -19,7 +19,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
 
-    var currentValue: Int = 0
+    var currentValue: Double = 0
     let appDelegate: AppDelegate
     let entityName = "Measurement"
 
@@ -46,6 +46,33 @@ class DetailViewController: UIViewController {
         inputTextField.inputAccessoryView = numberToolbar
         ///////////////////////////////////////////
 
+
+        // Get the date in day only format for comparison
+        let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(flags, fromDate: NSDate())
+        let today = calendar.dateFromComponents(components)
+
+        // Coredata fetch to find the most recent measurement
+        let type = self.navigationItem.title
+        let context = appDelegate.managedObjectContext
+        let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
+        let fetchRequest = NSFetchRequest(entityName: entityName)
+        let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
+        fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+        fetchRequest.fetchLimit = 1
+
+        var error: NSError?
+        if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
+            if let aMeasurement = results.last as? Measurement {
+                let measurementComponents = calendar.components(flags, fromDate: NSDate(timeIntervalSince1970: aMeasurement.day))
+                let measurementDay = calendar.dateFromComponents(measurementComponents)
+
+                valueTextLabel.text = NSString(format: "%.2f", aMeasurement.value)
+            }
+        }
+
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMMM dd ',' yyyy"
 
@@ -53,32 +80,11 @@ class DetailViewController: UIViewController {
             self.dateField.text = dateString
         }
 
-        datePicker.setDate(NSDate(), animated: true)
+
+        datePicker.setDate(NSDate(), animated: false)
 
         let tintColor = self.view.tintColor
         valueTextLabel.textColor = tintColor
-
-
-        // Coredata fetch to see if measurement already exists so we can update it
-        let type = self.navigationItem.title
-        println(type)
-        let context = appDelegate.managedObjectContext
-        let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)
-        let fetchRequest = NSFetchRequest(entityName: entityName)
-        let salinityPredicate = NSPredicate(format: "type = %@", argumentArray: [type])
-        fetchRequest.predicate = salinityPredicate
-
-        var error: NSError?
-        if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
-            for item in results {
-                if let aMeasurement = item as? Measurement {
-                    let date = NSDate(timeIntervalSince1970: aMeasurement.day)
-                    print("Type: " + aMeasurement.type)
-                    print(" Date: \(date.description)")
-                    println(" Value: " + NSString(format: "%.2f", aMeasurement.value))
-                }
-            }
-        }
 
     }
 
@@ -94,9 +100,8 @@ class DetailViewController: UIViewController {
     //FIXME: Temporary fix for showing the keyboard until the custom control is implemented
     func keyboardDidShow(notification: NSNotification) {
         // Get the current value displayed
-        if let intValue = valueTextLabel.text.toInt() {
-            currentValue = intValue
-        }
+
+        currentValue = NSString(string: valueTextLabel.text).doubleValue
 
         //Assign new frame to your view
         let currentFrame = self.view.bounds
@@ -114,19 +119,17 @@ class DetailViewController: UIViewController {
     }
 
     func doneWithNumberPad() {
-        if let numberFromKeyboard = inputTextField.text.toInt() {
-            valueTextLabel.text = String(numberFromKeyboard)
-            currentValue = numberFromKeyboard
+        valueTextLabel.text = inputTextField.text
+        currentValue = NSString(string: valueTextLabel.text).doubleValue
 
-            let type = self.navigationItem.title
-            let context = appDelegate.managedObjectContext
-            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as Measurement
-            newMeasurement.value = NSString(string: inputTextField.text).doubleValue
-            newMeasurement.type = type
-            newMeasurement.day = self.datePicker.date.timeIntervalSince1970
+        let type = self.navigationItem.title
+        let context = appDelegate.managedObjectContext
+        let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context) as Measurement
+        newMeasurement.value = currentValue
+        newMeasurement.type = type
+        newMeasurement.day = self.datePicker.date.timeIntervalSince1970
 
-            appDelegate.saveContext()
-        }
+        appDelegate.saveContext()
 
         inputTextField.text = ""
         inputTextField.resignFirstResponder()
