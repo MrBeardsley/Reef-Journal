@@ -18,7 +18,9 @@ class ParametersTableViewController: UITableViewController {
 
     var chemistrySection: Array<String> = []
     var nutrientsSection: Array<String> = []
+    var recentMeasurements: [String : Double]?
 
+    // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder!) {
         appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         super.init(coder: aDecoder)
@@ -26,12 +28,13 @@ class ParametersTableViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object: nil)
     }
 
-
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
+    // MARK: - View Management
     override func viewDidLoad() {
+        recentMeasurements = self.mostRecentMeasurements()
         reloadTableView(nil)
     }
 
@@ -53,7 +56,6 @@ class ParametersTableViewController: UITableViewController {
         }
 
         tableView?.reloadData()
-
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
@@ -94,13 +96,24 @@ class ParametersTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             cell.textLabel.text = chemistrySection[indexPath.row]
+            if  let value = recentMeasurements?[cell.textLabel.text] {
+                cell.detailTextLabel.text = NSString(format: "%.2f", value)
+            }
+            else {
+                cell.detailTextLabel.text = "No Measurement"
+            }
+
         case 1:
             cell.textLabel.text = nutrientsSection[indexPath.row]
+            if  let value = recentMeasurements?[cell.textLabel.text] {
+                cell.detailTextLabel.text = NSString(format: "%.2f", value)
+            }
+            else {
+                cell.detailTextLabel.text = "No Measurement"
+            }
         default:
             cell.textLabel.text = "Not found"
         }
-
-        cell.detailTextLabel.text = "1.035"
 
         return cell
     }
@@ -121,6 +134,30 @@ class ParametersTableViewController: UITableViewController {
             return "Error"
         }
     }
+}
 
+private extension ParametersTableViewController {
+    func mostRecentMeasurements() -> [String : Double] {
 
+        let context = appDelegate.managedObjectContext
+        var recentMeasurements = [String : Double]()
+
+        for item in appDelegate.parameterList {
+            let fetchRequest = NSFetchRequest(entityName: entityName)
+            let predicate = NSPredicate(format: "type = %@", argumentArray: [item])
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+            fetchRequest.fetchLimit = 1
+
+            var error: NSError?
+            if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
+                if let aMeasurement = results.last as? Measurement {
+                    recentMeasurements[aMeasurement.type] = aMeasurement.value
+                }
+            }
+        }
+
+        return recentMeasurements
+    }
+    
 }

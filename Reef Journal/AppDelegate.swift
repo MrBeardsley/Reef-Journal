@@ -9,10 +9,26 @@
 import UIKit
 import CoreData
 
+enum Parameter: String {
+    case Salinity = "Salinity"
+    case Temperature = "Temperature"
+    case Alkalinity = "Alkalinity"
+    case Calcium = "Calcium"
+    case Magnesium = "Magnesium"
+    case pH = "pH"
+    case Strontium = "Strontium"
+    case Potasium = "Potasium"
+    case Ammonia = "Ammonia"
+    case Nitrite = "Nitrite"
+    case Nitrate = "Nitrate"
+    case Phosphate = "Phosphate"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let parameterList = ["Salinity", "Temperature", "Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium", "Ammonia", "Nitrite", "Nitrate", "Phosphate"]
 
     // MARK: - Application Delegate Protocol Methods
 
