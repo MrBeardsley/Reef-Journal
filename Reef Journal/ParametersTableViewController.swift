@@ -9,7 +9,11 @@
 import UIKit
 import CoreData
 
-class ParametersTableViewController: UITableViewController {
+protocol ParentControllerDelegate {
+    func refreshData()
+}
+
+class ParametersTableViewController: UITableViewController, ParentControllerDelegate {
 
     let chemistryParameters = ["Salinity","Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium"]
     let nutrientParameters = ["Nitrate", "Phosphate", "Ammonia", "Nitrite" ]
@@ -34,11 +38,17 @@ class ParametersTableViewController: UITableViewController {
 
     // MARK: - View Management
     override func viewDidLoad() {
-        recentMeasurements = self.mostRecentMeasurements()
+        reloadTableView(nil)
+    }
+
+
+    // MARK: - Reloading the data in the table view
+    func refreshData() {
         reloadTableView(nil)
     }
 
     func reloadTableView(aNotification: NSNotification?) {
+        recentMeasurements = self.mostRecentMeasurements()
         let userDefaults = NSUserDefaults.standardUserDefaults()
         chemistrySection = []
         nutrientsSection = []
@@ -64,6 +74,7 @@ class ParametersTableViewController: UITableViewController {
         let title = self.tableView.cellForRowAtIndexPath(path).textLabel.text
         if let detailViewController = segue.destinationViewController as? DetailViewController {
             detailViewController.navigationItem.title = title
+            detailViewController.delegate = self
         }
     }
 
@@ -159,5 +170,4 @@ private extension ParametersTableViewController {
 
         return recentMeasurements
     }
-    
 }

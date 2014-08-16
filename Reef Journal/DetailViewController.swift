@@ -25,6 +25,7 @@ class DetailViewController: UIViewController {
     let entityName = "Measurement"
     let format = "MMMM dd ',' yyyy"
     let dateFormatter: NSDateFormatter
+    var delegate: ParentControllerDelegate?
 
     // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder!) {
@@ -79,6 +80,12 @@ class DetailViewController: UIViewController {
         }
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        if let parent = delegate {
+            parent.refreshData()
+        }
+    }
+
     // MARK: - Interface Responders
     @IBAction func pickerDidChange(sender: UIDatePicker) {
 
@@ -125,6 +132,10 @@ class DetailViewController: UIViewController {
 
         inputTextField.text = ""
         inputTextField.resignFirstResponder()
+    }
+
+    func navigationBar(navigationBar: UINavigationBar!, didPopItem item: UINavigationItem!) {
+        println("going back")
     }
 }
 

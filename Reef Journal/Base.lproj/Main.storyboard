@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gT1-E9-o3X">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gT1-E9-o3X">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
     <scenes>
         <!--Parameters-->
@@ -44,9 +44,6 @@
                             </tableViewCell>
                         </prototypes>
                         <sections/>
-                        <variation key="widthClass=compact" ambiguous="YES">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        </variation>
                         <connections>
                             <outlet property="dataSource" destination="OSz-OV-Ox2" id="ZzB-hX-Xqg"/>
                             <outlet property="delegate" destination="OSz-OV-Ox2" id="Amm-rp-ZHQ"/>
@@ -89,7 +86,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="64" text="12" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="360" translatesAutoresizingMaskIntoConstraints="NO" id="BKa-ac-BjO">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="64" text="12" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="BKa-ac-BjO">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="Uxj-c4-pPX"/>
@@ -200,12 +197,6 @@
                                 <exclude reference="IIv-jL-aVM"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="brS-5Y-MKK"/>
-                                <exclude reference="pSD-cd-X6N"/>
-                                <exclude reference="sQU-al-cm4"/>
-                                <exclude reference="E4r-Qz-WEd"/>
-                                <exclude reference="HLQ-QD-73f"/>
-                                <exclude reference="e87-vW-TGC"/>
                                 <exclude reference="9jq-9x-9xh"/>
                                 <exclude reference="SPV-1f-cS5"/>
                                 <exclude reference="Vy6-52-9bE"/>
@@ -214,6 +205,12 @@
                                 <exclude reference="0Tc-J2-zAV"/>
                                 <exclude reference="GR7-rO-tYF"/>
                                 <exclude reference="HSc-Ky-Kvb"/>
+                                <exclude reference="E4r-Qz-WEd"/>
+                                <exclude reference="HLQ-QD-73f"/>
+                                <exclude reference="e87-vW-TGC"/>
+                                <exclude reference="brS-5Y-MKK"/>
+                                <exclude reference="pSD-cd-X6N"/>
+                                <exclude reference="sQU-al-cm4"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -225,12 +222,6 @@
                                 <include reference="IIv-jL-aVM"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="brS-5Y-MKK"/>
-                                <include reference="pSD-cd-X6N"/>
-                                <include reference="sQU-al-cm4"/>
-                                <include reference="E4r-Qz-WEd"/>
-                                <include reference="HLQ-QD-73f"/>
-                                <include reference="e87-vW-TGC"/>
                                 <include reference="9jq-9x-9xh"/>
                                 <include reference="SPV-1f-cS5"/>
                                 <include reference="Vy6-52-9bE"/>
@@ -239,6 +230,12 @@
                                 <include reference="0Tc-J2-zAV"/>
                                 <include reference="GR7-rO-tYF"/>
                                 <include reference="HSc-Ky-Kvb"/>
+                                <include reference="E4r-Qz-WEd"/>
+                                <include reference="HLQ-QD-73f"/>
+                                <include reference="e87-vW-TGC"/>
+                                <include reference="brS-5Y-MKK"/>
+                                <include reference="pSD-cd-X6N"/>
+                                <include reference="sQU-al-cm4"/>
                             </mask>
                         </variation>
                     </view>
@@ -307,6 +304,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="psq-hk-LLU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="gT1-E9-o3X" id="sfo-5C-ukc"/>
+                        </connections>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
