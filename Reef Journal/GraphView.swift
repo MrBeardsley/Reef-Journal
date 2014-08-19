@@ -10,18 +10,27 @@ import UIKit
 
 class GraphView: UIView {
 
+    var dataPoints: [(NSDate, Double)] = []
+
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
     override func drawRect(rect: CGRect) {
 
+        // Placeholder drawing just to get something on the screen
         var context = UIGraphicsGetCurrentContext()
         CGContextSetLineWidth(context, 4.0)
         CGContextSetStrokeColorWithColor(context, UIColor.blueColor().CGColor)
-        let rectangle = CGRectMake(60,170,200,80)
+        let rectangle = self.bounds
         CGContextAddRect(context, rectangle)
         CGContextStrokePath(context)
+
+        // Draw the Axis
+
+        // Place Labels
+
+        // Draw the graph
 
     }
 }

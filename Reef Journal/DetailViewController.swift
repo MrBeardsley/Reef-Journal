@@ -48,7 +48,6 @@ class DetailViewController: UIViewController {
 
         // Setup the controls
         let today = NSDate()
-
         self.dateField.text = dateFormatter.stringFromDate(today)
 
 
@@ -134,8 +133,10 @@ class DetailViewController: UIViewController {
         inputTextField.resignFirstResponder()
     }
 
-    func navigationBar(navigationBar: UINavigationBar!, didPopItem item: UINavigationItem!) {
-        println("going back")
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        if let graphController = segue.destinationViewController as? GraphViewController {
+            graphController.detailController = self
+        }
     }
 }
 
