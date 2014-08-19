@@ -25,7 +25,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     var recentMeasurements: [String : Double]?
 
     // MARK: - Init/Deinit
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         super.init(coder: aDecoder)
 
