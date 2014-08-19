@@ -48,7 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let preference = item as? NSDictionary {
                     if let type = preference.objectForKey("Type") as? NSString {
                         if type != "PSGroupSpecifier" {
-                            registerableDictionary.setObject(preference.valueForKey("DefaultValue"), forKey: preference.valueForKey("Key") as NSString)
+//                            registerableDictionary.setObject(preference.valueForKey("DefaultValue"), forKey: preference.valueForKey("Key") as NSString)
+                            registerableDictionary[preference["Key"] as String] = preference["DefaultValue"]
                         }
                     }
                 }

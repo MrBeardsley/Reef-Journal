@@ -28,7 +28,7 @@ class DetailViewController: UIViewController {
     var delegate: ParentControllerDelegate?
 
     // MARK: - Init/Deinit
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = format
@@ -48,9 +48,9 @@ class DetailViewController: UIViewController {
 
         // Setup the controls
         let today = NSDate()
-        if let dateString = dateFormatter.stringFromDate(today) {
-            self.dateField.text = dateString
-        }
+
+        self.dateField.text = dateFormatter.stringFromDate(today)
+
 
         datePicker.setDate(today, animated: false)
         datePicker.maximumDate = NSDate()
@@ -89,9 +89,9 @@ class DetailViewController: UIViewController {
     // MARK: - Interface Responders
     @IBAction func pickerDidChange(sender: UIDatePicker) {
 
-        if let dateString = dateFormatter.stringFromDate(sender.date) {
-            self.dateField.text = dateString
-        }
+
+        self.dateField.text = dateFormatter.stringFromDate(sender.date)
+
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
             valueTextLabel.text = NSString(format: "%.2f", aMeasurement.value)
@@ -164,6 +164,6 @@ private extension DetailViewController {
         let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components(flags, fromDate: date)
-        return calendar.dateFromComponents(components)
+        return calendar.dateFromComponents(components)!
     }
 }
