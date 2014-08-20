@@ -25,6 +25,7 @@ class GraphViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+
         if let parent = detailController {
 
             let type = parent.navigationItem.title
