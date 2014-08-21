@@ -10,11 +10,10 @@ import UIKit
 
 class GraphView: UIView {
 
-    let black = UIColor.blackColor().CGColor
-    let red = UIColor.redColor().CGColor
-    let offset: CGFloat = 10.0
-
-
+    let black = UIColor.blackColor()
+    let green = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:1.0)
+    let axisOffset: CGFloat = 25.0
+    let axisWidth: CGFloat = 3.0
 
     ///////////////////////////////////////////////////////
     // This is just for development purposes. Remove later
@@ -33,55 +32,69 @@ class GraphView: UIView {
         }
         ///////////////////////////////////////////////////////
         super.init(coder: aDecoder)
+
+        // Flip the coordinate system so the origin ins in the bottom left
+        self.transform = CGAffineTransformMakeScale(1, -1)
     }
 
     override func drawRect(rect: CGRect) {
 
-        let context = UIGraphicsGetCurrentContext()
+        let currentContext = UIGraphicsGetCurrentContext()
 
-        // Draw a boarder around the graph
-        CGContextSaveGState(context)
-        CGContextSetLineWidth(context, 1.0)
-        CGContextSetStrokeColorWithColor(context, black)
-        let rectangle = self.bounds
-        CGContextAddRect(context, rectangle)
-        CGContextStrokePath(context)
-        CGContextRestoreGState(context)
-
-        // Draw the Axis
-        let startPoint = CGPoint(x: self.bounds.origin.x + offset, y: self.bounds.origin.y + offset)
-        let endPoint = CGPoint(x: startPoint.x + self.bounds.width - 2 * offset, y: startPoint.y + self.bounds.height - 2 * offset)
-        CGContextSaveGState(context)
-        CGContextSetLineCap(context, kCGLineCapSquare)
-        CGContextSetStrokeColorWithColor(context, black)
-        CGContextSetLineWidth(context, 3.0)
-        CGContextMoveToPoint(context, startPoint.x, startPoint.y)
-        CGContextAddLineToPoint(context, startPoint.x, endPoint.y)
-        CGContextAddLineToPoint(context, endPoint.x, endPoint.y)
-        CGContextStrokePath(context)
-        CGContextRestoreGState(context)
-
+        drawAxes(rect, context: currentContext)
+        drawGraph(rect, context: currentContext)
 
         // Place Labels
 
-        // Draw the graph
+        // Draw a boarder around the graph
+        CGContextSaveGState(currentContext)
+        CGContextSetLineWidth(currentContext, 1.0)
+        CGContextSetStrokeColorWithColor(currentContext, black.CGColor)
+        let rectangle = self.bounds
+        CGContextAddRect(currentContext, rectangle)
+        CGContextStrokePath(currentContext)
+        CGContextRestoreGState(currentContext)
+    }
 
-        let xMultiplier: Int = 20
-        let yMultiplier: CGFloat = 0.25
+    private func drawAxes(rect: CGRect, context: CGContext) {
+        var path = UIBezierPath()
+
         CGContextSaveGState(context)
-        CGContextSetStrokeColorWithColor(context, red)
-        CGContextSetLineWidth(context, 2.0)
-        for (index, element) in enumerate(dummyData) {
+        // Start at the top left, drop to the origin, and then go right
+        path.moveToPoint(CGPoint(x: rect.origin.x + axisOffset, y: rect.size.height))
+        path.addLineToPoint(CGPoint(x: rect.origin.x + axisOffset, y: rect.origin.y + axisOffset))
+        path.addLineToPoint(CGPoint(x: rect.size.width, y: rect.origin.y + axisOffset))
+        path.lineWidth = axisWidth
 
-            if index == 0 {
-                CGContextMoveToPoint(context, CGFloat(index) + offset + 2.0, element * yMultiplier)
-            }
-            else {
-                CGContextAddLineToPoint(context, CGFloat(index * xMultiplier), element * yMultiplier)
-            }
+        black.set()
+        path.stroke()
+
+        CGContextRestoreGState(context)
+    }
+
+    private func drawGraph(rect: CGRect, context: CGContext) {
+        var path = UIBezierPath()
+        let xMultiplier: CGFloat = 20
+        let yMultiplier: CGFloat = 0.5
+        let drawingOffset = axisOffset + axisWidth
+
+
+        CGContextSaveGState(context)
+
+        path.moveToPoint(CGPoint(x: rect.origin.x + drawingOffset, y: rect.origin.y + drawingOffset))
+
+        // Draw the lines.
+        for (index, element) in enumerate(dummyData) {
+            path.addLineToPoint(CGPoint(x: CGFloat(index) * xMultiplier + drawingOffset, y: element * yMultiplier + drawingOffset))
         }
 
-        CGContextStrokePath(context)
+        path.addLineToPoint(CGPoint(x: CGFloat(dummyData.count - 1) * xMultiplier + drawingOffset , y: rect.origin.y + drawingOffset))
+        path.closePath()
+
+        green.set()
+        path.stroke()
+        path.fill()
+
         CGContextRestoreGState(context)
     }
 }

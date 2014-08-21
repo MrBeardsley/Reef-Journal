@@ -346,22 +346,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5Ig-hT-3mz" firstAttribute="leading" secondItem="yEX-C3-XDX" secondAttribute="leadingMargin" constant="20" id="53V-yU-1Ko">
-                                <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                            <constraint firstItem="5Ig-hT-3mz" firstAttribute="leading" secondItem="yEX-C3-XDX" secondAttribute="leading" constant="20" id="53V-yU-1Ko">
+                                <variation key="heightClass=regular-widthClass=compact" constant="16"/>
                             </constraint>
-                            <constraint firstItem="5Ig-hT-3mz" firstAttribute="top" secondItem="Gr6-Sc-8qf" secondAttribute="bottom" constant="8" symbolic="YES" id="BCZ-qf-UIH"/>
                             <constraint firstItem="y9A-Ai-Ub6" firstAttribute="top" secondItem="5wx-S5-IIq" secondAttribute="bottom" constant="8" id="BVV-MU-BBj"/>
                             <constraint firstItem="5wx-S5-IIq" firstAttribute="leading" secondItem="yEX-C3-XDX" secondAttribute="leadingMargin" id="Kqh-ax-uNC"/>
                             <constraint firstItem="xAQ-ss-ppD" firstAttribute="top" secondItem="y9A-Ai-Ub6" secondAttribute="bottom" constant="8" id="KsO-dO-wvP"/>
                             <constraint firstItem="lfD-hW-gI8" firstAttribute="top" secondItem="xAQ-ss-ppD" secondAttribute="bottom" constant="20" id="Qkd-ba-arR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5Ig-hT-3mz" secondAttribute="trailing" constant="20" id="VXC-mf-Crq">
-                                <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                            <constraint firstAttribute="right" secondItem="5Ig-hT-3mz" secondAttribute="right" constant="20" id="VXC-mf-Crq">
+                                <variation key="heightClass=regular-widthClass=compact" constant="16"/>
                             </constraint>
                             <constraint firstItem="xAQ-ss-ppD" firstAttribute="leading" secondItem="yEX-C3-XDX" secondAttribute="leadingMargin" id="XCs-hV-9YN"/>
                             <constraint firstItem="5Ig-hT-3mz" firstAttribute="top" secondItem="Gr6-Sc-8qf" secondAttribute="bottom" constant="8" id="c1q-Z2-RfS"/>
                             <constraint firstItem="y9A-Ai-Ub6" firstAttribute="leading" secondItem="yEX-C3-XDX" secondAttribute="leadingMargin" id="ipb-7Q-yXF"/>
                             <constraint firstItem="5wx-S5-IIq" firstAttribute="top" secondItem="5Ig-hT-3mz" secondAttribute="bottom" constant="8" symbolic="YES" id="qWj-9o-jWf"/>
-                            <constraint firstItem="5Ig-hT-3mz" firstAttribute="leading" secondItem="yEX-C3-XDX" secondAttribute="leadingMargin" constant="-16" id="sJr-4g-EB0"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -379,10 +377,8 @@
                                 <exclude reference="BVV-MU-BBj"/>
                                 <exclude reference="ipb-7Q-yXF"/>
                                 <exclude reference="53V-yU-1Ko"/>
-                                <exclude reference="BCZ-qf-UIH"/>
                                 <exclude reference="VXC-mf-Crq"/>
                                 <exclude reference="c1q-Z2-RfS"/>
-                                <exclude reference="sJr-4g-EB0"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -401,10 +397,8 @@
                                 <include reference="BVV-MU-BBj"/>
                                 <include reference="ipb-7Q-yXF"/>
                                 <include reference="53V-yU-1Ko"/>
-                                <exclude reference="BCZ-qf-UIH"/>
                                 <include reference="VXC-mf-Crq"/>
                                 <include reference="c1q-Z2-RfS"/>
-                                <exclude reference="sJr-4g-EB0"/>
                             </mask>
                         </variation>
                     </view>
