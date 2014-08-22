@@ -10,6 +10,9 @@ import UIKit
 
 class GraphView: UIView {
 
+    var dataPoints: Array<(date: NSDate, value: Double)> = []
+    
+    // Drawing support
     let black = UIColor.blackColor()
     let green = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:1.0)
     let lightGreen = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:0.5)
@@ -74,6 +77,12 @@ class GraphView: UIView {
     }
 
     private func drawGraph(rect: CGRect, context: CGContext) {
+
+        // If there is no data, don't bother drawing anything.
+        if dataPoints.isEmpty {
+            return
+        }
+
         let path = UIBezierPath()
         let drawingOffset = axisOffset + axisWidth
         let graphWidth = rect.size.width - drawingOffset
@@ -99,6 +108,11 @@ class GraphView: UIView {
         path.fill()
 
         CGContextRestoreGState(context)
+
+        for item in dataPoints {
+            println("Date: \(item.0)")
+            println("Value: \(item.1)")
+        }
 
 
         // Draw vertical grid lines to see the data points

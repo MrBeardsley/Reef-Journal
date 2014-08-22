@@ -13,6 +13,9 @@ import CoreData
 class GraphViewController: UIViewController {
 
     @IBOutlet weak var graphView: GraphView!
+    @IBOutlet weak var minField: UILabel!
+    @IBOutlet weak var maxField: UILabel!
+    @IBOutlet weak var aveField: UILabel!
 
     let appDelegate: AppDelegate
     let entityName = "Measurement"
@@ -33,12 +36,30 @@ class GraphViewController: UIViewController {
             let fetchRequest = NSFetchRequest(entityName: entityName)
             let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
             fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: true)]
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
     
             var error: NSError?
             if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
-                if let aMeasurement = results.last as? Measurement {
-                    println(aMeasurement)
+
+                for item in results {
+                    if let aMeasurement = item as? Measurement {
+                        graphView.dataPoints += [(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day), aMeasurement.value)]
+                    }
+                }
+
+                if !results.isEmpty {
+                    let minimum = graphView.dataPoints.reduce(Double.infinity, combine: { min($0, $1.1) })
+                    let maximum = graphView.dataPoints.reduce(Double.quietNaN, combine: { max($0, $1.1) })
+                    let sum = graphView.dataPoints.reduce(0.0, combine: { $0 + $1.1})
+
+                    minField.text = NSString(format: "%.2f", minimum)
+                    maxField.text = NSString(format: "%.2f", maximum)
+                    aveField.text = NSString(format: "%.2f", sum / Double(results.count))
+                }
+                else {
+                    minField.text = "No data entered"
+                    maxField.text = "No data entered"
+                    aveField.text = "No data entered"
                 }
             }
         }
