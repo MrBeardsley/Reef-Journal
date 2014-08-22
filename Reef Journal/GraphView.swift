@@ -11,13 +11,14 @@ import UIKit
 class GraphView: UIView {
 
     var dataPoints: Array<(date: NSDate, value: Double)> = []
+    var maxValue: CGFloat = 0
     
     // Drawing support
     let black = UIColor.blackColor()
     let green = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:1.0)
     let lightGreen = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:0.5)
     let axisOffset: CGFloat = 25.0
-    let axisWidth: CGFloat = 3.0
+    let axisWidth: CGFloat = 2.0
 
     ///////////////////////////////////////////////////////
     // This is just for development purposes. Remove later
@@ -86,20 +87,30 @@ class GraphView: UIView {
         let path = UIBezierPath()
         let drawingOffset = axisOffset + axisWidth
         let graphWidth = rect.size.width - drawingOffset
-        let xMultiplier = graphWidth / CGFloat(dummyData.count - 1)
-        let yMultiplier: CGFloat = 0.5
+        let xMultiplier = graphWidth / CGFloat(dataPoints.count - 1)
+        let yMultiplier: CGFloat = (rect.size.height - drawingOffset - 50.0) / maxValue
 
         CGContextSaveGState(context)
 
-        path.moveToPoint(CGPoint(x: rect.origin.x + drawingOffset, y: rect.origin.y + drawingOffset))
-
-        // Draw the lines.
-        for (index, element) in enumerate(dummyData) {
-            path.addLineToPoint(CGPoint(x: CGFloat(index) * xMultiplier + drawingOffset, y: element * yMultiplier + drawingOffset))
+        // Special Case: 1 data point
+        if dataPoints.count == 1 {
+            path.moveToPoint(CGPoint(x: rect.size.width, y: CGFloat(dataPoints[0].1) * yMultiplier + drawingOffset))
+            path.addLineToPoint(CGPoint(x: rect.size.width, y: rect.origin.y + drawingOffset))
+            path.addLineToPoint(CGPoint(x: rect.origin.x + drawingOffset, y: rect.origin.y + drawingOffset))
+            path.addLineToPoint(CGPoint(x: rect.origin.x + drawingOffset, y: CGFloat(dataPoints[0].1) * yMultiplier + drawingOffset))
+            path.closePath()
         }
+        else {
+            path.moveToPoint(CGPoint(x: rect.origin.x + drawingOffset, y: rect.origin.y + drawingOffset))
 
-        path.addLineToPoint(CGPoint(x: CGFloat(dummyData.count - 1) * xMultiplier + drawingOffset , y: rect.origin.y + drawingOffset))
-        path.closePath()
+            // Draw the lines.
+            for (index, element) in enumerate(dataPoints) {
+                path.addLineToPoint(CGPoint(x: CGFloat(index) * xMultiplier + drawingOffset, y: CGFloat(element.1) * yMultiplier + drawingOffset))
+            }
+
+            path.addLineToPoint(CGPoint(x: CGFloat(dataPoints.count - 1) * xMultiplier + drawingOffset , y: rect.origin.y + drawingOffset))
+            path.closePath()
+        }
 
         green.set()
         path.stroke()
@@ -108,12 +119,6 @@ class GraphView: UIView {
         path.fill()
 
         CGContextRestoreGState(context)
-
-        for item in dataPoints {
-            println("Date: \(item.0)")
-            println("Value: \(item.1)")
-        }
-
 
         // Draw vertical grid lines to see the data points
 //        var grid = UIBezierPath()

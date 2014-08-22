@@ -55,6 +55,8 @@ class GraphViewController: UIViewController {
                     minField.text = NSString(format: "%.2f", minimum)
                     maxField.text = NSString(format: "%.2f", maximum)
                     aveField.text = NSString(format: "%.2f", sum / Double(results.count))
+
+                    graphView.maxValue = CGFloat(maximum)
                 }
                 else {
                     minField.text = "No data entered"
