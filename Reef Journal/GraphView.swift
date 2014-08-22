@@ -12,6 +12,7 @@ class GraphView: UIView {
 
     var dataPoints: Array<(date: NSDate, value: Double)> = []
     var maxValue: CGFloat = 0
+    let calendar = NSCalendar.currentCalendar()
     
     // Drawing support
     let black = UIColor.blackColor()
@@ -20,22 +21,7 @@ class GraphView: UIView {
     let axisOffset: CGFloat = 25.0
     let axisWidth: CGFloat = 2.0
 
-    ///////////////////////////////////////////////////////
-    // This is just for development purposes. Remove later
-    var dummyData: [CGFloat] = []
-    let lowerBound = 350
-    let upperBound = 550
-    ///////////////////////////////////////////////////////
-
     required init(coder aDecoder: NSCoder) {
-        ///////////////////////////////////////////////////////
-        // This is just for development purposes. Remove later
-        var index: Int
-        for  index = 0; index < 10; ++index {
-            var rndValue = CGFloat(lowerBound + Int(arc4random()) % (upperBound - lowerBound))
-            dummyData.append(rndValue)
-        }
-        ///////////////////////////////////////////////////////
         super.init(coder: aDecoder)
 
         // Flip the coordinate system so the origin ins in the bottom left
@@ -87,8 +73,8 @@ class GraphView: UIView {
         let path = UIBezierPath()
         let drawingOffset = axisOffset + axisWidth
         let graphWidth = rect.size.width - drawingOffset
-        let xMultiplier = graphWidth / CGFloat(dataPoints.count - 1)
         let yMultiplier: CGFloat = (rect.size.height - drawingOffset - 50.0) / maxValue
+
 
         CGContextSaveGState(context)
 
@@ -101,9 +87,17 @@ class GraphView: UIView {
             path.closePath()
         }
         else {
-            path.moveToPoint(CGPoint(x: rect.origin.x + drawingOffset, y: rect.origin.y + drawingOffset))
+
+            // Should use days rather than set spaced for the x-coordinates on the graph.
+            let firstDate: NSDate = dataPoints.first!.0
+            let lastDate = dataPoints.last!.0
+            let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
+            let difference = calendar.components(flags, fromDate: lastDate, toDate: firstDate, options: nil)
+            let xMultiplier = graphWidth / CGFloat(difference.day)
 
             // Draw the lines.
+            // Still need to use the difference between the days for the x spacing instead of the element number in the array.
+            path.moveToPoint(CGPoint(x: rect.origin.x + drawingOffset, y: rect.origin.y + drawingOffset))
             for (index, element) in enumerate(dataPoints) {
                 path.addLineToPoint(CGPoint(x: CGFloat(index) * xMultiplier + drawingOffset, y: CGFloat(element.1) * yMultiplier + drawingOffset))
             }
