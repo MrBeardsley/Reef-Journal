@@ -12,6 +12,7 @@ class GraphView: UIView {
 
     let black = UIColor.blackColor()
     let green = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:1.0)
+    let lightGreen = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:0.5)
     let axisOffset: CGFloat = 25.0
     let axisWidth: CGFloat = 3.0
 
@@ -73,11 +74,11 @@ class GraphView: UIView {
     }
 
     private func drawGraph(rect: CGRect, context: CGContext) {
-        var path = UIBezierPath()
-        let xMultiplier: CGFloat = 20
-        let yMultiplier: CGFloat = 0.5
+        let path = UIBezierPath()
         let drawingOffset = axisOffset + axisWidth
-
+        let graphWidth = rect.size.width - drawingOffset
+        let xMultiplier = graphWidth / CGFloat(dummyData.count - 1)
+        let yMultiplier: CGFloat = 0.5
 
         CGContextSaveGState(context)
 
@@ -93,8 +94,24 @@ class GraphView: UIView {
 
         green.set()
         path.stroke()
+
+        lightGreen.set()
         path.fill()
 
         CGContextRestoreGState(context)
+
+
+        // Draw vertical grid lines to see the data points
+//        var grid = UIBezierPath()
+//        for i in 1 ... 9 {
+//            CGContextSaveGState(context)
+//            grid.moveToPoint(CGPoint(x: CGFloat(i) * xMultiplier + drawingOffset, y: rect.origin.y + drawingOffset ))
+//            grid.addLineToPoint(CGPoint(x: CGFloat(i) * xMultiplier + drawingOffset, y: rect.size.height))
+//            black.set()
+//            grid.lineWidth = CGFloat(0.5)
+//            grid.stroke()
+//
+//            CGContextRestoreGState(context)
+//        }
     }
 }
