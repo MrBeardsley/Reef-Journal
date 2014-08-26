@@ -36,7 +36,7 @@ class GraphViewController: UIViewController {
             let fetchRequest = NSFetchRequest(entityName: entityName)
             let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
             fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: true)]
     
             var error: NSError?
             if let results = context?.executeFetchRequest(fetchRequest, error: &error) {

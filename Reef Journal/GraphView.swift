@@ -78,7 +78,7 @@ class GraphView: UIView {
 
         CGContextSaveGState(context)
 
-        // Special Case: 1 data point
+        // Special case for a single datapoint
         if dataPoints.count == 1 {
             path.moveToPoint(CGPoint(x: rect.size.width, y: CGFloat(dataPoints[0].1) * yMultiplier + drawingOffset))
             path.addLineToPoint(CGPoint(x: rect.size.width, y: rect.origin.y + drawingOffset))
@@ -87,22 +87,32 @@ class GraphView: UIView {
             path.closePath()
         }
         else {
-
-            // Should use days rather than set spaced for the x-coordinates on the graph.
-            let firstDate: NSDate = dataPoints.first!.0
+            let firstDate = dataPoints.first!.0
             let lastDate = dataPoints.last!.0
-            let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
-            let difference = calendar.components(flags, fromDate: lastDate, toDate: firstDate, options: nil)
-            let xMultiplier = graphWidth / CGFloat(difference.day)
+            let xMultiplier = graphWidth / CGFloat(differenceBetweenRecentDate(lastDate, olderDate: firstDate))
 
             // Draw the lines.
-            // Still need to use the difference between the days for the x spacing instead of the element number in the array.
+            var previousElementDate: NSDate? = nil
+            var previousElementXCoord: CGFloat = 0
+
             path.moveToPoint(CGPoint(x: rect.origin.x + drawingOffset, y: rect.origin.y + drawingOffset))
+
             for (index, element) in enumerate(dataPoints) {
-                path.addLineToPoint(CGPoint(x: CGFloat(index) * xMultiplier + drawingOffset, y: CGFloat(element.1) * yMultiplier + drawingOffset))
+
+                if previousElementDate != nil {
+                    var distanceFromLastPoint = CGFloat(differenceBetweenRecentDate(element.0, olderDate: previousElementDate!)) * xMultiplier
+                    previousElementXCoord += distanceFromLastPoint
+                    path.addLineToPoint(CGPoint(x: previousElementXCoord, y: CGFloat(element.1) * yMultiplier + drawingOffset))
+                }
+                else {
+                    path.addLineToPoint(CGPoint(x: drawingOffset, y: CGFloat(element.1) * yMultiplier + drawingOffset))
+                    previousElementXCoord = drawingOffset
+                }
+
+                previousElementDate = element.0
             }
 
-            path.addLineToPoint(CGPoint(x: CGFloat(dataPoints.count - 1) * xMultiplier + drawingOffset , y: rect.origin.y + drawingOffset))
+            path.addLineToPoint(CGPoint(x: previousElementXCoord, y: rect.origin.y + drawingOffset))
             path.closePath()
         }
 
@@ -113,18 +123,12 @@ class GraphView: UIView {
         path.fill()
 
         CGContextRestoreGState(context)
+    }
 
-        // Draw vertical grid lines to see the data points
-//        var grid = UIBezierPath()
-//        for i in 1 ... 9 {
-//            CGContextSaveGState(context)
-//            grid.moveToPoint(CGPoint(x: CGFloat(i) * xMultiplier + drawingOffset, y: rect.origin.y + drawingOffset ))
-//            grid.addLineToPoint(CGPoint(x: CGFloat(i) * xMultiplier + drawingOffset, y: rect.size.height))
-//            black.set()
-//            grid.lineWidth = CGFloat(0.5)
-//            grid.stroke()
-//
-//            CGContextRestoreGState(context)
-//        }
+    private func differenceBetweenRecentDate(recentDate: NSDate, olderDate: NSDate) -> Int {
+        let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
+        let difference = calendar.components(flags, fromDate: olderDate, toDate: recentDate, options: nil)
+
+        return difference.day
     }
 }
