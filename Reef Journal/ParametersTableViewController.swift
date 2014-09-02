@@ -68,19 +68,21 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         tableView?.reloadData()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
 
-        let path = self.tableView.indexPathForSelectedRow()
-        let title = self.tableView.cellForRowAtIndexPath(path).textLabel.text
-        if let detailViewController = segue.destinationViewController as? DetailViewController {
-            detailViewController.navigationItem.title = title
-            detailViewController.delegate = self
+        if let path = self.tableView.indexPathForSelectedRow() {
+            if let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
+                if let detailViewController = segue.destinationViewController as? DetailViewController {
+                    detailViewController.navigationItem.title = title
+                    detailViewController.delegate = self
+                }
+            }
         }
     }
 
     // MARK: - Tableview Datasource methods
     
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         switch section {
         case 0:
@@ -92,7 +94,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         }
     }
 
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cellIdentifier = "ParameterCell";
         var cell: UITableViewCell
@@ -106,24 +108,24 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
 
         switch indexPath.section {
         case 0:
-            cell.textLabel.text = chemistrySection[indexPath.row]
-            if  let value = recentMeasurements?[cell.textLabel.text] {
-                cell.detailTextLabel.text = NSString(format: "%.2f", value)
+            cell.textLabel?.text = chemistrySection[indexPath.row]
+            if let value = recentMeasurements?[chemistrySection[indexPath.row]] {
+                cell.detailTextLabel?.text = NSString(format: "%.2f", value)
             }
             else {
-                cell.detailTextLabel.text = "No Measurement"
+                cell.detailTextLabel?.text = "No Measurement"
             }
 
         case 1:
-            cell.textLabel.text = nutrientsSection[indexPath.row]
-            if  let value = recentMeasurements?[cell.textLabel.text] {
-                cell.detailTextLabel.text = NSString(format: "%.2f", value)
+            cell.textLabel?.text = nutrientsSection[indexPath.row]
+            if let value = recentMeasurements?[nutrientsSection[indexPath.row]] {
+                cell.detailTextLabel?.text = NSString(format: "%.2f", value)
             }
             else {
-                cell.detailTextLabel.text = "No Measurement"
+                cell.detailTextLabel?.text = "No Measurement"
             }
         default:
-            cell.textLabel.text = "Not found"
+            cell.textLabel?.text = "Not found"
         }
 
         return cell
@@ -131,11 +133,11 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
 
     // MARK: - UITableView delegate Methods
 
-    override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return "Chemistry"

@@ -31,7 +31,7 @@ class GraphViewController: UIViewController {
 
         if let parent = detailController {
 
-            let type = parent.navigationItem.title
+            let type: NSString = parent.navigationItem.title!
             let context = appDelegate.managedObjectContext
             let fetchRequest = NSFetchRequest(entityName: entityName)
             let predicate = NSPredicate(format: "type = %@", argumentArray: [type])

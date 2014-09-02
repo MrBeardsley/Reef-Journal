@@ -62,7 +62,7 @@ class DetailViewController: UIViewController {
         inputTextField.inputAccessoryView = numberToolbar
 
         // Coredata fetch to find the most recent measurement
-        let type = self.navigationItem.title
+        let type: NSString = self.navigationItem.title!
         let context = appDelegate.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName: entityName)
         let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
@@ -118,12 +118,12 @@ class DetailViewController: UIViewController {
         valueTextLabel.text = inputTextField.text
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
-            aMeasurement.value = NSString(string: valueTextLabel.text).doubleValue
+            aMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
         }
         else {
-            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: appDelegate.managedObjectContext) as Measurement
-            newMeasurement.value = NSString(string: valueTextLabel.text).doubleValue
-            newMeasurement.type = self.navigationItem.title
+            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: appDelegate.managedObjectContext!) as Measurement
+            newMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
+            newMeasurement.type = self.navigationItem.title!
             newMeasurement.day = self.dayFromDate(self.datePicker.date).timeIntervalSinceReferenceDate
         }
 
@@ -133,7 +133,7 @@ class DetailViewController: UIViewController {
         inputTextField.resignFirstResponder()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if let graphController = segue.destinationViewController as? GraphViewController {
             graphController.detailController = self
         }
@@ -144,7 +144,7 @@ class DetailViewController: UIViewController {
 private extension DetailViewController {
     func measurementForDate(date: NSDate) -> Measurement? {
         let day = self.dayFromDate(date)
-        let type = self.navigationItem.title
+        let type: NSString = self.navigationItem.title!
         let context = appDelegate.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName: entityName)
         let predicate = NSPredicate(format: "type == %@ AND day == %@", argumentArray: [type, day])
