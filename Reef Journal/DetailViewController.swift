@@ -95,6 +95,9 @@ class DetailViewController: UIViewController {
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
             valueTextLabel.text = NSString(format: "%.2f", aMeasurement.value)
         }
+        else {
+            valueTextLabel.text = "No Value"
+        }
     }
 
     func keyboardDidShow(notification: NSNotification) {
