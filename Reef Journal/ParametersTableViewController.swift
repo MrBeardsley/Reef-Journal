@@ -15,8 +15,8 @@ protocol ParentControllerDelegate {
 
 class ParametersTableViewController: UITableViewController, ParentControllerDelegate {
 
-    let chemistryParameters = ["Salinity","Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium"]
-    let nutrientParameters = ["Nitrate", "Phosphate", "Ammonia", "Nitrite" ]
+    let chemistryParameters = [Parameter.Temperature.toRaw(), Parameter.Salinity.toRaw(), Parameter.Alkalinity.toRaw(), Parameter.Calcium.toRaw(), Parameter.Magnesium.toRaw(), Parameter.pH.toRaw(), Parameter.Strontium.toRaw(), Parameter.Potasium.toRaw()]
+    let nutrientParameters = [Parameter.Ammonia.toRaw(), Parameter.Nitrite.toRaw(), Parameter.Nitrate.toRaw(), Parameter.Phosphate.toRaw()]
     let entityName = "Measurement"
     let appDelegate: AppDelegate
 
@@ -73,6 +73,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         if let path = self.tableView.indexPathForSelectedRow() {
             if let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
                 if let detailViewController = segue.destinationViewController as? DetailViewController {
+                    detailViewController.parameterType = Parameter.fromRaw(title)
                     detailViewController.navigationItem.title = title
                     detailViewController.delegate = self
                 }

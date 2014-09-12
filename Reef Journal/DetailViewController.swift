@@ -25,7 +25,17 @@ class DetailViewController: UIViewController {
     let entityName = "Measurement"
     let format = "MMMM dd ',' yyyy"
     let dateFormatter: NSDateFormatter
+    var parameterType: Parameter?
     var delegate: ParentControllerDelegate?
+    lazy var valueFormat: String = {
+
+        if (UIApplication.sharedApplication().delegate as AppDelegate).parameterTypeDisplaysDecimal(self.parameterType!){
+            return "%.1f"
+        }
+        else {
+            return "%.0f"
+        }
+        }()
 
     // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder) {
@@ -74,7 +84,7 @@ class DetailViewController: UIViewController {
         if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
             if let aMeasurement = results.last as? Measurement {
 
-                valueTextLabel.text = NSString(format: "%.2f", aMeasurement.value)
+                valueTextLabel.text = NSString(format: valueFormat, aMeasurement.value) + appDelegate.unitLabelForParameterType(self.parameterType!)
             }
         }
     }
@@ -93,7 +103,7 @@ class DetailViewController: UIViewController {
 
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
-            valueTextLabel.text = NSString(format: "%.2f", aMeasurement.value)
+            valueTextLabel.text = NSString(format: valueFormat, aMeasurement.value)
         }
         else {
             valueTextLabel.text = "No Value"
@@ -118,7 +128,7 @@ class DetailViewController: UIViewController {
     }
 
     func doneWithNumberPad() {
-        valueTextLabel.text = inputTextField.text
+        valueTextLabel.text = inputTextField.text + appDelegate.unitLabelForParameterType(self.parameterType!)
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
             aMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
