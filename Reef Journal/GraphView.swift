@@ -14,10 +14,16 @@ class GraphView: UIView {
     var maxValue: CGFloat = 0
     let calendar = NSCalendar.currentCalendar()
     
-    // Drawing support
+    // Colors
     let black = UIColor.blackColor()
     let green = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:1.0)
     let lightGreen = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:0.5)
+//    let blue = UIColor(red: <#CGFloat#>, green: <#CGFloat#>, blue: <#CGFloat#>, alpha: <#CGFloat#>)
+//    let lightBlue = UIColor(red: <#CGFloat#>, green: <#CGFloat#>, blue: <#CGFloat#>, alpha: <#CGFloat#>)
+//    let red = UIColor(red: <#CGFloat#>, green: <#CGFloat#>, blue: <#CGFloat#>, alpha: <#CGFloat#>)
+//    let lightRed = UIColor(red: <#CGFloat#>, green: <#CGFloat#>, blue: <#CGFloat#>, alpha: <#CGFloat#>)
+
+    // Drawing support
     let axisOffset: CGFloat = 25.0
     let axisWidth: CGFloat = 2.0
 
