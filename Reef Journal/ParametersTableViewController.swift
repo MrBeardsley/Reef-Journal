@@ -111,7 +111,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
             cell.textLabel?.text = chemistrySection[indexPath.row]
 
             if let value = recentMeasurements?[chemistrySection[indexPath.row]] {
-                let decimalPlaces =  decimalPlacesForParameter(parameter)
+                let decimalPlaces = decimalPlacesForParameter(parameter)
                 let format = "%." + String(decimalPlaces) + "f"
                 cell.detailTextLabel?.text = NSString(format: format, value) + " " + unitLabelForParameterType(parameter)
             }
@@ -123,7 +123,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
             let parameter = Parameter.fromRaw(nutrientsSection[indexPath.row])!
             cell.textLabel?.text = nutrientsSection[indexPath.row]
             if let value = recentMeasurements?[nutrientsSection[indexPath.row]] {
-                let decimalPlaces =  decimalPlacesForParameter(parameter)
+                let decimalPlaces = decimalPlacesForParameter(parameter)
                 let format = "%." + String(decimalPlaces) + "f"
                 cell.detailTextLabel?.text = NSString(format: format, value) + " " + unitLabelForParameterType(parameter)
             }

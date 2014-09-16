@@ -42,37 +42,53 @@ enum PreferenceIdentifier: String {
 }
 
 enum AlkalinityUnit: String {
-    case dKH = "dKH"
-    case meqL = "meq/L"
-    case ppt = "ppt"
+    case DKH = "dKH"
+    case MeqL = "meq/L"
+    case PPT = "ppt"
 
     init (rawInt: Int) {
         switch rawInt {
         case 0:
-            self = .dKH
+            self = .DKH
         case 1:
-            self = .meqL
+            self = .MeqL
         case 2:
-            self = .ppt
+            self = .PPT
         default:
-            self = .dKH
+            self = .DKH
         }
     }
 }
 
 enum SalinityUnit: String {
-    case sg = "sg"
-    case ppt = "ppt"
+    case SG = "sg"
+    case PPT = "ppt"
 
     init (rawInt: Int) {
         switch rawInt {
         case 0:
-            self = .sg
+            self = .SG
         case 1:
-            self = .ppt
+            self = .PPT
 
         default:
-            self = .sg
+            self = .SG
+        }
+    }
+}
+
+enum TemperatureUnit: String {
+    case Fahrenheit = "\u{2109}"
+    case Celcius = "\u{2103}"
+
+    init (rawInt: Int) {
+        switch rawInt {
+        case 0:
+            self = .Fahrenheit
+        case 1:
+            self = .Celcius
+        default:
+            self = .Fahrenheit
         }
     }
 }
@@ -107,8 +123,8 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
     case .Alkalinity:
         if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.toRaw()) as? Int {
             switch AlkalinityUnit(rawInt: intValue) {
-            case .dKH, .meqL: return 1
-            case .ppt: return 0
+            case .DKH, .MeqL: return 1
+            case .PPT: return 0
             }
         }
         else {
@@ -117,8 +133,8 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
     case .Salinity:
         if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.SalinityUnits.toRaw()) as? Int {
             switch SalinityUnit(rawInt: intValue) {
-            case .sg: return 3
-            case .ppt: return 0
+            case .SG: return 3
+            case .PPT: return 0
             }
         }
         else {
@@ -128,11 +144,11 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
 }
 
 func parameterTypeDisplaysDecimal(type: Parameter) -> Bool {
-    switch (type) {
-    case .Calcium, .Magnesium, .Strontium, .Potasium, .Phosphate, .Ammonia, .Nitrite, .Nitrate:
-        return false
-    case .Alkalinity, .Salinity, .pH, .Temperature:
+    if decimalPlacesForParameter(type) > 0 {
         return true
+    }
+    else {
+        return false
     }
 }
 
@@ -145,14 +161,24 @@ func unitLabelForParameterType(type: Parameter) -> String {
             return AlkalinityUnit(rawInt: intValue).toRaw()
         }
         else {
-            return "dKH"
+            return AlkalinityUnit.DKH.toRaw()
         }
     case .Salinity:
-        return "sg"
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.SalinityUnits.toRaw()) as? Int {
+            return SalinityUnit(rawInt: intValue).toRaw()
+        }
+        else {
+            return SalinityUnit.SG.toRaw()
+        }
     case .pH:
         return ""
     case .Temperature:
-        return "degrees"
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.toRaw()) as? Int {
+            return TemperatureUnit(rawInt: intValue).toRaw()
+        }
+        else {
+            return TemperatureUnit.Fahrenheit.toRaw()
+        }
     }
 }
 

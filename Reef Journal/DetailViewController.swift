@@ -71,6 +71,13 @@ class DetailViewController: UIViewController {
         numberToolbar.sizeToFit()
         inputTextField.inputAccessoryView = numberToolbar
 
+        if parameterTypeDisplaysDecimal(self.parameterType!) {
+            inputTextField.keyboardType = .DecimalPad
+        }
+        else {
+            inputTextField.keyboardType = .NumberPad
+        }
+
         // Coredata fetch to find the most recent measurement
         let type: NSString = self.navigationItem.title!
         let context = appDelegate.managedObjectContext
@@ -83,8 +90,9 @@ class DetailViewController: UIViewController {
         var error: NSError?
         if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
             if let aMeasurement = results.last as? Measurement {
-
-                valueTextLabel.text = NSString(format: valueFormat, aMeasurement.value) + unitLabelForParameterType(self.parameterType!)
+                let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
+                let format = "%." + String(decimalPlaces) + "f"
+                valueTextLabel.text = NSString(format: format, aMeasurement.value) + " " + unitLabelForParameterType(self.parameterType!)
             }
         }
     }
@@ -128,7 +136,9 @@ class DetailViewController: UIViewController {
     }
 
     func doneWithNumberPad() {
-        valueTextLabel.text = inputTextField.text + unitLabelForParameterType(self.parameterType!)
+        let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
+        let format = "%." + String(decimalPlaces) + "f"
+        valueTextLabel.text = inputTextField.text + " " + unitLabelForParameterType(self.parameterType!)
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
             aMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
