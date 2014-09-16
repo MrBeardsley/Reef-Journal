@@ -6,25 +6,113 @@
 	<array>
 		<dict>
 			<key>Title</key>
-			<string>Chemistry Levels</string>
+			<string>Units of Measure</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Temperature</string>
 			<key>Key</key>
-			<string>Salinity</string>
+			<string>temperatureUnits</string>
+			<key>DefaultValue</key>
+			<real>0</real>
+			<key>Titles</key>
+			<array>
+				<string>Fahrenheit</string>
+				<string>Celcius</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>Salinity</string>
+			<key>Key</key>
+			<string>salinityUnits</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Titles</key>
+			<array>
+				<string>Specific Gravity</string>
+				<string>Parts Per Thousand</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Alkalinity</string>
+			<key>Key</key>
+			<string>alkalinityUnits</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Titles</key>
+			<array>
+				<string>dKH</string>
+				<string>meg/L</string>
+				<string>Parts Per Million</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Parameters</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Temperature</string>
+			<key>Key</key>
+			<string>enableTemperature</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Salinity</string>
+			<key>Key</key>
+			<string>enableSalinity</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>pH</string>
+			<key>Key</key>
+			<string>enablePH</string>
+			<key>DefaultValue</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>Alkalinity</string>
+			<string>enableAlkalinity</string>
 			<key>Title</key>
 			<string>Alkalinity</string>
 			<key>Type</key>
@@ -36,7 +124,7 @@
 			<key>Title</key>
 			<string>Calcium</string>
 			<key>Key</key>
-			<string>Calcium</string>
+			<string>enableParameter</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -46,7 +134,7 @@
 			<key>Title</key>
 			<string>Magnesium</string>
 			<key>Key</key>
-			<string>Magnesium</string>
+			<string>enableMagnesium</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -54,45 +142,9 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>pH</string>
-			<key>Key</key>
-			<string>pH</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
 			<string>Strontium</string>
 			<key>Key</key>
-			<string>Strontium</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Potasium</string>
-			<key>Key</key>
-			<string>Potasium</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Nutrient Levels</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Nitrate</string>
-			<key>Key</key>
-			<string>Nitrate</string>
+			<string>enableStrontium</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -100,9 +152,9 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Phosphate</string>
+			<string>Potassium</string>
 			<key>Key</key>
-			<string>Phosphate</string>
+			<string>enablePotassium</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -112,9 +164,9 @@
 			<key>Title</key>
 			<string>Ammonia</string>
 			<key>Key</key>
-			<string>Ammonia</string>
+			<string>enableAmmonia</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -122,9 +174,29 @@
 			<key>Title</key>
 			<string>Nitrite</string>
 			<key>Key</key>
-			<string>Nitrite</string>
+			<string>enableNitrite</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Nitrate</string>
+			<key>Key</key>
+			<string>enableNitrate</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Phosphate</string>
+			<key>Key</key>
+			<string>enablePhosphate</string>
+			<key>DefaultValue</key>
+			<true/>
 		</dict>
 	</array>
 	<key>StringsTable</key>
