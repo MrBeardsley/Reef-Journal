@@ -9,19 +9,17 @@
 import UIKit
 import CoreData
 
-protocol ParentControllerDelegate {
-    func refreshData()
-}
 
 class ParametersTableViewController: UITableViewController, ParentControllerDelegate {
 
-    let chemistryParameters = [Parameter.Temperature.toRaw(), Parameter.Salinity.toRaw(), Parameter.Alkalinity.toRaw(), Parameter.Calcium.toRaw(), Parameter.Magnesium.toRaw(), Parameter.pH.toRaw(), Parameter.Strontium.toRaw(), Parameter.Potasium.toRaw()]
-    let nutrientParameters = [Parameter.Ammonia.toRaw(), Parameter.Nitrite.toRaw(), Parameter.Nitrate.toRaw(), Parameter.Phosphate.toRaw()]
+
     let entityName = "Measurement"
     let appDelegate: AppDelegate
+    let chemistryParameters: [PreferenceIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
+    let nutrientParameters: [PreferenceIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
 
-    var chemistrySection: Array<String> = []
-    var nutrientsSection: Array<String> = []
+    var chemistrySection: [String] = []
+    var nutrientsSection: [String] = []
     var recentMeasurements: [String : Double]?
 
     // MARK: - Init/Deinit
@@ -54,14 +52,14 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         nutrientsSection = []
 
         for item in chemistryParameters {
-            if userDefaults.boolForKey(item) {
-                chemistrySection.append(item)
+            if userDefaults.boolForKey(item.toRaw()) {
+                chemistrySection.append(parameterForPreference(item).toRaw())
             }
         }
 
         for item in nutrientParameters {
-            if userDefaults.boolForKey(item) {
-                nutrientsSection.append(item)
+            if userDefaults.boolForKey(item.toRaw()) {
+                nutrientsSection.append(parameterForPreference(item).toRaw())
             }
         }
 

@@ -124,7 +124,7 @@
 			<key>Title</key>
 			<string>Calcium</string>
 			<key>Key</key>
-			<string>enableParameter</string>
+			<string>enableCalcium</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -146,7 +146,7 @@
 			<key>Key</key>
 			<string>enableStrontium</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -156,7 +156,7 @@
 			<key>Key</key>
 			<string>enablePotassium</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -166,7 +166,7 @@
 			<key>Key</key>
 			<string>enableAmmonia</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -176,7 +176,7 @@
 			<key>Key</key>
 			<string>enableNitrite</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>

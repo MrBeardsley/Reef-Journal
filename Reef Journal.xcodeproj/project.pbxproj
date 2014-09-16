@@ -10,6 +10,7 @@
 		831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831386B0196F4A2900F0D0DD /* GraphViewController.swift */; };
 		83477AF2195B975A0039E2C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83477AF1195B975A0039E2C5 /* Settings.bundle */; };
 		835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EFCEA1961EFB900214EE4 /* DetailViewController.swift */; };
+		8395474F19C890EA00529B8B /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395474E19C890EA00529B8B /* Types.swift */; };
 		83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */; };
 		83AA7EA91947D63A00CB9D0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EA71947D63A00CB9D0F /* Main.storyboard */; };
 		83AA7EAB1947D63A00CB9D0F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EAA1947D63A00CB9D0F /* Images.xcassets */; };
@@ -34,6 +35,7 @@
 		831386B0196F4A2900F0D0DD /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		83477AF1195B975A0039E2C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		835EFCEA1961EFB900214EE4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		8395474E19C890EA00529B8B /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		83AA7E9C1947D63A00CB9D0F /* Reef Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reef Journal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AA7EA01947D63A00CB9D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		83AA7E9E1947D63A00CB9D0F /* Reef Journal */ = {
 			isa = PBXGroup;
 			children = (
+				8395474E19C890EA00529B8B /* Types.swift */,
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
 				83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */,
 				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
@@ -256,6 +259,7 @@
 				83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */,
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
 				83E0D5871947DD9400DE1779 /* DataModel.xcdatamodeld in Sources */,
+				8395474F19C890EA00529B8B /* Types.swift in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,
 				83C99868196F80C9008E23B1 /* GraphView.swift in Sources */,

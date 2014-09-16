@@ -9,26 +9,13 @@
 import UIKit
 import CoreData
 
-enum Parameter: String {
-    case Salinity = "Salinity"
-    case Temperature = "Temperature"
-    case Alkalinity = "Alkalinity"
-    case Calcium = "Calcium"
-    case Magnesium = "Magnesium"
-    case pH = "pH"
-    case Strontium = "Strontium"
-    case Potasium = "Potasium"
-    case Ammonia = "Ammonia"
-    case Nitrite = "Nitrite"
-    case Nitrate = "Nitrate"
-    case Phosphate = "Phosphate"
-}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let parameterList = ["Salinity", "Temperature", "Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium", "Ammonia", "Nitrite", "Nitrate", "Phosphate"]
+
 
     // MARK: - Application Delegate Protocol Methods
 
@@ -40,17 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let settingsPropertyList = NSDictionary(contentsOfFile: settingsPropertyListPath)
 
-        if let preferencesArray = settingsPropertyList.objectForKey("PreferenceSpecifiers") as? Array<AnyObject> {
+        if let preferencesArray = settingsPropertyList.objectForKey("PreferenceSpecifiers") as? Array<NSDictionary> {
             var registerableDictionary = NSMutableDictionary()
 
-            for index in 0..<preferencesArray.count {
-                let item: AnyObject = preferencesArray[index]
-                if let preference = item as? NSDictionary {
-                    if let type = preference.objectForKey("Type") as? NSString {
-                        if type != "PSGroupSpecifier" {
-//                            registerableDictionary.setObject(preference.valueForKey("DefaultValue"), forKey: preference.valueForKey("Key") as NSString)
-                            registerableDictionary[preference["Key"] as String] = preference["DefaultValue"]
-                        }
+            for preference in preferencesArray {
+                if let type = preference.objectForKey("Type") as? NSString {
+                    if type != "PSGroupSpecifier" {
+                        registerableDictionary[preference["Key"] as String] = preference["DefaultValue"]
                     }
                 }
             }
