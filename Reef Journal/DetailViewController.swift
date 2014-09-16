@@ -29,7 +29,7 @@ class DetailViewController: UIViewController {
     var delegate: ParentControllerDelegate?
     lazy var valueFormat: String = {
 
-        if (UIApplication.sharedApplication().delegate as AppDelegate).parameterTypeDisplaysDecimal(self.parameterType!){
+        if (parameterTypeDisplaysDecimal(self.parameterType!)){
             return "%.1f"
         }
         else {
@@ -84,7 +84,7 @@ class DetailViewController: UIViewController {
         if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
             if let aMeasurement = results.last as? Measurement {
 
-                valueTextLabel.text = NSString(format: valueFormat, aMeasurement.value) + appDelegate.unitLabelForParameterType(self.parameterType!)
+                valueTextLabel.text = NSString(format: valueFormat, aMeasurement.value) + unitLabelForParameterType(self.parameterType!)
             }
         }
     }
@@ -128,7 +128,7 @@ class DetailViewController: UIViewController {
     }
 
     func doneWithNumberPad() {
-        valueTextLabel.text = inputTextField.text + appDelegate.unitLabelForParameterType(self.parameterType!)
+        valueTextLabel.text = inputTextField.text + unitLabelForParameterType(self.parameterType!)
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
             aMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue

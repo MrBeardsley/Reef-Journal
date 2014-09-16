@@ -130,30 +130,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    // MARK: - Parameter units and precision
-    func parameterTypeDisplaysDecimal(type: Parameter) -> Bool {
-        switch (type) {
-        case .Calcium, .Magnesium, .Strontium, .Potasium, .Phosphate, .Ammonia, .Nitrite, .Nitrate:
-            return false
-        case .Alkalinity, .Salinity, .pH, .Temperature:
-            return true
-        }
-    }
-    
-    func unitLabelForParameterType(type: Parameter) -> String {
-        switch (type) {
-        case .Calcium, .Magnesium, .Strontium, .Potasium, .Phosphate, .Ammonia, .Nitrite, .Nitrate:
-            return " ppm"
-        case .Alkalinity:
-            return " dKH"
-        case .Salinity:
-            return " SG"
-        case .pH:
-            return ""
-        case .Temperature:
-            return "F"
-        }
-    }
+
 }
 

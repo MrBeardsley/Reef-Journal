@@ -107,18 +107,25 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
 
         switch indexPath.section {
         case 0:
+            let parameter = Parameter.fromRaw(chemistrySection[indexPath.row])!
             cell.textLabel?.text = chemistrySection[indexPath.row]
+
             if let value = recentMeasurements?[chemistrySection[indexPath.row]] {
-                cell.detailTextLabel?.text = NSString(format: "%.2f", value)
+                let decimalPlaces =  decimalPlacesForParameter(parameter)
+                let format = "%." + String(decimalPlaces) + "f"
+                cell.detailTextLabel?.text = NSString(format: format, value) + " " + unitLabelForParameterType(parameter)
             }
             else {
                 cell.detailTextLabel?.text = "No Measurement"
             }
 
         case 1:
+            let parameter = Parameter.fromRaw(nutrientsSection[indexPath.row])!
             cell.textLabel?.text = nutrientsSection[indexPath.row]
             if let value = recentMeasurements?[nutrientsSection[indexPath.row]] {
-                cell.detailTextLabel?.text = NSString(format: "%.2f", value)
+                let decimalPlaces =  decimalPlacesForParameter(parameter)
+                let format = "%." + String(decimalPlaces) + "f"
+                cell.detailTextLabel?.text = NSString(format: format, value) + " " + unitLabelForParameterType(parameter)
             }
             else {
                 cell.detailTextLabel?.text = "No Measurement"
