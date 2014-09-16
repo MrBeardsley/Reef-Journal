@@ -26,8 +26,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     required init(coder aDecoder: NSCoder) {
         appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         super.init(coder: aDecoder)
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object:nil)
     }
 
     deinit {
@@ -46,7 +45,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     }
 
     func reloadTableView(aNotification: NSNotification?) {
-        recentMeasurements = self.mostRecentMeasurements()
+
         let userDefaults = NSUserDefaults.standardUserDefaults()
         chemistrySection = []
         nutrientsSection = []
@@ -63,6 +62,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
             }
         }
 
+        recentMeasurements = self.mostRecentMeasurements()
         tableView?.reloadData()
     }
 
