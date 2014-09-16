@@ -33,6 +33,15 @@ class GraphViewController: UIViewController {
 
             let type: NSString = parent.navigationItem.title!
             let context = appDelegate.managedObjectContext
+
+            if let parameterType = Parameter.fromRaw(type) {
+                graphView.parameterType = parameterType
+            }
+            else
+            {
+                graphView.parameterType = Parameter.Alkalinity
+            }
+
             let fetchRequest = NSFetchRequest(entityName: entityName)
             let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
             fetchRequest.predicate = predicate
@@ -51,10 +60,19 @@ class GraphViewController: UIViewController {
                     let minimum = graphView.dataPoints.reduce(Double.infinity, combine: { min($0, $1.1) })
                     let maximum = graphView.dataPoints.reduce(Double.quietNaN, combine: { max($0, $1.1) })
                     let sum = graphView.dataPoints.reduce(0.0, combine: { $0 + $1.1})
+                    var format: String
+                    if let parameterType = Parameter.fromRaw(type) {
+                        let decimalPlaces = decimalPlacesForParameter(parameterType)
+                        format = "%." + String(decimalPlaces) + "f"
+                    }
+                    else
+                    {
+                        format = "%.2f"
+                    }
 
-                    minField.text = NSString(format: "%.2f", minimum)
-                    maxField.text = NSString(format: "%.2f", maximum)
-                    aveField.text = NSString(format: "%.2f", sum / Double(results.count))
+                    minField.text = NSString(format: format, minimum)
+                    maxField.text = NSString(format: format, maximum)
+                    aveField.text = NSString(format: format, sum / Double(results.count))
 
                     graphView.maxValue = CGFloat(maximum)
                 }

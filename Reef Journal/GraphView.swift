@@ -12,16 +12,17 @@ class GraphView: UIView {
 
     var dataPoints: Array<(date: NSDate, value: Double)> = []
     var maxValue: CGFloat = 0
+    var parameterType: Parameter?
     let calendar = NSCalendar.currentCalendar()
     
     // Colors
     let black = UIColor.blackColor()
-    let green = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:1.0)
-    let lightGreen = UIColor(red: 106.0/255.0, green:168.0/255.0, blue:79.0/255.0, alpha:0.5)
-//    let blue = UIColor(red: <#CGFloat#>, green: <#CGFloat#>, blue: <#CGFloat#>, alpha: <#CGFloat#>)
-//    let lightBlue = UIColor(red: <#CGFloat#>, green: <#CGFloat#>, blue: <#CGFloat#>, alpha: <#CGFloat#>)
-//    let red = UIColor(red: <#CGFloat#>, green: <#CGFloat#>, blue: <#CGFloat#>, alpha: <#CGFloat#>)
-//    let lightRed = UIColor(red: <#CGFloat#>, green: <#CGFloat#>, blue: <#CGFloat#>, alpha: <#CGFloat#>)
+    let green = UIColor(red: 106.0/255.0, green: 168.0/255.0, blue: 79.0/255.0, alpha: 1.0)
+    let lightGreen = UIColor(red: 120.0/255.0, green: 253.0/255.0, blue: 120.0/255.0, alpha:1.0)
+    let blue = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 235.0/255.0, alpha: 1.0)
+    let lightBlue = UIColor(red: 94.0/255.0, green: 156.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    let red = UIColor(red: 205.0/255.0, green: 1.0/255.0, blue: 1.0/255.0, alpha: 1.0)
+    let lightRed = UIColor(red: 250.0/255.0, green: 119.0/255.0, blue: 119.0/255.0, alpha: 1.0)
 
     // Drawing support
     let axisOffset: CGFloat = 25.0
@@ -122,10 +123,25 @@ class GraphView: UIView {
             path.closePath()
         }
 
-        green.set()
+        var lineColor: UIColor
+        var fillColor: UIColor
+
+        switch parameterType! {
+        case .Temperature:
+            lineColor = red
+            fillColor = lightRed
+        case .Ammonia, .Nitrite, .Nitrate, .Phosphate:
+            lineColor = green
+            fillColor = lightGreen
+        case .Salinity, .pH, .Alkalinity, .Calcium, .Magnesium, .Strontium, .Potasium:
+            lineColor = blue
+            fillColor = lightBlue
+        }
+
+        lineColor.set()
         path.stroke()
 
-        lightGreen.set()
+        fillColor.set()
         path.fill()
 
         CGContextRestoreGState(context)
