@@ -40,18 +40,8 @@ class GraphView: UIView {
         let currentContext = UIGraphicsGetCurrentContext()
 
         drawAxes(rect, context: currentContext)
+        drawTicks(rect, context: currentContext)
         drawGraph(rect, context: currentContext)
-
-        // Place Labels
-
-        // Draw a boarder around the graph
-        CGContextSaveGState(currentContext)
-        CGContextSetLineWidth(currentContext, 1.0)
-        CGContextSetStrokeColorWithColor(currentContext, black.CGColor)
-        let rectangle = self.bounds
-        CGContextAddRect(currentContext, rectangle)
-        CGContextStrokePath(currentContext)
-        CGContextRestoreGState(currentContext)
     }
 
     private func drawAxes(rect: CGRect, context: CGContext) {
@@ -68,6 +58,48 @@ class GraphView: UIView {
         path.stroke()
 
         CGContextRestoreGState(context)
+    }
+
+    private func drawTicks(rect: CGRect, context: CGContext) {
+        let drawingOffset = axisOffset + axisWidth
+        let tickOriginX = rect.origin.x + 20.0
+        let tickOriginY = rect.origin.y + 20.0
+        let midPointY = ((rect.size.height - 50.0 - drawingOffset) / 2.0) + drawingOffset
+        let midPointX = ((rect.size.width - drawingOffset) / 2.0) + drawingOffset
+        var path = UIBezierPath()
+
+        CGContextSaveGState(context)
+        path.moveToPoint(CGPoint(x: tickOriginX, y: rect.size.height - 50.0))
+        path.addLineToPoint(CGPoint(x: rect.origin.x + axisOffset, y: rect.size.height - 50.0))
+
+        black.set()
+        path.stroke()
+        CGContextRestoreGState(context)
+
+        CGContextSaveGState(context)
+        path.moveToPoint(CGPoint(x: tickOriginX, y: midPointY))
+        path.addLineToPoint(CGPoint(x: rect.origin.x + axisOffset, y: midPointY))
+
+        black.set()
+        path.stroke()
+        CGContextRestoreGState(context)
+
+        CGContextSaveGState(context)
+        path.moveToPoint(CGPoint(x: midPointX, y: tickOriginY))
+        path.addLineToPoint(CGPoint(x: midPointX, y: rect.origin.y + drawingOffset - 1.0))
+
+        black.set()
+        path.stroke()
+        CGContextRestoreGState(context)
+
+        CGContextSaveGState(context)
+        path.moveToPoint(CGPoint(x: rect.origin.x + rect.size.width - 1.0, y: tickOriginY))
+        path.addLineToPoint(CGPoint(x: rect.origin.x + rect.size.width - 1.0, y: rect.origin.y + drawingOffset - 1.0))
+
+        black.set()
+        path.stroke()
+        CGContextRestoreGState(context)
+
     }
 
     private func drawGraph(rect: CGRect, context: CGContext) {
