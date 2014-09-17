@@ -41,6 +41,7 @@ class GraphView: UIView {
 
         drawAxes(rect, context: currentContext)
         drawTicks(rect, context: currentContext)
+        drawLabels(rect, context: currentContext)
         drawGraph(rect, context: currentContext)
     }
 
@@ -62,10 +63,11 @@ class GraphView: UIView {
 
     private func drawTicks(rect: CGRect, context: CGContext) {
         let drawingOffset = axisOffset + axisWidth
-        let tickOriginX = rect.origin.x + 20.0
+        let tickOriginX = rect.origin.x + 22.0
         let tickOriginY = rect.origin.y + 20.0
         let midPointY = ((rect.size.height - 50.0 - drawingOffset) / 2.0) + drawingOffset
         let midPointX = ((rect.size.width - drawingOffset) / 2.0) + drawingOffset
+
         var path = UIBezierPath()
 
         CGContextSaveGState(context)
@@ -98,6 +100,27 @@ class GraphView: UIView {
 
         black.set()
         path.stroke()
+        CGContextRestoreGState(context)
+
+    }
+
+    private func drawLabels(rect: CGRect, context: CGContext) {
+        let decimalPlaces = decimalPlacesForParameter(parameterType!)
+        let format = "%." + String(decimalPlaces) + "f"
+        let midValue = maxValue / 2.0
+        let drawingOffset = axisOffset + axisWidth
+        let midPosition = (rect.size.height - drawingOffset) / 2.0 + 17.0
+
+        let maxString = NSMutableAttributedString(string: String(format: format, Double(maxValue)))
+        let midString = NSMutableAttributedString(string: String(format: format, Double(midValue)))
+
+        CGContextSaveGState(context)
+        // reverse the y-axis
+        CGContextScaleCTM(context, 1, -1);
+        // move the origin to put the drawing back in the visible area
+        CGContextTranslateCTM(context, 0, -rect.size.height)
+        maxString.drawAtPoint(CGPoint(x: rect.origin.x, y: 42.5))
+        midString.drawAtPoint(CGPoint(x: rect.origin.x, y: midPosition))
         CGContextRestoreGState(context)
 
     }
