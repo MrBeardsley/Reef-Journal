@@ -14,8 +14,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let parameterList = ["Salinity", "Temperature", "Alkalinity", "Calcium", "Magnesium", "pH", "Strontium", "Potasium", "Ammonia", "Nitrite", "Nitrate", "Phosphate"]
-
 
     // MARK: - Application Delegate Protocol Methods
 

@@ -182,6 +182,8 @@ func unitLabelForParameterType(type: Parameter) -> String {
     }
 }
 
+let parameterList = [Parameter.Salinity.toRaw(), Parameter.Temperature.toRaw(), Parameter.Alkalinity.toRaw(), Parameter.Calcium.toRaw(), Parameter.Magnesium.toRaw(), Parameter.pH.toRaw(), Parameter.Strontium.toRaw(), Parameter.Potasium.toRaw(), Parameter.Ammonia.toRaw(), Parameter.Nitrite.toRaw(), Parameter.Nitrate.toRaw(), Parameter.Phosphate.toRaw()]
+
 protocol ParentControllerDelegate {
     func refreshData()
 }

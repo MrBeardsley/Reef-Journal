@@ -161,7 +161,7 @@ private extension ParametersTableViewController {
         let context = appDelegate.managedObjectContext
         var recentMeasurements = [String : Double]()
 
-        for item in appDelegate.parameterList {
+        for item in parameterList {
             let fetchRequest = NSFetchRequest(entityName: entityName)
             let predicate = NSPredicate(format: "type = %@", argumentArray: [item])
             fetchRequest.predicate = predicate
