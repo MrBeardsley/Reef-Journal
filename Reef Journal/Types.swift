@@ -121,7 +121,7 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
     case .Temperature, .pH:
         return 1
     case .Alkalinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.toRaw()) as? Int {
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
             switch AlkalinityUnit(rawInt: intValue) {
             case .DKH, .MeqL: return 1
             case .PPT: return 0
@@ -131,7 +131,7 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
             return 0
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.SalinityUnits.toRaw()) as? Int {
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.SalinityUnits.rawValue) as? Int {
             switch SalinityUnit(rawInt: intValue) {
             case .SG: return 3
             case .PPT: return 0
@@ -157,32 +157,32 @@ func unitLabelForParameterType(type: Parameter) -> String {
     case .Calcium, .Magnesium, .Strontium, .Potasium, .Phosphate, .Ammonia, .Nitrite, .Nitrate:
         return "ppm"
     case .Alkalinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.toRaw()) as? Int {
-            return AlkalinityUnit(rawInt: intValue).toRaw()
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
+            return AlkalinityUnit(rawInt: intValue).rawValue
         }
         else {
-            return AlkalinityUnit.DKH.toRaw()
+            return AlkalinityUnit.DKH.rawValue
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.SalinityUnits.toRaw()) as? Int {
-            return SalinityUnit(rawInt: intValue).toRaw()
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.SalinityUnits.rawValue) as? Int {
+            return SalinityUnit(rawInt: intValue).rawValue
         }
         else {
-            return SalinityUnit.SG.toRaw()
+            return SalinityUnit.SG.rawValue
         }
     case .pH:
         return ""
     case .Temperature:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.toRaw()) as? Int {
-            return TemperatureUnit(rawInt: intValue).toRaw()
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
+            return TemperatureUnit(rawInt: intValue).rawValue
         }
         else {
-            return TemperatureUnit.Fahrenheit.toRaw()
+            return TemperatureUnit.Fahrenheit.rawValue
         }
     }
 }
 
-let parameterList = [Parameter.Salinity.toRaw(), Parameter.Temperature.toRaw(), Parameter.Alkalinity.toRaw(), Parameter.Calcium.toRaw(), Parameter.Magnesium.toRaw(), Parameter.pH.toRaw(), Parameter.Strontium.toRaw(), Parameter.Potasium.toRaw(), Parameter.Ammonia.toRaw(), Parameter.Nitrite.toRaw(), Parameter.Nitrate.toRaw(), Parameter.Phosphate.toRaw()]
+let parameterList = [Parameter.Salinity.rawValue, Parameter.Temperature.rawValue, Parameter.Alkalinity.rawValue, Parameter.Calcium.rawValue, Parameter.Magnesium.rawValue, Parameter.pH.rawValue, Parameter.Strontium.rawValue, Parameter.Potasium.rawValue, Parameter.Ammonia.rawValue, Parameter.Nitrite.rawValue, Parameter.Nitrate.rawValue, Parameter.Phosphate.rawValue]
 
 protocol ParentControllerDelegate {
     func refreshData()

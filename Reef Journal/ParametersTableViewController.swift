@@ -51,14 +51,14 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         nutrientsSection = []
 
         for item in chemistryParameters {
-            if userDefaults.boolForKey(item.toRaw()) {
-                chemistrySection.append(parameterForPreference(item).toRaw())
+            if userDefaults.boolForKey(item.rawValue) {
+                chemistrySection.append(parameterForPreference(item).rawValue)
             }
         }
 
         for item in nutrientParameters {
-            if userDefaults.boolForKey(item.toRaw()) {
-                nutrientsSection.append(parameterForPreference(item).toRaw())
+            if userDefaults.boolForKey(item.rawValue) {
+                nutrientsSection.append(parameterForPreference(item).rawValue)
             }
         }
 
@@ -71,7 +71,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         if let path = self.tableView.indexPathForSelectedRow() {
             if let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
                 if let detailViewController = segue.destinationViewController as? DetailViewController {
-                    detailViewController.parameterType = Parameter.fromRaw(title)
+                    detailViewController.parameterType = Parameter(rawValue: title)
                     detailViewController.navigationItem.title = title
                     detailViewController.delegate = self
                 }
@@ -95,19 +95,12 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let cellIdentifier = "ParameterCell";
-        var cell: UITableViewCell
-
-        if let tableViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as? UITableViewCell {
-            cell = tableViewCell
-        }
-        else {
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellIdentifier)
-        }
+        let cellIdentifier = "ParameterCell"
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as UITableViewCell
 
         switch indexPath.section {
         case 0:
-            let parameter = Parameter.fromRaw(chemistrySection[indexPath.row])!
+            let parameter = Parameter(rawValue: chemistrySection[indexPath.row])!
             cell.textLabel?.text = chemistrySection[indexPath.row]
 
             if let value = recentMeasurements?[chemistrySection[indexPath.row]] {
@@ -120,7 +113,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
             }
 
         case 1:
-            let parameter = Parameter.fromRaw(nutrientsSection[indexPath.row])!
+            let parameter = Parameter(rawValue: nutrientsSection[indexPath.row])!
             cell.textLabel?.text = nutrientsSection[indexPath.row]
             if let value = recentMeasurements?[nutrientsSection[indexPath.row]] {
                 let decimalPlaces = decimalPlacesForParameter(parameter)
