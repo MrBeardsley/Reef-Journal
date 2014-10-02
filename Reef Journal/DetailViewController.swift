@@ -46,6 +46,7 @@ class DetailViewController: UIViewController {
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
     }
 
     deinit {
@@ -128,6 +129,10 @@ class DetailViewController: UIViewController {
     func keyboardDidHide(notification: NSNotification) {
         let currentFrame = self.view.bounds
         self.view.frame = CGRect(x: currentFrame.origin.x, y: currentFrame.origin.y, width: currentFrame.width, height: currentFrame.height - keyboardOffset)
+    }
+
+    func preferencesDidChange(notification: NSNotification?) {
+        println("Reload the value in Detail view Controller")
     }
 
     func cancelNumberPad() {

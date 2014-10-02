@@ -173,7 +173,7 @@ func unitLabelForParameterType(type: Parameter) -> String {
     case .pH:
         return ""
     case .Temperature:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.TemperatureUnits.rawValue) as? Int {
             return TemperatureUnit(rawInt: intValue).rawValue
         }
         else {

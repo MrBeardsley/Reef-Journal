@@ -25,6 +25,11 @@ class GraphViewController: UIViewController {
         appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         super.init(coder: aDecoder)
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func viewDidLoad() {
@@ -83,5 +88,9 @@ class GraphViewController: UIViewController {
                 }
             }
         }
+    }
+
+    func preferencesDidChange(notification: NSNotification?) {
+        println("Reload the graph in graph view Controller")
     }
 }

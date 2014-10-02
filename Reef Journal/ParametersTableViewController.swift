@@ -26,7 +26,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     required init(coder aDecoder: NSCoder) {
         appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         super.init(coder: aDecoder)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object:nil)
     }
 
     deinit {
@@ -45,8 +45,8 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     }
 
     func reloadTableView(aNotification: NSNotification?) {
-
         let userDefaults = NSUserDefaults.standardUserDefaults()
+
         chemistrySection = []
         nutrientsSection = []
 
