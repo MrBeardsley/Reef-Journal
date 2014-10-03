@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Parameter: String {
+public enum Parameter: String {
     case Salinity = "Salinity"
     case Temperature = "Temperature"
     case Alkalinity = "Alkalinity"
@@ -23,7 +23,7 @@ enum Parameter: String {
     case Phosphate = "Phosphate"
 }
 
-enum PreferenceIdentifier: String {
+public enum PreferenceIdentifier: String {
     case TemperatureUnits = "temperatureUnits"
     case SalinityUnits = "salinityUnits"
     case AlkalinityUnits = "alkalinityUnits"
@@ -41,7 +41,7 @@ enum PreferenceIdentifier: String {
     case EnablePhosphate = "enablePhosphate"    
 }
 
-enum AlkalinityUnit: String {
+public enum AlkalinityUnit: String {
     case DKH = "dKH"
     case MeqL = "meq/L"
     case PPT = "ppt"
@@ -60,7 +60,7 @@ enum AlkalinityUnit: String {
     }
 }
 
-enum SalinityUnit: String {
+public enum SalinityUnit: String {
     case SG = "sg"
     case PPT = "ppt"
 
@@ -77,7 +77,7 @@ enum SalinityUnit: String {
     }
 }
 
-enum TemperatureUnit: String {
+public enum TemperatureUnit: String {
     case Fahrenheit = "\u{2109}"
     case Celcius = "\u{2103}"
 
@@ -93,7 +93,7 @@ enum TemperatureUnit: String {
     }
 }
 
-func parameterForPreference(preference: PreferenceIdentifier) -> Parameter {
+public func parameterForPreference(preference: PreferenceIdentifier) -> Parameter {
 
     switch preference {
     case .TemperatureUnits: return Parameter.Temperature

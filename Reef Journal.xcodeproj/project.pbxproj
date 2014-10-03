@@ -14,10 +14,11 @@
 		83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */; };
 		83AA7EA91947D63A00CB9D0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EA71947D63A00CB9D0F /* Main.storyboard */; };
 		83AA7EAB1947D63A00CB9D0F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EAA1947D63A00CB9D0F /* Images.xcassets */; };
-		83AA7EB71947D63B00CB9D0F /* Reef_JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EB61947D63B00CB9D0F /* Reef_JournalTests.swift */; };
+		83AA7EB71947D63B00CB9D0F /* TemperatureStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EB61947D63B00CB9D0F /* TemperatureStruct.swift */; };
 		83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C010E319DCE7BB0073BE5F /* Functions.swift */; };
 		83C3F2F2199D768700756164 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C3F2F1199D768700756164 /* Measurement.swift */; };
 		83C99868196F80C9008E23B1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C99867196F80C9008E23B1 /* GraphView.swift */; };
+		83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C7119DCFF63005B99A4 /* Temperature.swift */; };
 		83E0D5871947DD9400DE1779 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83E0D5851947DD9400DE1779 /* DataModel.xcdatamodeld */; };
 		83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -44,11 +45,12 @@
 		83AA7EAA1947D63A00CB9D0F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		83AA7EB01947D63B00CB9D0F /* Reef JournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reef JournalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AA7EB51947D63B00CB9D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83AA7EB61947D63B00CB9D0F /* Reef_JournalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reef_JournalTests.swift; sourceTree = "<group>"; };
+		83AA7EB61947D63B00CB9D0F /* TemperatureStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureStruct.swift; sourceTree = "<group>"; };
 		83C010E319DCE7BB0073BE5F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		83C3F2F0199D768600756164 /* Reef Journal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Reef Journal-Bridging-Header.h"; sourceTree = "<group>"; };
 		83C3F2F1199D768700756164 /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		83C99867196F80C9008E23B1 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		83DA1C7119DCFF63005B99A4 /* Temperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		83E0D5841947DA3400DE1779 /* Reef Journal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Reef Journal.entitlements"; sourceTree = "<group>"; };
 		83E0D5861947DD9400DE1779 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersTableViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
 				831386B0196F4A2900F0D0DD /* GraphViewController.swift */,
 				83C99867196F80C9008E23B1 /* GraphView.swift */,
+				83DA1C7119DCFF63005B99A4 /* Temperature.swift */,
 				835476D819646E9500D1994E /* Interface */,
 				835476D919646EB100D1994E /* Data Model */,
 				83AA7E9F1947D63A00CB9D0F /* Supporting Files */,
@@ -139,7 +142,7 @@
 		83AA7EB31947D63B00CB9D0F /* Reef JournalTests */ = {
 			isa = PBXGroup;
 			children = (
-				83AA7EB61947D63B00CB9D0F /* Reef_JournalTests.swift */,
+				83AA7EB61947D63B00CB9D0F /* TemperatureStruct.swift */,
 				83AA7EB41947D63B00CB9D0F /* Supporting Files */,
 			);
 			path = "Reef JournalTests";
@@ -263,6 +266,7 @@
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
 				83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */,
 				83E0D5871947DD9400DE1779 /* DataModel.xcdatamodeld in Sources */,
+				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,
 				8395474F19C890EA00529B8B /* Types.swift in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,
@@ -275,7 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83AA7EB71947D63B00CB9D0F /* Reef_JournalTests.swift in Sources */,
+				83AA7EB71947D63B00CB9D0F /* TemperatureStruct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

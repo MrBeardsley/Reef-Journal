@@ -96,3 +96,54 @@ func unitLabelForParameterType(type: Parameter) -> String {
         }
     }
 }
+
+/**
+Takes a parameter and returns a string representing the unit label for the type of the parameter
+
+:param: type The type of parameter
+
+:returns: The unit of measure label
+*/
+func transformValueForUnit(type: Parameter, value: Double) -> Double {
+    let userDefaults = NSUserDefaults.standardUserDefaults()
+    switch type {
+    case .Alkalinity:
+        if let intValue = userDefaults.valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
+
+            switch AlkalinityUnit(rawInt: intValue) {
+            case .DKH:
+                println("")
+            case .MeqL:
+                println("")
+            case .PPT:
+                println("")
+            }
+        }
+    case .Salinity:
+        if let intValue = userDefaults.valueForKey(PreferenceIdentifier.SalinityUnits.rawValue) as? Int {
+
+            switch SalinityUnit(rawInt: intValue) {
+            case .SG:
+                println("")
+            case .PPT:
+                println("")
+            }
+        }
+
+    case .Temperature:
+        if let intValue = userDefaults.valueForKey(PreferenceIdentifier.TemperatureUnits.rawValue) as? Int {
+
+            switch TemperatureUnit(rawInt: intValue) {
+            case .Fahrenheit:
+                println("")
+            case .Celcius:
+                println("")
+            }
+        }
+    default:
+        println("")
+
+    }
+
+    return 0.0
+}
