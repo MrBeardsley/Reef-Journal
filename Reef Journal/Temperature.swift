@@ -10,8 +10,8 @@ import Foundation
 
 public struct Temperature {
     private var internalStorage: Double = 0.0
-    public var fahrenheit: Double {return internalStorage }
-    public var celcius: Double {return (internalStorage - 32.0) * 5.0 / 9.0 }
+    public var fahrenheit: Double { return internalStorage }
+    public var celcius: Double { return (internalStorage - 32.0) * 5.0 / 9.0 }
 
     public init(aTemp: Double) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -20,12 +20,12 @@ public struct Temperature {
             case .Fahrenheit:
                 internalStorage = aTemp
             case .Celcius:
-                internalStorage = fahrenheitFrom(celcius: aTemp)
+                internalStorage = fahrenheitFromCelcius(aTemp)
             }
         }
     }
 
-    private func fahrenheitFrom(#celcius: Double) -> Double {
-        return celcius * 9.0 / 5.0 + 32.0
+    private func fahrenheitFromCelcius(value: Double) -> Double {
+        return value * 9.0 / 5.0 + 32.0
     }
 }
