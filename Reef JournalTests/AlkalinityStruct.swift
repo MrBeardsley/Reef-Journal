@@ -21,11 +21,11 @@ class Alkalinity_Struct: XCTestCase {
         super.tearDown()
     }
 
-//    func testFahrenheitToCelciusBoilingPoint() {
-//        NSUserDefaults.standardUserDefaults().setValue(0, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
-//        var boilingPoint = Temperature(aTemp: 212.0)
-//        XCTAssert(boilingPoint.celcius == 100.0, "Pass")
-//    }
+    func testDKHToMeqL() {
+        NSUserDefaults.standardUserDefaults().setValue(0, forKey: PreferenceIdentifier.AlkalinityUnits.rawValue)
+        var measurement = Alkalinity(alkValue: 10.0)
+        XCTAssert(measurement.meqL == 100.0, "Pass")
+    }
 //
 //    func testFahrenheitToCelciusFreezingPoint() {
 //        NSUserDefaults.standardUserDefaults().setValue(0, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
