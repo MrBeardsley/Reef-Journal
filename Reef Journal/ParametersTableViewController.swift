@@ -69,11 +69,13 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
 
         if let path = self.tableView.indexPathForSelectedRow() {
-            if let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
-                if let detailViewController = segue.destinationViewController as? DetailViewController {
-                    detailViewController.parameterType = Parameter(rawValue: title)
-                    detailViewController.navigationItem.title = title
-                    detailViewController.delegate = self
+            if let cell = self.tableView.cellForRowAtIndexPath(path) {
+                if let title = cell.textLabel.text {
+                    if let detailViewController = segue.destinationViewController as? DetailViewController {
+                        detailViewController.parameterType = Parameter(rawValue: title)
+                        detailViewController.navigationItem.title = title
+                        detailViewController.delegate = self
+                    }
                 }
             }
         }
@@ -101,7 +103,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         switch indexPath.section {
         case 0:
             let parameter = Parameter(rawValue: chemistrySection[indexPath.row])!
-            cell.textLabel?.text = chemistrySection[indexPath.row]
+            cell.textLabel.text = chemistrySection[indexPath.row]
 
             if let value = recentMeasurements?[chemistrySection[indexPath.row]] {
                 let decimalPlaces = decimalPlacesForParameter(parameter)
@@ -114,7 +116,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
 
         case 1:
             let parameter = Parameter(rawValue: nutrientsSection[indexPath.row])!
-            cell.textLabel?.text = nutrientsSection[indexPath.row]
+            cell.textLabel.text = nutrientsSection[indexPath.row]
             if let value = recentMeasurements?[nutrientsSection[indexPath.row]] {
                 let decimalPlaces = decimalPlacesForParameter(parameter)
                 let format = "%." + String(decimalPlaces) + "f"
@@ -124,7 +126,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
                 cell.detailTextLabel?.text = "No Measurement"
             }
         default:
-            cell.textLabel?.text = "Not found"
+            cell.textLabel.text = "Not found"
         }
 
         return cell
