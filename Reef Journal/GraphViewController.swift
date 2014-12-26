@@ -12,15 +12,18 @@ import CoreData
 
 class GraphViewController: UIViewController {
 
+    // MARK: - Interface Outlets
     @IBOutlet weak var graphView: GraphView!
     @IBOutlet weak var minField: UILabel!
     @IBOutlet weak var maxField: UILabel!
     @IBOutlet weak var aveField: UILabel!
 
+    // MARK: - Properties
     let appDelegate: AppDelegate
     let entityName = "Measurement"
     var detailController: DetailViewController!
 
+    // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder) {
         appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         super.init(coder: aDecoder)
@@ -32,6 +35,7 @@ class GraphViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
+    // MARK: - Methods
     override func viewDidLoad() {
 
         if let parent = detailController {

@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
 
-    // MARK: - Class Properties
+    // MARK: - Properties
     let appDelegate: AppDelegate
     let entityName = "Measurement"
     let format = "MMMM dd ',' yyyy"

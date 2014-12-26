@@ -21,27 +21,36 @@ class Alkalinity_Struct: XCTestCase {
         super.tearDown()
     }
 
-    func testDKHToMeqL() {
-        NSUserDefaults.standardUserDefaults().setValue(0, forKey: PreferenceIdentifier.AlkalinityUnits.rawValue)
-        var measurement = Alkalinity(alkValue: 10.0)
-        XCTAssert(measurement.meqL == 100.0, "Pass")
+    func testDKHInit() {
+        let testValue = 10.0
+        var alk = Alkalinity(fromDKH: testValue)
+        XCTAssert(alk.dKH == testValue, "Pass")
     }
-//
-//    func testFahrenheitToCelciusFreezingPoint() {
-//        NSUserDefaults.standardUserDefaults().setValue(0, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
-//        var freezingTemp = Temperature(aTemp: 32)
-//        XCTAssert(freezingTemp.celcius == 0.0, "Pass")
+    
+    func testDKHProperty() {
+        let testValue = 9.3
+        var alk = Alkalinity(fromDKH: 12.9)
+        alk.dKH = testValue
+        XCTAssert(alk.dKH == testValue, "Pass")
+    }
+    
+    func testMeqLInit() {
+        let alk = 4.2
+        var measurement = Alkalinity(fromMeqL: alk)
+        XCTAssert(measurement.meqL == alk, "Pass")
+    }
+    
+    func testMeqLProperty() {
+        let alk = 4.2
+        var measurement = Alkalinity(fromMeqL: alk)
+        XCTAssert(measurement.meqL == alk, "Pass")
+    }
+    
+//    func testPPTInit() {
+//        let alk = 134.0
+//        var measurement = Alkalinity(fromPPT: alk)
+//        XCTAssert(measurement.ppt == alk, "Pass")
 //    }
-//
-//    func testCelciusToFahrenheitBoilingPoint() {
-//        NSUserDefaults.standardUserDefaults().setValue(1, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
-//        var boilingPoint = Temperature(aTemp: 100.0)
-//        XCTAssert(boilingPoint.fahrenheit == 212.0, "Pass")
-//    }
-//
-//    func testCelciusToFahrenheitFreezingPoint() {
-//        NSUserDefaults.standardUserDefaults().setValue(1, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
-//        var freezingTemp = Temperature(aTemp: 0.0)
-//        XCTAssert(freezingTemp.fahrenheit == 32.0, "Pass")
-//    }
+    
+    
 }

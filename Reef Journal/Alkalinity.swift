@@ -9,30 +9,71 @@
 import Foundation
 
 public struct Alkalinity {
-    private var internalStorage: Double = 0.0
-    public var dKH: Double {return internalStorage }
-    public var meqL: Double {return internalStorage }
-    public var ppt: Double {return internalStorage }
-
-    public init(alkValue: Double) {
+    public var meqL: Double = 0.0 // Store all values in meq / L
+    public var dKH: Double {
+        get {
+            return self.meqL * 2.8
+        }
+        
+        set {
+            self.meqL = newValue / 2.8
+        }
+    }
+    public var ppt: Double {
+        
+        get {
+            return self.meqL * 50
+        }
+        
+        set {
+            self.meqL = newValue / 50
+        }
+    }
+    
+    
+    public var preferredAlk: Double? {
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let intValue = userDefaults.valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
-            switch AlkalinityUnit(rawInt: intValue) {
+        if let preferenceValue = userDefaults.valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
+            switch AlkalinityUnit(rawInt: preferenceValue) {
             case .DKH:
-                internalStorage = alkValue
+                return self.dKH
             case .MeqL:
-                internalStorage = dkhFromMeqL(alkValue)
+                return self.meqL
             case .PPT:
-                internalStorage = dkhFromPPT(alkValue)
+                return self.ppt
             }
+        }
+        else {
+            return nil
         }
     }
 
-    private func dkhFromMeqL(value: Double) -> Double {
-        return 0.0
+    public init(fromDKH: Double) {
+        self.dKH = fromDKH
     }
-
-    private func dkhFromPPT(value: Double) -> Double {
-        return 0.0
+    
+    public init(fromMeqL: Double) {
+        self.meqL = fromMeqL
+    }
+    
+    public init(fromPPT: Double) {
+        self.ppt = fromPPT
+    }
+    
+    public init?(preferredAlk: Double) {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let preferenceValue = userDefaults.valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
+            switch AlkalinityUnit(rawInt: preferenceValue) {
+            case .DKH:
+                self.init(fromDKH: preferredAlk)
+            case .MeqL:
+                self.init(fromMeqL: preferredAlk)
+            case .PPT:
+                self.init(fromPPT: preferredAlk)
+            }
+        }
+        else {
+            return nil
+        }
     }
 }

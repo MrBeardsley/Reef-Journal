@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831386B0196F4A2900F0D0DD /* GraphViewController.swift */; };
+		833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D4AE41A3E17AA00FF6B96 /* Salinity.swift */; };
 		83477AF2195B975A0039E2C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83477AF1195B975A0039E2C5 /* Settings.bundle */; };
 		835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EFCEA1961EFB900214EE4 /* DetailViewController.swift */; };
 		8395474F19C890EA00529B8B /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395474E19C890EA00529B8B /* Types.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		831386B0196F4A2900F0D0DD /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		833D4AE41A3E17AA00FF6B96 /* Salinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Salinity.swift; sourceTree = "<group>"; };
 		83477AF1195B975A0039E2C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		835EFCEA1961EFB900214EE4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8395474E19C890EA00529B8B /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -78,6 +80,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		833D4AE61A3E17C300FF6B96 /* Parameters */ = {
+			isa = PBXGroup;
+			children = (
+				83B9B65C19E0C2090040BBF3 /* Alkalinity.swift */,
+				833D4AE41A3E17AA00FF6B96 /* Salinity.swift */,
+				83DA1C7119DCFF63005B99A4 /* Temperature.swift */,
+			);
+			name = Parameters;
+			sourceTree = "<group>";
+		};
 		835476D819646E9500D1994E /* Interface */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,8 +138,7 @@
 				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
 				831386B0196F4A2900F0D0DD /* GraphViewController.swift */,
 				83C99867196F80C9008E23B1 /* GraphView.swift */,
-				83DA1C7119DCFF63005B99A4 /* Temperature.swift */,
-				83B9B65C19E0C2090040BBF3 /* Alkalinity.swift */,
+				833D4AE61A3E17C300FF6B96 /* Parameters */,
 				835476D819646E9500D1994E /* Interface */,
 				835476D919646EB100D1994E /* Data Model */,
 				83AA7E9F1947D63A00CB9D0F /* Supporting Files */,
@@ -274,6 +285,7 @@
 				83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */,
 				83E0D5871947DD9400DE1779 /* DataModel.xcdatamodeld in Sources */,
 				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,
+				833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */,
 				8395474F19C890EA00529B8B /* Types.swift in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,

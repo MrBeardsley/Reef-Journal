@@ -21,27 +21,49 @@ class Temperature_Struct: XCTestCase {
         super.tearDown()
     }
     
+    func testFahrenheitInit() {
+        let testValue = 98.6
+        var temp = Temperature(fromFahrenheit: testValue)
+        XCTAssert(temp.fahrenheit == testValue, "Pass")
+    }
+    
+    func testFahrenheitProperty() {
+        let testValue = 75.3
+        var temp = Temperature(fromFahrenheit: 50.0)
+        temp.fahrenheit = testValue
+        XCTAssert(temp.fahrenheit == testValue, "Pass")
+    }
+    
     func testFahrenheitToCelciusBoilingPoint() {
-        NSUserDefaults.standardUserDefaults().setValue(0, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
-        var boilingPoint = Temperature(aTemp: 212.0)
+        var boilingPoint = Temperature(fromFahrenheit: 212.0)
         XCTAssert(boilingPoint.celcius == 100.0, "Pass")
     }
 
     func testFahrenheitToCelciusFreezingPoint() {
-        NSUserDefaults.standardUserDefaults().setValue(0, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
-        var freezingTemp = Temperature(aTemp: 32)
+        var freezingTemp = Temperature(fromFahrenheit: 32.0)
         XCTAssert(freezingTemp.celcius == 0.0, "Pass")
+    }
+    
+    func testCelciusInit() {
+        let testValue = 98.6
+        var temp = Temperature(fromCelcius: testValue)
+        XCTAssert(temp.celcius == testValue, "Pass")
+    }
+    
+    func testCelciusProperty() {
+        let testValue = 75.3
+        var temp = Temperature(fromCelcius: 50.0)
+        temp.celcius = testValue
+        XCTAssert(temp.celcius == testValue, "Pass")
     }
 
     func testCelciusToFahrenheitBoilingPoint() {
-        NSUserDefaults.standardUserDefaults().setValue(1, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
-        var boilingPoint = Temperature(aTemp: 100.0)
+        var boilingPoint = Temperature(fromCelcius: 100.0)
         XCTAssert(boilingPoint.fahrenheit == 212.0, "Pass")
     }
 
     func testCelciusToFahrenheitFreezingPoint() {
-        NSUserDefaults.standardUserDefaults().setValue(1, forKey: PreferenceIdentifier.TemperatureUnits.rawValue)
-        var freezingTemp = Temperature(aTemp: 0.0)
+        var freezingTemp = Temperature(fromCelcius: 0.0)
         XCTAssert(freezingTemp.fahrenheit == 32.0, "Pass")
     }
 }

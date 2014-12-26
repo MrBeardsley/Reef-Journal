@@ -12,15 +12,14 @@ import CoreData
 
 class ParametersTableViewController: UITableViewController, ParentControllerDelegate {
 
-
+    // MARK: - Properties
     let entityName = "Measurement"
     let appDelegate: AppDelegate
     let chemistryParameters: [PreferenceIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
     let nutrientParameters: [PreferenceIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
-
-    var chemistrySection: [String] = []
-    var nutrientsSection: [String] = []
-    var recentMeasurements: [String : Double]?
+    private var chemistrySection: [String] = []
+    private var nutrientsSection: [String] = []
+    private var recentMeasurements: [String : Double]?
 
     // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder) {
