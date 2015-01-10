@@ -78,10 +78,14 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         
         if let path = self.tableView.indexPathForSelectedRow() {
             if let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
-                if let detailViewController = segue.destinationViewController as? DetailViewController {
-                    detailViewController.parameterType = Parameter(rawValue: title)
-                    detailViewController.navigationItem.title = title
-                    detailViewController.delegate = self
+                if let navController = segue.destinationViewController as? UINavigationController {
+                    if let detailViewController = navController.topViewController as? DetailViewController {
+                        detailViewController.parameterType = Parameter(rawValue: title)
+                        detailViewController.navigationItem.title = title
+                        detailViewController.delegate = self
+                        detailViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                        detailViewController.navigationItem.leftItemsSupplementBackButton = true
+                    }
                 }
             }
         }
