@@ -37,7 +37,8 @@ class GraphViewController: UIViewController {
 
     // MARK: - Methods
     override func viewDidLoad() {
-
+        super.viewDidLoad()
+        
         if let parent = detailController {
 
             let type: NSString = parent.navigationItem.title!

@@ -32,8 +32,17 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            self.clearsSelectionOnViewWillAppear = false
+            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
+        }
+    }
+
     // MARK: - View Management
     override func viewDidLoad() {
+        super.viewDidLoad()
         reloadTableView(nil)
     }
 

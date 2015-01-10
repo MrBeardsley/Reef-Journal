@@ -72,28 +72,35 @@ class DetailViewController: UIViewController {
         numberToolbar.sizeToFit()
         inputTextField.inputAccessoryView = numberToolbar
 
-        if parameterTypeDisplaysDecimal(self.parameterType!) {
-            inputTextField.keyboardType = .DecimalPad
+        if let parameterType = self.parameterType {
+            if parameterTypeDisplaysDecimal(parameterType) {
+                inputTextField.keyboardType = .DecimalPad
+            }
+            else {
+                inputTextField.keyboardType = .NumberPad
+            }
         }
         else {
             inputTextField.keyboardType = .NumberPad
         }
 
-        // Coredata fetch to find the most recent measurement
-        let type: NSString = self.navigationItem.title!
-        let context = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: entityName)
-        let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
-        fetchRequest.predicate = predicate
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
-        fetchRequest.fetchLimit = 1
 
-        var error: NSError?
-        if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
-            if let aMeasurement = results.last as? Measurement {
-                let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
-                let format = "%." + String(decimalPlaces) + "f"
-                valueTextLabel.text = NSString(format: format, aMeasurement.value) + " " + unitLabelForParameterType(self.parameterType!)
+        // Coredata fetch to find the most recent measurement
+        if let type: NSString = self.navigationItem.title {
+            let context = appDelegate.managedObjectContext
+            let fetchRequest = NSFetchRequest(entityName: entityName)
+            let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+            fetchRequest.fetchLimit = 1
+
+            var error: NSError?
+            if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
+                if let aMeasurement = results.last as? Measurement {
+                    let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
+                    let format = "%." + String(decimalPlaces) + "f"
+                    valueTextLabel.text = NSString(format: format, aMeasurement.value) + " " + unitLabelForParameterType(self.parameterType!)
+                }
             }
         }
     }
