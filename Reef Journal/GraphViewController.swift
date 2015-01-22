@@ -44,7 +44,7 @@ class GraphViewController: UIViewController {
             let type: NSString = parent.navigationItem.title!
             let context = appDelegate.managedObjectContext
 
-            if let parameterType = Parameter(rawValue: type) {
+            if let parameterType = Parameter(rawString: type) {
                 graphView.parameterType = parameterType
             }
             else
@@ -71,7 +71,7 @@ class GraphViewController: UIViewController {
                     let maximum = graphView.dataPoints.reduce(Double.quietNaN, combine: { max($0, $1.1) })
                     let sum = graphView.dataPoints.reduce(0.0, combine: { $0 + $1.1})
                     var format: String
-                    if let parameterType = Parameter(rawValue: type) {
+                    if let parameterType = Parameter(rawString: type) {
                         let decimalPlaces = decimalPlacesForParameter(parameterType)
                         format = "%." + String(decimalPlaces) + "f"
                     }

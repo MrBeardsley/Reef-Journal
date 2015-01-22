@@ -57,6 +57,30 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Determine if a parameter was previously saved
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+
+        if parameterType == nil {
+            if let defaultsString = userDefaults.stringForKey("LastParameter") {
+                if let parameterFromDefaults = Parameter(rawString: defaultsString) {
+                    parameterType = parameterFromDefaults
+                    self.navigationItem.title = parameterType!.rawValue
+                    println(parameterType!.rawValue)
+                }
+                else {
+                    println(userDefaults)
+
+                }
+            }
+            else {
+                // Grab the first enables Parameter
+                println("Not Saved")
+            }
+        }
+        else {
+            userDefaults.setObject(parameterType!.rawValue, forKey: "LastParameter")
+        }
+
         // Setup the controls
         let today = NSDate()
         self.dateField.text = dateFormatter.stringFromDate(today)

@@ -21,6 +21,37 @@ public enum Parameter: String {
     case Nitrite = "Nitrite"
     case Nitrate = "Nitrate"
     case Phosphate = "Phosphate"
+
+    init?(rawString: String) {
+        switch rawString {
+        case "Salinity":
+            self = .Salinity
+        case "Temperature":
+            self = .Temperature
+        case "Alkalinity":
+            self = .Alkalinity
+        case "Calcium":
+            self = .Calcium
+        case "Magnesium":
+            self = .Magnesium
+        case "pH":
+            self = .pH
+        case "Strontium":
+            self = .Strontium
+        case "Potasium":
+            self = .Potasium
+        case "Ammonia":
+            self = .Ammonia
+        case "Nitrite":
+            self = .Nitrite
+        case "Nitrate":
+            self = .Nitrate
+        case "Phosphate":
+            self = .Phosphate
+        default:
+            return nil
+        }
+    }
 }
 
 public enum PreferenceIdentifier: String {
