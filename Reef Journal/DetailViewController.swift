@@ -25,7 +25,7 @@ class DetailViewController: UIViewController {
     let entityName = "Measurement"
     let format = "MMMM dd ',' yyyy"
     let dateFormatter: NSDateFormatter
-    var parameterType: Parameter?
+    var parameterType: Parameter!
     var delegate: ParentControllerDelegate?
     lazy var valueFormat: String = {
 
@@ -68,13 +68,13 @@ class DetailViewController: UIViewController {
                     println(parameterType!.rawValue)
                 }
                 else {
-                    println(userDefaults)
+                    parameterType = self.firstEnabledParameter()
 
                 }
             }
             else {
-                // Grab the first enables Parameter
-                println("Not Saved")
+                // Use the first enabled Parameter
+                parameterType = self.firstEnabledParameter()
             }
         }
         else {
@@ -225,5 +225,10 @@ private extension DetailViewController {
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components(flags, fromDate: date)
         return calendar.dateFromComponents(components)!
+    }
+
+    func firstEnabledParameter() -> Parameter {
+
+        return Parameter.Salinity
     }
 }

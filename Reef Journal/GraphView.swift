@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GraphView: UIView {
+class GraphView: UIScrollView {
 
     var dataPoints: Array<(date: NSDate, value: Double)> = []
     var maxValue: CGFloat = 0
