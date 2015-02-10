@@ -68,82 +68,87 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Today's Date:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFZ-bc-ej4">
-                                <rect key="frame" x="228.5" y="139" width="143" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="HlC-uO-3rX"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="64" text="No Value" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="Kny-w6-PFa">
-                                <rect key="frame" x="200" y="346" width="200" height="64"/>
+                                <rect key="frame" x="16" y="279" width="568" height="64"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="UQv-p3-ZD8"/>
+                                    <constraint firstAttribute="height" constant="64" id="O50-MR-zXq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="100" y="279" width="200" height="64"/>
+                                </variation>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="O9o-l1-a3U">
-                                <rect key="frame" x="200" y="176" width="200" height="162"/>
+                                <rect key="frame" x="200" y="109" width="200" height="162"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="cxt-91-FMf"/>
-                                    <constraint firstAttribute="height" constant="162" id="oFY-vW-16n"/>
+                                    <constraint firstAttribute="height" constant="162" id="lUv-tv-hMP"/>
+                                    <constraint firstAttribute="width" constant="200" id="zXd-gc-UBg"/>
                                 </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="427340794.05887902">
                                     <!--2014-07-18 01:46:34 +0000-->
                                 </date>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="100" y="109" width="200" height="162"/>
+                                </variation>
                                 <connections>
                                     <action selector="pickerDidChange:" destination="Wqd-75-dBb" eventType="valueChanged" id="H2K-Io-UUu"/>
                                 </connections>
                             </datePicker>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDg-KN-o7J">
-                                <rect key="frame" x="200" y="418" width="44" height="20.5"/>
+                                <rect key="frame" x="310" y="355" width="44" height="20.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20.5" id="1bb-yh-opj"/>
-                                    <constraint firstAttribute="width" constant="44" id="NoL-6W-cNW"/>
+                                    <constraint firstAttribute="height" constant="20.5" id="0b5-Dg-WHs"/>
+                                    <constraint firstAttribute="width" constant="44" id="G4t-Gt-pmt"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="100" y="351" width="44" height="20.5"/>
+                                </variation>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="N3i-vZ-ve0">
-                                <rect key="frame" x="252" y="414" width="222" height="30"/>
+                                <rect key="frame" x="362" y="351" width="222" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="222" id="Gso-4Q-4RJ"/>
                                     <constraint firstAttribute="height" constant="30" id="Q6Y-E4-jbN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="152" y="347" width="222" height="30"/>
+                                </variation>
                             </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Today's Date:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFZ-bc-ej4">
+                                <rect key="frame" x="16" y="72" width="568" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="gVG-Eq-yQO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="72" width="143" height="29"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="O9o-l1-a3U" firstAttribute="top" secondItem="sFZ-bc-ej4" secondAttribute="bottom" constant="8" symbolic="YES" id="9By-lH-2dH"/>
-                            <constraint firstAttribute="centerX" secondItem="sFZ-bc-ej4" secondAttribute="centerX" id="FjG-L7-huP"/>
-                            <constraint firstItem="O9o-l1-a3U" firstAttribute="centerX" secondItem="E0j-4H-yXA" secondAttribute="centerX" id="J9d-p2-gKz"/>
-                            <constraint firstItem="JDg-KN-o7J" firstAttribute="top" secondItem="Kny-w6-PFa" secondAttribute="bottom" constant="8" symbolic="YES" id="Mth-6l-9Mv"/>
-                            <constraint firstAttribute="centerX" secondItem="Kny-w6-PFa" secondAttribute="centerX" id="Wqv-ln-wxE"/>
-                            <constraint firstItem="Kny-w6-PFa" firstAttribute="top" secondItem="O9o-l1-a3U" secondAttribute="bottom" constant="8" symbolic="YES" id="eXg-pC-McZ"/>
-                            <constraint firstItem="O9o-l1-a3U" firstAttribute="leading" secondItem="JDg-KN-o7J" secondAttribute="leading" id="etK-CW-Oib"/>
-                            <constraint firstItem="sFZ-bc-ej4" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="75" id="f6n-Rj-5Si"/>
-                            <constraint firstItem="N3i-vZ-ve0" firstAttribute="leading" secondItem="JDg-KN-o7J" secondAttribute="trailing" constant="8" symbolic="YES" id="fX4-T5-cch"/>
-                            <constraint firstItem="N3i-vZ-ve0" firstAttribute="baseline" secondItem="JDg-KN-o7J" secondAttribute="baseline" id="jfb-Kb-mRG"/>
-                            <constraint firstItem="N3i-vZ-ve0" firstAttribute="baseline" secondItem="JDg-KN-o7J" secondAttribute="baseline" id="lkf-fW-Qw2"/>
+                            <constraint firstItem="N3i-vZ-ve0" firstAttribute="trailing" secondItem="E0j-4H-yXA" secondAttribute="trailingMargin" id="0Lj-CZ-87G"/>
+                            <constraint firstItem="Kny-w6-PFa" firstAttribute="top" secondItem="O9o-l1-a3U" secondAttribute="bottom" constant="8" id="7e4-0j-ny0"/>
+                            <constraint firstItem="sFZ-bc-ej4" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="8" id="Fxi-tS-aUQ"/>
+                            <constraint firstItem="N3i-vZ-ve0" firstAttribute="top" secondItem="Kny-w6-PFa" secondAttribute="bottom" constant="8" symbolic="YES" id="Obf-ZR-Mjr"/>
+                            <constraint firstItem="O9o-l1-a3U" firstAttribute="top" secondItem="sFZ-bc-ej4" secondAttribute="bottom" constant="8" id="Qru-7z-Ma6"/>
+                            <constraint firstItem="N3i-vZ-ve0" firstAttribute="baseline" secondItem="JDg-KN-o7J" secondAttribute="baseline" id="TWC-Yj-CDZ"/>
+                            <constraint firstItem="sFZ-bc-ej4" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leadingMargin" id="Ydd-GE-EYb"/>
+                            <constraint firstAttribute="centerX" secondItem="O9o-l1-a3U" secondAttribute="centerX" id="meF-wc-2PD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sFZ-bc-ej4" secondAttribute="trailing" id="o6h-12-Jdt"/>
+                            <constraint firstItem="N3i-vZ-ve0" firstAttribute="leading" secondItem="JDg-KN-o7J" secondAttribute="trailing" constant="8" id="uQ9-Cs-kp2"/>
+                            <constraint firstItem="Kny-w6-PFa" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leadingMargin" id="v8t-jc-f3C"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kny-w6-PFa" secondAttribute="trailing" id="xOE-Ee-tRI"/>
                         </constraints>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <exclude reference="f6n-Rj-5Si"/>
-                                <exclude reference="jfb-Kb-mRG"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=regular">
-                            <mask key="constraints">
-                                <exclude reference="f6n-Rj-5Si"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="ACq-wh-oKq">
                         <barButtonItem key="rightBarButtonItem" title="Graph" id="b9y-ym-WgD">
@@ -153,11 +158,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="dateField" destination="sFZ-bc-ej4" id="LVy-kK-ikE"/>
-                        <outlet property="datePicker" destination="O9o-l1-a3U" id="fkr-zl-9VK"/>
+                        <outlet property="dateField" destination="sFZ-bc-ej4" id="BZl-De-6wX"/>
+                        <outlet property="datePicker" destination="O9o-l1-a3U" id="Sed-VP-my6"/>
                         <outlet property="detailNavigationItem" destination="ACq-wh-oKq" id="O03-5L-yTw"/>
-                        <outlet property="inputTextField" destination="N3i-vZ-ve0" id="EbX-AQ-eOf"/>
-                        <outlet property="valueTextLabel" destination="Kny-w6-PFa" id="eGO-Kn-yTD"/>
+                        <outlet property="inputTextField" destination="N3i-vZ-ve0" id="3bq-Mx-zmr"/>
+                        <outlet property="valueTextLabel" destination="Kny-w6-PFa" id="0Hc-mG-bNb"/>
                         <outlet property="view" destination="E0j-4H-yXA" id="DP6-qF-nSd"/>
                     </connections>
                 </viewController>
