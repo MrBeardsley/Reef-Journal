@@ -97,7 +97,7 @@
                                 </connections>
                             </datePicker>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDg-KN-o7J">
-                                <rect key="frame" x="310" y="355" width="44" height="20.5"/>
+                                <rect key="frame" x="200" y="355" width="44" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="0b5-Dg-WHs"/>
                                     <constraint firstAttribute="width" constant="44" id="G4t-Gt-pmt"/>
@@ -109,18 +109,6 @@
                                     <rect key="frame" x="100" y="351" width="44" height="20.5"/>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="N3i-vZ-ve0">
-                                <rect key="frame" x="362" y="351" width="222" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="222" id="Gso-4Q-4RJ"/>
-                                    <constraint firstAttribute="height" constant="30" id="Q6Y-E4-jbN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
-                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                    <rect key="frame" x="152" y="347" width="222" height="30"/>
-                                </variation>
-                            </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Today's Date:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFZ-bc-ej4">
                                 <rect key="frame" x="16" y="72" width="568" height="29"/>
                                 <constraints>
@@ -133,22 +121,46 @@
                                     <rect key="frame" x="16" y="72" width="143" height="29"/>
                                 </variation>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="N3i-vZ-ve0">
+                                <rect key="frame" x="252" y="351" width="148" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Gso-4Q-4RJ"/>
+                                    <constraint firstAttribute="height" constant="30" id="Q6Y-E4-jbN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Gso-4Q-4RJ"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="152" y="347" width="222" height="30"/>
+                                </variation>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="N3i-vZ-ve0" firstAttribute="trailing" secondItem="E0j-4H-yXA" secondAttribute="trailingMargin" id="0Lj-CZ-87G"/>
+                            <constraint firstItem="N3i-vZ-ve0" firstAttribute="trailing" secondItem="O9o-l1-a3U" secondAttribute="trailing" id="5BK-HM-kUN"/>
                             <constraint firstItem="Kny-w6-PFa" firstAttribute="top" secondItem="O9o-l1-a3U" secondAttribute="bottom" constant="8" id="7e4-0j-ny0"/>
                             <constraint firstItem="sFZ-bc-ej4" firstAttribute="top" secondItem="tXb-1B-Jhe" secondAttribute="bottom" constant="8" id="Fxi-tS-aUQ"/>
                             <constraint firstItem="N3i-vZ-ve0" firstAttribute="top" secondItem="Kny-w6-PFa" secondAttribute="bottom" constant="8" symbolic="YES" id="Obf-ZR-Mjr"/>
                             <constraint firstItem="O9o-l1-a3U" firstAttribute="top" secondItem="sFZ-bc-ej4" secondAttribute="bottom" constant="8" id="Qru-7z-Ma6"/>
                             <constraint firstItem="N3i-vZ-ve0" firstAttribute="baseline" secondItem="JDg-KN-o7J" secondAttribute="baseline" id="TWC-Yj-CDZ"/>
                             <constraint firstItem="sFZ-bc-ej4" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leadingMargin" id="Ydd-GE-EYb"/>
+                            <constraint firstItem="JDg-KN-o7J" firstAttribute="leading" secondItem="O9o-l1-a3U" secondAttribute="leading" id="cZc-fp-Og2"/>
                             <constraint firstAttribute="centerX" secondItem="O9o-l1-a3U" secondAttribute="centerX" id="meF-wc-2PD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sFZ-bc-ej4" secondAttribute="trailing" id="o6h-12-Jdt"/>
                             <constraint firstItem="N3i-vZ-ve0" firstAttribute="leading" secondItem="JDg-KN-o7J" secondAttribute="trailing" constant="8" id="uQ9-Cs-kp2"/>
                             <constraint firstItem="Kny-w6-PFa" firstAttribute="leading" secondItem="E0j-4H-yXA" secondAttribute="leadingMargin" id="v8t-jc-f3C"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kny-w6-PFa" secondAttribute="trailing" id="xOE-Ee-tRI"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="0Lj-CZ-87G"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="ACq-wh-oKq">
                         <barButtonItem key="rightBarButtonItem" title="Graph" id="b9y-ym-WgD">
