@@ -25,7 +25,7 @@ class GraphViewController: UIViewController {
 
     // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder) {
-        appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         super.init(coder: aDecoder)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
@@ -41,10 +41,10 @@ class GraphViewController: UIViewController {
         
         if let parent = detailController {
 
-            let type: NSString = parent.navigationItem.title!
+            let type = parent.navigationItem.title!
             let context = appDelegate.managedObjectContext
 
-            if let parameterType = Parameter(rawString: type) {
+            if let parameterType = Parameter(rawString: type as String) {
                 graphView.parameterType = parameterType
             }
             else
@@ -71,7 +71,7 @@ class GraphViewController: UIViewController {
                     let maximum = graphView.dataPoints.reduce(Double.quietNaN, combine: { max($0, $1.1) })
                     let sum = graphView.dataPoints.reduce(0.0, combine: { $0 + $1.1})
                     var format: String
-                    if let parameterType = Parameter(rawString: type) {
+                    if let parameterType = Parameter(rawString: type as String) {
                         let decimalPlaces = decimalPlacesForParameter(parameterType)
                         format = "%." + String(decimalPlaces) + "f"
                     }
@@ -80,9 +80,9 @@ class GraphViewController: UIViewController {
                         format = "%.2f"
                     }
 
-                    minField.text = NSString(format: format, minimum)
-                    maxField.text = NSString(format: format, maximum)
-                    aveField.text = NSString(format: format, sum / Double(results.count))
+                    minField.text = String(format: format, minimum)
+                    maxField.text = String(format: format, maximum)
+                    aveField.text = String(format: format, sum / Double(results.count))
 
                     graphView.maxValue = CGFloat(maximum)
                 }

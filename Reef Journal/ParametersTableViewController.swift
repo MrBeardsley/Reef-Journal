@@ -23,7 +23,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
 
     // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder) {
-        appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         super.init(coder: aDecoder)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object:nil)
     }
@@ -108,7 +108,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cellIdentifier = "ParameterCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
         if let textLabel = cell.textLabel {
             
@@ -120,7 +120,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
                 if let value = recentMeasurements?[chemistrySection[indexPath.row]] {
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
-                    cell.detailTextLabel?.text = NSString(format: format, value) + " " + unitLabelForParameterType(parameter)
+                    cell.detailTextLabel?.text = String(format: format, value) + " " + unitLabelForParameterType(parameter)
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"
@@ -132,7 +132,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
                 if let value = recentMeasurements?[nutrientsSection[indexPath.row]] {
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
-                    cell.detailTextLabel?.text = NSString(format: format, value) + " " + unitLabelForParameterType(parameter)
+                    cell.detailTextLabel?.text = String(format: format, value) + " " + unitLabelForParameterType(parameter)
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"

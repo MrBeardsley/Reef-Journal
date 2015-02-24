@@ -21,12 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     // MARK: - Application Delegate Protocol Methods
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+    func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
         // Handle setting up the split view
-        let splitViewController = self.window!.rootViewController as UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as UINavigationController
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
+        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
 
@@ -42,14 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 for preference in preferencesArray {
                     if let type = preference.objectForKey("Type") as? NSString {
                         if type != "PSGroupSpecifier" {
-                            registerableDictionary[preference["Key"] as String] = preference["DefaultValue"]
+                            registerableDictionary[preference["Key"] as! String] = preference["DefaultValue"]
                         }
                     }
                 }
 
                 registerableDictionary["LastParameter"] = "Default"
 
-                NSUserDefaults.standardUserDefaults().registerDefaults(registerableDictionary)
+                NSUserDefaults.standardUserDefaults().registerDefaults(registerableDictionary as [NSObject : AnyObject])
 
             }
         }
@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.EpicKiwiInteractive.CoreData" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as NSURL
+        return urls[urls.count-1] as! NSURL
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -131,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
@@ -165,6 +165,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
         }
     }
-
 }
 

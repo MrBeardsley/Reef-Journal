@@ -39,7 +39,7 @@ class DetailViewController: UIViewController {
 
     // MARK: - Init/Deinit
     required init(coder aDecoder: NSCoder) {
-        appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = format
         super.init(coder: aDecoder)
@@ -110,7 +110,7 @@ class DetailViewController: UIViewController {
 
 
         // Coredata fetch to find the most recent measurement
-        if let type: NSString = self.navigationItem.title {
+        if let type = self.navigationItem.title {
             let context = appDelegate.managedObjectContext
             let fetchRequest = NSFetchRequest(entityName: entityName)
             let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
@@ -122,8 +122,8 @@ class DetailViewController: UIViewController {
             if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
                 if let aMeasurement = results.last as? Measurement {
                     let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
-                    let format = "%." + String(decimalPlaces) + "f"
-                    valueTextLabel.text = NSString(format: format, aMeasurement.value) + " " + unitLabelForParameterType(self.parameterType!)
+                    let numberFormat = "%." + String(decimalPlaces) + "f"
+                    valueTextLabel.text = String(format: numberFormat, aMeasurement.value) + " " + unitLabelForParameterType(self.parameterType!)
                 }
             }
         }
@@ -143,7 +143,7 @@ class DetailViewController: UIViewController {
 
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
-            valueTextLabel.text = NSString(format: valueFormat, aMeasurement.value)
+            valueTextLabel.text = String(format: valueFormat, aMeasurement.value)
         }
         else {
             valueTextLabel.text = "No Value"
@@ -180,7 +180,7 @@ class DetailViewController: UIViewController {
             aMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
         }
         else {
-            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: appDelegate.managedObjectContext!) as Measurement
+            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: appDelegate.managedObjectContext!) as! Measurement
             newMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
             newMeasurement.type = self.navigationItem.title!
             newMeasurement.day = self.dayFromDate(self.datePicker.date).timeIntervalSinceReferenceDate
@@ -203,7 +203,7 @@ class DetailViewController: UIViewController {
 private extension DetailViewController {
     func measurementForDate(date: NSDate) -> Measurement? {
         let day = self.dayFromDate(date)
-        let type: NSString = self.navigationItem.title!
+        let type = self.navigationItem.title!
         let context = appDelegate.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName: entityName)
         let predicate = NSPredicate(format: "type == %@ AND day == %@", argumentArray: [type, day])
