@@ -221,7 +221,7 @@ private extension DetailViewController {
     }
 
     func dayFromDate(date: NSDate) -> NSDate {
-        let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
+        let flags = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components(flags, fromDate: date)
         return calendar.dateFromComponents(components)!

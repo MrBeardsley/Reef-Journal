@@ -203,7 +203,7 @@ class GraphView: UIScrollView {
     }
 
     private func differenceBetweenRecentDate(recentDate: NSDate, olderDate: NSDate) -> Int {
-        let flags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
+        let flags = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay
         let difference = calendar.components(flags, fromDate: olderDate, toDate: recentDate, options: nil)
 
         return difference.day

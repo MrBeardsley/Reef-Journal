@@ -23,6 +23,8 @@
 		83C99868196F80C9008E23B1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C99867196F80C9008E23B1 /* GraphView.swift */; };
 		83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C7119DCFF63005B99A4 /* Temperature.swift */; };
 		83E0D5871947DD9400DE1779 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83E0D5851947DD9400DE1779 /* DataModel.xcdatamodeld */; };
+		83E5E0711A9D57BC00ECA17E /* NumberSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5E0701A9D57BC00ECA17E /* NumberSlider.swift */; };
+		83E5E0731A9D5A9500ECA17E /* NumberSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5E0721A9D5A9500ECA17E /* NumberSliderView.swift */; };
 		83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,8 @@
 		83DA1C7119DCFF63005B99A4 /* Temperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		83E0D5841947DA3400DE1779 /* Reef Journal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Reef Journal.entitlements"; sourceTree = "<group>"; };
 		83E0D5861947DD9400DE1779 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		83E5E0701A9D57BC00ECA17E /* NumberSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberSlider.swift; sourceTree = "<group>"; };
+		83E5E0721A9D5A9500ECA17E /* NumberSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberSliderView.swift; sourceTree = "<group>"; };
 		83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +135,7 @@
 		83AA7E9E1947D63A00CB9D0F /* Reef Journal */ = {
 			isa = PBXGroup;
 			children = (
+				83E5E06F1A9D57A100ECA17E /* Slider */,
 				8395474E19C890EA00529B8B /* Types.swift */,
 				83C010E319DCE7BB0073BE5F /* Functions.swift */,
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
@@ -171,6 +176,15 @@
 				83AA7EB51947D63B00CB9D0F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83E5E06F1A9D57A100ECA17E /* Slider */ = {
+			isa = PBXGroup;
+			children = (
+				83E5E0701A9D57BC00ECA17E /* NumberSlider.swift */,
+				83E5E0721A9D5A9500ECA17E /* NumberSliderView.swift */,
+			);
+			name = Slider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +231,7 @@
 		83AA7E941947D63A00CB9D0F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Epic Kiwi Interactive";
 				TargetAttributes = {
@@ -285,11 +300,13 @@
 				83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */,
 				83E0D5871947DD9400DE1779 /* DataModel.xcdatamodeld in Sources */,
 				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,
+				83E5E0731A9D5A9500ECA17E /* NumberSliderView.swift in Sources */,
 				833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */,
 				8395474F19C890EA00529B8B /* Types.swift in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,
 				83C99868196F80C9008E23B1 /* GraphView.swift in Sources */,
+				83E5E0711A9D57BC00ECA17E /* NumberSlider.swift in Sources */,
 				83C3F2F2199D768700756164 /* Measurement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

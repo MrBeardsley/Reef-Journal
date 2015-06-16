@@ -23,47 +23,47 @@ class Temperature_Struct: XCTestCase {
     
     func testFahrenheitInit() {
         let testValue = 98.6
-        var temp = Temperature(fromFahrenheit: testValue)
+        var temp = Temperature(testValue)
         XCTAssert(temp.fahrenheit == testValue, "Pass")
     }
     
     func testFahrenheitProperty() {
         let testValue = 75.3
-        var temp = Temperature(fromFahrenheit: 50.0)
+        var temp = Temperature(50.0)
         temp.fahrenheit = testValue
         XCTAssert(temp.fahrenheit == testValue, "Pass")
     }
     
     func testFahrenheitToCelciusBoilingPoint() {
-        var boilingPoint = Temperature(fromFahrenheit: 212.0)
+        var boilingPoint = Temperature(212.0)
         XCTAssert(boilingPoint.celcius == 100.0, "Pass")
     }
 
     func testFahrenheitToCelciusFreezingPoint() {
-        var freezingTemp = Temperature(fromFahrenheit: 32.0)
+        var freezingTemp = Temperature(32.0)
         XCTAssert(freezingTemp.celcius == 0.0, "Pass")
     }
     
     func testCelciusInit() {
         let testValue = 98.6
-        var temp = Temperature(fromCelcius: testValue)
+        var temp = Temperature(testValue, unit: .Celcius)
         XCTAssert(temp.celcius == testValue, "Pass")
     }
     
     func testCelciusProperty() {
         let testValue = 75.3
-        var temp = Temperature(fromCelcius: 50.0)
+        var temp = Temperature(50.0, unit: .Celcius)
         temp.celcius = testValue
         XCTAssert(temp.celcius == testValue, "Pass")
     }
 
     func testCelciusToFahrenheitBoilingPoint() {
-        var boilingPoint = Temperature(fromCelcius: 100.0)
+        var boilingPoint = Temperature(100.0, unit: .Celcius)
         XCTAssert(boilingPoint.fahrenheit == 212.0, "Pass")
     }
 
     func testCelciusToFahrenheitFreezingPoint() {
-        var freezingTemp = Temperature(fromCelcius: 0.0)
+        var freezingTemp = Temperature(0.0, unit: .Celcius)
         XCTAssert(freezingTemp.fahrenheit == 32.0, "Pass")
     }
 }

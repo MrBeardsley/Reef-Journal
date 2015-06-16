@@ -6,55 +6,37 @@
 //  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
 //
 
-import Foundation
+public struct Temperature : Equatable, Comparable {
 
-public struct Temperature {
-    public var fahrenheit: Double = 0.0 // Store all values in Fahrenheit by default
-    public var celcius: Double {
-        get {
-            return (fahrenheit - 32.0) * 5.0 / 9.0
-        }
-        
-        set {
-            fahrenheit = (newValue * 9.0 / 5.0) + 32.0
-        }
+    public var celcius: Double = 0
+    public var fahrenheit: Double {
+        get { return celcius * 9/5 + 32 }
+        set { celcius = (newValue - 32) * 5/9 }
     }
 
-    public var preferredTemperature: Double? {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let preferenceValue = userDefaults.valueForKey(PreferenceIdentifier.TemperatureUnits.rawValue) as? Int {
-            switch TemperatureUnit(rawInt: preferenceValue) {
-            case .Fahrenheit:
-                return self.fahrenheit
-            case .Celcius:
-                return self.celcius
-            }
-        }
-        else {
-            return nil
+    public init(_ temp: Double, unit: TemeratureUnit = TemeratureUnit.Fahrenheit) {
+        switch unit {
+        case .Fahrenheit:
+            fahrenheit = temp
+        case .Celcius:
+            celcius = temp
         }
     }
+}
 
-    public init(fromFahrenheit: Double) {
-        self.fahrenheit = fromFahrenheit
-    }
-    
-    public init(fromCelcius: Double) {
-        self.celcius = fromCelcius
-    }
-    
-    public init?(preferredTemp: Double) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let preferenceValue = userDefaults.valueForKey(PreferenceIdentifier.TemperatureUnits.rawValue) as? Int {
-            switch TemperatureUnit(rawInt: preferenceValue) {
-            case .Fahrenheit:
-                self.init(fromFahrenheit: preferredTemp)
-            case .Celcius:
-                self.init(fromCelcius: preferredTemp)
-            }
-        }
-        else {
-            return nil
-        }
-    }
+public func ==(lhs: Temperature, rhs: Temperature) -> Bool {
+    return lhs.celcius == rhs.celcius
+}
+
+public func <(lhs: Temperature, rhs: Temperature) -> Bool {
+    return lhs.celcius < rhs.celcius
+}
+
+public enum TemeratureUnit {
+    case Celcius
+    case Fahrenheit
+}
+
+extension Temperature: Printable {
+    public var description: String { get { return "\(celcius) degrees Celcius, \(fahrenheit) degrees Fahrenheit" } }
 }
