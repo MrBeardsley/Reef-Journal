@@ -21,36 +21,29 @@ class Alkalinity_Struct: XCTestCase {
         super.tearDown()
     }
 
-    func testDKHInit() {
-        let testValue: Double = 10.0
-        let alk = Alkalinity(testValue, unit: .DKH)
+    func testInit() {
+        let testValue: Double = 14
+        let alk = Alkalinity(testValue)
         XCTAssert(alk.dkh == testValue, "Pass")
     }
     
-    func testDKHProperty() {
-        let testValue = 9.3
-        var alk = Alkalinity(15)
-        alk.dkh = testValue
-        XCTAssert(alk.dkh == testValue, "Pass")
-    }
-    
-    func testMeqLInit() {
-        let testValue = 4.2
-        let alk = Alkalinity(testValue, unit: .MeqL)
-        XCTAssert(alk.meqL == testValue, "Pass")
+    func testMeqLProperty() {
+        let alk = Alkalinity(14)
+        XCTAssert(alk.meqL == 5, "Pass")
     }
 
-    func testMeqLProperty() {
-        let testValue = 4.2
-        let alk = Alkalinity(testValue, unit: .MeqL)
-        XCTAssert(alk.meqL == testValue, "Pass")
+    func testPPMProperty() {
+        let alk = Alkalinity(14)
+        XCTAssert(alk.ppt == 250, "Pass")
     }
     
-//    func testPPTInit() {
-//        let alk = 134.0
-//        var measurement = Alkalinity(fromPPT: alk)
-//        XCTAssert(measurement.ppt == alk, "Pass")
-//    }
-    
-    
+    func testPPTInit() {
+        let alk = Alkalinity(250, unit: .PPT)
+        XCTAssert(alk.meqL == 5, "Pass")
+    }
+
+    func testMegLInit() {
+        let alk = Alkalinity(5, unit: .MeqL)
+        XCTAssert(alk.dkh == 14, "Pass")
+    }
 }
