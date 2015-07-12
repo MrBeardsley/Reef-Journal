@@ -34,11 +34,11 @@ class Alkalinity_Struct: XCTestCase {
 
     func testPPMProperty() {
         let alk = Alkalinity(14)
-        XCTAssert(alk.ppt == 250, "Pass")
+        XCTAssert(alk.ppm == 250, "Pass")
     }
     
     func testPPTInit() {
-        let alk = Alkalinity(250, unit: .PPT)
+        let alk = Alkalinity(250, unit: .PPM)
         XCTAssert(alk.meqL == 5, "Pass")
     }
 

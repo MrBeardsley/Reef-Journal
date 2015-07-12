@@ -26,21 +26,22 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
            let alkUnit = AlkalinityUnit(rawValue: intValue) {
             switch alkUnit {
             case .DKH, .MeqL: return 1
-            case .PPT: return 0
+            case .PPM: return 0
             }
         }
         else {
             return 0
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int {
-            switch SalinityUnit(rawInt: intValue) {
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+           let salUnit = SalinityUnit(rawValue: intValue) {
+            switch salUnit {
             case .SG: return 3
-            case .PPT: return 0
+            case .PSU: return 0
             }
         }
         else {
-            return 3
+            return 0
         }
     }
 }
@@ -80,19 +81,23 @@ func unitLabelForParameterType(type: Parameter) -> String {
                 return AlkalinityLabel.DKH.rawValue
             case .MeqL:
                 return AlkalinityLabel.MeqL.rawValue
-            case .PPT:
-                return AlkalinityLabel.PPT.rawValue
+            case .PPM:
+                return AlkalinityLabel.PPM.rawValue
             }
         }
         else {
             return ""
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int {
-            return SalinityUnit(rawInt: intValue).rawValue
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+            let salUnit = SalinityUnit(rawValue: intValue) {
+                switch salUnit {
+                case .SG: return SalinityLabel.SG.rawValue
+                case .PSU: return SalinityLabel.PSU.rawValue
+                }
         }
         else {
-            return SalinityUnit.SG.rawValue
+            return ""
         }
     case .pH:
         return ""

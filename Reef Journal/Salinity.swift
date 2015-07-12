@@ -6,46 +6,42 @@
 //  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
 //
 
-import Foundation
+import Darwin  // Needed for the round function
 
-public struct Salinity {
-    public var specificGravity: Double = 0.0
-    public var meqL: Double {return specificGravity }
-    public var ppt: Double {return specificGravity }
-    
-    public init(sal: Double) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let preferenceValue = userDefaults.valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int {
-            switch SalinityUnit(rawInt: preferenceValue) {
-            case .SG:
-                specificGravity = sal
-            case .PPT:
-                specificGravity = sal
-            }
-        }
+struct Salinity {
+    var sg: Double = 0.0
+    var psu: Double {
+        get { return round((sg - 1) / 0.00075333333333) }
+        set { sg = round((newValue * 0.00075333333333 + 1) * 10000) / 10000 }
     }
-    
-    private func sgFromPPT(value: Double) -> Double {
-        return 0.0
+
+    init(_ sal: Double, unit: SalinityUnit = .SG) {
+        switch unit {
+        case .SG:
+            sg = sal
+        case .PSU:
+            psu = sal
+        }
     }
 }
 
+func ==(lhs: Salinity, rhs: Salinity) -> Bool {
+    return lhs.sg == rhs.sg
+}
 
+func <(lhs: Salinity, rhs: Salinity) -> Bool {
+    return lhs.sg < rhs.sg
+}
 
+extension Salinity: CustomStringConvertible {
+    var description: String { get { return "" } }
+}
 
-enum SalinityUnit: String {
-    case SG = "sg"
-    case PPT = "ppt"
+enum SalinityUnit: Int {
+    case SG = 0, PSU
+}
 
-    init (rawInt: Int) {
-        switch rawInt {
-        case 0:
-            self = .SG
-        case 1:
-            self = .PPT
-
-        default:
-            self = .SG
-        }
-    }
+enum SalinityLabel: String {
+    case SG = "dKH"
+    case PSU = "PSU"
 }

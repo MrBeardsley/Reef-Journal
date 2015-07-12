@@ -30,6 +30,7 @@
 		83E5E0731A9D5A9500ECA17E /* NumberSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5E0721A9D5A9500ECA17E /* NumberSliderView.swift */; };
 		83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */; };
 		83EF57D31B52A2570071D29C /* Reef_JournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EF57D21B52A2570071D29C /* Reef_JournalUITests.swift */; };
+		83EF57DB1B52E4110071D29C /* SalinityStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EF57DA1B52E4110071D29C /* SalinityStruct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		83EF57D01B52A2570071D29C /* Reef JournalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reef JournalUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83EF57D21B52A2570071D29C /* Reef_JournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reef_JournalUITests.swift; sourceTree = "<group>"; };
 		83EF57D41B52A2570071D29C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83EF57DA1B52E4110071D29C /* SalinityStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalinityStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				83B9B65E19E0CAA70040BBF3 /* AlkalinityStruct.swift */,
+				83EF57DA1B52E4110071D29C /* SalinityStruct.swift */,
 				83AA7EB61947D63B00CB9D0F /* TemperatureStruct.swift */,
 				83AA7EB41947D63B00CB9D0F /* Supporting Files */,
 			);
@@ -393,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B9B65F19E0CAA70040BBF3 /* AlkalinityStruct.swift in Sources */,
+				83EF57DB1B52E4110071D29C /* SalinityStruct.swift in Sources */,
 				83AA7EB71947D63B00CB9D0F /* TemperatureStruct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -627,6 +631,7 @@
 				83EF57D81B52A2570071D29C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -6,15 +6,13 @@
 //  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
 //
 
-import Foundation
-
 struct Alkalinity {
     var dkh: Double {
         get { return meqL * 2.8 }
         set { meqL = newValue / 2.8 }
     }
     var meqL: Double = 0
-    var ppt: Double {
+    var ppm: Double {
         get { return meqL * 50.0 }
         set { meqL = newValue / 50.0 }
     }
@@ -25,8 +23,8 @@ struct Alkalinity {
             dkh = alk
         case .MeqL:
             meqL = alk
-        case .PPT:
-            ppt = alk
+        case .PPM:
+            ppm = alk
         }
     }
 }
@@ -44,11 +42,11 @@ extension Alkalinity: CustomStringConvertible {
 }
 
 enum AlkalinityUnit: Int {
-    case DKH = 0, MeqL, PPT
+    case DKH = 0, MeqL, PPM
 }
 
 enum AlkalinityLabel: String {
     case DKH = "dKH"
     case MeqL = "meq/L"
-    case PPT = "ppt"
+    case PPM = "ppm"
 }
