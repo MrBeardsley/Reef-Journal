@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 
-class ParametersTableViewController: UITableViewController, ParentControllerDelegate {
+class ParametersTableViewController: UITableViewController {
 
     // MARK: - Properties
     let entityName = "Measurement"
@@ -32,18 +32,15 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-//            self.clearsSelectionOnViewWillAppear = false
-//            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
-//        }
-//    }
-
     // MARK: - View Management
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadTableView(nil)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        super.viewWillAppear(animated)
     }
 
 
@@ -76,17 +73,14 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "showDetail" {
-            if let path = self.tableView.indexPathForSelectedRow {
-                if let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
-                    if let navController = segue.destinationViewController as? UINavigationController {
-                        if let detailViewController = navController.topViewController as? DetailViewController {
+            if let path = self.tableView.indexPathForSelectedRow,
+               let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text,
+               let navController = segue.destinationViewController as? UINavigationController,
+               let detailViewController = navController.topViewController as? DetailViewController  {
                             detailViewController.parameterType = Parameter(rawValue: title)
                             detailViewController.navigationItem.title = title
                             detailViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                             detailViewController.navigationItem.leftItemsSupplementBackButton = true
-                        }
-                    }
-                }
             }
         }
     }

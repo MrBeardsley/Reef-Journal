@@ -113,9 +113,3 @@ func parameterForPreference(preference: PreferenceIdentifier) -> Parameter {
     case .EnablePhosphate: return Parameter.Phosphate
     }
 }
-
-let parameterList = [Parameter.Salinity.rawValue, Parameter.Temperature.rawValue, Parameter.Alkalinity.rawValue, Parameter.Calcium.rawValue, Parameter.Magnesium.rawValue, Parameter.pH.rawValue, Parameter.Strontium.rawValue, Parameter.Potasium.rawValue, Parameter.Ammonia.rawValue, Parameter.Nitrite.rawValue, Parameter.Nitrate.rawValue, Parameter.Phosphate.rawValue]
-
-protocol ParentControllerDelegate {
-    func refreshData()
-}

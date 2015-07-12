@@ -26,7 +26,6 @@ class DetailViewController: UIViewController {
     let format = "MMMM dd ',' yyyy"
     let dateFormatter: NSDateFormatter
     var parameterType: Parameter?
-    var delegate: ParentControllerDelegate?
     lazy var valueFormat: String = {
 
         if (parameterTypeDisplaysDecimal(self.parameterType!)){
@@ -61,6 +60,10 @@ class DetailViewController: UIViewController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
 
         if parameterType == nil {
+
+            detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
+
+
             if let defaultsString = userDefaults.stringForKey("LastParameter") {
                 if let parameterFromDefaults = Parameter(rawValue: defaultsString) {
                     parameterType = parameterFromDefaults
@@ -132,11 +135,11 @@ class DetailViewController: UIViewController {
 //        }
     }
 
-    override func viewWillDisappear(animated: Bool) {
-        if let parent = delegate {
-            parent.refreshData()
-        }
-    }
+//    override func viewWillDisappear(animated: Bool) {
+//        if let parent = delegate {
+//            parent.refreshData()
+//        }
+//    }
 
     // MARK: - Interface Responders
     @IBAction func pickerDidChange(sender: UIDatePicker) {
