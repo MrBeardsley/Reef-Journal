@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Reef_Journal
+@testable import Reef_Journal
 
 class Temperature_Struct: XCTestCase {
     
@@ -35,18 +35,18 @@ class Temperature_Struct: XCTestCase {
     }
     
     func testFahrenheitToCelciusBoilingPoint() {
-        var boilingPoint = Temperature(212.0)
+        let boilingPoint = Temperature(212.0)
         XCTAssert(boilingPoint.celcius == 100.0, "Pass")
     }
 
     func testFahrenheitToCelciusFreezingPoint() {
-        var freezingTemp = Temperature(32.0)
+        let freezingTemp = Temperature(32.0)
         XCTAssert(freezingTemp.celcius == 0.0, "Pass")
     }
     
     func testCelciusInit() {
         let testValue = 98.6
-        var temp = Temperature(testValue, unit: .Celcius)
+        let temp = Temperature(testValue, unit: .Celcius)
         XCTAssert(temp.celcius == testValue, "Pass")
     }
     

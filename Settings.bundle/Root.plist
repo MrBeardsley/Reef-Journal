@@ -16,7 +16,7 @@
 			<key>Title</key>
 			<string>Temperature</string>
 			<key>Key</key>
-			<string>temperatureUnits</string>
+			<string>TemperatureUnits</string>
 			<key>DefaultValue</key>
 			<real>0</real>
 			<key>Titles</key>
@@ -36,7 +36,7 @@
 			<key>Title</key>
 			<string>Salinity</string>
 			<key>Key</key>
-			<string>salinityUnits</string>
+			<string>SalinityUnits</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
 			<key>Titles</key>
@@ -56,7 +56,7 @@
 			<key>Title</key>
 			<string>Alkalinity</string>
 			<key>Key</key>
-			<string>alkalinityUnits</string>
+			<string>AlkalinityUnits</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
 			<key>Titles</key>
@@ -84,7 +84,7 @@
 			<key>Title</key>
 			<string>Temperature</string>
 			<key>Key</key>
-			<string>enableTemperature</string>
+			<string>EnableTemperature</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -94,7 +94,7 @@
 			<key>Title</key>
 			<string>Salinity</string>
 			<key>Key</key>
-			<string>enableSalinity</string>
+			<string>EnableSalinity</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -104,7 +104,7 @@
 			<key>Title</key>
 			<string>pH</string>
 			<key>Key</key>
-			<string>enablePH</string>
+			<string>EnablePH</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -112,7 +112,7 @@
 			<key>DefaultValue</key>
 			<true/>
 			<key>Key</key>
-			<string>enableAlkalinity</string>
+			<string>EnableAlkalinity</string>
 			<key>Title</key>
 			<string>Alkalinity</string>
 			<key>Type</key>
@@ -124,7 +124,7 @@
 			<key>Title</key>
 			<string>Calcium</string>
 			<key>Key</key>
-			<string>enableCalcium</string>
+			<string>EnableCalcium</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -134,7 +134,7 @@
 			<key>Title</key>
 			<string>Magnesium</string>
 			<key>Key</key>
-			<string>enableMagnesium</string>
+			<string>EnableMagnesium</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -144,7 +144,7 @@
 			<key>Title</key>
 			<string>Strontium</string>
 			<key>Key</key>
-			<string>enableStrontium</string>
+			<string>EnableStrontium</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -154,7 +154,7 @@
 			<key>Title</key>
 			<string>Potassium</string>
 			<key>Key</key>
-			<string>enablePotassium</string>
+			<string>EnablePotassium</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -164,7 +164,7 @@
 			<key>Title</key>
 			<string>Ammonia</string>
 			<key>Key</key>
-			<string>enableAmmonia</string>
+			<string>EnableAmmonia</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -174,7 +174,7 @@
 			<key>Title</key>
 			<string>Nitrite</string>
 			<key>Key</key>
-			<string>enableNitrite</string>
+			<string>EnableNitrite</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -184,7 +184,7 @@
 			<key>Title</key>
 			<string>Nitrate</string>
 			<key>Key</key>
-			<string>enableNitrate</string>
+			<string>EnableNitrate</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -194,7 +194,7 @@
 			<key>Title</key>
 			<string>Phosphate</string>
 			<key>Key</key>
-			<string>enablePhosphate</string>
+			<string>EnablePhosphate</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

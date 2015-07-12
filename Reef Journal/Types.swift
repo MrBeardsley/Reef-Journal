@@ -23,77 +23,25 @@ enum Parameter: String {
     case Phosphate
 }
 
-public enum PreferenceIdentifier: String {
-    case TemperatureUnits = "temperatureUnits"
-    case SalinityUnits = "salinityUnits"
-    case AlkalinityUnits = "alkalinityUnits"
-    case EnableTemperature = "enableTemperature"
-    case EnableSalinity = "enableSalinity"
-    case EnablePH = "enablePH"
-    case EnableAlkalinity = "enableAlkalinity"
-    case EnableCalcium = "enableCalcium"
-    case EnableMagnesium = "enableMagnesium"
-    case EnableStrontium = "enableStrontium"
-    case EnablePotassium = "enablePotassium"
-    case EnableAmmonia = "enableAmmonia"
-    case EnableNitrite = "enableNitrite"
-    case EnableNitrate = "enableNitrate"
-    case EnablePhosphate = "enablePhosphate"    
+enum SettingIdentifier: String {
+    case TemperatureUnits
+    case SalinityUnits
+    case AlkalinityUnits
+    case EnableTemperature
+    case EnableSalinity
+    case EnablePH
+    case EnableAlkalinity
+    case EnableCalcium
+    case EnableMagnesium
+    case EnableStrontium
+    case EnablePotassium
+    case EnableAmmonia
+    case EnableNitrite
+    case EnableNitrate
+    case EnablePhosphate
 }
 
-public enum AlkalinityUnit: String {
-    case DKH = "dKH"
-    case MeqL = "meq/L"
-    case PPT = "ppt"
-
-    init (rawInt: Int) {
-        switch rawInt {
-        case 0:
-            self = .DKH
-        case 1:
-            self = .MeqL
-        case 2:
-            self = .PPT
-        default:
-            self = .DKH
-        }
-    }
-}
-
-public enum SalinityUnit: String {
-    case SG = "sg"
-    case PPT = "ppt"
-
-    init (rawInt: Int) {
-        switch rawInt {
-        case 0:
-            self = .SG
-        case 1:
-            self = .PPT
-
-        default:
-            self = .SG
-        }
-    }
-}
-
-public enum TemperatureUnit: String {
-    case Fahrenheit = "\u{2109}"
-    case Celcius = "\u{2103}"
-
-    init (rawInt: Int) {
-        switch rawInt {
-        case 0:
-            self = .Fahrenheit
-        case 1:
-            self = .Celcius
-        default:
-            self = .Fahrenheit
-        }
-    }
-}
-
-func parameterForPreference(preference: PreferenceIdentifier) -> Parameter {
+func parameterForPreference(preference: SettingIdentifier) -> Parameter {
 
     switch preference {
     case .TemperatureUnits: return Parameter.Temperature

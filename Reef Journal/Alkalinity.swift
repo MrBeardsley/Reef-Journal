@@ -8,73 +8,47 @@
 
 import Foundation
 
-public struct Alkalinity {
-    public var meqL: Double = 0.0 // Store all values in meq / L
- /*   public var dKH: Double {
-        get {
-            return self.meqL * 2.8
-        }
-        
-        set {
-            self.meqL = newValue / 2.8
-        }
+struct Alkalinity {
+    var dkh: Double {
+        get { return meqL * 2.8 }
+        set { meqL = newValue / 2.8 }
     }
-    public var ppt: Double {
-        
-        get {
-            return self.meqL * 50
-        }
-        
-        set {
-            self.meqL = newValue / 50
-        }
-    }
-    
-    
-    public var preferredAlk: Double? {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let preferenceValue = userDefaults.valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
-            switch AlkalinityUnit(rawInt: preferenceValue) {
-            case .DKH:
-                return self.dKH
-            case .MeqL:
-                return self.meqL
-            case .PPT:
-                return self.ppt
-            }
-        }
-        else {
-            return nil
-        }
+    var meqL: Double = 0
+    var ppt: Double {
+        get { return meqL * 50.0 }
+        set { meqL = newValue / 50.0 }
     }
 
-    public init(fromDKH: Double) {
-        self.dKH = fromDKH
-    }
-    
-    public init(fromMeqL: Double) {
-        self.meqL = fromMeqL
-    }
-    
-    public init(fromPPT: Double) {
-        self.ppt = fromPPT
-    }
-    
-    public init?(preferredAlk: Double) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let preferenceValue = userDefaults.valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
-            switch AlkalinityUnit(rawInt: preferenceValue) {
-            case .DKH:
-                self.init(fromDKH: preferredAlk)
-            case .MeqL:
-                self.init(fromMeqL: preferredAlk)
-            case .PPT:
-                self.init(fromPPT: preferredAlk)
-            }
-        }
-        else {
-            return nil
+    init(_ alk: Double, unit: AlkalinityUnit = .DKH) {
+        switch unit {
+        case .DKH:
+            dkh = alk
+        case .MeqL:
+            meqL = alk
+        case .PPT:
+            ppt = alk
         }
     }
-    */
+}
+
+func ==(lhs: Alkalinity, rhs: Alkalinity) -> Bool {
+    return lhs.dkh == rhs.dkh
+}
+
+func <(lhs: Alkalinity, rhs: Alkalinity) -> Bool {
+    return lhs.dkh < rhs.dkh
+}
+
+extension Alkalinity: CustomStringConvertible {
+    var description: String { get { return "" } }
+}
+
+enum AlkalinityUnit: Int {
+    case DKH = 0, MeqL, PPT
+}
+
+enum AlkalinityLabel: String {
+    case DKH = "dKH"
+    case MeqL = "meq/L"
+    case PPT = "ppt"
 }

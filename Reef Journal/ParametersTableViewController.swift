@@ -15,8 +15,8 @@ class ParametersTableViewController: UITableViewController {
     // MARK: - Properties
     let entityName = "Measurement"
     let appDelegate: AppDelegate
-    let chemistryParameters: [PreferenceIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
-    let nutrientParameters: [PreferenceIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
+    let chemistryParameters: [SettingIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
+    let nutrientParameters: [SettingIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
     private var chemistrySection: [String] = []
     private var nutrientsSection: [String] = []
     private var recentMeasurements: [String : Double]?

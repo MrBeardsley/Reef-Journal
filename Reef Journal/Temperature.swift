@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
 //
 
-public struct Temperature : Equatable, Comparable {
+struct Temperature : Equatable, Comparable {
 
-    public var celcius: Double = 0
-    public var fahrenheit: Double {
+    var celcius: Double = 0
+    var fahrenheit: Double {
         get { return celcius * 9/5 + 32 }
         set { celcius = (newValue - 32) * 5/9 }
     }
 
-    public init(_ temp: Double, unit: TemeratureUnit = TemeratureUnit.Fahrenheit) {
+    init(_ temp: Double, unit: TemperatureUnit = .Fahrenheit) {
         switch unit {
         case .Fahrenheit:
             fahrenheit = temp
@@ -24,19 +24,23 @@ public struct Temperature : Equatable, Comparable {
     }
 }
 
-public func ==(lhs: Temperature, rhs: Temperature) -> Bool {
+func ==(lhs: Temperature, rhs: Temperature) -> Bool {
     return lhs.celcius == rhs.celcius
 }
 
-public func <(lhs: Temperature, rhs: Temperature) -> Bool {
+func <(lhs: Temperature, rhs: Temperature) -> Bool {
     return lhs.celcius < rhs.celcius
 }
 
-public enum TemeratureUnit {
-    case Celcius
-    case Fahrenheit
+extension Temperature: CustomStringConvertible {
+    var description: String { get { return "\(celcius) degrees Celcius, \(fahrenheit) degrees Fahrenheit" } }
 }
 
-extension Temperature: CustomStringConvertible {
-    public var description: String { get { return "\(celcius) degrees Celcius, \(fahrenheit) degrees Fahrenheit" } }
+enum TemperatureUnit: Int {
+    case Fahrenheit = 0, Celcius
+}
+
+enum TemperatureLabel: String {
+    case Fahrenheit = "\u{2109}"
+    case Celcius = "\u{2103}"
 }

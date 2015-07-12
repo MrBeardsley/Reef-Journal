@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Reef_Journal
+@testable import Reef_Journal
 
 class Alkalinity_Struct: XCTestCase {
 
@@ -22,28 +22,28 @@ class Alkalinity_Struct: XCTestCase {
     }
 
     func testDKHInit() {
-        let testValue = 10.0
-        var alk = Alkalinity(fromDKH: testValue)
-        XCTAssert(alk.dKH == testValue, "Pass")
+        let testValue: Double = 10.0
+        let alk = Alkalinity(testValue, unit: .DKH)
+        XCTAssert(alk.dkh == testValue, "Pass")
     }
     
     func testDKHProperty() {
         let testValue = 9.3
-        var alk = Alkalinity(fromDKH: 12.9)
-        alk.dKH = testValue
-        XCTAssert(alk.dKH == testValue, "Pass")
+        var alk = Alkalinity(15)
+        alk.dkh = testValue
+        XCTAssert(alk.dkh == testValue, "Pass")
     }
     
     func testMeqLInit() {
-        let alk = 4.2
-        var measurement = Alkalinity(fromMeqL: alk)
-        XCTAssert(measurement.meqL == alk, "Pass")
+        let testValue = 4.2
+        let alk = Alkalinity(testValue, unit: .MeqL)
+        XCTAssert(alk.meqL == testValue, "Pass")
     }
-    
+
     func testMeqLProperty() {
-        let alk = 4.2
-        var measurement = Alkalinity(fromMeqL: alk)
-        XCTAssert(measurement.meqL == alk, "Pass")
+        let testValue = 4.2
+        let alk = Alkalinity(testValue, unit: .MeqL)
+        XCTAssert(alk.meqL == testValue, "Pass")
     }
     
 //    func testPPTInit() {

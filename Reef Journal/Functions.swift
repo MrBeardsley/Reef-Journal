@@ -22,8 +22,9 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
     case .Temperature, .pH:
         return 1
     case .Alkalinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
-            switch AlkalinityUnit(rawInt: intValue) {
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+           let alkUnit = AlkalinityUnit(rawValue: intValue) {
+            switch alkUnit {
             case .DKH, .MeqL: return 1
             case .PPT: return 0
             }
@@ -32,7 +33,7 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
             return 0
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.SalinityUnits.rawValue) as? Int {
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int {
             switch SalinityUnit(rawInt: intValue) {
             case .SG: return 3
             case .PPT: return 0
@@ -72,14 +73,22 @@ func unitLabelForParameterType(type: Parameter) -> String {
     case .Calcium, .Magnesium, .Strontium, .Potasium, .Phosphate, .Ammonia, .Nitrite, .Nitrate:
         return "ppm"
     case .Alkalinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
-            return AlkalinityUnit(rawInt: intValue).rawValue
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+           let alkUnit = AlkalinityUnit(rawValue: intValue) {
+            switch alkUnit {
+            case .DKH:
+                return AlkalinityLabel.DKH.rawValue
+            case .MeqL:
+                return AlkalinityLabel.MeqL.rawValue
+            case .PPT:
+                return AlkalinityLabel.PPT.rawValue
+            }
         }
         else {
-            return AlkalinityUnit.DKH.rawValue
+            return ""
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.SalinityUnits.rawValue) as? Int {
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int {
             return SalinityUnit(rawInt: intValue).rawValue
         }
         else {
@@ -88,61 +97,17 @@ func unitLabelForParameterType(type: Parameter) -> String {
     case .pH:
         return ""
     case .Temperature:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(PreferenceIdentifier.TemperatureUnits.rawValue) as? Int {
-            return TemperatureUnit(rawInt: intValue).rawValue
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+           let tempUnit = TemperatureUnit(rawValue: intValue) {
+            switch tempUnit {
+            case .Fahrenheit:
+                return TemperatureLabel.Fahrenheit.rawValue
+            case.Celcius:
+                return TemperatureLabel.Celcius.rawValue
+            }
         }
         else {
-            return TemperatureUnit.Fahrenheit.rawValue
+            return ""
         }
     }
-}
-
-/**
-Takes a parameter and returns a string representing the unit label for the type of the parameter
-
-:param: type The type of parameter
-
-:returns: The unit of measure label
-*/
-func transformValueForUnit(type: Parameter, value: Double) -> Double {
-    let userDefaults = NSUserDefaults.standardUserDefaults()
-    switch type {
-    case .Alkalinity:
-        if let intValue = userDefaults.valueForKey(PreferenceIdentifier.AlkalinityUnits.rawValue) as? Int {
-
-            switch AlkalinityUnit(rawInt: intValue) {
-            case .DKH:
-                print("")
-            case .MeqL:
-                print("")
-            case .PPT:
-                print("")
-            }
-        }
-    case .Salinity:
-        if let intValue = userDefaults.valueForKey(PreferenceIdentifier.SalinityUnits.rawValue) as? Int {
-
-            switch SalinityUnit(rawInt: intValue) {
-            case .SG:
-                print("")
-            case .PPT:
-                print("")
-            }
-        }
-
-    case .Temperature:
-        if let intValue = userDefaults.valueForKey(PreferenceIdentifier.TemperatureUnits.rawValue) as? Int {
-
-            switch TemperatureUnit(rawInt: intValue) {
-            case .Fahrenheit:
-                print("")
-            case .Celcius:
-                print("")
-            }
-        }
-    default:
-        print("")
-    }
-
-    return 0.0
 }
