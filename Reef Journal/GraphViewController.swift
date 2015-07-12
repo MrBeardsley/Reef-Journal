@@ -24,7 +24,7 @@ class GraphViewController: UIViewController {
     var detailController: DetailViewController!
 
     // MARK: - Init/Deinit
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         super.init(coder: aDecoder)
 
@@ -44,7 +44,7 @@ class GraphViewController: UIViewController {
             let type = parent.navigationItem.title!
             let context = appDelegate.managedObjectContext
 
-            if let parameterType = Parameter(rawString: type as String) {
+            if let parameterType = Parameter(rawValue: type as String) {
                 graphView.parameterType = parameterType
             }
             else
@@ -56,13 +56,13 @@ class GraphViewController: UIViewController {
             let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
             fetchRequest.predicate = predicate
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: true)]
-    
-            var error: NSError?
-            if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
 
+
+            do {
+                let results = try context.executeFetchRequest(fetchRequest)
                 for item in results {
                     if let aMeasurement = item as? Measurement {
-                        graphView.dataPoints += [(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day), aMeasurement.value)]
+                        graphView.dataPoints.append((NSDate(timeIntervalSince1970: aMeasurement.day), aMeasurement.value))
                     }
                 }
 
@@ -71,7 +71,7 @@ class GraphViewController: UIViewController {
                     let maximum = graphView.dataPoints.reduce(Double.quietNaN, combine: { max($0, $1.1) })
                     let sum = graphView.dataPoints.reduce(0.0, combine: { $0 + $1.1})
                     var format: String
-                    if let parameterType = Parameter(rawString: type as String) {
+                    if let parameterType = Parameter(rawValue: type as String) {
                         let decimalPlaces = decimalPlacesForParameter(parameterType)
                         format = "%." + String(decimalPlaces) + "f"
                     }
@@ -92,10 +92,13 @@ class GraphViewController: UIViewController {
                     aveField.text = "No data entered"
                 }
             }
+            catch {
+
+            }
         }
     }
 
     func preferencesDidChange(notification: NSNotification?) {
-        println("Reload the graph in graph view Controller")
+        print("Reload the graph in graph view Controller")
     }
 }

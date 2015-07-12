@@ -8,50 +8,19 @@
 
 import Foundation
 
-public enum Parameter: String {
-    case Salinity = "Salinity"
-    case Temperature = "Temperature"
-    case Alkalinity = "Alkalinity"
-    case Calcium = "Calcium"
-    case Magnesium = "Magnesium"
-    case pH = "pH"
-    case Strontium = "Strontium"
-    case Potasium = "Potasium"
-    case Ammonia = "Ammonia"
-    case Nitrite = "Nitrite"
-    case Nitrate = "Nitrate"
-    case Phosphate = "Phosphate"
-
-    init?(rawString: String) {
-        switch rawString {
-        case "Salinity":
-            self = .Salinity
-        case "Temperature":
-            self = .Temperature
-        case "Alkalinity":
-            self = .Alkalinity
-        case "Calcium":
-            self = .Calcium
-        case "Magnesium":
-            self = .Magnesium
-        case "pH":
-            self = .pH
-        case "Strontium":
-            self = .Strontium
-        case "Potasium":
-            self = .Potasium
-        case "Ammonia":
-            self = .Ammonia
-        case "Nitrite":
-            self = .Nitrite
-        case "Nitrate":
-            self = .Nitrate
-        case "Phosphate":
-            self = .Phosphate
-        default:
-            return nil
-        }
-    }
+enum Parameter: String {
+    case Salinity
+    case Temperature
+    case Alkalinity
+    case Calcium
+    case Magnesium
+    case pH
+    case Strontium
+    case Potasium
+    case Ammonia
+    case Nitrite
+    case Nitrate
+    case Phosphate
 }
 
 public enum PreferenceIdentifier: String {
@@ -124,7 +93,7 @@ public enum TemperatureUnit: String {
     }
 }
 
-public func parameterForPreference(preference: PreferenceIdentifier) -> Parameter {
+func parameterForPreference(preference: PreferenceIdentifier) -> Parameter {
 
     switch preference {
     case .TemperatureUnits: return Parameter.Temperature

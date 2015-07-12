@@ -37,6 +37,6 @@ public enum TemeratureUnit {
     case Fahrenheit
 }
 
-extension Temperature: Printable {
+extension Temperature: CustomStringConvertible {
     public var description: String { get { return "\(celcius) degrees Celcius, \(fahrenheit) degrees Fahrenheit" } }
 }

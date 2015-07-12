@@ -87,15 +87,15 @@ class NumberSlider: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
 
-
-    override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+/*
+    func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
         super.beginTrackingWithTouch(touch, withEvent: event)
 
         return true
     }
 
 
-    override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+    func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
         super.continueTrackingWithTouch(touch, withEvent: event)
 
         let lastPoint = touch.locationInView(self)
@@ -107,7 +107,7 @@ class NumberSlider: UIControl {
         return true
     }
 
-    override func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
+    func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
         super.endTrackingWithTouch(touch, withEvent: event)
     }
 
@@ -257,5 +257,6 @@ class NumberSlider: UIControl {
         result = RadiansToDegrees(radians)
         return (result >= 0  ? result : result + 360.0);
     }
+*/
     
 }

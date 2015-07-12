@@ -22,7 +22,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     private var recentMeasurements: [String : Double]?
 
     // MARK: - Init/Deinit
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         super.init(coder: aDecoder)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object:nil)
@@ -32,13 +32,13 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            self.clearsSelectionOnViewWillAppear = false
-            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
-        }
-    }
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+//            self.clearsSelectionOnViewWillAppear = false
+//            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
+//        }
+//    }
 
     // MARK: - View Management
     override func viewDidLoad() {
@@ -75,16 +75,16 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        
-        if let path = self.tableView.indexPathForSelectedRow() {
-            if let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
-                if let navController = segue.destinationViewController as? UINavigationController {
-                    if let detailViewController = navController.topViewController as? DetailViewController {
-                        detailViewController.parameterType = Parameter(rawValue: title)
-                        detailViewController.navigationItem.title = title
-                        detailViewController.delegate = self
-                        detailViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                        detailViewController.navigationItem.leftItemsSupplementBackButton = true
+        if segue.identifier == "showDetail" {
+            if let path = self.tableView.indexPathForSelectedRow {
+                if let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
+                    if let navController = segue.destinationViewController as? UINavigationController {
+                        if let detailViewController = navController.topViewController as? DetailViewController {
+                            detailViewController.parameterType = Parameter(rawValue: title)
+                            detailViewController.navigationItem.title = title
+                            detailViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                            detailViewController.navigationItem.leftItemsSupplementBackButton = true
+                        }
                     }
                 }
             }
@@ -108,7 +108,7 @@ class ParametersTableViewController: UITableViewController, ParentControllerDele
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cellIdentifier = "ParameterCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as UITableViewCell
         
         if let textLabel = cell.textLabel {
             
@@ -171,16 +171,20 @@ private extension ParametersTableViewController {
 
         for item in parameterList {
             let fetchRequest = NSFetchRequest(entityName: entityName)
-            let predicate = NSPredicate(format: "type = %@", argumentArray: [item])
+            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [item])
             fetchRequest.predicate = predicate
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
             fetchRequest.fetchLimit = 1
 
-            var error: NSError?
-            if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
+            do {
+                let results = try context.executeFetchRequest(fetchRequest)
+
                 if let aMeasurement = results.last as? Measurement {
-                    recentMeasurements[aMeasurement.type] = aMeasurement.value
+                    recentMeasurements[aMeasurement.parameter!] = aMeasurement.value
                 }
+            }
+            catch {
+
             }
         }
 

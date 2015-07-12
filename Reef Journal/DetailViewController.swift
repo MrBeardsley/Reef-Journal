@@ -25,7 +25,7 @@ class DetailViewController: UIViewController {
     let entityName = "Measurement"
     let format = "MMMM dd ',' yyyy"
     let dateFormatter: NSDateFormatter
-    var parameterType: Parameter!
+    var parameterType: Parameter?
     var delegate: ParentControllerDelegate?
     lazy var valueFormat: String = {
 
@@ -38,7 +38,7 @@ class DetailViewController: UIViewController {
         }()
 
     // MARK: - Init/Deinit
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = format
@@ -62,10 +62,10 @@ class DetailViewController: UIViewController {
 
         if parameterType == nil {
             if let defaultsString = userDefaults.stringForKey("LastParameter") {
-                if let parameterFromDefaults = Parameter(rawString: defaultsString) {
+                if let parameterFromDefaults = Parameter(rawValue: defaultsString) {
                     parameterType = parameterFromDefaults
                     self.navigationItem.title = parameterType!.rawValue
-                    println(parameterType!.rawValue)
+                    print(parameterType!.rawValue)
                 }
                 else {
                     parameterType = self.firstEnabledParameter()
@@ -82,51 +82,54 @@ class DetailViewController: UIViewController {
         }
 
         // Setup the controls
-        let today = NSDate()
-        self.dateField.text = dateFormatter.stringFromDate(today)
-
-
-        datePicker.setDate(today, animated: false)
-        datePicker.maximumDate = NSDate()
-        valueTextLabel.textColor = self.view.tintColor
-        let numberToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
-        numberToolbar.items = [UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelNumberPad"),
-                               UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
-                               UIBarButtonItem(title: "Apply", style: UIBarButtonItemStyle.Done, target: self, action: "doneWithNumberPad")]
-        numberToolbar.sizeToFit()
-        inputTextField.inputAccessoryView = numberToolbar
-
-        if let parameterType = self.parameterType {
-            if parameterTypeDisplaysDecimal(parameterType) {
-                inputTextField.keyboardType = .DecimalPad
-            }
-            else {
-                inputTextField.keyboardType = .NumberPad
-            }
-        }
-        else {
-            inputTextField.keyboardType = .NumberPad
-        }
-
-
-        // Coredata fetch to find the most recent measurement
-        if let type = self.navigationItem.title {
-            let context = appDelegate.managedObjectContext
-            let fetchRequest = NSFetchRequest(entityName: entityName)
-            let predicate = NSPredicate(format: "type = %@", argumentArray: [type])
-            fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
-            fetchRequest.fetchLimit = 1
-
-            var error: NSError?
-            if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
-                if let aMeasurement = results.last as? Measurement {
-                    let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
-                    let numberFormat = "%." + String(decimalPlaces) + "f"
-                    valueTextLabel.text = String(format: numberFormat, aMeasurement.value) + " " + unitLabelForParameterType(self.parameterType!)
-                }
-            }
-        }
+//        let today = NSDate()
+//        self.dateField.text = dateFormatter.stringFromDate(today)
+//
+//
+//        datePicker.setDate(today, animated: false)
+//        datePicker.maximumDate = NSDate()
+//        valueTextLabel.textColor = self.view.tintColor
+//        let numberToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+//        numberToolbar.items = [UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelNumberPad"),
+//                               UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
+//                               UIBarButtonItem(title: "Apply", style: UIBarButtonItemStyle.Done, target: self, action: "doneWithNumberPad")]
+//        numberToolbar.sizeToFit()
+//        inputTextField.inputAccessoryView = numberToolbar
+//
+//        if let parameterType = self.parameterType {
+//            if parameterTypeDisplaysDecimal(parameterType) {
+//                inputTextField.keyboardType = .DecimalPad
+//            }
+//            else {
+//                inputTextField.keyboardType = .NumberPad
+//            }
+//        }
+//        else {
+//            inputTextField.keyboardType = .NumberPad
+//        }
+//
+//
+//        // Coredata fetch to find the most recent measurement
+//        if let type = self.navigationItem.title {
+//            let context = appDelegate.managedObjectContext
+//            let fetchRequest = NSFetchRequest(entityName: entityName)
+//            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [type])
+//            fetchRequest.predicate = predicate
+//            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+//            fetchRequest.fetchLimit = 1
+//
+//            do {
+//                let results = try context.executeFetchRequest(fetchRequest)
+//                if let aMeasurement = results.last as? Measurement {
+//                    let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
+//                    let numberFormat = "%." + String(decimalPlaces) + "f"
+//                    valueTextLabel.text = String(format: numberFormat, aMeasurement.value) + " " + unitLabelForParameterType(self.parameterType!)
+//                }
+//            }
+//            catch {
+//
+//            }
+//        }
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -163,7 +166,7 @@ class DetailViewController: UIViewController {
     }
 
     func preferencesDidChange(notification: NSNotification?) {
-        println("Reload the value in Detail view Controller")
+        print("Reload printue in Detail view Controller")
     }
 
     func cancelNumberPad() {
@@ -173,17 +176,17 @@ class DetailViewController: UIViewController {
 
     func doneWithNumberPad() {
         let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
-        let format = "%." + String(decimalPlaces) + "f"
-        valueTextLabel.text = inputTextField.text + " " + unitLabelForParameterType(self.parameterType!)
+        _ = "%." + String(decimalPlaces) + "f"
+        valueTextLabel.text = inputTextField.text! + " " + unitLabelForParameterType(self.parameterType!)
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
             aMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
         }
         else {
-            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: appDelegate.managedObjectContext!) as! Measurement
+            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: appDelegate.managedObjectContext) as! Measurement
             newMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
-            newMeasurement.type = self.navigationItem.title!
-            newMeasurement.day = self.dayFromDate(self.datePicker.date).timeIntervalSinceReferenceDate
+            newMeasurement.parameter = self.navigationItem.title!
+            newMeasurement.day = self.dayFromDate(self.datePicker.date).timeIntervalSince1970
         }
 
         appDelegate.saveContext()
@@ -206,24 +209,26 @@ private extension DetailViewController {
         let type = self.navigationItem.title!
         let context = appDelegate.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName: entityName)
-        let predicate = NSPredicate(format: "type == %@ AND day == %@", argumentArray: [type, day])
+        let predicate = NSPredicate(format: "parameter == %@ AND day == %@", argumentArray: [type, day])
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
 
-        var error: NSError?
-        if let results = context?.executeFetchRequest(fetchRequest, error: &error) {
+        do {
+            let results = try context.executeFetchRequest(fetchRequest)
             if let aMeasurement = results.last as? Measurement {
                 return aMeasurement
             }
+        }
+        catch {
+
         }
 
         return nil
     }
 
     func dayFromDate(date: NSDate) -> NSDate {
-        let flags = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(flags, fromDate: date)
+        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
         return calendar.dateFromComponents(components)!
     }
 

@@ -112,11 +112,11 @@ func transformValueForUnit(type: Parameter, value: Double) -> Double {
 
             switch AlkalinityUnit(rawInt: intValue) {
             case .DKH:
-                println("")
+                print("")
             case .MeqL:
-                println("")
+                print("")
             case .PPT:
-                println("")
+                print("")
             }
         }
     case .Salinity:
@@ -124,9 +124,9 @@ func transformValueForUnit(type: Parameter, value: Double) -> Double {
 
             switch SalinityUnit(rawInt: intValue) {
             case .SG:
-                println("")
+                print("")
             case .PPT:
-                println("")
+                print("")
             }
         }
 
@@ -135,14 +135,13 @@ func transformValueForUnit(type: Parameter, value: Double) -> Double {
 
             switch TemperatureUnit(rawInt: intValue) {
             case .Fahrenheit:
-                println("")
+                print("")
             case .Celcius:
-                println("")
+                print("")
             }
         }
     default:
-        println("")
-
+        print("")
     }
 
     return 0.0

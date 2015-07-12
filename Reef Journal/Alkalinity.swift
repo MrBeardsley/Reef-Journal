@@ -10,7 +10,7 @@ import Foundation
 
 public struct Alkalinity {
     public var meqL: Double = 0.0 // Store all values in meq / L
-    public var dKH: Double {
+ /*   public var dKH: Double {
         get {
             return self.meqL * 2.8
         }
@@ -76,4 +76,5 @@ public struct Alkalinity {
             return nil
         }
     }
+    */
 }
