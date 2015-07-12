@@ -60,10 +60,8 @@ class DetailViewController: UIViewController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
 
         if parameterType == nil {
-
-            detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
-
-
+            //detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
+            
             if let defaultsString = userDefaults.stringForKey("LastParameter") {
                 if let parameterFromDefaults = Parameter(rawValue: defaultsString) {
                     parameterType = parameterFromDefaults
