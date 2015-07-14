@@ -167,6 +167,7 @@
 				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
 				83C010E319DCE7BB0073BE5F /* Functions.swift */,
 				8395474E19C890EA00529B8B /* Types.swift */,
+				83E5E06F1A9D57A100ECA17E /* Slider */,
 				83AE76081B31102500C48C0E /* Graph */,
 				833D4AE61A3E17C300FF6B96 /* Parameters */,
 				835476D819646E9500D1994E /* Interface */,
@@ -208,7 +209,6 @@
 		83AE76081B31102500C48C0E /* Graph */ = {
 			isa = PBXGroup;
 			children = (
-				83E5E06F1A9D57A100ECA17E /* Slider */,
 				831386B0196F4A2900F0D0DD /* GraphViewController.swift */,
 				83C99867196F80C9008E23B1 /* GraphView.swift */,
 				83AE76061B310F9300C48C0E /* GraphAxesView.swift */,

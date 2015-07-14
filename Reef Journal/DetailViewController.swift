@@ -15,9 +15,7 @@ class DetailViewController: UIViewController {
 
     // MARK: - Interface Outlets
     @IBOutlet weak var detailNavigationItem: UINavigationItem!
-    @IBOutlet weak var valueTextLabel: UILabel!
     @IBOutlet weak var dateField: UILabel!
-    @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
 
     // MARK: - Properties
@@ -43,8 +41,6 @@ class DetailViewController: UIViewController {
         dateFormatter.dateFormat = format
         super.init(coder: aDecoder)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
     }
 
@@ -83,12 +79,12 @@ class DetailViewController: UIViewController {
         }
 
         // Setup the controls
-//        let today = NSDate()
-//        self.dateField.text = dateFormatter.stringFromDate(today)
-//
-//
-//        datePicker.setDate(today, animated: false)
-//        datePicker.maximumDate = NSDate()
+        let today = NSDate()
+        self.dateField.text = dateFormatter.stringFromDate(today)
+
+
+        datePicker.setDate(today, animated: false)
+        datePicker.maximumDate = NSDate()
 //        valueTextLabel.textColor = self.view.tintColor
 //        let numberToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
 //        numberToolbar.items = [UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelNumberPad"),
@@ -142,58 +138,19 @@ class DetailViewController: UIViewController {
     // MARK: - Interface Responders
     @IBAction func pickerDidChange(sender: UIDatePicker) {
 
-
         self.dateField.text = dateFormatter.stringFromDate(sender.date)
 
 
-        if let aMeasurement = self.measurementForDate(self.datePicker.date) {
-            valueTextLabel.text = String(format: valueFormat, aMeasurement.value)
-        }
-        else {
-            valueTextLabel.text = "No Value"
-        }
-    }
-
-    func keyboardDidShow(notification: NSNotification) {
-
-        //Assign new frame to your view
-        let currentFrame = self.view.bounds
-        self.view.frame = CGRect(x: currentFrame.origin.x, y: currentFrame.origin.y - keyboardOffset, width: currentFrame.width, height: currentFrame.height + keyboardOffset)
-    }
-
-    func keyboardDidHide(notification: NSNotification) {
-        let currentFrame = self.view.bounds
-        self.view.frame = CGRect(x: currentFrame.origin.x, y: currentFrame.origin.y, width: currentFrame.width, height: currentFrame.height - keyboardOffset)
+//        if let aMeasurement = self.measurementForDate(self.datePicker.date) {
+//            valueTextLabel.text = String(format: valueFormat, aMeasurement.value)
+//        }
+//        else {
+//            valueTextLabel.text = "No Value"
+//        }
     }
 
     func preferencesDidChange(notification: NSNotification?) {
         print("Reload printue in Detail view Controller")
-    }
-
-    func cancelNumberPad() {
-        inputTextField.text = ""
-        inputTextField.resignFirstResponder()
-    }
-
-    func doneWithNumberPad() {
-        let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
-        _ = "%." + String(decimalPlaces) + "f"
-        valueTextLabel.text = inputTextField.text! + " " + unitLabelForParameterType(self.parameterType!)
-
-        if let aMeasurement = self.measurementForDate(self.datePicker.date) {
-            aMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
-        }
-        else {
-            let newMeasurement: Measurement = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: appDelegate.managedObjectContext) as! Measurement
-            newMeasurement.value = NSString(string: valueTextLabel.text!).doubleValue
-            newMeasurement.parameter = self.navigationItem.title!
-            newMeasurement.day = self.dayFromDate(self.datePicker.date).timeIntervalSince1970
-        }
-
-        appDelegate.saveContext()
-
-        inputTextField.text = ""
-        inputTextField.resignFirstResponder()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {

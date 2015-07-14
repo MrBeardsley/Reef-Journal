@@ -31,12 +31,52 @@
                     <view key="view" contentMode="scaleToFill" id="svH-Pt-448">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="P3Y-Ch-e4m">
+                                <rect key="frame" x="20" y="72" width="560" height="237"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xHB-uC-kLa">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="20.5"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20.5" id="QfT-i3-e4C"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="8ph-ON-ZR6">
+                                        <rect key="frame" x="0.0" y="21" width="560" height="216"/>
+                                        <animations/>
+                                        <date key="date" timeIntervalSinceReferenceDate="458534023.14858598">
+                                            <!--2015-07-14 02:33:43 +0000-->
+                                        </date>
+                                        <connections>
+                                            <action selector="pickerDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="gmk-Wv-kiQ"/>
+                                        </connections>
+                                    </datePicker>
+                                </subviews>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstItem="xHB-uC-kLa" firstAttribute="centerX" secondItem="P3Y-Ch-e4m" secondAttribute="centerX" id="2fI-dP-jZH"/>
+                                    <constraint firstItem="xHB-uC-kLa" firstAttribute="centerX" secondItem="P3Y-Ch-e4m" secondAttribute="centerX" id="eCg-xK-iyj"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="P3Y-Ch-e4m" secondAttribute="bottom" constant="291" id="a74-dN-V70"/>
+                            <constraint firstItem="P3Y-Ch-e4m" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="8" id="jND-HM-PUZ"/>
+                            <constraint firstItem="P3Y-Ch-e4m" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="20" symbolic="YES" id="jcw-lo-jQa"/>
+                            <constraint firstItem="P3Y-Ch-e4m" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="sT8-GI-sAO"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
                     <connections>
+                        <outlet property="dateField" destination="xHB-uC-kLa" id="aQq-JZ-adr"/>
+                        <outlet property="datePicker" destination="8ph-ON-ZR6" id="Irr-V6-hcH"/>
                         <outlet property="detailNavigationItem" destination="mOI-FS-AaM" id="Gp4-fQ-KM5"/>
                     </connections>
                 </viewController>
