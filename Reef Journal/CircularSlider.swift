@@ -8,13 +8,10 @@
 
 import UIKit
 
-struct Config {
-    
-    static let TB_SLIDER_SIZE:CGFloat = UIScreen.mainScreen().bounds.size.width
-    static let TB_SAFEAREA_PADDING:CGFloat = 60.0
-    static let TB_LINE_WIDTH:CGFloat = 40.0
-    static let TB_FONTSIZE:CGFloat = 48.0
-    
+enum DrawingParameters: CGFloat {
+    case Padding = 30.0
+    case LineWidth = 40.0
+    case FontSize = 48.0
 }
 
 
@@ -59,10 +56,10 @@ class CircularSlider: UIControl {
         self.opaque = true
         
         //Define the circle radius taking into account the safe area
-        radius = self.frame.size.width/2 - Config.TB_SAFEAREA_PADDING
+        radius = self.frame.size.width/2 - DrawingParameters.Padding.rawValue
         
         //Define the Font
-        let font = UIFont.systemFontOfSize(Config.TB_FONTSIZE)
+        let font = UIFont.systemFontOfSize(DrawingParameters.FontSize.rawValue)
         //Calculate font size needed to display 3 numbers
         let str = "00.0" as NSString
         let fontSize: CGSize = str.sizeWithAttributes([NSFontAttributeName:font])
@@ -147,7 +144,7 @@ class CircularSlider: UIControl {
         CGContextSetShadowWithColor(imageCtx, CGSizeMake(0, 0), CGFloat(15), UIColor.blackColor().CGColor);
        
         //define the path
-        CGContextSetLineWidth(imageCtx, Config.TB_LINE_WIDTH)
+        CGContextSetLineWidth(imageCtx, DrawingParameters.LineWidth.rawValue)
         CGContextDrawPath(imageCtx, CGPathDrawingMode.Stroke)
         
         //save the context content into the image mask
@@ -204,7 +201,7 @@ class CircularSlider: UIControl {
 
         //Draw It!
         UIColor(white:1.0, alpha:0.7).set();
-        CGContextFillEllipseInRect(ctx, CGRectMake(handleCenter.x, handleCenter.y, Config.TB_LINE_WIDTH, Config.TB_LINE_WIDTH));
+        CGContextFillEllipseInRect(ctx, CGRectMake(handleCenter.x, handleCenter.y, DrawingParameters.LineWidth.rawValue, DrawingParameters.LineWidth.rawValue));
         
         CGContextRestoreGState(ctx);
     }
@@ -238,7 +235,7 @@ class CircularSlider: UIControl {
     func pointFromAngle(angleInt:Int)->CGPoint{
     
         //Circle center
-        let centerPoint = CGPointMake(self.frame.size.width/2.0 - Config.TB_LINE_WIDTH/2.0, self.frame.size.height/2.0 - Config.TB_LINE_WIDTH/2.0);
+        let centerPoint = CGPointMake(self.frame.size.width / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0, self.frame.size.height / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0);
 
         //The point position on the circumference
         var result: CGPoint = CGPointZero
