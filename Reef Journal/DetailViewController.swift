@@ -152,12 +152,13 @@ class DetailViewController: UIViewController {
     }
 
     func preferencesDidChange(notification: NSNotification?) {
-        print("Reload printue in Detail view Controller")
+        print("Reloaded preferences in Detail view Controller")
     }
 
     func valueChanged(slider: CircularSlider){
         // Do something with the value...
-        print("Value changed \(slider.angle)")
+
+        print("Slider value: \(slider.angle)")
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {

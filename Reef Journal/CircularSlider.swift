@@ -15,7 +15,7 @@ enum DrawingParameters: CGFloat {
 }
 
 
-// MARK: Math Helpers 
+// MARK: - Math Helpers
 
 func DegreesToRadians (value:Double) -> Double {
     return value * M_PI / 180.0
@@ -30,15 +30,17 @@ func Square (value:CGFloat) -> CGFloat {
 }
 
 
-// MARK: Circular Slider
+// MARK: - Circular Slider
 
-class CircularSlider: UIControl {
+class CircularSlider: UIControl, UITextFieldDelegate {
 
     var textField: UITextField?
     var radius: CGFloat = 0
-    var angle: Int = 90 {
+    var angle: Int {
         didSet {
-            self.textField?.text = "\(angle)"
+            let roundedAngle = Double(angle) / 24.0
+            let measurementValue: Double = round(roundedAngle * 10) / 10
+            self.textField?.text = "\(measurementValue)"
         }
     }
     var startColor = UIColor.blueColor()
@@ -54,6 +56,8 @@ class CircularSlider: UIControl {
     
     // Default initializer
     override init(frame: CGRect) {
+        angle = 0
+
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.clearColor()
@@ -75,6 +79,7 @@ class CircularSlider: UIControl {
             fontSize.width, fontSize.height);
         
         textField = UITextField(frame: textFieldRect)
+        textField?.delegate = self
         textField?.backgroundColor = UIColor.clearColor()
         textField?.textColor = UIColor(white: 0.5, alpha: 1.0)
         textField?.textAlignment = .Center
@@ -113,8 +118,6 @@ class CircularSlider: UIControl {
 
         print("touch up")
     }
-    
-    
     
     
     //Use the draw rect to draw the Background, the Circle and the Handle
@@ -188,9 +191,8 @@ class CircularSlider: UIControl {
         drawTheHandle(ctx)
 
     }
-    
-    
-    
+
+
     /** Draw a white knob over the circle **/
     
     func drawTheHandle(ctx:CGContextRef){
@@ -209,8 +211,7 @@ class CircularSlider: UIControl {
         
         CGContextRestoreGState(ctx);
     }
-    
-    
+
     
     /** Move the Handle **/
 
@@ -220,21 +221,15 @@ class CircularSlider: UIControl {
         let centerPoint: CGPoint  = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         //Calculate the direction from a center point and a arbitrary position.
         let currentAngle: Double = AngleFromNorth(centerPoint, p2: lastPoint, flipped: false);
-        let angleInt = Int(floor(currentAngle))
-        let roundedAngle = ((360 - currentAngle) / 24.0)
-        let measurementValue: Double = round(roundedAngle * 10) / 10
 
         //Store the new angle
-        angle = Int(360 - angleInt)
-
-        //Update the textfield
-        textField!.text = "\(measurementValue)"
-        print(roundedAngle)
+        angle = Int(360 - Int(floor(currentAngle)))
         
         //Redraw
         setNeedsDisplay()
     }
-    
+
+
     /** Given the angle, get the point position on circumference **/
     func pointFromAngle(angleInt:Int)->CGPoint{
     
@@ -263,6 +258,10 @@ class CircularSlider: UIControl {
         let radians = Double(atan2(v.y,v.x))
         result = RadiansToDegrees(radians)
         return (result >= 0  ? result : result + 360.0);
+    }
+
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        return false
     }
 
 }
