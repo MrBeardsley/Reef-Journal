@@ -91,6 +91,7 @@
                         <outlet property="dateField" destination="7BW-jm-oWV" id="87m-GP-ImG"/>
                         <outlet property="datePicker" destination="LoY-Sw-dd2" id="lfK-J6-Kes"/>
                         <outlet property="detailNavigationItem" destination="mOI-FS-AaM" id="Gp4-fQ-KM5"/>
+                        <outlet property="sliderView" destination="Ct4-vf-pHX" id="XFQ-ne-bfN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>

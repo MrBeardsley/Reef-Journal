@@ -9,14 +9,13 @@
 import UIKit
 import CoreData
 
-let keyboardOffset: CGFloat = 100.0
-
 class DetailViewController: UIViewController {
 
     // MARK: - Interface Outlets
     @IBOutlet weak var detailNavigationItem: UINavigationItem!
     @IBOutlet weak var dateField: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var sliderView: CircularSliderView!
 
     // MARK: - Properties
     let appDelegate: AppDelegate
@@ -85,14 +84,17 @@ class DetailViewController: UIViewController {
 
         datePicker.setDate(today, animated: false)
         datePicker.maximumDate = NSDate()
-//        valueTextLabel.textColor = self.view.tintColor
-//        let numberToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
-//        numberToolbar.items = [UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelNumberPad"),
-//                               UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
-//                               UIBarButtonItem(title: "Apply", style: UIBarButtonItemStyle.Done, target: self, action: "doneWithNumberPad")]
-//        numberToolbar.sizeToFit()
-//        inputTextField.inputAccessoryView = numberToolbar
-//
+
+        sliderView.slider.angle = 0
+
+        if let valueTextField = sliderView.slider.textField,
+        let parameterType = self.parameterType {
+            if parameterTypeDisplaysDecimal(parameterType) {
+
+                print("Current Value: \(valueTextField.text!)")
+            }
+        }
+
 //        if let parameterType = self.parameterType {
 //            if parameterTypeDisplaysDecimal(parameterType) {
 //                inputTextField.keyboardType = .DecimalPad
@@ -151,6 +153,11 @@ class DetailViewController: UIViewController {
 
     func preferencesDidChange(notification: NSNotification?) {
         print("Reload printue in Detail view Controller")
+    }
+
+    func valueChanged(slider: CircularSlider){
+        // Do something with the value...
+        print("Value changed \(slider.angle)")
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {

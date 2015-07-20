@@ -36,7 +36,11 @@ class CircularSlider: UIControl {
 
     var textField: UITextField?
     var radius: CGFloat = 0
-    var angle: Int = 90
+    var angle: Int = 90 {
+        didSet {
+            self.textField?.text = "\(angle)"
+        }
+    }
     var startColor = UIColor.blueColor()
     var endColor = UIColor.purpleColor()
     
