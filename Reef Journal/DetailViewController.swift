@@ -22,16 +22,7 @@ class DetailViewController: UIViewController {
     let entityName = "Measurement"
     let format = "MMMM dd ',' yyyy"
     let dateFormatter: NSDateFormatter
-    var parameterType: Parameter?
-    lazy var valueFormat: String = {
-
-        if (parameterTypeDisplaysDecimal(self.parameterType!)){
-            return "%.1f"
-        }
-        else {
-            return "%.0f"
-        }
-        }()
+    var parameterType: Parameter!
 
     // MARK: - Init/Deinit
     required init?(coder aDecoder: NSCoder) {
@@ -41,6 +32,7 @@ class DetailViewController: UIViewController {
         super.init(coder: aDecoder)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMeasurement", name: "SaveMeasurement", object:nil)
     }
 
     deinit {
@@ -81,54 +73,48 @@ class DetailViewController: UIViewController {
         let today = NSDate()
         self.dateField.text = dateFormatter.stringFromDate(today)
 
-
         datePicker.setDate(today, animated: false)
         datePicker.maximumDate = NSDate()
 
-        sliderView.slider.angle = 0
-
-        if let valueTextField = sliderView.slider.textField,
-        let parameterType = self.parameterType {
-            if parameterTypeDisplaysDecimal(parameterType) {
-
-                print("Current Value: \(valueTextField.text!)")
-            }
+        switch decimalPlacesForParameter(parameterType) {
+        case 0:
+            sliderView.slider.valueFormat = DecimalFormat.None
+        case 1:
+            sliderView.slider.valueFormat = DecimalFormat.One
+        case 2:
+            sliderView.slider.valueFormat = DecimalFormat.Two
+        case 3:
+            sliderView.slider.valueFormat = DecimalFormat.Three
+        default:
+            sliderView.slider.valueFormat = DecimalFormat.None
         }
 
-//        if let parameterType = self.parameterType {
-//            if parameterTypeDisplaysDecimal(parameterType) {
-//                inputTextField.keyboardType = .DecimalPad
-//            }
-//            else {
-//                inputTextField.keyboardType = .NumberPad
-//            }
-//        }
-//        else {
-//            inputTextField.keyboardType = .NumberPad
-//        }
-//
-//
-//        // Coredata fetch to find the most recent measurement
-//        if let type = self.navigationItem.title {
-//            let context = appDelegate.managedObjectContext
-//            let fetchRequest = NSFetchRequest(entityName: entityName)
-//            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [type])
-//            fetchRequest.predicate = predicate
-//            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
-//            fetchRequest.fetchLimit = 1
-//
-//            do {
-//                let results = try context.executeFetchRequest(fetchRequest)
-//                if let aMeasurement = results.last as? Measurement {
-//                    let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
-//                    let numberFormat = "%." + String(decimalPlaces) + "f"
-//                    valueTextLabel.text = String(format: numberFormat, aMeasurement.value) + " " + unitLabelForParameterType(self.parameterType!)
-//                }
-//            }
-//            catch {
-//
-//            }
-//        }
+        sliderView.slider.measurementValue = 0
+
+        // Coredata fetch to find the most recent measurement
+        if let type = self.navigationItem.title {
+            let context = appDelegate.managedObjectContext
+            let fetchRequest = NSFetchRequest(entityName: entityName)
+            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [type])
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+            fetchRequest.fetchLimit = 1
+
+            do {
+                let results = try context.executeFetchRequest(fetchRequest)
+                if let aMeasurement = results.last as? Measurement {
+                    //let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
+                    //let numberFormat = "%." + String(decimalPlaces) + "f"
+                    sliderView.slider.measurementValue = aMeasurement.value
+                }
+                else {
+                    sliderView.slider.measurementValue = 0
+                }
+            }
+            catch {
+
+            }
+        }
     }
 
 //    override func viewWillDisappear(animated: Bool) {
@@ -143,12 +129,16 @@ class DetailViewController: UIViewController {
         self.dateField.text = dateFormatter.stringFromDate(sender.date)
 
 
-//        if let aMeasurement = self.measurementForDate(self.datePicker.date) {
-//            valueTextLabel.text = String(format: valueFormat, aMeasurement.value)
-//        }
-//        else {
-//            valueTextLabel.text = "No Value"
-//        }
+        if let aMeasurement = self.measurementForDate(self.datePicker.date) {
+            sliderView.slider.measurementValue = aMeasurement.value
+        }
+        else {
+            sliderView.slider.measurementValue = 0
+        }
+    }
+
+    func saveMeasurement() {
+        print("Measurement Saved")
     }
 
     func preferencesDidChange(notification: NSNotification?) {
@@ -157,8 +147,7 @@ class DetailViewController: UIViewController {
 
     func valueChanged(slider: CircularSlider){
         // Do something with the value...
-
-        print("Slider value: \(slider.angle)")
+        print("Slider value: \(slider.measurementValue)")
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {

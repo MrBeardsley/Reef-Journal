@@ -8,24 +8,35 @@
 
 import UIKit
 
-enum DrawingParameters: CGFloat {
+
+
+
+
+private enum DrawingParameters: CGFloat {
     case Padding = 30.0
     case LineWidth = 40.0
     case FontSize = 48.0
 }
 
+struct DecimalFormat {
+    static let None = "%.0f"
+    static let One = "%.1f"
+    static let Two = "%.2f"
+    static let Three = "%.3f"
+}
+
 
 // MARK: - Math Helpers
 
-func DegreesToRadians (value:Double) -> Double {
+func DegreesToRadians(value: Double) -> Double {
     return value * M_PI / 180.0
 }
 
-func RadiansToDegrees (value:Double) -> Double {
+func RadiansToDegrees(value: Double) -> Double {
     return value * 180.0 / M_PI
 }
 
-func Square (value:CGFloat) -> CGFloat {
+func Square(value: CGFloat) -> CGFloat {
     return value * value
 }
 
@@ -34,18 +45,21 @@ func Square (value:CGFloat) -> CGFloat {
 
 class CircularSlider: UIControl, UITextFieldDelegate {
 
-    var textField: UITextField?
-    var radius: CGFloat = 0
-    var angle: Int {
-        didSet {
-            let roundedAngle = Double(angle) / 24.0
-            let measurementValue: Double = round(roundedAngle * 10) / 10
-            self.textField?.text = "\(measurementValue)"
-        }
-    }
     var startColor = UIColor.blueColor()
     var endColor = UIColor.purpleColor()
-    
+    var maxValue: Double
+    var minValue: Double
+    var valueFormat: String
+    var measurementValue: Double {
+        didSet {
+            self.textField?.text = "\(measurementValue)"
+            //self.angle = Int(measurementValue * 24)
+        }
+    }
+
+    private var textField: UITextField?
+    private var radius: CGFloat = 0
+    private var angle: Int
     // Custom initializer
     convenience init(startColor: UIColor, endColor: UIColor, frame: CGRect){
         self.init(frame: frame)
@@ -57,6 +71,10 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     // Default initializer
     override init(frame: CGRect) {
         angle = 0
+        maxValue = 0
+        minValue = 0
+        measurementValue = 0
+        valueFormat = DecimalFormat.None
 
         super.init(frame: frame)
         
@@ -69,7 +87,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         //Define the Font
         let font = UIFont.systemFontOfSize(DrawingParameters.FontSize.rawValue)
         //Calculate font size needed to display 3 numbers
-        let str = "00.0" as NSString
+        let str = "0.000" as NSString
         let fontSize: CGSize = str.sizeWithAttributes([NSFontAttributeName:font])
         
         //Using a TextField area we can easily modify the control to get user input from this field
@@ -116,7 +134,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
         super.endTrackingWithTouch(touch, withEvent: event)
 
-        print("touch up")
+        NSNotificationCenter.defaultCenter().postNotificationName("SaveMeasurement", object: nil)
     }
     
     
@@ -218,20 +236,21 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     func moveHandle(lastPoint:CGPoint){
         
         //Get the center
-        let centerPoint: CGPoint  = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        let centerPoint: CGPoint  = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
         //Calculate the direction from a center point and a arbitrary position.
         let currentAngle: Double = AngleFromNorth(centerPoint, p2: lastPoint, flipped: false);
 
         //Store the new angle
         angle = Int(360 - Int(floor(currentAngle)))
-        
+
+        print("Last Point: \(lastPoint)")
         //Redraw
         setNeedsDisplay()
     }
 
 
     /** Given the angle, get the point position on circumference **/
-    func pointFromAngle(angleInt:Int)->CGPoint{
+    func pointFromAngle(angleInt:Int) -> CGPoint{
     
         //Circle center
         let centerPoint = CGPointMake(self.frame.size.width / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0, self.frame.size.height / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0);
@@ -255,7 +274,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         var result: Double = 0.0
         v.x /= vmag
         v.y /= vmag
-        let radians = Double(atan2(v.y,v.x))
+        let radians = Double(atan2(v.y, v.x))
         result = RadiansToDegrees(radians)
         return (result >= 0  ? result : result + 360.0);
     }
