@@ -41,6 +41,8 @@ enum SettingIdentifier: String {
     case EnablePhosphate
 }
 
+let parameterList = [Parameter.Salinity.rawValue, Parameter.Temperature.rawValue, Parameter.Alkalinity.rawValue, Parameter.Calcium.rawValue, Parameter.Magnesium.rawValue, Parameter.pH.rawValue, Parameter.Strontium.rawValue, Parameter.Potasium.rawValue, Parameter.Ammonia.rawValue, Parameter.Nitrite.rawValue, Parameter.Nitrate.rawValue, Parameter.Phosphate.rawValue]
+
 func parameterForPreference(preference: SettingIdentifier) -> Parameter {
 
     switch preference {
