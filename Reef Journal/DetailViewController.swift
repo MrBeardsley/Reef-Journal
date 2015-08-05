@@ -130,10 +130,10 @@ class DetailViewController: UIViewController {
 
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
-            sliderView.slider.setToValue(aMeasurement.value)
+            sliderView.slider.value = aMeasurement.value
         }
         else {
-            sliderView.slider.setToValue(0)
+            sliderView.slider.value = 0
         }
     }
 

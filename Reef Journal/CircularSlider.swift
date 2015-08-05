@@ -37,25 +37,51 @@ func Square(value: CGFloat) -> CGFloat {
     return value * value
 }
 
+//Sourcecode from Apple example clockControl
+//Calculate the direction in degrees from a center point to an arbitrary position.
+func AngleFromNorth(p1: CGPoint , p2: CGPoint , flipped: Bool) -> Double {
+    var v: CGPoint  = CGPointMake(p2.x - p1.x, p2.y - p1.y)
+    let vmag: CGFloat = Square(Square(v.x) + Square(v.y))
+    var result: Double = 0.0
+    v.x /= vmag
+    v.y /= vmag
+    let radians = Double(atan2(v.y, v.x))
+    result = RadiansToDegrees(radians)
+    return (result >= 0  ? result : result + 360.0);
+}
+
 
 // MARK: - Circular Slider
 
 class CircularSlider: UIControl, UITextFieldDelegate {
 
-    var startColor = UIColor.blueColor()
-    var endColor = UIColor.purpleColor()
+    var startColor = ColorPalette.lightBlue
+    var endColor = ColorPalette.darkBlue
     var maxValue: Double = 0
     var minValue: Double = 0
     var valueFormat: String
-    var value: Double = 0 {
+    var value: Double {
+        get {
+            return _value
+        }
+
+        set {
+            print("Setting slider to: \(newValue)")
+            moveHandle(CGPoint(x: 0, y: 0))
+        }
+    }
+
+    private var _value: Double = 0 {
         didSet {
-            self.textField?.text = String(format: DecimalFormat.One, value)
+            self.textField?.text = String(format: DecimalFormat.One, _value)
         }
     }
 
     private var textField: UITextField?
     private var radius: CGFloat = 0
     private var angle: Int = 0
+
+
     // Custom initializer
     convenience init(startColor: UIColor, endColor: UIColor, frame: CGRect){
         self.init(frame: frame)
@@ -91,10 +117,10 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         textField = UITextField(frame: textFieldRect)
         textField?.delegate = self
         textField?.backgroundColor = UIColor.clearColor()
-        textField?.textColor = UIColor(white: 0.5, alpha: 1.0)
+        textField?.textColor = ColorPalette.textGrey
         textField?.textAlignment = .Center
         textField?.font = font
-        textField?.text = "\(self.angle)"
+        textField?.text = "\(self._value)"
         
         addSubview(textField!)
     }
@@ -117,7 +143,6 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         let lastPoint = touch.locationInView(self)
         
         self.moveHandle(lastPoint)
-        
         self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
         
         return true
@@ -199,7 +224,6 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
         /* Draw the handle */
         drawTheHandle(ctx)
-
     }
 
 
@@ -222,19 +246,14 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         CGContextRestoreGState(ctx);
     }
 
-    
-    /** Move the Handle **/
-
-    func moveHandle(lastPoint:CGPoint){
-        
-        //Get the center
+    func moveHandle(lastPoint:CGPoint) {
         let centerPoint: CGPoint  = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
         //Calculate the direction from a center point and a arbitrary position.
         let currentAngle: Double = AngleFromNorth(centerPoint, p2: lastPoint, flipped: false);
 
         //Store the new angle
         angle = Int(360 - Int(floor(currentAngle)))
-        value = Double(angle / 24)
+        _value = Double(angle / 24)
 
         //Redraw
         setNeedsDisplay()
@@ -242,42 +261,18 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
 
     /** Given the angle, get the point position on circumference **/
-    func pointFromAngle(angleInt:Int) -> CGPoint{
-    
-        //Circle center
+
+    func pointFromAngle(angleInt: Int) -> CGPoint {
         let centerPoint = CGPointMake(self.frame.size.width / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0, self.frame.size.height / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0);
 
         //The point position on the circumference
-        var result: CGPoint = CGPointZero
         let y = round(Double(radius) * sin(DegreesToRadians(Double(-angleInt)))) + Double(centerPoint.y)
         let x = round(Double(radius) * cos(DegreesToRadians(Double(-angleInt)))) + Double(centerPoint.x)
-        result.y = CGFloat(y)
-        result.x = CGFloat(x)
             
-        return result;
-    }
-
-    func setToValue(aValue: Double) {
-        let newAngle = Int(aValue * 24)
-        moveHandle(pointFromAngle(newAngle))
-        value = aValue
-    }
-    
-    //Sourcecode from Apple example clockControl
-    //Calculate the direction in degrees from a center point to an arbitrary position.
-    func AngleFromNorth(p1: CGPoint , p2: CGPoint , flipped: Bool) -> Double {
-        var v: CGPoint  = CGPointMake(p2.x - p1.x, p2.y - p1.y)
-        let vmag: CGFloat = Square(Square(v.x) + Square(v.y))
-        var result: Double = 0.0
-        v.x /= vmag
-        v.y /= vmag
-        let radians = Double(atan2(v.y, v.x))
-        result = RadiansToDegrees(radians)
-        return (result >= 0  ? result : result + 360.0);
+        return CGPoint(x: CGFloat(x), y: CGFloat(y));
     }
 
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         return false
     }
-
 }

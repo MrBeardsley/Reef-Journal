@@ -11,6 +11,7 @@ import UIKit
 struct ColorPalette {
     static let lightBlue = UIColor.cyanColor()
     static let darkBlue = UIColor(red: 0, green: 0, blue: 0.5, alpha: 1)
+    static let textGrey = UIColor(white: 0.5, alpha: 1.0)
 }
 
 @IBDesignable class CircularSliderView: UIView {
