@@ -2,8 +2,8 @@
 //  Salinity.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 12/14/14.
-//  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
+//  Created by Christopher Harding on 12/14/14
+//  Copyright © 2015 Epic Kiwi Interactive
 //
 
 import Darwin  // Needed for the round function

@@ -2,8 +2,8 @@
 //  Reef_JournalTests.swift
 //  Reef JournalTests
 //
-//  Created by Christopher Harding on 6/10/14.
-//  Copyright (c) 2014 Christopher Harding. All rights reserved.
+//  Created by Christopher Harding on 6/10/14
+//  Copyright © 2015 Epic Kiwi Interactive
 //
 
 import XCTest

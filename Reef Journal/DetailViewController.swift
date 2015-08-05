@@ -2,8 +2,8 @@
 //  DetailViewController.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 7/10/14.
-//  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
+//  Created by Christopher Harding on 7/10/14
+//  Copyright © 2015 Epic Kiwi Interactive
 //
 
 import UIKit
@@ -89,7 +89,7 @@ class DetailViewController: UIViewController {
             sliderView.slider.valueFormat = DecimalFormat.None
         }
 
-        sliderView.slider.measurementValue = 0
+        sliderView.slider.value = 0
 
         // Coredata fetch to find the most recent measurement
         if let type = self.navigationItem.title {
@@ -105,10 +105,10 @@ class DetailViewController: UIViewController {
                 if let aMeasurement = results.last as? Measurement {
                     //let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
                     //let numberFormat = "%." + String(decimalPlaces) + "f"
-                    sliderView.slider.measurementValue = aMeasurement.value
+                    sliderView.slider.value = aMeasurement.value
                 }
                 else {
-                    sliderView.slider.measurementValue = 0
+                    sliderView.slider.value = 0
                 }
             }
             catch {
@@ -130,10 +130,10 @@ class DetailViewController: UIViewController {
 
 
         if let aMeasurement = self.measurementForDate(self.datePicker.date) {
-            sliderView.slider.measurementValue = aMeasurement.value
+            sliderView.slider.setToValue(aMeasurement.value)
         }
         else {
-            sliderView.slider.measurementValue = 0
+            sliderView.slider.setToValue(0)
         }
     }
 
@@ -147,7 +147,7 @@ class DetailViewController: UIViewController {
 
     func valueChanged(slider: CircularSlider){
         // Do something with the value...
-        print("Slider value: \(slider.measurementValue)")
+        print("Slider value: \(slider.value)")
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {

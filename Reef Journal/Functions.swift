@@ -2,8 +2,8 @@
 //  Functions.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 10/1/14.
-//  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
+//  Created by Christopher Harding on 10/1/14
+//  Copyright © 2015 Epic Kiwi Interactive
 //
 
 import Foundation

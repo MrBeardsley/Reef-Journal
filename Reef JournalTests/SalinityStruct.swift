@@ -2,8 +2,8 @@
 //  SalinityStruct.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 7/12/15.
-//  Copyright © 2015 Epic Kiwi Interactive. All rights reserved.
+//  Created by Christopher Harding on 7/12/15
+//  Copyright © 2015 Epic Kiwi Interactive
 //
 
 import XCTest

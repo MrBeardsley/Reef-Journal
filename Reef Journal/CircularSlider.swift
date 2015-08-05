@@ -2,14 +2,11 @@
 //  CircularSlider.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 7/13/15.
-//  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
+//  Created by Christopher Harding on 7/13/15
+//  Copyright © 2015 Epic Kiwi Interactive
 //
 
 import UIKit
-
-
-
 
 
 private enum DrawingParameters: CGFloat {
@@ -47,19 +44,18 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
     var startColor = UIColor.blueColor()
     var endColor = UIColor.purpleColor()
-    var maxValue: Double
-    var minValue: Double
+    var maxValue: Double = 0
+    var minValue: Double = 0
     var valueFormat: String
-    var measurementValue: Double {
+    var value: Double = 0 {
         didSet {
-            self.textField?.text = "\(measurementValue)"
-            //self.angle = Int(measurementValue * 24)
+            self.textField?.text = String(format: DecimalFormat.One, value)
         }
     }
 
     private var textField: UITextField?
     private var radius: CGFloat = 0
-    private var angle: Int
+    private var angle: Int = 0
     // Custom initializer
     convenience init(startColor: UIColor, endColor: UIColor, frame: CGRect){
         self.init(frame: frame)
@@ -70,10 +66,6 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     
     // Default initializer
     override init(frame: CGRect) {
-        angle = 0
-        maxValue = 0
-        minValue = 0
-        measurementValue = 0
         valueFormat = DecimalFormat.None
 
         super.init(frame: frame)
@@ -242,8 +234,8 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
         //Store the new angle
         angle = Int(360 - Int(floor(currentAngle)))
+        value = Double(angle / 24)
 
-        print("Last Point: \(lastPoint)")
         //Redraw
         setNeedsDisplay()
     }
@@ -264,7 +256,12 @@ class CircularSlider: UIControl, UITextFieldDelegate {
             
         return result;
     }
-    
+
+    func setToValue(aValue: Double) {
+        let newAngle = Int(aValue * 24)
+        moveHandle(pointFromAngle(newAngle))
+        value = aValue
+    }
     
     //Sourcecode from Apple example clockControl
     //Calculate the direction in degrees from a center point to an arbitrary position.

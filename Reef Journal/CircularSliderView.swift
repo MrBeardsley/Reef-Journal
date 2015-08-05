@@ -2,16 +2,21 @@
 //  CircularSliderView.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 7/13/15.
-//  Copyright (c) 2014 Epic Kiwi Interactive. All rights reserved.
+//  Created by Christopher Harding on 7/13/15
+//  Copyright © 2015 Epic Kiwi Interactive
 //
 
 import UIKit
 
+struct ColorPalette {
+    static let lightBlue = UIColor.cyanColor()
+    static let darkBlue = UIColor(red: 0, green: 0, blue: 0.5, alpha: 1)
+}
+
 @IBDesignable class CircularSliderView: UIView {
     
-    @IBInspectable var startColor: UIColor = UIColor.redColor()
-    @IBInspectable var endColor: UIColor = UIColor.blueColor()
+    @IBInspectable var startColor: UIColor = ColorPalette.lightBlue
+    @IBInspectable var endColor: UIColor = ColorPalette.darkBlue
     @IBOutlet var detailController: DetailViewController!
 
     var slider: CircularSlider!

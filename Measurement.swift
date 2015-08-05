@@ -2,8 +2,8 @@
 //  Measurement.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 7/11/15.
-//  Copyright © 2015 Epic Kiwi Interactive. All rights reserved.
+//  Created by Christopher Harding on 7/11/15
+//  Copyright © 2015 Epic Kiwi Interactive
 //
 
 import Foundation

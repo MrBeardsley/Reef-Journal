@@ -2,7 +2,7 @@
 //  GraphAxes.swift
 //  
 //
-//  Created by Christopher Harding on 6/16/15.
+//  Created by Christopher Harding on 6/16/15
 //
 //
 
