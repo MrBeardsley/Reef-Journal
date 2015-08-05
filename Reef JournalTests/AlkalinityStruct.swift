@@ -1,6 +1,6 @@
 //
 //  AlkalinityStruct.swift
-//  Reef Journal
+//  Reef JournalTests
 //
 //  Created by Christopher Harding on 10/4/14
 //  Copyright © 2015 Epic Kiwi Interactive

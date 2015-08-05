@@ -1,5 +1,5 @@
 //
-//  Reef_JournalTests.swift
+//  TemperatureStruct.swift
 //  Reef JournalTests
 //
 //  Created by Christopher Harding on 6/10/14
