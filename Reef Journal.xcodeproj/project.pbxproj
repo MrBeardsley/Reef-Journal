@@ -109,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8328E4F51B7190CC009A57EB /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */,
+				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		833D4AE61A3E17C300FF6B96 /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,10 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
-				83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */,
-				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
 				83C010E319DCE7BB0073BE5F /* Functions.swift */,
 				8395474E19C890EA00529B8B /* Types.swift */,
+				8328E4F51B7190CC009A57EB /* View Controllers */,
 				83E5E06F1A9D57A100ECA17E /* Slider */,
 				83AE76081B31102500C48C0E /* Graph */,
 				833D4AE61A3E17C300FF6B96 /* Parameters */,
@@ -513,6 +521,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Reef Journal/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EpicKiwiInteractive.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -529,6 +538,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Reef Journal/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EpicKiwiInteractive.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
