@@ -32,10 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 
         // Get the preferences setup
-        let mainBundlePath = NSBundle.mainBundle().bundlePath
+        let mainBundlePath = NSBundle.mainBundle().bundlePath as NSString
         let settingsPropertyListPath = mainBundlePath.stringByAppendingPathComponent("Settings.bundle/Root.plist");
 
-        if let settingsPropertyList = NSDictionary(contentsOfFile: settingsPropertyListPath) {
+        if let settingsPropertyList = NSDictionary(contentsOfFile: settingsPropertyListPath as String) {
             if let preferencesArray = settingsPropertyList.objectForKey("PreferenceSpecifiers") as? Array<NSDictionary> {
                 var registerableDictionary = Dictionary<String,AnyObject>()
 

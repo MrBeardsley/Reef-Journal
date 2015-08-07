@@ -37,7 +37,9 @@ class GraphAxesView: UIView {
 
     override func drawRect(rect: CGRect) {
 
-        let currentContext = UIGraphicsGetCurrentContext()
+        guard let currentContext = UIGraphicsGetCurrentContext() else {
+            return
+        }
         drawAxes(rect, context: currentContext)
         drawTicks(rect, context: currentContext)
         drawLabels(rect, context: currentContext)

@@ -37,7 +37,9 @@ class GraphView: UIScrollView {
 
     override func drawRect(rect: CGRect) {
 
-        let currentContext = UIGraphicsGetCurrentContext()
+        guard let currentContext = UIGraphicsGetCurrentContext() else {
+            return
+        }
         drawGraph(rect, context: currentContext)
     }
 

@@ -159,7 +159,9 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     override func drawRect(rect: CGRect){
         super.drawRect(rect)
         
-        let ctx = UIGraphicsGetCurrentContext()
+        guard let ctx = UIGraphicsGetCurrentContext() else {
+            return
+        }
         
         
         /** Draw the Background **/
