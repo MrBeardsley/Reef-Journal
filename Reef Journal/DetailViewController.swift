@@ -89,6 +89,26 @@ class DetailViewController: UIViewController {
             sliderView.slider.valueFormat = DecimalFormat.None
         }
 
+
+        switch parameterType! {
+        case .Calcium:
+            sliderView.slider.maxValue = 600
+            sliderView.slider.minValue = 0
+        case .Magnesium:
+            sliderView.slider.maxValue = 2000
+            sliderView.slider.minValue = 800
+        case .Salinity:
+            sliderView.slider.maxValue = 1.040
+            sliderView.slider.minValue = 1.0
+        case .pH:
+            sliderView.slider.maxValue = 10
+            sliderView.slider.minValue = 6
+        default:
+            sliderView.slider.maxValue = 500
+            sliderView.slider.minValue = 0
+        }
+
+
         sliderView.slider.value = 0
 
         // Coredata fetch to find the most recent measurement

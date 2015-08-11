@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 var registerableDictionary = Dictionary<String,AnyObject>()
 
                 for preference in preferencesArray {
-                    if let type = preference.objectForKey("Type") as? NSString {
+                    if let type = preference.objectForKey("Type") as? String {
                         if type != "PSGroupSpecifier" {
                             registerableDictionary[preference["Key"] as! String] = preference["DefaultValue"]
                         }

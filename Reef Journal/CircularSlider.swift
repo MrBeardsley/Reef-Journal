@@ -66,14 +66,15 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         }
 
         set {
-            print("Setting slider to: \(newValue)")
+            //print("Setting slider to: \(newValue)")
+
             moveHandle(CGPoint(x: 0, y: 0))
         }
     }
 
     private var _value: Double = 0 {
         didSet {
-            self.textField?.text = String(format: DecimalFormat.One, _value)
+            self.textField?.text = String(format: self.valueFormat, _value)
         }
     }
 
@@ -231,7 +232,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
     /** Draw a white knob over the circle **/
     
-    func drawTheHandle(ctx:CGContextRef){
+    private func drawTheHandle(ctx:CGContextRef){
         
         CGContextSaveGState(ctx);
         
@@ -248,14 +249,14 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         CGContextRestoreGState(ctx);
     }
 
-    func moveHandle(lastPoint:CGPoint) {
+    private func moveHandle(lastPoint:CGPoint) {
         let centerPoint: CGPoint  = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
         //Calculate the direction from a center point and a arbitrary position.
         let currentAngle: Double = AngleFromNorth(centerPoint, p2: lastPoint, flipped: false);
 
         //Store the new angle
         angle = Int(360 - Int(floor(currentAngle)))
-        _value = Double(angle / 24)
+        _value = angleToValue(angle)
 
         //Redraw
         setNeedsDisplay()
@@ -264,7 +265,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
     /** Given the angle, get the point position on circumference **/
 
-    func pointFromAngle(angleInt: Int) -> CGPoint {
+    private func pointFromAngle(angleInt: Int) -> CGPoint {
         let centerPoint = CGPointMake(self.frame.size.width / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0, self.frame.size.height / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0);
 
         //The point position on the circumference
@@ -276,5 +277,16 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         return false
+    }
+
+    private func angleToValue(value: Int) -> Double {
+
+        var adjustedRange = Double(value) * (self.maxValue - self.minValue) / 360
+
+        if self.minValue > 0 {
+            adjustedRange += self.minValue
+        }
+
+        return adjustedRange
     }
 }
