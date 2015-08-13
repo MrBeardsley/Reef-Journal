@@ -17,10 +17,12 @@ Return the number of decimal places a parameter will display.
 */
 func decimalPlacesForParameter(type: Parameter) -> Int {
     switch type {
-    case .Calcium, .Magnesium, .Strontium, .Potasium, .Phosphate, .Ammonia, .Nitrite, .Nitrate:
+    case .Calcium, .Magnesium, .Potasium, .Nitrate:
         return 0
-    case .Temperature, .pH:
+    case .Temperature, .pH, .Ammonia, .Nitrite, .Strontium:
         return 1
+    case .Phosphate:
+        return 2
     case .Alkalinity:
         if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
            let alkUnit = AlkalinityUnit(rawValue: intValue) {
@@ -54,12 +56,7 @@ Determines if a paramter uses decimal places or not
 :returns: True/false if the parameter type uses decimal places
 */
 func parameterTypeDisplaysDecimal(type: Parameter) -> Bool {
-    if decimalPlacesForParameter(type) > 0 {
-        return true
-    }
-    else {
-        return false
-    }
+    return decimalPlacesForParameter(type) > 0
 }
 
 /**
@@ -113,6 +110,61 @@ func unitLabelForParameterType(type: Parameter) -> String {
         }
         else {
             return ""
+        }
+    }
+}
+
+/**
+Takes a parameter and returns a string representing the unit label for the type of the parameter
+
+:param: type The type of parameter
+
+:returns: The unit of measure label
+*/
+func measurementRangeForParameterType(type: Parameter) -> (Double, Double) {
+    switch (type) {
+    case .Calcium: return (min: 0, max: 600)
+    case .Magnesium: return (min: 800, max: 2000)
+    case .Strontium: return (min: 0, max: 30)
+    case .Potasium: return (min: 0, max: 600)
+    case .Phosphate: return (min: 0, max: 1)
+    case .Ammonia: return (min: 0, max: 5)
+    case .Nitrite: return (min: 0, max: 20)
+    case .Nitrate: return (min: 0, max: 200)
+    case .Alkalinity:
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+            let alkUnit = AlkalinityUnit(rawValue: intValue) {
+                switch alkUnit {
+                case .DKH: return (min: 0, max: 20)
+                case .MeqL: return (min: 0, max: 600)
+                case .PPM: return (min: 0, max: 300)
+                }
+        }
+        else {
+            return (min: 0, max: 20)
+        }
+    case .Salinity:
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+            let salUnit = SalinityUnit(rawValue: intValue) {
+                switch salUnit {
+                case .SG: return (min: 1.0, max: 1.040)
+                case .PSU: return (min: 0, max: 45)
+                }
+        }
+        else {
+            return (min: 1.0, max: 1.040)
+        }
+    case .pH: return (min: 0, max: 14)
+    case .Temperature:
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+            let tempUnit = TemperatureUnit(rawValue: intValue) {
+                switch tempUnit {
+                case .Fahrenheit: return (min: 32, max: 100)
+                case.Celcius: return (min: 0, max: 38)
+                }
+        }
+        else {
+            return (min: 32, max: 100)
         }
     }
 }

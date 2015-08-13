@@ -66,9 +66,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         }
 
         set {
-            //print("Setting slider to: \(newValue)")
-
-            moveHandle(CGPoint(x: 0, y: 0))
+            moveHandle(valueToPoint(newValue))
         }
     }
 
@@ -250,12 +248,18 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     }
 
     private func moveHandle(lastPoint:CGPoint) {
-        let centerPoint: CGPoint  = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+        let centerPoint = CGPointMake(self.bounds.size.width / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0, self.bounds.size.height / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0);
         //Calculate the direction from a center point and a arbitrary position.
         let currentAngle: Double = AngleFromNorth(centerPoint, p2: lastPoint, flipped: false);
 
         //Store the new angle
-        angle = Int(360 - Int(floor(currentAngle)))
+        if currentAngle == 0 {
+            angle = 0
+        }
+        else {
+            angle = Int(360 - Int(floor(currentAngle)))
+        }
+
         _value = angleToValue(angle)
 
         //Redraw
@@ -266,27 +270,42 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     /** Given the angle, get the point position on circumference **/
 
     private func pointFromAngle(angleInt: Int) -> CGPoint {
-        let centerPoint = CGPointMake(self.frame.size.width / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0, self.frame.size.height / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0);
+        let centerPoint = CGPointMake(self.bounds.size.width / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0, self.bounds.size.height / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0);
 
         //The point position on the circumference
-        let y = round(Double(radius) * sin(DegreesToRadians(Double(-angleInt)))) + Double(centerPoint.y)
-        let x = round(Double(radius) * cos(DegreesToRadians(Double(-angleInt)))) + Double(centerPoint.x)
-            
-        return CGPoint(x: CGFloat(x), y: CGFloat(y));
+        //This is too complex for the swift compiler
+        let y = Double(radius) * sin(DegreesToRadians(Double(-angleInt))) + Double(centerPoint.y)
+        let x = Double(radius) * cos(DegreesToRadians(Double(-angleInt))) + Double(centerPoint.x)
+
+        return CGPoint(x: x, y: y)
     }
 
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         return false
     }
 
-    private func angleToValue(value: Int) -> Double {
+    private func angleToValue(angle: Int) -> Double {
 
-        var adjustedRange = Double(value) * (self.maxValue - self.minValue) / 360
+        var adjustedRange = Double(angle) * (self.maxValue - self.minValue) / 360
 
         if self.minValue > 0 {
             adjustedRange += self.minValue
         }
 
         return adjustedRange
+    }
+
+    private func valueToPoint(value: Double) -> CGPoint {
+        var adjustedValue = value
+        var measurementRange = self.maxValue - self.minValue
+
+        if self.minValue > 0 {
+            measurementRange -= self.minValue
+            adjustedValue -= self.minValue
+        }
+
+        let angle = Int(adjustedValue / measurementRange * 360)
+
+        return pointFromAngle(angle)
     }
 }

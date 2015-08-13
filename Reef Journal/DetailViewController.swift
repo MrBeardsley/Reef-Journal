@@ -89,52 +89,37 @@ class DetailViewController: UIViewController {
             sliderView.slider.valueFormat = DecimalFormat.None
         }
 
+        let range = measurementRangeForParameterType(parameterType)
 
-        switch parameterType! {
-        case .Calcium:
-            sliderView.slider.maxValue = 600
-            sliderView.slider.minValue = 0
-        case .Magnesium:
-            sliderView.slider.maxValue = 2000
-            sliderView.slider.minValue = 800
-        case .Salinity:
-            sliderView.slider.maxValue = 1.040
-            sliderView.slider.minValue = 1.0
-        case .pH:
-            sliderView.slider.maxValue = 10
-            sliderView.slider.minValue = 6
-        default:
-            sliderView.slider.maxValue = 500
-            sliderView.slider.minValue = 0
-        }
+        sliderView.slider.minValue = range.0
+        sliderView.slider.maxValue = range.1
 
-
-        sliderView.slider.value = 0
+        sliderView.slider.value = range.0
 
         // Coredata fetch to find the most recent measurement
-        if let type = self.navigationItem.title {
-            let context = appDelegate.managedObjectContext
-            let fetchRequest = NSFetchRequest(entityName: entityName)
-            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [type])
-            fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
-            fetchRequest.fetchLimit = 1
-
-            do {
-                let results = try context.executeFetchRequest(fetchRequest)
-                if let aMeasurement = results.last as? Measurement {
-                    //let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
-                    //let numberFormat = "%." + String(decimalPlaces) + "f"
-                    sliderView.slider.value = aMeasurement.value
-                }
-                else {
-                    sliderView.slider.value = 0
-                }
-            }
-            catch {
-
-            }
-        }
+//        if let type = self.navigationItem.title {
+//            let context = appDelegate.managedObjectContext
+//            let fetchRequest = NSFetchRequest(entityName: entityName)
+//            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [type])
+//            fetchRequest.predicate = predicate
+//            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+//            fetchRequest.fetchLimit = 1
+//
+//            do {
+//                let results = try context.executeFetchRequest(fetchRequest)
+//                if let aMeasurement = results.last as? Measurement {
+//                    //let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
+//                    //let numberFormat = "%." + String(decimalPlaces) + "f"
+//                    sliderView.slider.value = aMeasurement.value
+//                }
+//                else {
+//                    sliderView.slider.value = 0
+//                }
+//            }
+//            catch {
+//
+//            }
+//        }
     }
 
 //    override func viewWillDisappear(animated: Bool) {
