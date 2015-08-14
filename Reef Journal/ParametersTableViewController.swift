@@ -17,6 +17,9 @@ class ParametersTableViewController: UITableViewController {
     let appDelegate: AppDelegate
     let chemistryParameters: [SettingIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
     let nutrientParameters: [SettingIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
+
+    var dataAccess: DataPersistence!
+
     private var chemistrySection: [String] = []
     private var nutrientsSection: [String] = []
     private var recentMeasurements: [String : Double]?
@@ -67,7 +70,8 @@ class ParametersTableViewController: UITableViewController {
             }
         }
 
-        recentMeasurements = self.mostRecentMeasurements()
+
+        recentMeasurements = dataAccess.mostRecentMeasurements()
         tableView?.reloadData()
     }
 
@@ -81,6 +85,7 @@ class ParametersTableViewController: UITableViewController {
                             detailViewController.navigationItem.title = title
                             detailViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                             detailViewController.navigationItem.leftItemsSupplementBackButton = true
+                            detailViewController.dataAccess = self.dataAccess
             }
         }
     }
@@ -154,34 +159,5 @@ class ParametersTableViewController: UITableViewController {
         default:
             return "Error"
         }
-    }
-}
-
-private extension ParametersTableViewController {
-    func mostRecentMeasurements() -> [String : Double] {
-
-        let context = appDelegate.managedObjectContext
-        var recentMeasurements = [String : Double]()
-
-        for item in parameterList {
-            let fetchRequest = NSFetchRequest(entityName: entityName)
-            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [item])
-            fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
-            fetchRequest.fetchLimit = 1
-
-            do {
-                let results = try context.executeFetchRequest(fetchRequest)
-
-                if let aMeasurement = results.last as? Measurement {
-                    recentMeasurements[aMeasurement.parameter!] = aMeasurement.value
-                }
-            }
-            catch {
-
-            }
-        }
-
-        return recentMeasurements
     }
 }

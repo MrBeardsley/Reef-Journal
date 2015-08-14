@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     let format = "MMMM dd ',' yyyy"
     let dateFormatter: NSDateFormatter
     var parameterType: Parameter!
+    var dataAccess: DataPersistence!
 
     // MARK: - Init/Deinit
     required init?(coder aDecoder: NSCoder) {
@@ -56,13 +57,13 @@ class DetailViewController: UIViewController {
                     print(parameterType!.rawValue)
                 }
                 else {
-                    parameterType = self.firstEnabledParameter()
+                    parameterType = dataAccess.firstEnabledParameter()
 
                 }
             }
             else {
                 // Use the first enabled Parameter
-                parameterType = self.firstEnabledParameter()
+                parameterType = dataAccess.firstEnabledParameter()
             }
         }
         else {
@@ -134,7 +135,7 @@ class DetailViewController: UIViewController {
         self.dateField.text = dateFormatter.stringFromDate(sender.date)
 
 
-        if let aMeasurement = self.measurementForDate(self.datePicker.date) {
+        if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date, param: self.parameterType) {
             sliderView.slider.value = aMeasurement.value
         }
         else {
@@ -164,36 +165,36 @@ class DetailViewController: UIViewController {
 
 // MARK: - Private Functions
 private extension DetailViewController {
-    func measurementForDate(date: NSDate) -> Measurement? {
-        let day = self.dayFromDate(date)
-        let type = self.navigationItem.title!
-        let context = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: entityName)
-        let predicate = NSPredicate(format: "parameter == %@ AND day == %@", argumentArray: [type, day])
-        fetchRequest.predicate = predicate
-        fetchRequest.fetchLimit = 1
-
-        do {
-            let results = try context.executeFetchRequest(fetchRequest)
-            if let aMeasurement = results.last as? Measurement {
-                return aMeasurement
-            }
-        }
-        catch {
-
-        }
-
-        return nil
-    }
-
-    func dayFromDate(date: NSDate) -> NSDate {
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
-        return calendar.dateFromComponents(components)!
-    }
-
-    func firstEnabledParameter() -> Parameter {
-
-        return Parameter.Salinity
-    }
+//    func measurementForDate(date: NSDate) -> Measurement? {
+//        let day = self.dayFromDate(date)
+//        let type = self.navigationItem.title!
+//        let context = appDelegate.managedObjectContext
+//        let fetchRequest = NSFetchRequest(entityName: entityName)
+//        let predicate = NSPredicate(format: "parameter == %@ AND day == %@", argumentArray: [type, day])
+//        fetchRequest.predicate = predicate
+//        fetchRequest.fetchLimit = 1
+//
+//        do {
+//            let results = try context.executeFetchRequest(fetchRequest)
+//            if let aMeasurement = results.last as? Measurement {
+//                return aMeasurement
+//            }
+//        }
+//        catch {
+//
+//        }
+//
+//        return nil
+//    }
+//
+//    func dayFromDate(date: NSDate) -> NSDate {
+//        let calendar = NSCalendar.currentCalendar()
+//        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
+//        return calendar.dateFromComponents(components)!
+//    }
+//
+//    func firstEnabledParameter() -> Parameter {
+//
+//        return Parameter.Salinity
+//    }
 }
