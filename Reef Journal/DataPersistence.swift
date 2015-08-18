@@ -13,6 +13,7 @@ let measurementEntityName = "Measurement"
 
 class DataPersistence {
 
+    // MARK: - Data persistence operations
 
     func saveMeasurement(value: Double, date: NSDate, param: Parameter) {
 
@@ -32,8 +33,11 @@ class DataPersistence {
         self.saveContext()
     }
 
-    func deleteMeasurementOnDate(date: NSDate) {
-
+    func deleteMeasurementOnDate(date: NSDate, param: Parameter) {
+        if let aMesurement = self.measurementForDate(date, param: param) {
+            self.managedObjectContext.deleteObject(aMesurement)
+            self.saveContext()
+        }
     }
 
     func mostRecentMeasurements() -> [String : Double] {
