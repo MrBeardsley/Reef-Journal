@@ -16,14 +16,16 @@ class DataPersistence {
 
     func saveMeasurement(value: Double, date: NSDate, param: Parameter) {
 
-        if let _ = self.measurementForDate(date, param: param) {
-
+        if let aMesurement = self.measurementForDate(date, param: param) {
+            aMesurement.value = value
+            aMesurement.parameter = param.rawValue
+            aMesurement.day = self.dayFromDate(date).timeIntervalSinceReferenceDate
         }
         else {
             if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(measurementEntityName, inManagedObjectContext: self.managedObjectContext) as? Measurement {
                 newEntity.value = value
                 newEntity.parameter = param.rawValue
-                newEntity.day = self.dayFromDate(date).timeIntervalSince1970
+                newEntity.day = self.dayFromDate(date).timeIntervalSinceReferenceDate
             }
         }
         

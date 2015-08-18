@@ -42,6 +42,6 @@ enum SalinityUnit: Int {
 }
 
 enum SalinityLabel: String {
-    case SG = "dKH"
+    case SG = "SG"
     case PSU = "PSU"
 }
