@@ -13,20 +13,20 @@ import CoreData
 class ParametersTableViewController: UITableViewController {
 
     // MARK: - Properties
-    let entityName = "Measurement"
-    let appDelegate: AppDelegate
+
     let chemistryParameters: [SettingIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
     let nutrientParameters: [SettingIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
-
     var dataAccess: DataPersistence!
+
+    // MARK: - Private Properties
 
     private var chemistrySection: [String] = []
     private var nutrientsSection: [String] = []
     private var recentMeasurements: [String : Double]?
 
     // MARK: - Init/Deinit
+
     required init?(coder aDecoder: NSCoder) {
-        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         super.init(coder: aDecoder)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object:nil)
     }
@@ -36,6 +36,7 @@ class ParametersTableViewController: UITableViewController {
     }
 
     // MARK: - View Management
+
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadTableView(nil)
@@ -48,6 +49,7 @@ class ParametersTableViewController: UITableViewController {
 
 
     // MARK: - Reloading the data in the table view
+
     func refreshData() {
         reloadTableView(nil)
     }

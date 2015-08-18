@@ -7,18 +7,15 @@
 //
 
 import UIKit
-import CoreData
 
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
+    // MARK: - Properties
+
     var window: UIWindow?
     var dataLayer: DataPersistence = DataPersistence()
-
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
 
     // MARK: - Application Delegate Protocol Methods
 
@@ -102,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         NSNotificationCenter.defaultCenter().postNotificationName("PreferencesChanged", object: nil)
     }
 
-    // MARK: - Split view
+    // MARK: - Split View Delegate Protocol Methods
 
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
         guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }

@@ -12,22 +12,22 @@ import CoreData
 class DetailViewController: UIViewController {
 
     // MARK: - Interface Outlets
+
     @IBOutlet weak var detailNavigationItem: UINavigationItem!
     @IBOutlet weak var dateField: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var sliderView: CircularSliderView!
 
     // MARK: - Properties
-    let appDelegate: AppDelegate
-    let entityName = "Measurement"
+
     let format = "MMMM dd ',' yyyy"
     let dateFormatter: NSDateFormatter
     var parameterType: Parameter!
     var dataAccess: DataPersistence!
 
     // MARK: - Init/Deinit
+
     required init?(coder aDecoder: NSCoder) {
-        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = format
         super.init(coder: aDecoder)
@@ -41,6 +41,7 @@ class DetailViewController: UIViewController {
     }
 
     // MARK: - View Management
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -95,41 +96,16 @@ class DetailViewController: UIViewController {
         sliderView.slider.minValue = range.0
         sliderView.slider.maxValue = range.1
 
-        sliderView.slider.value = range.0
-
-        // Coredata fetch to find the most recent measurement
-//        if let type = self.navigationItem.title {
-//            let context = appDelegate.managedObjectContext
-//            let fetchRequest = NSFetchRequest(entityName: entityName)
-//            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [type])
-//            fetchRequest.predicate = predicate
-//            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
-//            fetchRequest.fetchLimit = 1
-//
-//            do {
-//                let results = try context.executeFetchRequest(fetchRequest)
-//                if let aMeasurement = results.last as? Measurement {
-//                    //let decimalPlaces = decimalPlacesForParameter(self.parameterType!)
-//                    //let numberFormat = "%." + String(decimalPlaces) + "f"
-//                    sliderView.slider.value = aMeasurement.value
-//                }
-//                else {
-//                    sliderView.slider.value = 0
-//                }
-//            }
-//            catch {
-//
-//            }
-//        }
+        if let lastValue = dataAccess.lastMeasurementValueForParameter(parameterType) {
+            sliderView.slider.value = lastValue
+        }
+        else {
+            sliderView.slider.value = range.0
+        }
     }
 
-//    override func viewWillDisappear(animated: Bool) {
-//        if let parent = delegate {
-//            parent.refreshData()
-//        }
-//    }
-
     // MARK: - Interface Responders
+
     @IBAction func pickerDidChange(sender: UIDatePicker) {
 
         self.dateField.text = dateFormatter.stringFromDate(sender.date)
@@ -144,16 +120,20 @@ class DetailViewController: UIViewController {
     }
 
     func saveMeasurement() {
-        print("Measurement Saved")
+        guard let type = self.parameterType else {
+            return
+        }
+
+        dataAccess.saveMeasurement(sliderView.slider.value, date: datePicker.date, param: type)
     }
 
     func preferencesDidChange(notification: NSNotification?) {
-        print("Reloaded preferences in Detail view Controller")
+        // print("Reloaded preferences in Detail view Controller")
     }
 
     func valueChanged(slider: CircularSlider){
         // Do something with the value...
-        print("Slider value: \(slider.value)")
+        // print("Slider value: \(slider.value)")
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -161,40 +141,4 @@ class DetailViewController: UIViewController {
             graphController.detailController = self
         }
     }
-}
-
-// MARK: - Private Functions
-private extension DetailViewController {
-//    func measurementForDate(date: NSDate) -> Measurement? {
-//        let day = self.dayFromDate(date)
-//        let type = self.navigationItem.title!
-//        let context = appDelegate.managedObjectContext
-//        let fetchRequest = NSFetchRequest(entityName: entityName)
-//        let predicate = NSPredicate(format: "parameter == %@ AND day == %@", argumentArray: [type, day])
-//        fetchRequest.predicate = predicate
-//        fetchRequest.fetchLimit = 1
-//
-//        do {
-//            let results = try context.executeFetchRequest(fetchRequest)
-//            if let aMeasurement = results.last as? Measurement {
-//                return aMeasurement
-//            }
-//        }
-//        catch {
-//
-//        }
-//
-//        return nil
-//    }
-//
-//    func dayFromDate(date: NSDate) -> NSDate {
-//        let calendar = NSCalendar.currentCalendar()
-//        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
-//        return calendar.dateFromComponents(components)!
-//    }
-//
-//    func firstEnabledParameter() -> Parameter {
-//
-//        return Parameter.Salinity
-//    }
 }

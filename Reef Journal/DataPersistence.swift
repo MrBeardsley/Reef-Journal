@@ -14,20 +14,27 @@ let measurementEntityName = "Measurement"
 class DataPersistence {
 
 
-    func addMeasurement() {
+    func saveMeasurement(value: Double, date: NSDate, param: Parameter) {
 
+        if let _ = self.measurementForDate(date, param: param) {
+
+        }
+        else {
+            if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(measurementEntityName, inManagedObjectContext: self.managedObjectContext) as? Measurement {
+                newEntity.value = value
+                newEntity.parameter = param.rawValue
+                newEntity.day = self.dayFromDate(date).timeIntervalSince1970
+            }
+        }
+        
+        self.saveContext()
     }
 
-    func editMeasurement() {
-
-    }
-
-    func deleteMeasurement() {
+    func deleteMeasurementOnDate(date: NSDate) {
 
     }
 
     func mostRecentMeasurements() -> [String : Double] {
-
         let context = self.managedObjectContext
         var recentMeasurements = [String : Double]()
 
@@ -46,19 +53,19 @@ class DataPersistence {
                 }
             }
             catch {
-
+                let nserror = error as NSError
+                NSLog("Error in fetch of measurements for enabled paramters: \(nserror), \(nserror.userInfo)")
             }
         }
-        
+
         return recentMeasurements
     }
 
     func measurementForDate(date: NSDate, param: Parameter) -> Measurement? {
         let day = self.dayFromDate(date)
-        let type = param.rawValue
         let context = self.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
-        let predicate = NSPredicate(format: "parameter == %@ AND day == %@", argumentArray: [type, day])
+        let predicate = NSPredicate(format: "parameter == %@ AND day == %@", argumentArray: [param.rawValue, day])
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
 
@@ -67,23 +74,54 @@ class DataPersistence {
             if let aMeasurement = results.last as? Measurement {
                 return aMeasurement
             }
+            else {
+                return nil
+            }
         }
         catch {
-
+            let nserror = error as NSError
+            NSLog("Error in fetch of measurement for paramter type \(param.rawValue) on \(date.description): \(nserror), \(nserror.userInfo)")
+            return nil
         }
-
-        return nil
     }
 
-    func dayFromDate(date: NSDate) -> NSDate {
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
-        return calendar.dateFromComponents(components)!
+    func lastMeasurementValueForParameter(param: Parameter) -> Double? {
+        // Coredata fetch to find the most recent measurement
+        let context = self.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
+        let predicate = NSPredicate(format: "parameter = %@", argumentArray: [param.rawValue])
+        fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+        fetchRequest.fetchLimit = 1
+
+        do {
+            let results = try context.executeFetchRequest(fetchRequest)
+            if let aMeasurement = results.last as? Measurement {
+                return aMeasurement.value
+
+            }
+            else {
+                return nil
+            }
+        }
+        catch {
+            let nserror = error as NSError
+            NSLog("Error in fetch of last measurement for paramter type \(param.rawValue): \(nserror), \(nserror.userInfo)")
+            return nil
+        }
     }
 
     func firstEnabledParameter() -> Parameter {
 
         return Parameter.Salinity
+    }
+
+    // MARK: - Private helpers
+
+    private func dayFromDate(date: NSDate) -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
+        return calendar.dateFromComponents(components)!
     }
 
     // MARK: - Core Data stack
