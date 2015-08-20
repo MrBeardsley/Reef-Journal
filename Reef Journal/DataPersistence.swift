@@ -40,9 +40,9 @@ class DataPersistence {
         }
     }
 
-    func mostRecentMeasurements() -> [String : Double] {
+    func mostRecentMeasurements() -> [String : Measurement] {
         let context = self.managedObjectContext
-        var recentMeasurements = [String : Double]()
+        var recentMeasurements = [String : Measurement]()
 
         for item in parameterList {
             let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
@@ -54,8 +54,9 @@ class DataPersistence {
             do {
                 let results = try context.executeFetchRequest(fetchRequest)
 
-                if let aMeasurement = results.last as? Measurement {
-                    recentMeasurements[aMeasurement.parameter!] = aMeasurement.value
+                if let aMeasurement = results.last as? Measurement,
+                   let param = aMeasurement.parameter {
+                    recentMeasurements[param] = aMeasurement
                 }
             }
             catch {
@@ -115,6 +116,10 @@ class DataPersistence {
             NSLog("Error in fetch of last measurement for paramter type \(param.rawValue): \(nserror), \(nserror.userInfo)")
             return nil
         }
+    }
+
+    func dateHasMeasurement(date: NSDate, param: Parameter) -> Bool {
+        return self.measurementForDate(date, param: param) == nil ? true : false
     }
 
     func firstEnabledParameter() -> Parameter {

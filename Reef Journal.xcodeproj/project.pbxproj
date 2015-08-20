@@ -10,8 +10,6 @@
 		831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831386B0196F4A2900F0D0DD /* GraphViewController.swift */; };
 		833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D4AE41A3E17AA00FF6B96 /* Salinity.swift */; };
 		83477AF2195B975A0039E2C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83477AF1195B975A0039E2C5 /* Settings.bundle */; };
-		835390301B5221B70091CEE7 /* Measurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353902E1B5221B70091CEE7 /* Measurement+CoreDataProperties.swift */; };
-		835390311B5221B70091CEE7 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8353902F1B5221B70091CEE7 /* Measurement.swift */; };
 		835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EFCEA1961EFB900214EE4 /* DetailViewController.swift */; };
 		837C8E5B1B7D8F000008533F /* DataPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837C8E5A1B7D8F000008533F /* DataPersistence.swift */; };
 		838BB1931B521B7F00D317B9 /* Reef_Journal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 838BB1911B521B7F00D317B9 /* Reef_Journal.xcdatamodeld */; };
@@ -21,13 +19,14 @@
 		83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */; };
 		83AA7EAB1947D63A00CB9D0F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EAA1947D63A00CB9D0F /* Images.xcassets */; };
 		83AA7EB71947D63B00CB9D0F /* TemperatureStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EB61947D63B00CB9D0F /* TemperatureStruct.swift */; };
-		83AE76071B310F9300C48C0E /* GraphAxesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE76061B310F9300C48C0E /* GraphAxesView.swift */; };
 		83B9B65D19E0C2090040BBF3 /* Alkalinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9B65C19E0C2090040BBF3 /* Alkalinity.swift */; };
 		83B9B65F19E0CAA70040BBF3 /* AlkalinityStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9B65E19E0CAA70040BBF3 /* AlkalinityStruct.swift */; };
 		83BF08DF1B54B2530036549D /* CircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF08DD1B54B2530036549D /* CircularSlider.swift */; };
 		83BF08E01B54B2530036549D /* CircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF08DE1B54B2530036549D /* CircularSliderView.swift */; };
 		83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C010E319DCE7BB0073BE5F /* Functions.swift */; };
 		83C99868196F80C9008E23B1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C99867196F80C9008E23B1 /* GraphView.swift */; };
+		83D3DE261B85743A001B41DC /* Measurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3DE241B85743A001B41DC /* Measurement+CoreDataProperties.swift */; };
+		83D3DE271B85743A001B41DC /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3DE251B85743A001B41DC /* Measurement.swift */; };
 		83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C7119DCFF63005B99A4 /* Temperature.swift */; };
 		83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */; };
 		83EF57D31B52A2570071D29C /* Reef_JournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EF57D21B52A2570071D29C /* Reef_JournalUITests.swift */; };
@@ -55,8 +54,6 @@
 		831386B0196F4A2900F0D0DD /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		833D4AE41A3E17AA00FF6B96 /* Salinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Salinity.swift; sourceTree = "<group>"; };
 		83477AF1195B975A0039E2C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
-		8353902E1B5221B70091CEE7 /* Measurement+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Measurement+CoreDataProperties.swift"; path = "../Measurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		8353902F1B5221B70091CEE7 /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Measurement.swift; path = ../Measurement.swift; sourceTree = "<group>"; };
 		835EFCEA1961EFB900214EE4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		837C8E5A1B7D8F000008533F /* DataPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPersistence.swift; sourceTree = "<group>"; };
 		838BB1921B521B7F00D317B9 /* Reef_Journal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reef_Journal.xcdatamodel; sourceTree = "<group>"; };
@@ -70,13 +67,14 @@
 		83AA7EB01947D63B00CB9D0F /* Reef JournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reef JournalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AA7EB51947D63B00CB9D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AA7EB61947D63B00CB9D0F /* TemperatureStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureStruct.swift; sourceTree = "<group>"; };
-		83AE76061B310F9300C48C0E /* GraphAxesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphAxesView.swift; sourceTree = "<group>"; };
 		83B9B65C19E0C2090040BBF3 /* Alkalinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alkalinity.swift; sourceTree = "<group>"; };
 		83B9B65E19E0CAA70040BBF3 /* AlkalinityStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlkalinityStruct.swift; sourceTree = "<group>"; };
 		83BF08DD1B54B2530036549D /* CircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularSlider.swift; sourceTree = "<group>"; };
 		83BF08DE1B54B2530036549D /* CircularSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularSliderView.swift; sourceTree = "<group>"; };
 		83C010E319DCE7BB0073BE5F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		83C99867196F80C9008E23B1 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		83D3DE241B85743A001B41DC /* Measurement+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Measurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		83D3DE251B85743A001B41DC /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		83DA1C7119DCFF63005B99A4 /* Temperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		83E0D5841947DA3400DE1779 /* Reef Journal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Reef Journal.entitlements"; sourceTree = "<group>"; };
 		83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersTableViewController.swift; sourceTree = "<group>"; };
@@ -144,8 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				838BB1911B521B7F00D317B9 /* Reef_Journal.xcdatamodeld */,
-				8353902F1B5221B70091CEE7 /* Measurement.swift */,
-				8353902E1B5221B70091CEE7 /* Measurement+CoreDataProperties.swift */,
+				83D3DE241B85743A001B41DC /* Measurement+CoreDataProperties.swift */,
+				83D3DE251B85743A001B41DC /* Measurement.swift */,
 				837C8E5A1B7D8F000008533F /* DataPersistence.swift */,
 			);
 			name = "Data Model";
@@ -222,7 +220,6 @@
 			children = (
 				831386B0196F4A2900F0D0DD /* GraphViewController.swift */,
 				83C99867196F80C9008E23B1 /* GraphView.swift */,
-				83AE76061B310F9300C48C0E /* GraphAxesView.swift */,
 			);
 			name = Graph;
 			sourceTree = "<group>";
@@ -383,22 +380,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				835390301B5221B70091CEE7 /* Measurement+CoreDataProperties.swift in Sources */,
 				83B9B65D19E0C2090040BBF3 /* Alkalinity.swift in Sources */,
 				83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */,
+				83D3DE271B85743A001B41DC /* Measurement.swift in Sources */,
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
 				83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */,
 				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,
 				83BF08E01B54B2530036549D /* CircularSliderView.swift in Sources */,
 				833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */,
+				83D3DE261B85743A001B41DC /* Measurement+CoreDataProperties.swift in Sources */,
 				8395474F19C890EA00529B8B /* Types.swift in Sources */,
 				837C8E5B1B7D8F000008533F /* DataPersistence.swift in Sources */,
 				83BF08DF1B54B2530036549D /* CircularSlider.swift in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
-				83AE76071B310F9300C48C0E /* GraphAxesView.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,
 				83C99868196F80C9008E23B1 /* GraphView.swift in Sources */,
-				835390311B5221B70091CEE7 /* Measurement.swift in Sources */,
 				838BB1931B521B7F00D317B9 /* Reef_Journal.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

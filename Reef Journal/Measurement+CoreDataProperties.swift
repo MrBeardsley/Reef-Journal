@@ -2,8 +2,8 @@
 //  Measurement+CoreDataProperties.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 7/11/15
-//  Copyright © 2015 Epic Kiwi Interactive
+//  Created by Christopher Harding on 8/19/15.
+//  Copyright © 2015 Epic Kiwi Interactive.
 //
 //  Delete this file and regenerate it using "Create NSManagedObject Subclass…"
 //  to keep your implementation up to date with your model.

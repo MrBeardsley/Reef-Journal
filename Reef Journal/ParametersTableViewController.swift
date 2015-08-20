@@ -22,11 +22,15 @@ class ParametersTableViewController: UITableViewController {
 
     private var chemistrySection: [String] = []
     private var nutrientsSection: [String] = []
-    private var recentMeasurements: [String : Double]?
+    private var recentMeasurements: [String : Measurement]?
+    private let dateFormat = "MMMM dd ',' yyyy"
+    private let dateFormatter: NSDateFormatter
 
     // MARK: - Init/Deinit
 
     required init?(coder aDecoder: NSCoder) {
+        dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = self.dateFormat
         super.init(coder: aDecoder)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object:nil)
     }
@@ -119,10 +123,11 @@ class ParametersTableViewController: UITableViewController {
                 let parameter = Parameter(rawValue: chemistrySection[indexPath.row])!
                 textLabel.text = chemistrySection[indexPath.row]
                 
-                if let value = recentMeasurements?[chemistrySection[indexPath.row]] {
+                if let aMeasurement = recentMeasurements?[chemistrySection[indexPath.row]] {
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
-                    cell.detailTextLabel?.text = String(format: format, value) + " " + unitLabelForParameterType(parameter)
+                    let dateString = dateFormatter.stringFromDate(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day))
+                    cell.detailTextLabel?.text = String(format: format, aMeasurement.value) + " " + unitLabelForParameterType(parameter) + " on " + dateString
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"
@@ -131,10 +136,12 @@ class ParametersTableViewController: UITableViewController {
             case 1:
                 let parameter = Parameter(rawValue: nutrientsSection[indexPath.row])!
                 textLabel.text = nutrientsSection[indexPath.row]
-                if let value = recentMeasurements?[nutrientsSection[indexPath.row]] {
+
+                if let aMeasurement = recentMeasurements?[nutrientsSection[indexPath.row]] {
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
-                    cell.detailTextLabel?.text = String(format: format, value) + " " + unitLabelForParameterType(parameter)
+                    let dateString = dateFormatter.stringFromDate(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day))
+                    cell.detailTextLabel?.text = String(format: format, aMeasurement.value) + " " + unitLabelForParameterType(parameter) + " on " + dateString
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"
