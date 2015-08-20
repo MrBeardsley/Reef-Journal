@@ -44,6 +44,7 @@ class ParametersTableViewController: UITableViewController {
 
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        self.refreshData()
         super.viewWillAppear(animated)
     }
 
