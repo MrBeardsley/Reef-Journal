@@ -92,6 +92,10 @@ class ParametersTableViewController: UITableViewController {
                             detailViewController.navigationItem.title = title
                             detailViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                             detailViewController.navigationItem.leftItemsSupplementBackButton = true
+
+                if detailViewController.dataAccess == nil {
+                    detailViewController.dataAccess = self.dataAccess
+                }
             }
         }
     }

@@ -14,9 +14,11 @@ class DetailViewController: UIViewController {
     // MARK: - Interface Outlets
 
     @IBOutlet weak var detailNavigationItem: UINavigationItem!
-    @IBOutlet weak var dateField: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var sliderView: CircularSliderView!
+    @IBOutlet weak var previousItem: UIBarButtonItem!
+    @IBOutlet weak var nextItem: UIBarButtonItem!
+    @IBOutlet weak var deleteItem: UIBarButtonItem!
 
     // MARK: - Properties
 
@@ -73,8 +75,6 @@ class DetailViewController: UIViewController {
 
         // Setup the controls
         let today = NSDate()
-//        self.dateField.text = dateFormatter.stringFromDate(today)
-
         datePicker.setDate(today, animated: false)
         datePicker.maximumDate = NSDate()
 
@@ -107,16 +107,24 @@ class DetailViewController: UIViewController {
     // MARK: - Interface Responders
 
     @IBAction func pickerDidChange(sender: UIDatePicker) {
-
-//        self.dateField.text = dateFormatter.stringFromDate(sender.date)
-
-
         if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date, param: self.parameterType) {
             sliderView.slider.value = aMeasurement.value
         }
         else {
             sliderView.slider.value = 0
         }
+    }
+
+    @IBAction func deleteCurrentMeasurement(sender: UIBarButtonItem) {
+        print("Delete current measurement")
+    }
+
+    @IBAction func loadPreviousMeasurement(sender: UIBarButtonItem) {
+        print("Load Previous Measurement")
+    }
+
+    @IBAction func loadNextMeasurement(sender: UIBarButtonItem) {
+        print("Load Next Measurement")
     }
 
     func saveMeasurement() {
