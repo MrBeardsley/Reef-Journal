@@ -25,21 +25,21 @@ struct DecimalFormat {
 
 // MARK: - Math Helpers
 
-func DegreesToRadians(value: Double) -> Double {
+private func DegreesToRadians(value: Double) -> Double {
     return value * M_PI / 180.0
 }
 
-func RadiansToDegrees(value: Double) -> Double {
+private func RadiansToDegrees(value: Double) -> Double {
     return value * 180.0 / M_PI
 }
 
-func Square(value: CGFloat) -> CGFloat {
+private func Square(value: CGFloat) -> CGFloat {
     return value * value
 }
 
 //Sourcecode from Apple example clockControl
 //Calculate the direction in degrees from a center point to an arbitrary position.
-func AngleFromNorth(p1: CGPoint, p2: CGPoint, flipped: Bool) -> Double {
+private func AngleFromNorth(p1: CGPoint, p2: CGPoint, flipped: Bool) -> Double {
     var v: CGPoint  = CGPointMake(p2.x - p1.x, p2.y - p1.y)
     let vmag: CGFloat = Square(Square(v.x) + Square(v.y))
     var result: Double = 0.0
@@ -49,6 +49,8 @@ func AngleFromNorth(p1: CGPoint, p2: CGPoint, flipped: Bool) -> Double {
     result = RadiansToDegrees(radians)
     return (result >= 0  ? result : result + 360.0);
 }
+
+// MARK: - CircularSlider Class
 
 class CircularSlider: UIControl, UITextFieldDelegate {
 

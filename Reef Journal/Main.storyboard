@@ -34,19 +34,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <datePicker contentMode="scaleToFill" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="LoY-Sw-dd2">
-                                <rect key="frame" x="140" y="72" width="320" height="148"/>
+                                <rect key="frame" x="140" y="72" width="320" height="216"/>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="6sJ-PG-haF"/>
-                                </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="458700086.47042799">
                                     <!--2015-07-16 00:41:26 +0000-->
                                 </date>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="6sJ-PG-haF"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <action selector="pickerDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="1I9-4T-evQ"/>
                                 </connections>
@@ -57,8 +49,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="39J-GG-XWf"/>
-                                    <constraint firstAttribute="height" constant="320" id="62E-1J-HAC"/>
-                                    <constraint firstAttribute="width" constant="320" id="8hH-V8-uSw"/>
                                     <constraint firstAttribute="height" constant="320" id="9YD-iI-flH"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -69,12 +59,6 @@
                                         <color key="value" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="62E-1J-HAC"/>
-                                        <exclude reference="8hH-V8-uSw"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <outlet property="detailController" destination="JEX-9P-axG" id="YeR-8y-o0d"/>
                                 </connections>
@@ -107,7 +91,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="xpj-70-fKG" secondAttribute="bottom" id="6mL-JH-FHs"/>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" constant="8" id="LQV-cm-FRx"/>
+                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" priority="250" constant="8" id="LQV-cm-FRx"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" symbolic="YES" id="Oui-YU-jdf"/>
                             <constraint firstItem="LoY-Sw-dd2" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="Pnj-06-ROj"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="V3d-NU-HMZ"/>
