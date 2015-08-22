@@ -40,6 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
         }
 
+        for controller in detailNavController.viewControllers {
+            if controller is DetailViewController {
+                if let detailViewController = controller as? DetailViewController {
+                    detailViewController.dataAccess = dataLayer
+                }
+            }
+        }
+
         // Get the preferences setup
         let mainBundlePath = NSBundle.mainBundle().bundlePath as NSString
         let settingsPropertyListPath = mainBundlePath.stringByAppendingPathComponent("Settings.bundle/Root.plist");

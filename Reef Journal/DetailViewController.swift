@@ -73,7 +73,7 @@ class DetailViewController: UIViewController {
 
         // Setup the controls
         let today = NSDate()
-        self.dateField.text = dateFormatter.stringFromDate(today)
+//        self.dateField.text = dateFormatter.stringFromDate(today)
 
         datePicker.setDate(today, animated: false)
         datePicker.maximumDate = NSDate()
@@ -108,7 +108,7 @@ class DetailViewController: UIViewController {
 
     @IBAction func pickerDidChange(sender: UIDatePicker) {
 
-        self.dateField.text = dateFormatter.stringFromDate(sender.date)
+//        self.dateField.text = dateFormatter.stringFromDate(sender.date)
 
 
         if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date, param: self.parameterType) {
