@@ -15,7 +15,7 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var detailNavigationItem: UINavigationItem!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var sliderView: CircularSliderView!
+    @IBOutlet weak var slider: CircularSlider!
     @IBOutlet weak var previousItem: UIBarButtonItem!
     @IBOutlet weak var nextItem: UIBarButtonItem!
     @IBOutlet weak var deleteItem: UIBarButtonItem!
@@ -74,33 +74,33 @@ class DetailViewController: UIViewController {
         }
 
         // Setup the controls
-        let today = NSDate()
-        datePicker.setDate(today, animated: false)
+        datePicker.setDate(NSDate(), animated: false)
         datePicker.maximumDate = NSDate()
 
         switch decimalPlacesForParameter(parameterType) {
         case 0:
-            sliderView.slider.valueFormat = DecimalFormat.None
+            slider.valueFormat = DecimalFormat.None
         case 1:
-            sliderView.slider.valueFormat = DecimalFormat.One
+            slider.valueFormat = DecimalFormat.One
         case 2:
-            sliderView.slider.valueFormat = DecimalFormat.Two
+            slider.valueFormat = DecimalFormat.Two
         case 3:
-            sliderView.slider.valueFormat = DecimalFormat.Three
+            slider.valueFormat = DecimalFormat.Three
         default:
-            sliderView.slider.valueFormat = DecimalFormat.None
+            slider.valueFormat = DecimalFormat.None
         }
 
         let range = measurementRangeForParameterType(parameterType)
 
-        sliderView.slider.minValue = range.0
-        sliderView.slider.maxValue = range.1
+        slider.minValue = range.0
+        slider.maxValue = range.1
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
 
         if let lastValue = dataAccess.lastMeasurementValueForParameter(parameterType) {
-            sliderView.slider.value = lastValue
-        }
-        else {
-            sliderView.slider.value = range.0
+            slider.value = lastValue
         }
     }
 
@@ -108,10 +108,10 @@ class DetailViewController: UIViewController {
 
     @IBAction func pickerDidChange(sender: UIDatePicker) {
         if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date, param: self.parameterType) {
-            sliderView.slider.value = aMeasurement.value
+            slider.value = aMeasurement.value
         }
         else {
-            sliderView.slider.value = 0
+            slider.value = 0
         }
     }
 
@@ -132,7 +132,7 @@ class DetailViewController: UIViewController {
             return
         }
 
-        dataAccess.saveMeasurement(sliderView.slider.value, date: datePicker.date, param: type)
+        dataAccess.saveMeasurement(slider.value, date: datePicker.date, param: type)
     }
 
     func preferencesDidChange(notification: NSNotification?) {

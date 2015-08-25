@@ -21,7 +21,6 @@
 		83B9B65D19E0C2090040BBF3 /* Alkalinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9B65C19E0C2090040BBF3 /* Alkalinity.swift */; };
 		83B9B65F19E0CAA70040BBF3 /* AlkalinityStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9B65E19E0CAA70040BBF3 /* AlkalinityStruct.swift */; };
 		83BF08DF1B54B2530036549D /* CircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF08DD1B54B2530036549D /* CircularSlider.swift */; };
-		83BF08E01B54B2530036549D /* CircularSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF08DE1B54B2530036549D /* CircularSliderView.swift */; };
 		83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C010E319DCE7BB0073BE5F /* Functions.swift */; };
 		83C99868196F80C9008E23B1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C99867196F80C9008E23B1 /* GraphView.swift */; };
 		83D3DE261B85743A001B41DC /* Measurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3DE241B85743A001B41DC /* Measurement+CoreDataProperties.swift */; };
@@ -69,7 +68,6 @@
 		83B9B65C19E0C2090040BBF3 /* Alkalinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alkalinity.swift; sourceTree = "<group>"; };
 		83B9B65E19E0CAA70040BBF3 /* AlkalinityStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlkalinityStruct.swift; sourceTree = "<group>"; };
 		83BF08DD1B54B2530036549D /* CircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularSlider.swift; sourceTree = "<group>"; };
-		83BF08DE1B54B2530036549D /* CircularSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularSliderView.swift; sourceTree = "<group>"; };
 		83C010E319DCE7BB0073BE5F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		83C99867196F80C9008E23B1 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		83D3DE241B85743A001B41DC /* Measurement+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Measurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				83BF08DD1B54B2530036549D /* CircularSlider.swift */,
-				83BF08DE1B54B2530036549D /* CircularSliderView.swift */,
 			);
 			name = Slider;
 			sourceTree = "<group>";
@@ -386,7 +383,6 @@
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
 				83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */,
 				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,
-				83BF08E01B54B2530036549D /* CircularSliderView.swift in Sources */,
 				833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */,
 				83D3DE261B85743A001B41DC /* Measurement+CoreDataProperties.swift in Sources */,
 				8395474F19C890EA00529B8B /* Types.swift in Sources */,

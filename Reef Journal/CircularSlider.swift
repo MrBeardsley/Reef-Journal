@@ -9,6 +9,12 @@
 import UIKit
 
 
+private struct ColorPalette {
+    static let lightBlue = UIColor.cyanColor()
+    static let darkBlue = UIColor(red: 0, green: 0, blue: 0.5, alpha: 1)
+    static let textGrey = UIColor(white: 0.5, alpha: 1.0)
+}
+
 private enum DrawingParameters: CGFloat {
     case Padding = 30.0
     case LineWidth = 40.0
@@ -54,13 +60,18 @@ private func AngleFromNorth(p1: CGPoint, p2: CGPoint, flipped: Bool) -> Double {
 
 class CircularSlider: UIControl, UITextFieldDelegate {
 
+    // Mark: - IBOutlets
+
+    @IBOutlet var detailController: DetailViewController!
+
     // MARK: - Properties
 
-    var startColor = ColorPalette.lightBlue
-    var endColor = ColorPalette.darkBlue
+    var startColor: UIColor = ColorPalette.lightBlue
+    var endColor: UIColor = ColorPalette.darkBlue
+
     var maxValue: Double = 0
     var minValue: Double = 0
-    var valueFormat: String
+    var valueFormat: String = DecimalFormat.None
     var value: Double {
         get {
             return _value
@@ -80,9 +91,10 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     }
 
     private var textField: UITextField?
+    private var fontSize: CGSize = CGSize(width: 0, height: 0)
     private var radius: CGFloat = 0
     private var angle: Double = 0
-
+    private var _setup: Bool = false
 
     // MARK: - Init/Deinit
 
@@ -95,41 +107,41 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     
     // Default initializer
     override init(frame: CGRect) {
-        valueFormat = DecimalFormat.None
-
         super.init(frame: frame)
-        
+        self._initControl()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self._initControl()
+    }
+
+    private func _initControl() {
         self.backgroundColor = UIColor.clearColor()
         self.opaque = true
-        
-        //Define the circle radius taking into account the safe area
-        radius = self.frame.size.width / 2 - DrawingParameters.Padding.rawValue
-        
-        //Define the Font
-        let font = UIFont.systemFontOfSize(DrawingParameters.FontSize.rawValue)
+
+        //Using a TextField area we can easily modify the control to get user input from this field
         //Calculate font size needed to display 3 numbers
         let str = "0.000" as NSString
-        let fontSize: CGSize = str.sizeWithAttributes([NSFontAttributeName:font])
-        
-        //Using a TextField area we can easily modify the control to get user input from this field
-        let textFieldRect = CGRectMake(
-            (frame.size.width  - fontSize.width) / 2.0,
-            (frame.size.height - fontSize.height) / 2.0,
-            fontSize.width, fontSize.height);
-        
-        textField = UITextField(frame: textFieldRect)
+        let font = UIFont.systemFontOfSize(DrawingParameters.FontSize.rawValue)
+        self.fontSize = str.sizeWithAttributes([NSFontAttributeName:font])
+
+        textField = UITextField(frame: CGRectZero)
         textField?.delegate = self
         textField?.backgroundColor = UIColor.clearColor()
         textField?.textColor = ColorPalette.textGrey
         textField?.textAlignment = .Center
         textField?.font = font
-        textField?.text = "\(self._value)"
-        
+
         addSubview(textField!)
     }
 
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private func _setupControl() {
+        //Define the circle radius taking into account the safe area
+        radius = self.frame.size.width / 2 - DrawingParameters.Padding.rawValue
+
+        // Position the text in the center of the control
+        textField?.frame = CGRectMake(frame.width / 2 - fontSize.width / 2, frame.height / 2 - fontSize.height / 2, fontSize.width, fontSize.height)
     }
     
     // MARK: - Touch Tracking
@@ -139,7 +151,6 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         
         return true
     }
-    
     
     override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
         super.continueTrackingWithTouch(touch, withEvent: event)
@@ -159,11 +170,29 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     }
 
     // MARK: - Drawing
+
+    override func intrinsicContentSize() -> CGSize {
+
+        switch UIDevice.currentDevice().model {
+        case "iPad":
+            return CGSize(width: 400, height: 400)
+        case "iPhone":
+            return CGSize(width: 320, height: 320)
+        default:
+            return CGSize(width: 320, height: 320)
+        }
+    }
     
     //Use the draw rect to draw the Background, the Circle and the Handle
     override func drawRect(rect: CGRect){
         super.drawRect(rect)
-        
+
+        // Determine if the sizing has been set for the control before drawing.
+        if !_setup {
+            self._setupControl()
+            _setup = true
+        }
+
         guard let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
@@ -253,7 +282,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         CGContextRestoreGState(ctx);
     }
 
-    private func moveHandle(lastPoint:CGPoint) {
+    private func moveHandle(lastPoint: CGPoint) {
         let centerPoint = CGPointMake(self.bounds.size.width / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0, self.bounds.size.height / 2.0 - DrawingParameters.LineWidth.rawValue / 2.0);
         //Calculate the direction from a center point and a arbitrary position.
         let currentAngle: Double = AngleFromNorth(centerPoint, p2: lastPoint, flipped: false);
@@ -265,7 +294,6 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         else {
             angle = 360 - currentAngle
         }
-
 
         switch valueFormat {
         case DecimalFormat.None:
