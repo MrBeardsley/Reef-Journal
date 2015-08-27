@@ -62,7 +62,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
     // Mark: - IBOutlets
 
-    @IBOutlet var detailController: DetailViewController!
+    @IBOutlet weak var detailController: DetailViewController!
 
     // MARK: - Properties
 
@@ -94,7 +94,6 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     private var fontSize: CGSize = CGSize(width: 0, height: 0)
     private var radius: CGFloat = 0
     private var angle: Double = 0
-    private var _setup: Bool = false
 
     // MARK: - Init/Deinit
 
@@ -136,7 +135,7 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         addSubview(textField!)
     }
 
-    private func _setupControl() {
+    func layoutControl() {
         //Define the circle radius taking into account the safe area
         radius = self.frame.size.width / 2 - DrawingParameters.Padding.rawValue
 
@@ -186,12 +185,6 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     //Use the draw rect to draw the Background, the Circle and the Handle
     override func drawRect(rect: CGRect){
         super.drawRect(rect)
-
-        // Determine if the sizing has been set for the control before drawing.
-        if !_setup {
-            self._setupControl()
-            _setup = true
-        }
 
         guard let ctx = UIGraphicsGetCurrentContext() else {
             return

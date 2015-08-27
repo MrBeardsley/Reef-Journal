@@ -96,11 +96,16 @@ class DetailViewController: UIViewController {
         slider.maxValue = range.1
     }
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        slider.layoutControl()
 
         if let lastValue = dataAccess.lastMeasurementValueForParameter(parameterType) {
             slider.value = lastValue
+        }
+        else {
+            slider.value = slider.minValue
         }
     }
 
