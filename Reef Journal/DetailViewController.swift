@@ -22,16 +22,12 @@ class DetailViewController: UIViewController {
 
     // MARK: - Properties
 
-    let format = "MMMM dd ',' yyyy"
-    let dateFormatter: NSDateFormatter
     var parameterType: Parameter!
     var dataAccess: DataPersistence!
 
     // MARK: - Init/Deinit
 
     required init?(coder aDecoder: NSCoder) {
-        dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = format
         super.init(coder: aDecoder)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
@@ -109,7 +105,7 @@ class DetailViewController: UIViewController {
         }
     }
 
-    // MARK: - Interface Responders
+    // MARK: - Interface Actions
 
     @IBAction func pickerDidChange(sender: UIDatePicker) {
         if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date, param: self.parameterType) {
@@ -118,6 +114,14 @@ class DetailViewController: UIViewController {
         else {
             slider.value = 0
         }
+    }
+
+    @IBAction func sliderDidChange(sender: CircularSlider) {
+        guard let type = self.parameterType else {
+            return
+        }
+
+        dataAccess.saveMeasurement(slider.value, date: datePicker.date, param: type)
     }
 
     @IBAction func deleteCurrentMeasurement(sender: UIBarButtonItem) {
@@ -132,22 +136,12 @@ class DetailViewController: UIViewController {
         print("Load Next Measurement")
     }
 
-    func saveMeasurement() {
-        guard let type = self.parameterType else {
-            return
-        }
-
-        dataAccess.saveMeasurement(slider.value, date: datePicker.date, param: type)
-    }
 
     func preferencesDidChange(notification: NSNotification?) {
         // print("Reloaded preferences in Detail view Controller")
     }
 
-    func valueChanged(slider: CircularSlider){
-        // Do something with the value...
-        // print("Slider value: \(slider.value)")
-    }
+    // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if let graphController = segue.destinationViewController as? GraphViewController {

@@ -28,7 +28,6 @@ struct DecimalFormat {
     static let Three = "%.3f"
 }
 
-
 // MARK: - Math Helpers
 
 private func DegreesToRadians(value: Double) -> Double {
@@ -59,10 +58,6 @@ private func AngleFromNorth(p1: CGPoint, p2: CGPoint, flipped: Bool) -> Double {
 // MARK: - CircularSlider Class
 
 class CircularSlider: UIControl, UITextFieldDelegate {
-
-    // Mark: - IBOutlets
-
-    @IBOutlet weak var detailController: DetailViewController!
 
     // MARK: - Properties
 
@@ -155,17 +150,15 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         super.continueTrackingWithTouch(touch, withEvent: event)
         
         let lastPoint = touch.locationInView(self)
-        
         self.moveHandle(lastPoint)
-        self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
-        
+
         return true
     }
     
     override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
         super.endTrackingWithTouch(touch, withEvent: event)
 
-        NSNotificationCenter.defaultCenter().postNotificationName("SaveMeasurement", object: nil)
+        self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
     }
 
     // MARK: - Drawing
@@ -189,7 +182,6 @@ class CircularSlider: UIControl, UITextFieldDelegate {
         guard let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
-        
         
         /** Draw the Background **/
         
