@@ -33,7 +33,8 @@ class DataPersistence {
         self.saveContext()
     }
 
-    func deleteMeasurementOnDate(date: NSDate, param: Parameter) {
+    func deleteMeasurementOnDay(day: NSTimeInterval, param: Parameter) {
+        let date = NSDate(timeIntervalSinceReferenceDate: day)
         if let aMesurement = self.measurementForDate(date, param: param) {
             self.managedObjectContext.deleteObject(aMesurement)
             self.saveContext()
@@ -92,7 +93,28 @@ class DataPersistence {
         }
     }
 
-    func lastMeasurementValueForParameter(param: Parameter) -> Double? {
+    func measurementsForParameter(param: Parameter) -> [Measurement] {
+        let context = self.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
+        let predicate = NSPredicate(format: "parameter == %@", argumentArray: [param.rawValue])
+        fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: true)]
+
+        do {
+            let results = try context.executeFetchRequest(fetchRequest)
+            if let results = results as? [Measurement] {
+                return results
+            }
+            else { return [] }
+        }
+        catch {
+            let nserror = error as NSError
+            NSLog("Error in fetch of measurement for paramter type \(param.rawValue): \(nserror), \(nserror.userInfo)")
+            return []
+        }
+    }
+
+    func lastMeasurementValueForParameter(param: Parameter) -> Measurement? {
         // Coredata fetch to find the most recent measurement
         let context = self.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
@@ -104,7 +126,7 @@ class DataPersistence {
         do {
             let results = try context.executeFetchRequest(fetchRequest)
             if let aMeasurement = results.last as? Measurement {
-                return aMeasurement.value
+                return aMeasurement
 
             }
             else {

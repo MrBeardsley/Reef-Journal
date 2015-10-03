@@ -23,6 +23,7 @@
 		83BF08DF1B54B2530036549D /* CircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF08DD1B54B2530036549D /* CircularSlider.swift */; };
 		83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C010E319DCE7BB0073BE5F /* Functions.swift */; };
 		83C99868196F80C9008E23B1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C99867196F80C9008E23B1 /* GraphView.swift */; };
+		83CA99D21B97EE1C005380D6 /* ParameterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA99D11B97EE1C005380D6 /* ParameterDetail.swift */; settings = {ASSET_TAGS = (); }; };
 		83D3DE261B85743A001B41DC /* Measurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3DE241B85743A001B41DC /* Measurement+CoreDataProperties.swift */; };
 		83D3DE271B85743A001B41DC /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3DE251B85743A001B41DC /* Measurement.swift */; };
 		83D3DE291B857C8B001B41DC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83D3DE281B857C8B001B41DC /* Settings.bundle */; };
@@ -70,6 +71,7 @@
 		83BF08DD1B54B2530036549D /* CircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularSlider.swift; sourceTree = "<group>"; };
 		83C010E319DCE7BB0073BE5F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		83C99867196F80C9008E23B1 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		83CA99D11B97EE1C005380D6 /* ParameterDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterDetail.swift; sourceTree = "<group>"; };
 		83D3DE241B85743A001B41DC /* Measurement+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Measurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		83D3DE251B85743A001B41DC /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		83D3DE281B857C8B001B41DC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -174,7 +176,8 @@
 				83C010E319DCE7BB0073BE5F /* Functions.swift */,
 				8395474E19C890EA00529B8B /* Types.swift */,
 				8328E4F51B7190CC009A57EB /* View Controllers */,
-				83E5E06F1A9D57A100ECA17E /* Slider */,
+				83CA99D01B97EDE2005380D6 /* App Logic */,
+				83E5E06F1A9D57A100ECA17E /* Custom Controls */,
 				83AE76081B31102500C48C0E /* Graph */,
 				833D4AE61A3E17C300FF6B96 /* Parameters */,
 				835476D819646E9500D1994E /* Interface */,
@@ -222,12 +225,20 @@
 			name = Graph;
 			sourceTree = "<group>";
 		};
-		83E5E06F1A9D57A100ECA17E /* Slider */ = {
+		83CA99D01B97EDE2005380D6 /* App Logic */ = {
+			isa = PBXGroup;
+			children = (
+				83CA99D11B97EE1C005380D6 /* ParameterDetail.swift */,
+			);
+			name = "App Logic";
+			sourceTree = "<group>";
+		};
+		83E5E06F1A9D57A100ECA17E /* Custom Controls */ = {
 			isa = PBXGroup;
 			children = (
 				83BF08DD1B54B2530036549D /* CircularSlider.swift */,
 			);
-			name = Slider;
+			name = "Custom Controls";
 			sourceTree = "<group>";
 		};
 		83EF57D11B52A2570071D29C /* Reef JournalUITests */ = {
@@ -381,6 +392,7 @@
 				83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */,
 				83D3DE271B85743A001B41DC /* Measurement.swift in Sources */,
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
+				83CA99D21B97EE1C005380D6 /* ParameterDetail.swift in Sources */,
 				83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */,
 				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,
 				833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */,

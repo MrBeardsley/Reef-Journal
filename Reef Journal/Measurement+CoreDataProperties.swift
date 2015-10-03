@@ -19,3 +19,15 @@ extension Measurement {
     @NSManaged var value: Double
 
 }
+
+extension Measurement: CustomDebugStringConvertible {
+    override var debugDescription: String {
+        get {
+            let date = NSDate(timeIntervalSinceReferenceDate: self.day)
+            if let param = self.parameter {
+                return "Parameter: \(param), Value:\(self.value), Date: \(date)"
+            }
+            else { return "Invalid Measurement" }
+        }
+    }
+}

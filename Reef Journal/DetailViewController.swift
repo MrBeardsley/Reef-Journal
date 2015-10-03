@@ -24,14 +24,16 @@ class DetailViewController: UIViewController {
 
     var parameterType: Parameter!
     var dataAccess: DataPersistence!
+    var measurements: [Measurement]
+    var currentMeasurement: Measurement?
 
     // MARK: - Init/Deinit
 
     required init?(coder aDecoder: NSCoder) {
+        self.measurements = [Measurement]()
         super.init(coder: aDecoder)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveMeasurement", name: "SaveMeasurement", object:nil)
     }
 
     deinit {
@@ -90,6 +92,15 @@ class DetailViewController: UIViewController {
 
         slider.minValue = range.0
         slider.maxValue = range.1
+
+        self.measurements = dataAccess.measurementsForParameter(self.parameterType)
+        print(measurements)
+        
+        if self.measurements.count == 0 {
+            previousItem.enabled = false
+            nextItem.enabled = false
+            deleteItem.enabled = false
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -98,7 +109,8 @@ class DetailViewController: UIViewController {
         slider.layoutControl()
 
         if let lastValue = dataAccess.lastMeasurementValueForParameter(parameterType) {
-            slider.value = lastValue
+            slider.value = lastValue.value
+            self.currentMeasurement = lastValue
         }
         else {
             slider.value = slider.minValue
@@ -117,15 +129,22 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func sliderDidChange(sender: CircularSlider) {
-        guard let type = self.parameterType else {
-            return
-        }
+        guard let type = self.parameterType else { return }
 
         dataAccess.saveMeasurement(slider.value, date: datePicker.date, param: type)
+        self.deleteItem.enabled = true
     }
 
     @IBAction func deleteCurrentMeasurement(sender: UIBarButtonItem) {
-        print("Delete current measurement")
+        guard let currentMeasurement = self.currentMeasurement else { return }
+        
+        dataAccess.deleteMeasurementOnDay(currentMeasurement.day, param: self.parameterType)
+        self.measurements = dataAccess.measurementsForParameter(self.parameterType)
+        
+        if self.measurements.count == 0 {
+            self.deleteItem.enabled = false
+            slider.value = slider.minValue
+        }
     }
 
     @IBAction func loadPreviousMeasurement(sender: UIBarButtonItem) {
