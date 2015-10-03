@@ -98,7 +98,7 @@ class DataPersistence {
         let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
         let predicate = NSPredicate(format: "parameter == %@", argumentArray: [param.rawValue])
         fetchRequest.predicate = predicate
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
 
         do {
             let results = try context.executeFetchRequest(fetchRequest)

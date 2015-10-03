@@ -94,7 +94,6 @@ class DetailViewController: UIViewController {
         slider.maxValue = range.1
 
         self.measurements = dataAccess.measurementsForParameter(self.parameterType)
-        print(measurements)
         
         if self.measurements.count == 0 {
             previousItem.enabled = false
@@ -120,11 +119,14 @@ class DetailViewController: UIViewController {
     // MARK: - Interface Actions
 
     @IBAction func pickerDidChange(sender: UIDatePicker) {
-        if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date, param: self.parameterType) {
+        guard let type = self.parameterType else { return }
+        
+        if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date, param: type) {
+            self.currentMeasurement = aMeasurement
             slider.value = aMeasurement.value
         }
         else {
-            slider.value = 0
+            slider.value = slider.minValue
         }
     }
 
@@ -132,18 +134,39 @@ class DetailViewController: UIViewController {
         guard let type = self.parameterType else { return }
 
         dataAccess.saveMeasurement(slider.value, date: datePicker.date, param: type)
+        self.measurements = dataAccess.measurementsForParameter(type)
+        
         self.deleteItem.enabled = true
     }
 
     @IBAction func deleteCurrentMeasurement(sender: UIBarButtonItem) {
         guard let currentMeasurement = self.currentMeasurement else { return }
+        guard let type = self.parameterType else { return }
         
         dataAccess.deleteMeasurementOnDay(currentMeasurement.day, param: self.parameterType)
         self.measurements = dataAccess.measurementsForParameter(self.parameterType)
         
         if self.measurements.count == 0 {
             self.deleteItem.enabled = false
+            self.nextItem.enabled = false
+            self.previousItem.enabled = false
             slider.value = slider.minValue
+        }
+        else {
+            // get current day get the next latest measurement
+            let today = datePicker.date
+            
+            for measurement in self.measurements {
+                if measurement.day < today.timeIntervalSinceReferenceDate {
+                    let date = NSDate(timeIntervalSinceReferenceDate: measurement.day)
+                    datePicker.date = date
+                    if let previousMeasurement = dataAccess.measurementForDate(date, param: type) {
+                        slider.value = previousMeasurement.value
+                        self.currentMeasurement = previousMeasurement
+                    }
+                    break
+                }
+            }
         }
     }
 
