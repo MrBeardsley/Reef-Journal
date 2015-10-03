@@ -48,6 +48,7 @@
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <animations/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="DUX-8c-PTd"/>
                                     <constraint firstAttribute="height" constant="44" id="tIo-Gb-ve0"/>
                                 </constraints>
                                 <items>
@@ -71,12 +72,18 @@
                                 </items>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="DUX-8c-PTd"/>
                                         <exclude reference="tIo-Gb-ve0"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="tIo-Gb-ve0"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="DUX-8c-PTd"/>
                                     </mask>
                                 </variation>
                             </toolbar>
@@ -88,6 +95,7 @@
                                     <constraint firstAttribute="width" constant="320" id="39J-GG-XWf"/>
                                     <constraint firstAttribute="height" constant="320" id="9YD-iI-flH"/>
                                     <constraint firstAttribute="width" constant="400" id="EHX-Ef-0g4"/>
+                                    <constraint firstAttribute="width" secondItem="Ct4-vf-pHX" secondAttribute="height" multiplier="1:1" id="LcX-ZN-sRK"/>
                                     <constraint firstAttribute="height" constant="400" id="bpK-Tj-Xqa"/>
                                     <constraint firstAttribute="width" secondItem="Ct4-vf-pHX" secondAttribute="height" multiplier="1:1" id="gRl-8R-9ZW"/>
                                 </constraints>
@@ -96,6 +104,7 @@
                                         <exclude reference="39J-GG-XWf"/>
                                         <exclude reference="9YD-iI-flH"/>
                                         <exclude reference="EHX-Ef-0g4"/>
+                                        <exclude reference="LcX-ZN-sRK"/>
                                         <exclude reference="bpK-Tj-Xqa"/>
                                         <exclude reference="gRl-8R-9ZW"/>
                                     </mask>
@@ -103,6 +112,11 @@
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="gRl-8R-9ZW"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="LcX-ZN-sRK"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
@@ -119,11 +133,17 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" id="3xt-7Z-7ha">
+                                <variation key="heightClass=regular-widthClass=compact" constant="20"/>
+                            </constraint>
                             <constraint firstItem="LoY-Sw-dd2" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="5ee-7H-KsS"/>
                             <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="xpj-70-fKG" secondAttribute="bottom" id="6mL-JH-FHs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ct4-vf-pHX" secondAttribute="trailing" id="7mr-bL-o0b">
+                                <variation key="heightClass=regular-widthClass=compact" constant="20"/>
+                            </constraint>
                             <constraint firstItem="Ct4-vf-pHX" firstAttribute="leading" secondItem="LoY-Sw-dd2" secondAttribute="trailing" constant="8" symbolic="YES" id="8E3-Wg-zMR"/>
                             <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="KA9-rc-Ii6"/>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" priority="250" constant="8" id="LQV-cm-FRx"/>
+                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" priority="750" constant="8" id="LQV-cm-FRx"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" symbolic="YES" id="Oui-YU-jdf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ct4-vf-pHX" secondAttribute="trailing" constant="-20" id="Pcz-Mi-3B9"/>
                             <constraint firstItem="LoY-Sw-dd2" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="Pnj-06-ROj"/>
@@ -142,6 +162,8 @@
                             <mask key="constraints">
                                 <exclude reference="5ee-7H-KsS"/>
                                 <exclude reference="QuG-wa-zlO"/>
+                                <exclude reference="3xt-7Z-7ha"/>
+                                <exclude reference="7mr-bL-o0b"/>
                                 <exclude reference="8E3-Wg-zMR"/>
                                 <exclude reference="KA9-rc-Ii6"/>
                                 <exclude reference="Pcz-Mi-3B9"/>
@@ -168,6 +190,13 @@
                                 <include reference="tn0-Hk-3T1"/>
                             </mask>
                         </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="3xt-7Z-7ha"/>
+                                <include reference="7mr-bL-o0b"/>
+                                <exclude reference="ZKQ-t7-gqh"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
@@ -182,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="129"/>
+            <point key="canvasLocation" x="708" y="129"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
