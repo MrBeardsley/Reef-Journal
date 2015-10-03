@@ -11,6 +11,22 @@ import CoreData
 
 let measurementEntityName = "Measurement"
 
+
+extension NSDate {
+    
+    func toLocalTime() -> NSDate {
+        let tz = NSTimeZone.localTimeZone()
+        let seconds = tz.secondsFromGMTForDate(self)
+        return NSDate(timeInterval: NSTimeInterval(seconds), sinceDate: self)
+    }
+    
+    func dayFromDate() -> NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Year, .Month, .Day], fromDate: self)
+        return calendar.dateFromComponents(components)!
+    }
+}
+
 class DataPersistence {
 
     // MARK: - Data persistence operations
@@ -20,13 +36,13 @@ class DataPersistence {
         if let aMesurement = self.measurementForDate(date, param: param) {
             aMesurement.value = value
             aMesurement.parameter = param.rawValue
-            aMesurement.day = self.dayFromDate(date).timeIntervalSinceReferenceDate
+            aMesurement.day = date.dayFromDate().timeIntervalSinceReferenceDate
         }
         else {
             if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(measurementEntityName, inManagedObjectContext: self.managedObjectContext) as? Measurement {
                 newEntity.value = value
                 newEntity.parameter = param.rawValue
-                newEntity.day = self.dayFromDate(date).timeIntervalSinceReferenceDate
+                newEntity.day = date.dayFromDate().timeIntervalSinceReferenceDate
             }
         }
         
@@ -70,7 +86,7 @@ class DataPersistence {
     }
 
     func measurementForDate(date: NSDate, param: Parameter) -> Measurement? {
-        let day = self.dayFromDate(date)
+        let day = date.dayFromDate()
         let context = self.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
         let predicate = NSPredicate(format: "parameter == %@ AND day == %@", argumentArray: [param.rawValue, day])
@@ -147,14 +163,6 @@ class DataPersistence {
     func firstEnabledParameter() -> Parameter {
 
         return Parameter.Salinity
-    }
-
-    // MARK: - Private helpers
-
-    private func dayFromDate(date: NSDate) -> NSDate {
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
-        return calendar.dateFromComponents(components)!
     }
 
     // MARK: - Core Data stack

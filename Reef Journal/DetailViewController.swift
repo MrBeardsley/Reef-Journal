@@ -26,6 +26,7 @@ class DetailViewController: UIViewController {
     var dataAccess: DataPersistence!
     var measurements: [Measurement]
     var currentMeasurement: Measurement?
+    let dateFormatter = NSDateFormatter()
 
     // MARK: - Init/Deinit
 
@@ -72,8 +73,9 @@ class DetailViewController: UIViewController {
         }
 
         // Setup the controls
-        datePicker.setDate(NSDate(), animated: false)
-        datePicker.maximumDate = NSDate()
+        let today = NSDate()
+        datePicker.setDate(today, animated: false)
+        datePicker.maximumDate = today
 
         switch decimalPlacesForParameter(parameterType) {
         case 0:
@@ -95,11 +97,21 @@ class DetailViewController: UIViewController {
 
         self.measurements = dataAccess.measurementsForParameter(self.parameterType)
         
+        print(self.measurements)
+        
         if self.measurements.count == 0 {
             previousItem.enabled = false
-            nextItem.enabled = false
             deleteItem.enabled = false
         }
+        
+        if pastMeasurementsExist(today.timeIntervalSinceReferenceDate) {
+            previousItem.enabled = true
+        }
+        else {
+            previousItem.enabled = false
+        }
+        
+        nextItem.enabled = false
     }
 
     override func viewDidLayoutSubviews() {
@@ -121,19 +133,33 @@ class DetailViewController: UIViewController {
     @IBAction func pickerDidChange(sender: UIDatePicker) {
         guard let type = self.parameterType else { return }
         
-        if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date, param: type) {
+        if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date.dayFromDate(), param: type) {
             self.currentMeasurement = aMeasurement
             slider.value = aMeasurement.value
         }
         else {
             slider.value = slider.minValue
         }
+        
+        if pastMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
+            previousItem.enabled = true
+        }
+        else {
+            previousItem.enabled = false
+        }
+        
+        if futureMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
+            nextItem.enabled = true
+        }
+        else {
+            nextItem.enabled = false
+        }
     }
 
     @IBAction func sliderDidChange(sender: CircularSlider) {
         guard let type = self.parameterType else { return }
 
-        dataAccess.saveMeasurement(slider.value, date: datePicker.date, param: type)
+        dataAccess.saveMeasurement(slider.value, date: datePicker.date.dayFromDate(), param: type)
         self.measurements = dataAccess.measurementsForParameter(type)
         
         self.deleteItem.enabled = true
@@ -154,12 +180,12 @@ class DetailViewController: UIViewController {
         }
         else {
             // get current day get the next latest measurement
-            let today = datePicker.date
+            let today = datePicker.date.dayFromDate()
             
             for measurement in self.measurements {
                 if measurement.day < today.timeIntervalSinceReferenceDate {
                     let date = NSDate(timeIntervalSinceReferenceDate: measurement.day)
-                    datePicker.date = date
+                    datePicker.setDate(date, animated: true)
                     if let previousMeasurement = dataAccess.measurementForDate(date, param: type) {
                         slider.value = previousMeasurement.value
                         self.currentMeasurement = previousMeasurement
@@ -171,11 +197,70 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func loadPreviousMeasurement(sender: UIBarButtonItem) {
-        print("Load Previous Measurement")
+        let currentDay = datePicker.date.dayFromDate().timeIntervalSinceReferenceDate
+        
+        guard let type = self.parameterType else { return }
+        guard pastMeasurementsExist(currentDay) else { return }
+        
+        for measurement in self.measurements {
+            
+            if measurement.day < currentDay {
+                if let data = dataAccess.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
+                    datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
+                    slider.value = data.value
+                    self.currentMeasurement = data
+                    if pastMeasurementsExist(measurement.day) {
+                        previousItem.enabled = true
+                    }
+                    else {
+                        previousItem.enabled = false
+                    }
+                    
+                    if futureMeasurementsExist(measurement.day) {
+                        nextItem.enabled = true
+                    }
+                    else {
+                        nextItem.enabled = false
+                    }
+                    
+                }
+                
+                break
+            }
+        }
     }
 
     @IBAction func loadNextMeasurement(sender: UIBarButtonItem) {
-        print("Load Next Measurement")
+        let currentDay = datePicker.date.dayFromDate().timeIntervalSinceReferenceDate
+        
+        guard let type = self.parameterType else { return }
+        guard futureMeasurementsExist(currentDay) else { return }
+        
+        for measurement in self.measurements.reverse() {
+            if measurement.day > currentDay {
+                if let data = dataAccess.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
+                    datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
+                    slider.value = data.value
+                    self.currentMeasurement = data
+                    if pastMeasurementsExist(measurement.day) {
+                        previousItem.enabled = true
+                    }
+                    else {
+                        previousItem.enabled = false
+                    }
+                    
+                    if futureMeasurementsExist(measurement.day) {
+                        nextItem.enabled = true
+                    }
+                    else {
+                        nextItem.enabled = false
+                    }
+                    
+                }
+                
+                break
+            }
+        }
     }
 
 
@@ -190,4 +275,30 @@ class DetailViewController: UIViewController {
             graphController.detailController = self
         }
     }
+    
+    private func pastMeasurementsExist(day: NSTimeInterval) -> Bool {
+        guard !self.measurements.isEmpty else { return false }
+        
+        for measurement in self.measurements {
+            if measurement.day < day {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    private func futureMeasurementsExist(day: NSTimeInterval) -> Bool {
+        guard !self.measurements.isEmpty else { return false }
+        
+        for measurement in self.measurements {
+            if measurement.day > day {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    
 }
