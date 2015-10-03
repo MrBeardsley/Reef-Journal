@@ -56,7 +56,6 @@ class DetailViewController: UIViewController {
                 if let parameterFromDefaults = Parameter(rawValue: defaultsString) {
                     parameterType = parameterFromDefaults
                     self.navigationItem.title = parameterType!.rawValue
-                    print(parameterType!.rawValue)
                 }
                 else {
                     parameterType = dataAccess.firstEnabledParameter()
@@ -96,8 +95,6 @@ class DetailViewController: UIViewController {
         slider.maxValue = range.1
 
         self.measurements = dataAccess.measurementsForParameter(self.parameterType)
-        
-        print(self.measurements)
         
         if self.measurements.count == 0 {
             previousItem.enabled = false

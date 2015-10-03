@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -43,37 +44,12 @@
                                     <action selector="pickerDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="1I9-4T-evQ"/>
                                 </connections>
                             </datePicker>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ct4-vf-pHX" customClass="CircularSlider" customModule="Reef_Journal" customModuleProvider="target">
-                                <rect key="frame" x="140" y="228" width="320" height="320"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="39J-GG-XWf"/>
-                                    <constraint firstAttribute="height" constant="320" id="9YD-iI-flH"/>
-                                    <constraint firstAttribute="width" constant="400" id="EHX-Ef-0g4"/>
-                                    <constraint firstAttribute="height" constant="400" id="bpK-Tj-Xqa"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="39J-GG-XWf"/>
-                                        <exclude reference="9YD-iI-flH"/>
-                                        <exclude reference="EHX-Ef-0g4"/>
-                                        <exclude reference="bpK-Tj-Xqa"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="EHX-Ef-0g4"/>
-                                        <include reference="bpK-Tj-Xqa"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="sliderDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="DZR-8M-fjH"/>
-                                </connections>
-                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpj-70-fKG">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="tIo-Gb-ve0"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem title="Previous" id="Ibj-99-ulN">
                                         <connections>
@@ -93,28 +69,103 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="tIo-Gb-ve0"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="tIo-Gb-ve0"/>
+                                    </mask>
+                                </variation>
                             </toolbar>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ct4-vf-pHX" customClass="CircularSlider" customModule="Reef_Journal" customModuleProvider="target">
+                                <rect key="frame" x="140" y="228" width="320" height="320"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="39J-GG-XWf"/>
+                                    <constraint firstAttribute="height" constant="320" id="9YD-iI-flH"/>
+                                    <constraint firstAttribute="width" constant="400" id="EHX-Ef-0g4"/>
+                                    <constraint firstAttribute="height" constant="400" id="bpK-Tj-Xqa"/>
+                                    <constraint firstAttribute="width" secondItem="Ct4-vf-pHX" secondAttribute="height" multiplier="1:1" id="gRl-8R-9ZW"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="39J-GG-XWf"/>
+                                        <exclude reference="9YD-iI-flH"/>
+                                        <exclude reference="EHX-Ef-0g4"/>
+                                        <exclude reference="bpK-Tj-Xqa"/>
+                                        <exclude reference="gRl-8R-9ZW"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="gRl-8R-9ZW"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="EHX-Ef-0g4"/>
+                                        <include reference="bpK-Tj-Xqa"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="sliderDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="DZR-8M-fjH"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="LoY-Sw-dd2" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="5ee-7H-KsS"/>
                             <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="xpj-70-fKG" secondAttribute="bottom" id="6mL-JH-FHs"/>
+                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="leading" secondItem="LoY-Sw-dd2" secondAttribute="trailing" constant="8" symbolic="YES" id="8E3-Wg-zMR"/>
+                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="KA9-rc-Ii6"/>
                             <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" priority="250" constant="8" id="LQV-cm-FRx"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" symbolic="YES" id="Oui-YU-jdf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ct4-vf-pHX" secondAttribute="trailing" constant="-20" id="Pcz-Mi-3B9"/>
                             <constraint firstItem="LoY-Sw-dd2" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="Pnj-06-ROj"/>
+                            <constraint firstItem="LoY-Sw-dd2" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="QuG-wa-zlO"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="V3d-NU-HMZ"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" constant="8" id="WLA-U3-sWo"/>
                             <constraint firstItem="Ct4-vf-pHX" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="ZKQ-t7-gqh"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" constant="8" id="dLR-17-Pkv"/>
                             <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" constant="8" id="epS-6s-ska"/>
                             <constraint firstItem="LoY-Sw-dd2" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="8" symbolic="YES" id="fdM-Hl-t9l"/>
+                            <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" id="qRs-72-Hgm"/>
+                            <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" id="tn0-Hk-3T1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xpj-70-fKG" secondAttribute="trailing" constant="-20" id="u0e-e7-7hd"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="5ee-7H-KsS"/>
+                                <exclude reference="QuG-wa-zlO"/>
+                                <exclude reference="8E3-Wg-zMR"/>
+                                <exclude reference="KA9-rc-Ii6"/>
+                                <exclude reference="Pcz-Mi-3B9"/>
                                 <exclude reference="epS-6s-ska"/>
                                 <exclude reference="Oui-YU-jdf"/>
                                 <exclude reference="WLA-U3-sWo"/>
+                                <exclude reference="qRs-72-Hgm"/>
+                                <exclude reference="tn0-Hk-3T1"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="5ee-7H-KsS"/>
+                                <exclude reference="Pnj-06-ROj"/>
+                                <include reference="QuG-wa-zlO"/>
+                                <exclude reference="fdM-Hl-t9l"/>
+                                <include reference="8E3-Wg-zMR"/>
+                                <include reference="KA9-rc-Ii6"/>
+                                <exclude reference="LQV-cm-FRx"/>
+                                <include reference="Pcz-Mi-3B9"/>
+                                <exclude reference="ZKQ-t7-gqh"/>
+                                <exclude reference="dLR-17-Pkv"/>
+                                <include reference="qRs-72-Hgm"/>
+                                <include reference="tn0-Hk-3T1"/>
                             </mask>
                         </variation>
                     </view>

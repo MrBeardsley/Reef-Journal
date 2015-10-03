@@ -163,17 +163,17 @@ class CircularSlider: UIControl, UITextFieldDelegate {
 
     // MARK: - Drawing
 
-    override func intrinsicContentSize() -> CGSize {
-
-        switch UIDevice.currentDevice().model {
-        case "iPad":
-            return CGSize(width: 400, height: 400)
-        case "iPhone":
-            return CGSize(width: 320, height: 320)
-        default:
-            return CGSize(width: 320, height: 320)
-        }
-    }
+//    override func intrinsicContentSize() -> CGSize {
+//
+//        switch UIDevice.currentDevice().model {
+//        case "iPad":
+//            return CGSize(width: 400, height: 400)
+//        case "iPhone":
+//            return CGSize(width: 320, height: 320)
+//        default:
+//            return CGSize(width: 320, height: 320)
+//        }
+//    }
     
     //Use the draw rect to draw the Background, the Circle and the Handle
     override func drawRect(rect: CGRect){
