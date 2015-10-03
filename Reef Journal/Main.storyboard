@@ -50,6 +50,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="DUX-8c-PTd"/>
                                     <constraint firstAttribute="height" constant="44" id="tIo-Gb-ve0"/>
+                                    <constraint firstAttribute="height" constant="44" id="wk0-8q-SyW"/>
                                 </constraints>
                                 <items>
                                     <barButtonItem title="Previous" id="Ibj-99-ulN">
@@ -74,6 +75,7 @@
                                     <mask key="constraints">
                                         <exclude reference="DUX-8c-PTd"/>
                                         <exclude reference="tIo-Gb-ve0"/>
+                                        <exclude reference="wk0-8q-SyW"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
@@ -84,6 +86,11 @@
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="DUX-8c-PTd"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="wk0-8q-SyW"/>
                                     </mask>
                                 </variation>
                             </toolbar>
@@ -195,6 +202,11 @@
                                 <include reference="3xt-7Z-7ha"/>
                                 <include reference="7mr-bL-o0b"/>
                                 <exclude reference="ZKQ-t7-gqh"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="LQV-cm-FRx"/>
                             </mask>
                         </variation>
                     </view>
