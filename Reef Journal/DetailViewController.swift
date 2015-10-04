@@ -50,7 +50,7 @@ class DetailViewController: UIViewController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
 
         if parameterType == nil {
-            //detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
+            detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
             
             if let defaultsString = userDefaults.stringForKey("LastParameter") {
                 if let parameterFromDefaults = Parameter(rawValue: defaultsString) {
@@ -59,7 +59,7 @@ class DetailViewController: UIViewController {
                 }
                 else {
                     parameterType = dataAccess.firstEnabledParameter()
-
+                    self.navigationItem.title = parameterType!.rawValue
                 }
             }
             else {
@@ -72,7 +72,7 @@ class DetailViewController: UIViewController {
         }
 
         // Setup the controls
-        let today = NSDate()
+        let today = NSDate().dayFromDate()
         datePicker.setDate(today, animated: false)
         datePicker.maximumDate = today
 
@@ -287,6 +287,8 @@ class DetailViewController: UIViewController {
     
     private func futureMeasurementsExist(day: NSTimeInterval) -> Bool {
         guard !self.measurements.isEmpty else { return false }
+        
+        print(NSDate(timeIntervalSinceReferenceDate: day))
         
         for measurement in self.measurements {
             if measurement.day > day {

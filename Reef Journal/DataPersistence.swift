@@ -12,14 +12,7 @@ import CoreData
 let measurementEntityName = "Measurement"
 
 
-extension NSDate {
-    
-    func toLocalTime() -> NSDate {
-        let tz = NSTimeZone.localTimeZone()
-        let seconds = tz.secondsFromGMTForDate(self)
-        return NSDate(timeInterval: NSTimeInterval(seconds), sinceDate: self)
-    }
-    
+extension NSDate {    
     func dayFromDate() -> NSDate {
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components([.Year, .Month, .Day], fromDate: self)
