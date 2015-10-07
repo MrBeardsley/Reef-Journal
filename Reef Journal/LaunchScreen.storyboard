@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -26,21 +28,37 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="zJo-LK-iKH"/>
                                     <barButtonItem title="Next" id="MTi-9K-SjH"/>
                                 </items>
-                                <variation key="widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="556" width="800" height="44"/>
-                                </variation>
                             </toolbar>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="gcv-5i-nA7" secondAttribute="bottom" symbolic="YES" id="G56-W1-O1J"/>
+                            <constraint firstItem="gcv-5i-nA7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="57" id="R4R-i8-Bea">
+                                <variation key="heightClass=regular-widthClass=regular" constant="-20"/>
+                            </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="gcv-5i-nA7" secondAttribute="trailing" id="h1T-f5-0L2">
+                                <variation key="heightClass=regular-widthClass=regular" constant="-20"/>
+                            </constraint>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="gcv-5i-nA7"/>
                             </mask>
+                            <mask key="constraints">
+                                <exclude reference="G56-W1-O1J"/>
+                                <exclude reference="R4R-i8-Bea"/>
+                                <exclude reference="h1T-f5-0L2"/>
+                            </mask>
                         </variation>
-                        <variation key="widthClass=regular">
+                        <variation key="heightClass=regular-widthClass=regular">
                             <mask key="subviews">
                                 <include reference="gcv-5i-nA7"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="G56-W1-O1J"/>
+                                <include reference="R4R-i8-Bea"/>
+                                <include reference="h1T-f5-0L2"/>
                             </mask>
                         </variation>
                     </view>
@@ -48,7 +66,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.5" y="375"/>
         </scene>
     </scenes>
 </document>
