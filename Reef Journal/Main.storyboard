@@ -44,7 +44,7 @@
                                     <action selector="pickerDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="1I9-4T-evQ"/>
                                 </connections>
                             </datePicker>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="xpj-70-fKG">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpj-70-fKG">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <animations/>
                                 <constraints>
@@ -80,7 +80,7 @@
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
-                                        <exclude reference="tIo-Gb-ve0"/>
+                                        <include reference="tIo-Gb-ve0"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -211,9 +211,7 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
-                        <barButtonItem key="backBarButtonItem" title="Parameters" id="DAN-58-46q"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
                     <connections>
                         <outlet property="datePicker" destination="LoY-Sw-dd2" id="lfK-J6-Kes"/>
                         <outlet property="deleteItem" destination="Ofo-3W-zil" id="OYN-nD-xNc"/>
@@ -314,6 +312,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
 </document>
