@@ -219,6 +219,7 @@
                         <outlet property="nextItem" destination="zrh-IZ-Fqf" id="Tcb-p3-jyU"/>
                         <outlet property="previousItem" destination="Ibj-99-ulN" id="y1e-Uk-ASh"/>
                         <outlet property="slider" destination="Ct4-vf-pHX" id="vUH-Qd-alg"/>
+                        <outlet property="toolbar" destination="xpj-70-fKG" id="NFg-3V-J5p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
