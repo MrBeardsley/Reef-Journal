@@ -288,7 +288,13 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Parameters" id="Zdf-7t-Un8"/>
+                    <navigationItem key="navigationItem" title="Parameters" id="Zdf-7t-Un8">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="zpT-ML-Jc5">
+                            <connections>
+                                <action selector="editParameterList:" destination="7bK-jq-Zjz" id="anH-bN-ooy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
@@ -312,6 +318,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

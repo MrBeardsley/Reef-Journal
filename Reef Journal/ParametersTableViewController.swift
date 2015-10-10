@@ -173,4 +173,10 @@ class ParametersTableViewController: UITableViewController {
             return "Error"
         }
     }
+    
+    @IBAction func editParameterList(sender: UIBarButtonItem) {
+        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+            UIApplication.sharedApplication().openURL(appSettings)
+        }
+    }
 }
