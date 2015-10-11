@@ -145,9 +145,11 @@ class DetailViewController: UIViewController {
         if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date.dayFromDate(), param: type) {
             self.currentMeasurement = aMeasurement
             slider.value = aMeasurement.value
+            deleteItem.enabled = true
         }
         else {
             slider.value = slider.minValue
+            deleteItem.enabled = false
         }
         
         if pastMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
@@ -176,33 +178,25 @@ class DetailViewController: UIViewController {
 
     @IBAction func deleteCurrentMeasurement(sender: UIBarButtonItem) {
         guard let currentMeasurement = self.currentMeasurement else { return }
-        guard let type = self.parameterType else { return }
         
         dataAccess.deleteMeasurementOnDay(currentMeasurement.day, param: self.parameterType)
         self.measurements = dataAccess.measurementsForParameter(self.parameterType)
         
-        if self.measurements.count == 0 {
-            self.deleteItem.enabled = false
-            self.nextItem.enabled = false
-            self.previousItem.enabled = false
-            slider.value = slider.minValue
+        if pastMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
+            self.loadPreviousMeasurement(previousItem)
+            return
         }
-        else {
-            // get current day get the next latest measurement
-            let today = datePicker.date.dayFromDate()
-            
-            for measurement in self.measurements {
-                if measurement.day < today.timeIntervalSinceReferenceDate {
-                    let date = NSDate(timeIntervalSinceReferenceDate: measurement.day)
-                    datePicker.setDate(date, animated: true)
-                    if let previousMeasurement = dataAccess.measurementForDate(date, param: type) {
-                        slider.value = previousMeasurement.value
-                        self.currentMeasurement = previousMeasurement
-                    }
-                    break
-                }
-            }
+        
+        if futureMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
+            self.loadNextMeasurement(nextItem)
+            return
         }
+        
+        self.deleteItem.enabled = false
+        self.nextItem.enabled = false
+        self.previousItem.enabled = false
+        slider.value = slider.minValue
+        
     }
 
     @IBAction func loadPreviousMeasurement(sender: UIBarButtonItem) {
@@ -217,7 +211,9 @@ class DetailViewController: UIViewController {
                 if let data = dataAccess.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
                     datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
                     slider.value = data.value
+                    deleteItem.enabled = true
                     self.currentMeasurement = data
+                    
                     if pastMeasurementsExist(measurement.day) {
                         previousItem.enabled = true
                     }
@@ -250,7 +246,9 @@ class DetailViewController: UIViewController {
                 if let data = dataAccess.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
                     datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
                     slider.value = data.value
+                    deleteItem.enabled = true
                     self.currentMeasurement = data
+                    
                     if pastMeasurementsExist(measurement.day) {
                         previousItem.enabled = true
                     }
@@ -264,7 +262,6 @@ class DetailViewController: UIViewController {
                     else {
                         nextItem.enabled = false
                     }
-                    
                 }
                 
                 break
