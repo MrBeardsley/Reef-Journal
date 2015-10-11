@@ -72,11 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object:nil)
-        
-        if self.window?.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
-            self.window?.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
-                splitViewController.preferredPrimaryColumnWidthFraction = 0.2
-        }
 
         return true
     }
