@@ -51,7 +51,7 @@ class DetailViewController: UIViewController {
 
         // If the paramterType is nil, it is because we are on an iPad and this view controller was loaded directly without selecting
         // it from the parameter list.
-        if parameterType == nil {
+        if self.parameterType == nil {
             
             // The back button is not set because there was no navigation to this view controller
             //detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
@@ -66,50 +66,18 @@ class DetailViewController: UIViewController {
             }
             else {
                 changeToNewParameter()
+                return
             }
         }
-        else {
-            userDefaults.setObject(parameterType!.rawValue, forKey: "LastParameter")
-        }
-
-        // Setup the controls
-        let today = NSDate().dayFromDate()
-        datePicker.setDate(today, animated: false)
-        datePicker.maximumDate = today
-
-        switch decimalPlacesForParameter(parameterType) {
-        case 0:
-            slider.valueFormat = DecimalFormat.None
-        case 1:
-            slider.valueFormat = DecimalFormat.One
-        case 2:
-            slider.valueFormat = DecimalFormat.Two
-        case 3:
-            slider.valueFormat = DecimalFormat.Three
-        default:
-            slider.valueFormat = DecimalFormat.None
-        }
-
-        let range = measurementRangeForParameterType(parameterType)
-
-        slider.minValue = range.0
-        slider.maxValue = range.1
-
-        self.measurements = dataAccess.measurementsForParameter(self.parameterType)
         
-        if self.measurements.count == 0 {
-            previousItem.enabled = false
-            deleteItem.enabled = false
+        if self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
+            self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
+                if let splitController = self.splitViewController {
+                    splitController.preferredPrimaryColumnWidthFraction = 0.2
+                }
         }
         
-        if pastMeasurementsExist(today.timeIntervalSinceReferenceDate) {
-            previousItem.enabled = true
-        }
-        else {
-            previousItem.enabled = false
-        }
-        
-        nextItem.enabled = false
+        setupControls()
     }
 
     override func viewDidLayoutSubviews() {
@@ -317,27 +285,8 @@ class DetailViewController: UIViewController {
         print("add new view")
     }
     
-    private func changeToNewParameter() -> Void {
-        guard let firstEnabledParameter = firstEnabledParameter() else {
-            displayEmptyParameterView()
-            return
-        }
-        
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let
-            defaultsString = userDefaults.stringForKey("LastParameter"),
-            parameterFromDefaults = Parameter(rawValue: defaultsString)
-            where defaultsParameterList().contains(defaultsString)      {
-                
-                self.parameterType = parameterFromDefaults
-        }
-        else {
-            self.parameterType = Parameter(rawValue: firstEnabledParameter)
-        }
-        
-        
-        // Setup the controls
-        self.navigationItem.title = firstEnabledParameter
+    private func setupControls() -> Void {
+        guard let parameterType = self.parameterType else { return }
         
         let today = NSDate().dayFromDate()
         datePicker.setDate(today, animated: false)
@@ -377,7 +326,30 @@ class DetailViewController: UIViewController {
         
         nextItem.enabled = false
         
-        userDefaults.setObject(parameterType!.rawValue, forKey: "LastParameter")
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setObject(parameterType.rawValue, forKey: "LastParameter")
+    }
+    
+    private func changeToNewParameter() -> Void {
+        guard let firstEnabledParameter = firstEnabledParameter() else {
+            displayEmptyParameterView()
+            return
+        }
+        
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let
+            defaultsString = userDefaults.stringForKey("LastParameter"),
+            parameterFromDefaults = Parameter(rawValue: defaultsString)
+            where defaultsParameterList().contains(defaultsString)      {
+                
+                self.parameterType = parameterFromDefaults
+        }
+        else {
+            self.parameterType = Parameter(rawValue: firstEnabledParameter)
+        }
+        
+        
+        self.navigationItem.title = firstEnabledParameter
     }
     
     private func defaultsParameterList() -> [String] {
