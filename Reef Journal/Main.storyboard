@@ -34,7 +34,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="LoY-Sw-dd2">
+                            <datePicker contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="LoY-Sw-dd2">
                                 <rect key="frame" x="140" y="72" width="320" height="216"/>
                                 <animations/>
                                 <date key="date" timeIntervalSinceReferenceDate="458700086.47042799">
@@ -149,13 +149,16 @@
                                 <variation key="heightClass=regular-widthClass=compact" constant="20"/>
                             </constraint>
                             <constraint firstItem="Ct4-vf-pHX" firstAttribute="leading" secondItem="LoY-Sw-dd2" secondAttribute="trailing" constant="8" symbolic="YES" id="8E3-Wg-zMR"/>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="KA9-rc-Ii6"/>
+                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" priority="750" id="KA9-rc-Ii6"/>
                             <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" priority="750" constant="8" id="LQV-cm-FRx"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" symbolic="YES" id="Oui-YU-jdf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ct4-vf-pHX" secondAttribute="trailing" constant="-20" id="Pcz-Mi-3B9"/>
                             <constraint firstItem="LoY-Sw-dd2" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="Pnj-06-ROj"/>
                             <constraint firstItem="LoY-Sw-dd2" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="QuG-wa-zlO"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="V3d-NU-HMZ"/>
+                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="width" secondItem="LoY-Sw-dd2" secondAttribute="width" priority="750" id="WJK-z6-c8L">
+                                <variation key="heightClass=compact-widthClass=regular" constant="300"/>
+                            </constraint>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" constant="8" id="WLA-U3-sWo"/>
                             <constraint firstItem="Ct4-vf-pHX" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="ZKQ-t7-gqh"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" constant="8" id="dLR-17-Pkv"/>
@@ -169,16 +172,17 @@
                             <mask key="constraints">
                                 <exclude reference="5ee-7H-KsS"/>
                                 <exclude reference="QuG-wa-zlO"/>
+                                <exclude reference="Oui-YU-jdf"/>
+                                <exclude reference="WLA-U3-sWo"/>
+                                <exclude reference="qRs-72-Hgm"/>
+                                <exclude reference="tn0-Hk-3T1"/>
                                 <exclude reference="3xt-7Z-7ha"/>
                                 <exclude reference="7mr-bL-o0b"/>
                                 <exclude reference="8E3-Wg-zMR"/>
                                 <exclude reference="KA9-rc-Ii6"/>
                                 <exclude reference="Pcz-Mi-3B9"/>
+                                <exclude reference="WJK-z6-c8L"/>
                                 <exclude reference="epS-6s-ska"/>
-                                <exclude reference="Oui-YU-jdf"/>
-                                <exclude reference="WLA-U3-sWo"/>
-                                <exclude reference="qRs-72-Hgm"/>
-                                <exclude reference="tn0-Hk-3T1"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -187,14 +191,19 @@
                                 <exclude reference="Pnj-06-ROj"/>
                                 <include reference="QuG-wa-zlO"/>
                                 <exclude reference="fdM-Hl-t9l"/>
+                                <exclude reference="dLR-17-Pkv"/>
+                                <include reference="qRs-72-Hgm"/>
+                                <include reference="tn0-Hk-3T1"/>
                                 <include reference="8E3-Wg-zMR"/>
                                 <include reference="KA9-rc-Ii6"/>
                                 <exclude reference="LQV-cm-FRx"/>
                                 <include reference="Pcz-Mi-3B9"/>
                                 <exclude reference="ZKQ-t7-gqh"/>
-                                <exclude reference="dLR-17-Pkv"/>
-                                <include reference="qRs-72-Hgm"/>
-                                <include reference="tn0-Hk-3T1"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="WJK-z6-c8L"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -211,11 +220,12 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
+                        <barButtonItem key="backBarButtonItem" title="Parameters" id="qrF-Uv-D2e"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="datePicker" destination="LoY-Sw-dd2" id="lfK-J6-Kes"/>
                         <outlet property="deleteItem" destination="Ofo-3W-zil" id="OYN-nD-xNc"/>
-                        <outlet property="detailNavigationItem" destination="mOI-FS-AaM" id="Gp4-fQ-KM5"/>
                         <outlet property="nextItem" destination="zrh-IZ-Fqf" id="Tcb-p3-jyU"/>
                         <outlet property="previousItem" destination="Ibj-99-ulN" id="y1e-Uk-ASh"/>
                         <outlet property="slider" destination="Ct4-vf-pHX" id="vUH-Qd-alg"/>

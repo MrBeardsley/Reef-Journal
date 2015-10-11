@@ -29,6 +29,7 @@
 		83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */; };
 		83EF57D31B52A2570071D29C /* Reef_JournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EF57D21B52A2570071D29C /* Reef_JournalUITests.swift */; };
 		83EF57DB1B52E4110071D29C /* SalinityStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EF57DA1B52E4110071D29C /* SalinityStruct.swift */; };
+		83F69F0F1BCA0DB6007CD856 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83AA7EAA1947D63A00CB9D0F /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -349,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83D3DE291B857C8B001B41DC /* Settings.bundle in Resources */,
+				83F69F0F1BCA0DB6007CD856 /* Images.xcassets in Resources */,
 				838BB1961B521C2300D317B9 /* LaunchScreen.storyboard in Resources */,
 				838BB1971B521C2300D317B9 /* Main.storyboard in Resources */,
 			);

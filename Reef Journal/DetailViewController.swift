@@ -13,7 +13,6 @@ class DetailViewController: UIViewController {
 
     // MARK: - Interface Outlets
 
-    @IBOutlet weak var detailNavigationItem: UINavigationItem!
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var slider: CircularSlider!
@@ -55,14 +54,14 @@ class DetailViewController: UIViewController {
         if parameterType == nil {
             
             // The back button is not set because there was no navigation to this view controller
-            detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
-            
+            //detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
+            self.navigationItem.leftItemsSupplementBackButton = true
             
             if let
                 defaultsString = userDefaults.stringForKey("LastParameter"),
                 parameterFromDefaults = Parameter(rawValue: defaultsString)
                 where defaultsParameterList().contains(defaultsString) {
-                    parameterType! = parameterFromDefaults
+                    parameterType = parameterFromDefaults
                     self.navigationItem.title = defaultsString
             }
             else {
@@ -124,6 +123,17 @@ class DetailViewController: UIViewController {
         }
         else {
             slider.value = slider.minValue
+        }
+    }
+    
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        
+        if newCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
+            newCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
+                if let splitController = self.splitViewController {
+                    splitController.preferredPrimaryColumnWidthFraction = 0.2
+                }
         }
     }
 
@@ -330,7 +340,7 @@ class DetailViewController: UIViewController {
         
         
         // Setup the controls
-        self.detailNavigationItem.title = firstEnabledParameter
+        self.navigationItem.title = firstEnabledParameter
         
         let today = NSDate().dayFromDate()
         datePicker.setDate(today, animated: false)

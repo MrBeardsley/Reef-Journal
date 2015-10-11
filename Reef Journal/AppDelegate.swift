@@ -73,9 +73,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object:nil)
         
-        // Temporary fix for iPhone 6 Plus screens. This prevents the splitViewController from working on all iPhone devices.
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            splitViewController.preferredDisplayMode = .PrimaryHidden
+        if self.window?.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
+            self.window?.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
+                splitViewController.preferredPrimaryColumnWidthFraction = 0.2
         }
 
         return true
