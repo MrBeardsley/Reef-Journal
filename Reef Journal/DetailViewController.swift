@@ -72,9 +72,10 @@ class DetailViewController: UIViewController {
         
         if self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
             self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
-                if let splitController = self.splitViewController {
-                    splitController.preferredPrimaryColumnWidthFraction = 0.2
-                }
+                
+            if let splitController = self.splitViewController {
+                splitController.preferredPrimaryColumnWidthFraction = 0.2
+            }
         }
         
         setupControls()
