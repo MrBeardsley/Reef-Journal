@@ -168,3 +168,4 @@ func measurementRangeForParameterType(type: Parameter) -> (Double, Double) {
         }
     }
 }
+

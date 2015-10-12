@@ -25,6 +25,61 @@ class DataPersistence {
     // MARK: - Data persistence operations
 
     func saveMeasurement(value: Double, date: NSDate, param: Parameter) {
+        var valueToSave: Double
+        
+        switch param {
+        case .Alkalinity:
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+                let alkUnit = AlkalinityUnit(rawValue: intValue) {
+                switch alkUnit {
+                case .DKH:
+                    let alk = Alkalinity(value, unit: .DKH)
+                    valueToSave = alk.dkh
+                case .MeqL:
+                    let alk = Alkalinity(value, unit: .MeqL)
+                    valueToSave = alk.dkh
+                case .PPM:
+                    let alk = Alkalinity(value, unit: .PPM)
+                    valueToSave = alk.dkh
+                }
+            }
+            else {
+                valueToSave = value
+            }
+        case .Salinity:
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+                let salUnit = SalinityUnit(rawValue: intValue) {
+                switch salUnit {
+                case .SG:
+                    let salinity = Salinity(value, unit: .SG)
+                    valueToSave = salinity.sg
+                case .PSU:
+                    let salinity = Salinity(value, unit: .PSU)
+                    valueToSave = salinity.sg
+                }
+            }
+            else {
+                valueToSave = value
+            }
+        case .Temperature:
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+                let tempUnit = TemperatureUnit(rawValue: intValue) {
+                switch tempUnit {
+                case .Fahrenheit:
+                    let temp = Temperature(value, unit: .Fahrenheit)
+                    valueToSave = temp.fahrenheit
+                case.Celcius:
+                    let temp = Temperature(value, unit: .Celcius)
+                    valueToSave = temp.fahrenheit
+                }
+            }
+            else {
+                valueToSave = value
+            }
+        default:
+            valueToSave = value
+            
+        }
 
         if let aMesurement = self.measurementForDate(date, param: param) {
             aMesurement.value = value
@@ -33,7 +88,7 @@ class DataPersistence {
         }
         else {
             if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(measurementEntityName, inManagedObjectContext: self.managedObjectContext) as? Measurement {
-                newEntity.value = value
+                newEntity.value = valueToSave
                 newEntity.parameter = param.rawValue
                 newEntity.day = date.dayFromDate().timeIntervalSinceReferenceDate
             }
@@ -151,11 +206,6 @@ class DataPersistence {
 
     func dateHasMeasurement(date: NSDate, param: Parameter) -> Bool {
         return self.measurementForDate(date, param: param) == nil ? true : false
-    }
-
-    func firstEnabledParameter() -> Parameter {
-
-        return Parameter.Salinity
     }
 
     // MARK: - Core Data stack

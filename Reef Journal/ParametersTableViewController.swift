@@ -128,10 +128,67 @@ class ParametersTableViewController: UITableViewController {
                 textLabel.text = chemistrySection[indexPath.row]
                 
                 if let aMeasurement = recentMeasurements?[chemistrySection[indexPath.row]] {
+                    
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
                     let dateString = dateFormatter.stringFromDate(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day))
-                    cell.detailTextLabel?.text = String(format: format, aMeasurement.value) + " " + unitLabelForParameterType(parameter) + " on " + dateString
+                    var measurementValue: Double = 0
+                    
+                    switch parameter {
+                    case .Alkalinity:
+                        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+                            let alkUnit = AlkalinityUnit(rawValue: intValue) {
+                                switch alkUnit {
+                                case .DKH:
+                                    let alk = Alkalinity(aMeasurement.value, unit: .DKH)
+                                    measurementValue = alk.dkh
+                                case .MeqL:
+                                    let alk = Alkalinity(aMeasurement.value, unit: .DKH)
+                                    measurementValue = alk.meqL
+                                case .PPM:
+                                    let alk = Alkalinity(aMeasurement.value, unit: .DKH)
+                                    measurementValue = alk.ppm
+                                }
+                        }
+                        else {
+                            measurementValue = aMeasurement.value
+                        }
+                    case .Salinity:
+                        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+                            let salUnit = SalinityUnit(rawValue: intValue) {
+                                switch salUnit {
+                                case .SG:
+                                    let salinity = Salinity(aMeasurement.value, unit: .SG)
+                                    measurementValue = salinity.sg
+                                case .PSU:
+                                    let salinity = Salinity(aMeasurement.value, unit: .SG)
+                                    measurementValue = salinity.psu
+                                }
+                        }
+                        else {
+                            measurementValue = aMeasurement.value
+                        }
+                    case .Temperature:
+                        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+                            let tempUnit = TemperatureUnit(rawValue: intValue) {
+                                switch tempUnit {
+                                case .Fahrenheit:
+                                    let temp = Temperature(aMeasurement.value, unit: .Fahrenheit)
+                                    measurementValue = temp.fahrenheit
+                                case.Celcius:
+                                    let temp = Temperature(aMeasurement.value, unit: .Fahrenheit)
+                                    measurementValue = temp.celcius
+                                }
+                        }
+                        else {
+                            measurementValue = aMeasurement.value
+                        }
+                    default:
+                        measurementValue = aMeasurement.value
+                        
+                    }
+                    
+                    cell.detailTextLabel?.text = String(format: format, measurementValue) + " " + unitLabelForParameterType(parameter) + " on " + dateString
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"

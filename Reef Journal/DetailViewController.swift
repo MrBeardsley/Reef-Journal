@@ -90,7 +90,7 @@ class DetailViewController: UIViewController {
         slider.layoutControl()
 
         if let lastValue = dataAccess.lastMeasurementValueForParameter(parameterType) {
-            slider.value = lastValue.value
+            slider.value = lastValue.convertedMeasurementValue
             self.currentMeasurement = lastValue
         }
         else {
@@ -116,7 +116,7 @@ class DetailViewController: UIViewController {
         
         if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date.dayFromDate(), param: type) {
             self.currentMeasurement = aMeasurement
-            slider.value = aMeasurement.value
+            slider.value = aMeasurement.convertedMeasurementValue
             deleteItem.enabled = true
         }
         else {
@@ -182,7 +182,7 @@ class DetailViewController: UIViewController {
             if measurement.day < currentDay {
                 if let data = dataAccess.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
                     datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
-                    slider.value = data.value
+                    slider.value = data.convertedMeasurementValue
                     deleteItem.enabled = true
                     self.currentMeasurement = data
                     
@@ -217,7 +217,7 @@ class DetailViewController: UIViewController {
             if measurement.day > currentDay {
                 if let data = dataAccess.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
                     datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
-                    slider.value = data.value
+                    slider.value = data.convertedMeasurementValue
                     deleteItem.enabled = true
                     self.currentMeasurement = data
                     

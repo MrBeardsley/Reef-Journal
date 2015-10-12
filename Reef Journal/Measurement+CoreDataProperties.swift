@@ -31,3 +31,63 @@ extension Measurement: CustomDebugStringConvertible {
         }
     }
 }
+
+extension Measurement {
+    var convertedMeasurementValue: Double {
+        
+        guard let param = Parameter(rawValue: self.parameter!) else { return 0 }
+        
+        switch param {
+        case .Alkalinity:
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+                let alkUnit = AlkalinityUnit(rawValue: intValue) {
+                    switch alkUnit {
+                    case .DKH:
+                        let alk = Alkalinity(self.value, unit: .DKH)
+                        return alk.dkh
+                    case .MeqL:
+                        let alk = Alkalinity(self.value, unit: .DKH)
+                        return alk.meqL
+                    case .PPM:
+                        let alk = Alkalinity(self.value, unit: .DKH)
+                        return alk.ppm
+                    }
+            }
+            else {
+                return value
+            }
+        case .Salinity:
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+                let salUnit = SalinityUnit(rawValue: intValue) {
+                    switch salUnit {
+                    case .SG:
+                        let salinity = Salinity(self.value, unit: .SG)
+                        return salinity.sg
+                    case .PSU:
+                        let salinity = Salinity(self.value, unit: .SG)
+                        return salinity.psu
+                    }
+            }
+            else {
+                return value
+            }
+        case .Temperature:
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+                let tempUnit = TemperatureUnit(rawValue: intValue) {
+                    switch tempUnit {
+                    case .Fahrenheit:
+                        let temp = Temperature(self.value, unit: .Fahrenheit)
+                        return temp.fahrenheit
+                    case.Celcius:
+                        let temp = Temperature(self.value, unit: .Fahrenheit)
+                        return temp.celcius
+                    }
+            }
+            else {
+                return value
+            }
+        default:
+            return value
+        }
+    }
+}
