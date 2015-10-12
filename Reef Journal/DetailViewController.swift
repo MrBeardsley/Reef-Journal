@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var previousItem: UIBarButtonItem!
     @IBOutlet weak var nextItem: UIBarButtonItem!
     @IBOutlet weak var deleteItem: UIBarButtonItem!
+    @IBOutlet weak var splitController: UISplitViewController!
 
     // MARK: - Properties
 
@@ -43,7 +44,6 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
-        // Determine if a parameter was previously saved
         let userDefaults = NSUserDefaults.standardUserDefaults()
 
         // If the paramterType is nil, it is because we are on an iPad and this view controller was loaded directly without selecting
@@ -51,13 +51,12 @@ class DetailViewController: UIViewController {
         if self.parameterType == nil {
             
             // The back button is not set because there was no navigation to this view controller
-            //detailNavigationItem?.leftBarButtonItem?.title = "Parameters"
             self.navigationItem.leftItemsSupplementBackButton = true
             
             if let
                 defaultsString = userDefaults.stringForKey("LastParameter"),
                 parameterFromDefaults = Parameter(rawValue: defaultsString)
-                where defaultsParameterList().contains(defaultsString) {
+                where defaultsParameterList().contains(defaultsString)      {
                     parameterType = parameterFromDefaults
                     self.navigationItem.title = defaultsString
             }
@@ -80,13 +79,17 @@ class DetailViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(parameterType.rawValue, forKey: "LastParameter")
+
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+        guard let type = self.parameterType else { return }
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setObject(type.rawValue, forKey: "LastParameter")
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
         guard let parameterType = self.parameterType else { return }
 
         slider.layoutControl()
@@ -100,14 +103,16 @@ class DetailViewController: UIViewController {
         }
     }
     
-    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+    override func traitCollectionDidChange( previousTraitCollection: UITraitCollection?) {
+        guard let splitController = self.splitViewController else { return }
+        guard let mainWindow = self.view.window else { return }
         
-        if newCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
-            newCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
-                if let splitController = self.splitViewController {
-                    splitController.preferredPrimaryColumnWidthFraction = 0.2
-                }
+        let traits = mainWindow.traitCollection
+        
+        // These traits signify and iPhone 6 Plus screen in landscape mode. In this instance we shrink the width of the parameter list in order to have enough room for the other controls.
+        if traits.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
+            traits.verticalSizeClass == UIUserInterfaceSizeClass.Compact         {
+                splitController.preferredPrimaryColumnWidthFraction = 0.2
         }
     }
 
@@ -256,19 +261,20 @@ class DetailViewController: UIViewController {
     // MARK: - Notification Handlers
 
     func preferencesDidChange(notification: NSNotification?) {
+        // All parameters were previously disabled, but now we need to switch to a newly enabled one.
         guard parameterType != nil else {
             changeToNewParameter()
             return
         }
         
-        let defaultParameterList = self.defaultsParameterList()
-        guard defaultParameterList.contains(parameterType.rawValue) else {
+        // The parameter we were previously viewing might have been disabled. If so we need to switch to another parameter
+        guard self.defaultsParameterList().contains(parameterType.rawValue) else {
             // Handle changing to another parameter
             changeToNewParameter()
             return
         }
         
-        
+        // One of the units might have changed, so we need to re-setup the controls to account for the differences when a value is converted.
         setupControls()
     }
     
@@ -417,17 +423,16 @@ class DetailViewController: UIViewController {
         if self.emptyLabel != nil {
             self.emptyLabel?.removeFromSuperview()
             self.emptyLabel = nil
-            
-            self.datePicker.hidden = false
-            self.slider.hidden = false
-            self.toolbar.hidden = false
-            setupControls()
         }
         
         if self.settingsButton != nil {
             self.settingsButton?.removeFromSuperview()
             self.settingsButton = nil
         }
+        
+        self.datePicker.hidden = false
+        self.slider.hidden = false
+        self.toolbar.hidden = false
         
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if let
@@ -440,7 +445,6 @@ class DetailViewController: UIViewController {
         else {
             self.parameterType = Parameter(rawValue: firstEnabledParameter)
         }
-        
         
         self.navigationItem.title = firstEnabledParameter
         setupControls()

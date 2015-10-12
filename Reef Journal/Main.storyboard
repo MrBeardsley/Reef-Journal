@@ -172,10 +172,6 @@
                             <mask key="constraints">
                                 <exclude reference="5ee-7H-KsS"/>
                                 <exclude reference="QuG-wa-zlO"/>
-                                <exclude reference="Oui-YU-jdf"/>
-                                <exclude reference="WLA-U3-sWo"/>
-                                <exclude reference="qRs-72-Hgm"/>
-                                <exclude reference="tn0-Hk-3T1"/>
                                 <exclude reference="3xt-7Z-7ha"/>
                                 <exclude reference="7mr-bL-o0b"/>
                                 <exclude reference="8E3-Wg-zMR"/>
@@ -183,6 +179,10 @@
                                 <exclude reference="Pcz-Mi-3B9"/>
                                 <exclude reference="WJK-z6-c8L"/>
                                 <exclude reference="epS-6s-ska"/>
+                                <exclude reference="Oui-YU-jdf"/>
+                                <exclude reference="WLA-U3-sWo"/>
+                                <exclude reference="qRs-72-Hgm"/>
+                                <exclude reference="tn0-Hk-3T1"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -191,14 +191,14 @@
                                 <exclude reference="Pnj-06-ROj"/>
                                 <include reference="QuG-wa-zlO"/>
                                 <exclude reference="fdM-Hl-t9l"/>
-                                <exclude reference="dLR-17-Pkv"/>
-                                <include reference="qRs-72-Hgm"/>
-                                <include reference="tn0-Hk-3T1"/>
                                 <include reference="8E3-Wg-zMR"/>
                                 <include reference="KA9-rc-Ii6"/>
                                 <exclude reference="LQV-cm-FRx"/>
                                 <include reference="Pcz-Mi-3B9"/>
                                 <exclude reference="ZKQ-t7-gqh"/>
+                                <exclude reference="dLR-17-Pkv"/>
+                                <include reference="qRs-72-Hgm"/>
+                                <include reference="tn0-Hk-3T1"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">

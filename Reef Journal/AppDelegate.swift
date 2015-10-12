@@ -84,8 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.synchronize()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -98,8 +96,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.synchronize()
         self.dataLayer.saveContext()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     func preferencesDidChange(notification: NSNotification?) {
