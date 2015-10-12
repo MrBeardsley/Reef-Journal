@@ -82,7 +82,7 @@ class DataPersistence {
         }
 
         if let aMesurement = self.measurementForDate(date, param: param) {
-            aMesurement.value = value
+            aMesurement.value = valueToSave
             aMesurement.parameter = param.rawValue
             aMesurement.day = date.dayFromDate().timeIntervalSinceReferenceDate
         }

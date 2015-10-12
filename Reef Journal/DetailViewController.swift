@@ -35,12 +35,6 @@ class DetailViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         self.measurements = [Measurement]()
         super.init(coder: aDecoder)
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
-    }
-
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     // MARK: - View Management
@@ -48,6 +42,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
         // Determine if a parameter was previously saved
         let userDefaults = NSUserDefaults.standardUserDefaults()
 
@@ -81,6 +76,13 @@ class DetailViewController: UIViewController {
         }
         
         setupControls()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setObject(parameterType.rawValue, forKey: "LastParameter")
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func viewDidLayoutSubviews() {
@@ -144,8 +146,10 @@ class DetailViewController: UIViewController {
 
         dataAccess.saveMeasurement(slider.value, date: datePicker.date.dayFromDate(), param: type)
         self.measurements = dataAccess.measurementsForParameter(type)
-        
         self.deleteItem.enabled = true
+        self.currentMeasurement = dataAccess.measurementForDate(datePicker.date.dayFromDate(), param: type)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("SavedValue", object: nil)
     }
 
     @IBAction func deleteCurrentMeasurement(sender: UIBarButtonItem) {
@@ -153,6 +157,8 @@ class DetailViewController: UIViewController {
         
         dataAccess.deleteMeasurementOnDay(currentMeasurement.day, param: self.parameterType)
         self.measurements = dataAccess.measurementsForParameter(self.parameterType)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("SavedValue", object: nil)
         
         if pastMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
             self.loadPreviousMeasurement(previousItem)
@@ -168,7 +174,6 @@ class DetailViewController: UIViewController {
         self.nextItem.enabled = false
         self.previousItem.enabled = false
         slider.value = slider.minValue
-        
     }
 
     @IBAction func loadPreviousMeasurement(sender: UIBarButtonItem) {
@@ -251,18 +256,20 @@ class DetailViewController: UIViewController {
     // MARK: - Notification Handlers
 
     func preferencesDidChange(notification: NSNotification?) {
-        let defaultParameterList = self.defaultsParameterList()
-        
         guard parameterType != nil else {
             changeToNewParameter()
             return
         }
         
+        let defaultParameterList = self.defaultsParameterList()
         guard defaultParameterList.contains(parameterType.rawValue) else {
             // Handle changing to another parameter
             changeToNewParameter()
             return
         }
+        
+        
+        setupControls()
     }
     
     // MARK: - Private Methods
@@ -386,6 +393,11 @@ class DetailViewController: UIViewController {
             slider.value = slider.minValue
         }
         
+        if let lastValue = dataAccess.measurementForDate(today, param: parameterType) {
+            slider.value = lastValue.convertedMeasurementValue
+            self.currentMeasurement = lastValue
+        }
+        
         if pastMeasurementsExist(today.timeIntervalSinceReferenceDate) {
             previousItem.enabled = true
         }
@@ -394,9 +406,6 @@ class DetailViewController: UIViewController {
         }
         
         nextItem.enabled = false
-        
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(parameterType.rawValue, forKey: "LastParameter")
     }
     
     private func changeToNewParameter() -> Void {

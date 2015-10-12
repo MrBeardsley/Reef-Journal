@@ -34,6 +34,7 @@ class ParametersTableViewController: UITableViewController {
         dateFormatter.dateFormat = self.dateFormat
         super.init(coder: aDecoder)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
     }
 
     deinit {
@@ -77,8 +78,7 @@ class ParametersTableViewController: UITableViewController {
                 nutrientsSection.append(parameterForPreference(item).rawValue)
             }
         }
-
-
+        
         recentMeasurements = dataAccess.mostRecentMeasurements()
         tableView?.reloadData()
     }
@@ -132,63 +132,8 @@ class ParametersTableViewController: UITableViewController {
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
                     let dateString = dateFormatter.stringFromDate(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day))
-                    var measurementValue: Double = 0
                     
-                    switch parameter {
-                    case .Alkalinity:
-                        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
-                            let alkUnit = AlkalinityUnit(rawValue: intValue) {
-                                switch alkUnit {
-                                case .DKH:
-                                    let alk = Alkalinity(aMeasurement.value, unit: .DKH)
-                                    measurementValue = alk.dkh
-                                case .MeqL:
-                                    let alk = Alkalinity(aMeasurement.value, unit: .DKH)
-                                    measurementValue = alk.meqL
-                                case .PPM:
-                                    let alk = Alkalinity(aMeasurement.value, unit: .DKH)
-                                    measurementValue = alk.ppm
-                                }
-                        }
-                        else {
-                            measurementValue = aMeasurement.value
-                        }
-                    case .Salinity:
-                        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
-                            let salUnit = SalinityUnit(rawValue: intValue) {
-                                switch salUnit {
-                                case .SG:
-                                    let salinity = Salinity(aMeasurement.value, unit: .SG)
-                                    measurementValue = salinity.sg
-                                case .PSU:
-                                    let salinity = Salinity(aMeasurement.value, unit: .SG)
-                                    measurementValue = salinity.psu
-                                }
-                        }
-                        else {
-                            measurementValue = aMeasurement.value
-                        }
-                    case .Temperature:
-                        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
-                            let tempUnit = TemperatureUnit(rawValue: intValue) {
-                                switch tempUnit {
-                                case .Fahrenheit:
-                                    let temp = Temperature(aMeasurement.value, unit: .Fahrenheit)
-                                    measurementValue = temp.fahrenheit
-                                case.Celcius:
-                                    let temp = Temperature(aMeasurement.value, unit: .Fahrenheit)
-                                    measurementValue = temp.celcius
-                                }
-                        }
-                        else {
-                            measurementValue = aMeasurement.value
-                        }
-                    default:
-                        measurementValue = aMeasurement.value
-                        
-                    }
-                    
-                    cell.detailTextLabel?.text = String(format: format, measurementValue) + " " + unitLabelForParameterType(parameter) + " on " + dateString
+                    cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedMeasurementValue) + " " + unitLabelForParameterType(parameter) + " on " + dateString
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"
@@ -202,7 +147,7 @@ class ParametersTableViewController: UITableViewController {
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
                     let dateString = dateFormatter.stringFromDate(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day))
-                    cell.detailTextLabel?.text = String(format: format, aMeasurement.value) + " " + unitLabelForParameterType(parameter) + " on " + dateString
+                    cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedMeasurementValue) + " " + unitLabelForParameterType(parameter) + " on " + dateString
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"

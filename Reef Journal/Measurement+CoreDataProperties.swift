@@ -34,8 +34,7 @@ extension Measurement: CustomDebugStringConvertible {
 
 extension Measurement {
     var convertedMeasurementValue: Double {
-        
-        guard let param = Parameter(rawValue: self.parameter!) else { return 0 }
+        guard let type = self.parameter, param = Parameter(rawValue: type) else { return 0 }
         
         switch param {
         case .Alkalinity:

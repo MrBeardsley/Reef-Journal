@@ -69,7 +69,18 @@ class CircularSlider: UIControl, UITextFieldDelegate {
     var valueFormat: String = DecimalFormat.None
     var value: Double {
         get {
-            return _value
+            switch valueFormat {
+            case DecimalFormat.None:
+                return _value
+            case DecimalFormat.One:
+                return round(_value * 10) / 10
+            case DecimalFormat.Two:
+                return round(_value * 100) / 100
+            case DecimalFormat.Three:
+                return round(_value * 1000) / 1000
+            default:
+                return _value
+            }
         }
 
         set {
