@@ -26,6 +26,8 @@ class DetailViewController: UIViewController {
     var dataAccess: DataPersistence!
     var measurements: [Measurement]
     var currentMeasurement: Measurement?
+    var emptyLabel: UILabel? = nil
+    var settingsButton: UIButton? = nil
     let dateFormatter = NSDateFormatter()
 
     // MARK: - Init/Deinit
@@ -83,6 +85,7 @@ class DetailViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        guard let parameterType = self.parameterType else { return }
 
         slider.layoutControl()
 
@@ -237,11 +240,23 @@ class DetailViewController: UIViewController {
             }
         }
     }
+    
+    func showSettings() -> Void {
+        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+            UIApplication.sharedApplication().openURL(appSettings)
+        }
+    }
+
 
     // MARK: - Notification Handlers
 
     func preferencesDidChange(notification: NSNotification?) {
         let defaultParameterList = self.defaultsParameterList()
+        
+        guard parameterType != nil else {
+            changeToNewParameter()
+            return
+        }
         
         guard defaultParameterList.contains(parameterType.rawValue) else {
             // Handle changing to another parameter
@@ -277,13 +292,64 @@ class DetailViewController: UIViewController {
     }
     
     private func displayEmptyParameterView() -> Void {
+        guard self.emptyLabel == nil else { return }
+        guard self.settingsButton == nil else { return }
+        
         // Remove existing controls
-        self.datePicker.removeFromSuperview()
-        self.slider.removeFromSuperview()
-        self.toolbar.removeFromSuperview()
+        self.datePicker.hidden = true
+        self.slider.hidden = true
+        self.toolbar.hidden = true
         self.navigationItem.title = ""
-        // Place new view
-        print("add new view")
+        
+        // Make sure the parameter type is removed
+        self.parameterType = nil
+
+        // Add some text and a button to settings explaining to the user what they should do.
+        let label = UILabel()
+        label.text = "You have disabled all parameters. Please enable some parmaters in Settings to track your measurements."
+        label.numberOfLines = 0
+        label.sizeToFit()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(label)
+        
+        // Add the button
+        let button = UIButton()
+        button.addTarget(self, action: Selector("showSettings"), forControlEvents: .TouchUpInside)
+        button.setTitle("Settings", forState: .Normal)
+        button.setTitleColor(self.view.tintColor, forState: .Normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        
+        // Position and size the label
+        let horizontalConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+        self.view.addConstraint(horizontalConstraint)
+        
+        let verticalConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
+        self.view.addConstraint(verticalConstraint)
+        
+        let widthConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 338)
+        self.view.addConstraint(widthConstraint)
+        
+        let heightConstraint = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 75)
+        self.view.addConstraint(heightConstraint)
+        
+        // Position and size the button
+        let buttonWidth = NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 67)
+        self.view.addConstraint(buttonWidth)
+        
+        let buttonHeight = NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 34)
+        self.view.addConstraint(buttonHeight)
+        
+        let hButtonConstraint = NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+        self.view.addConstraint(hButtonConstraint)
+        
+        let vButtonConstraint = NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: label, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 8)
+        self.view.addConstraint(vButtonConstraint)
+        
+        
+        self.emptyLabel = label
+        self.settingsButton = button
+        
     }
     
     private func setupControls() -> Void {
@@ -316,6 +382,8 @@ class DetailViewController: UIViewController {
         if self.measurements.count == 0 {
             previousItem.enabled = false
             deleteItem.enabled = false
+            nextItem.enabled = false
+            slider.value = slider.minValue
         }
         
         if pastMeasurementsExist(today.timeIntervalSinceReferenceDate) {
@@ -337,6 +405,21 @@ class DetailViewController: UIViewController {
             return
         }
         
+        if self.emptyLabel != nil {
+            self.emptyLabel?.removeFromSuperview()
+            self.emptyLabel = nil
+            
+            self.datePicker.hidden = false
+            self.slider.hidden = false
+            self.toolbar.hidden = false
+            setupControls()
+        }
+        
+        if self.settingsButton != nil {
+            self.settingsButton?.removeFromSuperview()
+            self.settingsButton = nil
+        }
+        
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if let
             defaultsString = userDefaults.stringForKey("LastParameter"),
@@ -351,6 +434,7 @@ class DetailViewController: UIViewController {
         
         
         self.navigationItem.title = firstEnabledParameter
+        setupControls()
     }
     
     private func defaultsParameterList() -> [String] {
