@@ -135,20 +135,20 @@ func measurementRangeForParameterType(type: Parameter) -> (Double, Double) {
         if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
             let alkUnit = AlkalinityUnit(rawValue: intValue) {
                 switch alkUnit {
-                case .DKH: return (min: 0, max: 20)
-                case .MeqL: return (min: 0, max: 600)
-                case .PPM: return (min: 0, max: 300)
+                case .DKH: return (min: 0, max: 22.4)
+                case .MeqL: return (min: 0, max: 8)
+                case .PPM: return (min: 0, max: 400)
                 }
         }
         else {
-            return (min: 0, max: 20)
+            return (min: 0, max: 22.4)
         }
     case .Salinity:
         if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
             let salUnit = SalinityUnit(rawValue: intValue) {
                 switch salUnit {
                 case .SG: return (min: 1.0, max: 1.040)
-                case .PSU: return (min: 0, max: 45)
+                case .PSU: return (min: 0, max: 53)
                 }
         }
         else {
@@ -160,7 +160,7 @@ func measurementRangeForParameterType(type: Parameter) -> (Double, Double) {
             let tempUnit = TemperatureUnit(rawValue: intValue) {
                 switch tempUnit {
                 case .Fahrenheit: return (min: 32, max: 100)
-                case.Celcius: return (min: 0, max: 38)
+                case.Celcius: return (min: 0, max: 37.7)
                 }
         }
         else {
