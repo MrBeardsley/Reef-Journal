@@ -223,6 +223,11 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
                         <barButtonItem key="backBarButtonItem" title="Parameters" id="qrF-Uv-D2e"/>
+                        <barButtonItem key="rightBarButtonItem" title="Graph" id="Akt-ZD-XG6">
+                            <connections>
+                                <segue destination="Vqz-cD-nAQ" kind="show" action="showDetailViewController:sender:" id="IN7-QZ-Zdl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="datePicker" destination="LoY-Sw-dd2" id="lfK-J6-Kes"/>
@@ -236,6 +241,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="708" y="129"/>
+        </scene>
+        <!--Graph View Controller-->
+        <scene sceneID="Fhy-SZ-iVD">
+            <objects>
+                <viewController id="Vqz-cD-nAQ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AH9-bf-dkc"/>
+                        <viewControllerLayoutGuide type="bottom" id="emb-bF-LDb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tDJ-v9-X6I">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1E7-Xa-6l2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1415" y="129"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
