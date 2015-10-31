@@ -267,12 +267,20 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLE-CB-1AS" customClass="GraphView" customModule="Reef_Journal" customModuleProvider="target">
-                                <rect key="frame" x="28" y="108" width="544" height="245"/>
+                                <rect key="frame" x="28" y="108" width="544" height="336"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="TLE-CB-1AS" secondAttribute="height" multiplier="544:245" id="r2L-fk-Jj3"/>
+                                    <constraint firstAttribute="width" secondItem="TLE-CB-1AS" secondAttribute="height" multiplier="1.62:1" id="r2L-fk-Jj3"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" red="0.0" green="0.95925480769230764" blue="0.95925480769230764" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <animations/>
