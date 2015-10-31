@@ -225,7 +225,7 @@
                         <barButtonItem key="backBarButtonItem" title="Parameters" id="qrF-Uv-D2e"/>
                         <barButtonItem key="rightBarButtonItem" title="Graph" id="Akt-ZD-XG6">
                             <connections>
-                                <segue destination="Vqz-cD-nAQ" kind="show" action="showDetailViewController:sender:" id="IN7-QZ-Zdl"/>
+                                <segue destination="Vqz-cD-nAQ" kind="show" identifier="ShowGraph" action="showDetailViewController:sender:" id="IN7-QZ-Zdl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -253,9 +253,30 @@
                     <view key="view" contentMode="scaleToFill" id="tDJ-v9-X6I">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Jgy-lf-J1M">
+                                <rect key="frame" x="220" y="72" width="161" height="29"/>
+                                <animations/>
+                                <segments>
+                                    <segment title="Week"/>
+                                    <segment title="Month"/>
+                                    <segment title="Year"/>
+                                </segments>
+                                <connections>
+                                    <action selector="timeScaleChanged:" destination="Vqz-cD-nAQ" eventType="valueChanged" id="ABW-eF-3mA"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jgy-lf-J1M" firstAttribute="centerX" secondItem="tDJ-v9-X6I" secondAttribute="centerX" id="mlj-Rr-2WD"/>
+                            <constraint firstItem="Jgy-lf-J1M" firstAttribute="top" secondItem="AH9-bf-dkc" secondAttribute="bottom" constant="8" id="phd-GV-RHq"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="segmentControl" destination="Jgy-lf-J1M" id="bBe-9K-Nco"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1E7-Xa-6l2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

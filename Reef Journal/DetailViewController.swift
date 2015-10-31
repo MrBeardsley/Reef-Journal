@@ -278,6 +278,17 @@ class DetailViewController: UIViewController {
         setupControls()
     }
     
+    // MARK: - Seque
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "ShowGraph" {
+            if let graphViewController = segue.destinationViewController as? GraphViewController  {
+                graphViewController.parameterType = self.parameterType
+                graphViewController.dataAccess = self.dataAccess
+            }
+        }
+    }
+    
     // MARK: - Private Methods
     
     private func pastMeasurementsExist(day: NSTimeInterval) -> Bool {
