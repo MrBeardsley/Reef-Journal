@@ -266,15 +266,27 @@
                                     <action selector="timeScaleChanged:" destination="Vqz-cD-nAQ" eventType="valueChanged" id="ABW-eF-3mA"/>
                                 </connections>
                             </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLE-CB-1AS" customClass="GraphView" customModule="Reef_Journal" customModuleProvider="target">
+                                <rect key="frame" x="28" y="108" width="544" height="245"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="TLE-CB-1AS" secondAttribute="height" multiplier="544:245" id="r2L-fk-Jj3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="TLE-CB-1AS" firstAttribute="leading" secondItem="tDJ-v9-X6I" secondAttribute="leadingMargin" constant="8" id="Cwn-q7-3as"/>
+                            <constraint firstItem="TLE-CB-1AS" firstAttribute="top" secondItem="Jgy-lf-J1M" secondAttribute="bottom" constant="8" id="Ozo-k4-FmS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TLE-CB-1AS" secondAttribute="trailing" constant="8" id="hJG-ub-qoc"/>
                             <constraint firstItem="Jgy-lf-J1M" firstAttribute="centerX" secondItem="tDJ-v9-X6I" secondAttribute="centerX" id="mlj-Rr-2WD"/>
                             <constraint firstItem="Jgy-lf-J1M" firstAttribute="top" secondItem="AH9-bf-dkc" secondAttribute="bottom" constant="8" id="phd-GV-RHq"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="graphView" destination="TLE-CB-1AS" id="uSf-yR-QRO"/>
                         <outlet property="segmentControl" destination="Jgy-lf-J1M" id="bBe-9K-Nco"/>
                     </connections>
                 </viewController>

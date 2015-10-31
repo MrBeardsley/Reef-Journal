@@ -36,11 +36,35 @@ class GraphView: UIScrollView {
     }
 
     override func drawRect(rect: CGRect) {
-
-        guard let currentContext = UIGraphicsGetCurrentContext() else {
-            return
-        }
-        drawGraph(rect, context: currentContext)
+        super.drawRect(rect)
+        
+        guard let ctx = UIGraphicsGetCurrentContext() else { return }
+        
+        // Temporary
+        UIColor.blueColor().set()
+        CGContextFillRect(ctx, rect)
+        
+        drawBackground(ctx)
+        drawGrid(ctx)
+        drawLine(ctx)
+        drawLabels(ctx)
+    }
+    
+    private func drawBackground(context: CGContext) {
+        
+    }
+    
+    private func drawLine(context: CGContext) {
+        guard !dataPoints.isEmpty else { return }
+        
+    }
+    
+    private func drawGrid(context: CGContext) {
+        
+    }
+    
+    private func drawLabels(context: CGContext) {
+        
     }
 
     private func drawGraph(rect: CGRect, context: CGContext) {
