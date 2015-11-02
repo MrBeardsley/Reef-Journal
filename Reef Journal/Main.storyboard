@@ -222,10 +222,9 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
-                        <barButtonItem key="backBarButtonItem" title="Parameters" id="qrF-Uv-D2e"/>
                         <barButtonItem key="rightBarButtonItem" title="Graph" id="Akt-ZD-XG6">
                             <connections>
-                                <segue destination="Vqz-cD-nAQ" kind="show" identifier="ShowGraph" action="showDetailViewController:sender:" id="IN7-QZ-Zdl"/>
+                                <segue destination="O5r-rQ-bUJ" kind="show" id="1y6-B9-wls"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -243,19 +242,19 @@
             <point key="canvasLocation" x="708" y="129"/>
         </scene>
         <!--Graph View Controller-->
-        <scene sceneID="Fhy-SZ-iVD">
+        <scene sceneID="vT7-Ki-U0I">
             <objects>
-                <viewController id="Vqz-cD-nAQ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="O5r-rQ-bUJ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AH9-bf-dkc"/>
-                        <viewControllerLayoutGuide type="bottom" id="emb-bF-LDb"/>
+                        <viewControllerLayoutGuide type="top" id="JyI-iK-Wde"/>
+                        <viewControllerLayoutGuide type="bottom" id="wd5-q9-Fs1"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tDJ-v9-X6I">
+                    <view key="view" contentMode="scaleToFill" id="88F-y8-xTX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Jgy-lf-J1M">
-                                <rect key="frame" x="220" y="72" width="161" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GLy-5u-0Vm">
+                                <rect key="frame" x="221" y="72" width="161" height="29"/>
                                 <animations/>
                                 <segments>
                                     <segment title="Week"/>
@@ -263,19 +262,16 @@
                                     <segment title="Year"/>
                                 </segments>
                                 <connections>
-                                    <action selector="timeScaleChanged:" destination="Vqz-cD-nAQ" eventType="valueChanged" id="ABW-eF-3mA"/>
+                                    <action selector="timeScaleChanged:" destination="O5r-rQ-bUJ" eventType="valueChanged" id="hAn-3H-l5G"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLE-CB-1AS" customClass="GraphView" customModule="Reef_Journal" customModuleProvider="target">
-                                <rect key="frame" x="28" y="108" width="544" height="336"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icw-3e-Yoy" customClass="GraphView" customModule="Reef_Journal" customModuleProvider="target">
+                                <rect key="frame" x="181" y="236" width="240" height="128"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="TLE-CB-1AS" secondAttribute="height" multiplier="1.62:1" id="r2L-fk-Jj3"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                        <color key="value" red="0.0" green="0.95925480769230764" blue="0.95925480769230764" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="endColor">
                                         <color key="value" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -285,22 +281,15 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="TLE-CB-1AS" firstAttribute="leading" secondItem="tDJ-v9-X6I" secondAttribute="leadingMargin" constant="8" id="Cwn-q7-3as"/>
-                            <constraint firstItem="TLE-CB-1AS" firstAttribute="top" secondItem="Jgy-lf-J1M" secondAttribute="bottom" constant="8" id="Ozo-k4-FmS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="TLE-CB-1AS" secondAttribute="trailing" constant="8" id="hJG-ub-qoc"/>
-                            <constraint firstItem="Jgy-lf-J1M" firstAttribute="centerX" secondItem="tDJ-v9-X6I" secondAttribute="centerX" id="mlj-Rr-2WD"/>
-                            <constraint firstItem="Jgy-lf-J1M" firstAttribute="top" secondItem="AH9-bf-dkc" secondAttribute="bottom" constant="8" id="phd-GV-RHq"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="graphView" destination="TLE-CB-1AS" id="uSf-yR-QRO"/>
-                        <outlet property="segmentControl" destination="Jgy-lf-J1M" id="bBe-9K-Nco"/>
+                        <outlet property="graphView" destination="icw-3e-Yoy" id="8ys-2r-z8b"/>
+                        <outlet property="segmentControl" destination="GLy-5u-0Vm" id="cfl-Mn-5za"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1E7-Xa-6l2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Cw-7c-eb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1415" y="129"/>
+            <point key="canvasLocation" x="1386" y="129"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">

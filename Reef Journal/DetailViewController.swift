@@ -50,8 +50,12 @@ class DetailViewController: UIViewController {
         // it from the parameter list.
         if self.parameterType == nil {
             
-            // The back button is not set because there was no navigation to this view controller
-            self.navigationItem.leftItemsSupplementBackButton = true
+            if let svc = self.splitViewController {
+                if self.navigationItem.leftBarButtonItem == nil {
+                    self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
+                    
+                }
+            }
             
             if let
                 defaultsString = userDefaults.stringForKey("LastParameter"),
@@ -282,9 +286,12 @@ class DetailViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "ShowGraph" {
-            if let graphViewController = segue.destinationViewController as? GraphViewController  {
+            if let graphViewController = segue.destinationViewController as? GraphViewController,
+               let svc = self.splitViewController {
                 graphViewController.parameterType = self.parameterType
                 graphViewController.dataAccess = self.dataAccess
+                graphViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
+                graphViewController.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }

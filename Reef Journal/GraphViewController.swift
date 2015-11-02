@@ -44,6 +44,8 @@ class GraphViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "Graph"
+        
     }
 
     func preferencesDidChange(notification: NSNotification?) {

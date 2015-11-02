@@ -88,15 +88,13 @@ class ParametersTableViewController: UITableViewController {
             if let path = self.tableView.indexPathForSelectedRow,
                let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text,
                let navController = segue.destinationViewController as? UINavigationController,
-               let detailViewController = navController.topViewController as? DetailViewController  {
-                            detailViewController.parameterType = Parameter(rawValue: title)
-                            detailViewController.navigationItem.title = title
-                            detailViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                            detailViewController.navigationItem.leftItemsSupplementBackButton = true
-
-                if detailViewController.dataAccess == nil {
-                    detailViewController.dataAccess = self.dataAccess
-                }
+               let detailViewController = navController.topViewController as? DetailViewController,
+               let svc = self.splitViewController   {
+                detailViewController.parameterType = Parameter(rawValue: title)
+                detailViewController.dataAccess = self.dataAccess
+                detailViewController.navigationItem.title = title
+                detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
+                detailViewController.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }
