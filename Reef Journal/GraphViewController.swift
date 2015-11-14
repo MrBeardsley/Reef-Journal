@@ -23,9 +23,13 @@ class GraphViewController: UIViewController {
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     // MARK: - Properties
-    let entityName = "Measurement"
     var parameterType: Parameter!
-    var dataAccess: DataPersistence!
+    var dataModel: DataPersistence!
+    
+    // Mark: - Private Properties
+    private var weekMeasurements = [Measurement]()
+    private var monthMeasurements = [Measurement]()
+    private var yearMeaturements = [Measurement]()
     private var scale: TimeScale
 
     // MARK: - Init/Deinit
@@ -44,7 +48,17 @@ class GraphViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let model = self.dataModel else { return }
+        guard let parameterType = self.parameterType else { return }
+        
         self.navigationItem.title = "Graph"
+        
+        let allMeasurements = model.measurementsForParameter(parameterType)
+        
+        let today = NSDate()
+        
+        print(allMeasurements)
+        print(today)
         
     }
 

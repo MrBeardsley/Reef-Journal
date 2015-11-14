@@ -289,7 +289,7 @@ class DetailViewController: UIViewController {
             if let graphViewController = segue.destinationViewController as? GraphViewController,
                let svc = self.splitViewController {
                 graphViewController.parameterType = self.parameterType
-                graphViewController.dataAccess = self.dataAccess
+                graphViewController.dataModel = self.dataAccess
                 graphViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
                 graphViewController.navigationItem.leftItemsSupplementBackButton = true
             }
