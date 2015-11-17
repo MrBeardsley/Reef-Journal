@@ -86,20 +86,25 @@ class DetailViewController: UIViewController {
         setupControls()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // This is necessary when returning from the graph view controller
+        // When an iPad is in landscape mode the parameter list is hidden when presenting the 
+        // graph view. The split view needs to be relaid out in order to take into acount the
+        // parameter list being added back to the view.
+        guard let svc = self.splitViewController else { return }
+        
+        svc.view.setNeedsLayout()
+        svc.view.layoutIfNeeded()
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
         guard let type = self.parameterType else { return }
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(type.rawValue, forKey: "LastParameter")
-    }
-    
-    override func viewWillLayoutSubviews() {
-        guard let svc = self.splitViewController else { return }
-        let detailNavController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
-        detailNavController.view.setNeedsLayout()
-        
-        super.viewWillLayoutSubviews()
     }
 
     override func viewDidLayoutSubviews() {
@@ -302,7 +307,7 @@ class DetailViewController: UIViewController {
                 graphViewController.dataModel = self.dataAccess
                 graphViewController.navigationItem.title = self.parameterType.rawValue
             }
-            
+                
             if let svc = self.splitViewController {
                 svc.preferredDisplayMode = .PrimaryHidden
             }

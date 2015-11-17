@@ -41,7 +41,7 @@ class GraphViewController: UIViewController {
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     // MARK: - Methods
@@ -53,6 +53,10 @@ class GraphViewController: UIViewController {
         
         let allMeasurements = model.measurementsForParameter(parameterType)
         
+//        weekMeasurements = allMeasurements.filter(<#T##includeElement: (Measurement) throws -> Bool##(Measurement) throws -> Bool#>)
+//        monthMeasurements = allMeasurements.filter(<#T##includeElement: (Measurement) throws -> Bool##(Measurement) throws -> Bool#>)
+//        yearMeaturements = allMeasurements.filter(<#T##includeElement: (Measurement) throws -> Bool##(Measurement) throws -> Bool#>)
+        
         let today = NSDate()
         
         print(allMeasurements)
@@ -61,10 +65,10 @@ class GraphViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
         guard let svc = self.splitViewController else { return }
         svc.preferredDisplayMode = .Automatic
+        
+        super.viewWillDisappear(animated)
     }
 
 //    func preferencesDidChange(notification: NSNotification?) {
