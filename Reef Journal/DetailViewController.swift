@@ -37,11 +37,17 @@ class DetailViewController: UIViewController {
         self.measurements = [Measurement]()
         super.init(coder: aDecoder)
     }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 
     // MARK: - View Management
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let svc = self.splitViewController else { return }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -49,13 +55,6 @@ class DetailViewController: UIViewController {
         // If the paramterType is nil, it is because we are on an iPad and this view controller was loaded directly without selecting
         // it from the parameter list.
         if self.parameterType == nil {
-            
-            if let svc = self.splitViewController {
-                if self.navigationItem.leftBarButtonItem == nil {
-                    self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
-                    
-                }
-            }
             
             if let
                 defaultsString = userDefaults.stringForKey("LastParameter"),
@@ -70,12 +69,18 @@ class DetailViewController: UIViewController {
             }
         }
         
+        
+        // This is for the iPhone 6 Plus because it can start in landscape mode and needs to display
+        // the control to show and hide the parameter list. 
+        //
+        // It also needs to be narrower in order to fit all the controls in landscape mode.
+        self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
+        self.navigationItem.leftItemsSupplementBackButton = true
+        
         if self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
             self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
                 
-            if let splitController = self.splitViewController {
-                splitController.preferredPrimaryColumnWidthFraction = 0.2
-            }
+            svc.preferredPrimaryColumnWidthFraction = 0.2
         }
         
         setupControls()
@@ -83,19 +88,25 @@ class DetailViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-
-        NSNotificationCenter.defaultCenter().removeObserver(self)
         
         guard let type = self.parameterType else { return }
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(type.rawValue, forKey: "LastParameter")
+    }
+    
+    override func viewWillLayoutSubviews() {
+        guard let svc = self.splitViewController else { return }
+        let detailNavController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
+        detailNavController.view.setNeedsLayout()
+        
+        super.viewWillLayoutSubviews()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         guard let parameterType = self.parameterType else { return }
-
+        
         slider.layoutControl()
 
         if let lastValue = dataAccess.lastMeasurementValueForParameter(parameterType) {
@@ -286,12 +297,14 @@ class DetailViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "ShowGraph" {
-            if let graphViewController = segue.destinationViewController as? GraphViewController,
-               let svc = self.splitViewController {
+            if let graphViewController = segue.destinationViewController as? GraphViewController {
                 graphViewController.parameterType = self.parameterType
                 graphViewController.dataModel = self.dataAccess
-                graphViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
-                graphViewController.navigationItem.leftItemsSupplementBackButton = true
+                graphViewController.navigationItem.title = self.parameterType.rawValue
+            }
+            
+            if let svc = self.splitViewController {
+                svc.preferredDisplayMode = .PrimaryHidden
             }
         }
     }

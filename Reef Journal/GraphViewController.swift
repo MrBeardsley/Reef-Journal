@@ -37,7 +37,7 @@ class GraphViewController: UIViewController {
         scale = .Week
         super.init(coder: aDecoder)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
     }
 
     deinit {
@@ -51,8 +51,6 @@ class GraphViewController: UIViewController {
         guard let model = self.dataModel else { return }
         guard let parameterType = self.parameterType else { return }
         
-        self.navigationItem.title = "Graph"
-        
         let allMeasurements = model.measurementsForParameter(parameterType)
         
         let today = NSDate()
@@ -61,10 +59,17 @@ class GraphViewController: UIViewController {
         print(today)
         
     }
-
-    func preferencesDidChange(notification: NSNotification?) {
-        print("Reload the graph in graph view Controller")
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        guard let svc = self.splitViewController else { return }
+        svc.preferredDisplayMode = .Automatic
     }
+
+//    func preferencesDidChange(notification: NSNotification?) {
+//        print("Reload the graph in graph view Controller")
+//    }
     
     @IBAction func timeScaleChanged(sender: UISegmentedControl) {
         print("Time Scale Changed")

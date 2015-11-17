@@ -27,8 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         splitViewController.delegate = self
 
         let detailNavController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        detailNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-
 
         // Inject the data access object into the first view controller
         let parametersNavContoller = splitViewController.viewControllers[0] as! UINavigationController
@@ -105,18 +103,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func preferencesDidChange(notification: NSNotification?) {
         NSUserDefaults.standardUserDefaults().synchronize()
         NSNotificationCenter.defaultCenter().postNotificationName("PreferencesChanged", object: nil)
-    }
-    
-    // MARK: - Split View Delegate Protocol Methods
-    
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
-        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-        if topAsDetailController.parameterType == nil {
-            // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-            return true
-        }
-        return false
     }
 }
 
