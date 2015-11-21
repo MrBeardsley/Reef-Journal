@@ -52,16 +52,24 @@ class GraphViewController: UIViewController {
         guard let parameterType = self.parameterType else { return }
         
         let allMeasurements = model.measurementsForParameter(parameterType)
-        
-//        weekMeasurements = allMeasurements.filter(<#T##includeElement: (Measurement) throws -> Bool##(Measurement) throws -> Bool#>)
-//        monthMeasurements = allMeasurements.filter(<#T##includeElement: (Measurement) throws -> Bool##(Measurement) throws -> Bool#>)
-//        yearMeaturements = allMeasurements.filter(<#T##includeElement: (Measurement) throws -> Bool##(Measurement) throws -> Bool#>)
-        
         let today = NSDate()
+        let calendar = NSCalendar.currentCalendar()
         
-        print(allMeasurements)
-        print(today)
+        weekMeasurements = allMeasurements.filter {
+            let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
+            return calendar.isDate(measurementDate, equalToDate: today, toUnitGranularity: .WeekOfYear) &&
+            calendar.isDate(measurementDate, equalToDate: today, toUnitGranularity: .Year)
+        }
         
+        monthMeasurements = allMeasurements.filter {
+            let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
+            return calendar.isDate(measurementDate, equalToDate: today, toUnitGranularity: .Month) &&
+            calendar.isDate(measurementDate, equalToDate: today, toUnitGranularity: .Year)
+        }
+        
+        yearMeaturements = allMeasurements.filter {
+            calendar.isDate(NSDate(timeIntervalSinceReferenceDate: $0.day), equalToDate: today, toUnitGranularity: .Year)
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
