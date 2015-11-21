@@ -267,6 +267,15 @@
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icw-3e-Yoy" customClass="GraphView" customModule="Reef_Journal" customModuleProvider="target">
                                 <rect key="frame" x="28" y="108" width="544" height="306"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMr-Uc-Tol">
+                                        <rect key="frame" x="8" y="8" width="101" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -294,6 +303,9 @@
                                         <include reference="lPQ-sQ-tra"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outlet property="graphTitle" destination="JMr-Uc-Tol" id="zJz-Wu-P7E"/>
+                                </connections>
                             </view>
                         </subviews>
                         <animations/>

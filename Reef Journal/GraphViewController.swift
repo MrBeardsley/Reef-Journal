@@ -9,14 +9,15 @@
 import UIKit
 import CoreData
 
+enum TimeScale {
+    case Week
+    case Month
+    case Year
+}
 
 class GraphViewController: UIViewController {
     
-    private enum TimeScale {
-        case Week
-        case Month
-        case Year
-    }
+    
 
     // MARK: - Interface Outlets
     @IBOutlet weak var graphView: GraphView!
@@ -25,16 +26,9 @@ class GraphViewController: UIViewController {
     // MARK: - Properties
     var parameterType: Parameter!
     var dataModel: DataPersistence!
-    
-    // Mark: - Private Properties
-    private var weekMeasurements = [Measurement]()
-    private var monthMeasurements = [Measurement]()
-    private var yearMeaturements = [Measurement]()
-    private var scale: TimeScale
 
     // MARK: - Init/Deinit
     required init?(coder aDecoder: NSCoder) {
-        scale = .Week
         super.init(coder: aDecoder)
 
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
@@ -52,24 +46,43 @@ class GraphViewController: UIViewController {
         guard let parameterType = self.parameterType else { return }
         
         let allMeasurements = model.measurementsForParameter(parameterType)
-        let today = NSDate()
+        let today = NSDate().dayFromDate()
         let calendar = NSCalendar.currentCalendar()
+        let dateComponets = NSDateComponents()
         
-        weekMeasurements = allMeasurements.filter {
+        self.graphView.weekMeasurements = allMeasurements.filter {
+            dateComponets.day = -7
+            guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return true }
             let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
-            return calendar.isDate(measurementDate, equalToDate: today, toUnitGranularity: .WeekOfYear) &&
-            calendar.isDate(measurementDate, equalToDate: today, toUnitGranularity: .Year)
+            return measurementDate.compare(startDate) == .OrderedDescending
         }
         
-        monthMeasurements = allMeasurements.filter {
+        self.graphView.monthMeasurements = allMeasurements.filter {
+            dateComponets.day = -28
+            guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return true }
             let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
-            return calendar.isDate(measurementDate, equalToDate: today, toUnitGranularity: .Month) &&
-            calendar.isDate(measurementDate, equalToDate: today, toUnitGranularity: .Year)
+            return measurementDate.compare(startDate) == .OrderedDescending
         }
         
-        yearMeaturements = allMeasurements.filter {
-            calendar.isDate(NSDate(timeIntervalSinceReferenceDate: $0.day), equalToDate: today, toUnitGranularity: .Year)
+        self.graphView.yearMeasurements = allMeasurements.filter {
+            dateComponets.day = -365
+            guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return true }
+            let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
+            return measurementDate.compare(startDate) == .OrderedDescending
         }
+        
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            self.graphView.scale = .Week
+        case 1:
+            self.graphView.scale = .Month
+        case 2:
+            self.graphView.scale = .Year
+        default:
+            self.graphView.scale = .Week
+        }
+        
+        self.graphView.graphTitle.text = self.parameterType.rawValue
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -87,15 +100,13 @@ class GraphViewController: UIViewController {
         print("Time Scale Changed")
         switch sender.selectedSegmentIndex {
         case 0:
-            self.scale = .Week
+            self.graphView.scale = .Week
         case 1:
-            self.scale = .Month
+            self.graphView.scale = .Month
         case 2:
-            self.scale = .Year
+            self.graphView.scale = .Year
         default:
-            self.scale = .Week
+            self.graphView.scale = .Week
         }
-        
-        print("Time Scale: \(self.scale)")
     }
 }
