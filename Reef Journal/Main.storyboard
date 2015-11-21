@@ -305,6 +305,7 @@
                             <constraint firstItem="icw-3e-Yoy" firstAttribute="leading" secondItem="88F-y8-xTX" secondAttribute="leadingMargin" constant="8" id="YJa-n9-8yK"/>
                             <constraint firstItem="wd5-q9-Fs1" firstAttribute="top" secondItem="icw-3e-Yoy" secondAttribute="bottom" constant="8" symbolic="YES" id="ZgP-Nt-8z4"/>
                             <constraint firstItem="GLy-5u-0Vm" firstAttribute="top" secondItem="JyI-iK-Wde" secondAttribute="bottom" constant="8" id="eK7-x8-rSk"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="icw-3e-Yoy" secondAttribute="bottom" constant="8" id="p6b-LA-zyW"/>
                             <constraint firstItem="GLy-5u-0Vm" firstAttribute="centerX" secondItem="88F-y8-xTX" secondAttribute="centerX" id="tH3-uh-01m"/>
                             <constraint firstAttribute="trailingMargin" secondItem="icw-3e-Yoy" secondAttribute="trailing" constant="8" id="uN9-8M-ZZX"/>
                             <constraint firstItem="icw-3e-Yoy" firstAttribute="top" secondItem="GLy-5u-0Vm" secondAttribute="bottom" constant="8" symbolic="YES" id="ucG-hE-xhv"/>
@@ -312,8 +313,16 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="JV4-mq-791"/>
+                                <exclude reference="p6b-LA-zyW"/>
                                 <exclude reference="ucG-hE-xhv"/>
                                 <exclude reference="ZgP-Nt-8z4"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="YJa-n9-8yK"/>
+                                <include reference="p6b-LA-zyW"/>
+                                <exclude reference="uN9-8M-ZZX"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
