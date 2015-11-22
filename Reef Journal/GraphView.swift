@@ -135,6 +135,7 @@ import UIKit
         graphPath.stroke()
         
         CGContextSaveGState(context)
+        
         let clippingPath = graphPath.copy() as! UIBezierPath
         let colors = [startColor.CGColor, endColor.CGColor]
         
@@ -145,31 +146,36 @@ import UIKit
         let colorLocations:[CGFloat] = [0.0, 1.0]
         
         //5 - create the gradient
-        let gradient = CGGradientCreateWithColors(colorSpace,
-            colors,
-            colorLocations)
+        let gradient = CGGradientCreateWithColors(colorSpace, colors, colorLocations)
         
         //6 - draw the gradient
         var startPoint = CGPoint.zero
         var endPoint = CGPoint(x:0, y:self.bounds.height)
         
         //3 - add lines to the copied path to complete the clip area
-        clippingPath.addLineToPoint(CGPoint(
-            x: columnXPoint(graphPoints.count - 1),
-            y:height))
-        clippingPath.addLineToPoint(CGPoint(
-            x:columnXPoint(0),
-            y:height))
-        clippingPath.closePath()
         
-        //4 - add the clipping path to the context
-        clippingPath.addClip()
-        
-        let highestYPoint = columnYPoint(maxValue)
-        startPoint = CGPoint(x:margin, y: highestYPoint)
-        endPoint = CGPoint(x:margin, y:self.bounds.height)
-        
-        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, CGGradientDrawingOptions())
+        if let
+            firstVal = flattened.first,
+            lastVal = flattened.last,
+            firstIndex = graphPoints.indexOf({ $0 == firstVal }),
+            lastIndex = graphPoints.reverse().indexOf({ $0 == lastVal }) {
+                
+                print(lastIndex.base)
+                
+                clippingPath.addLineToPoint(CGPoint(x: columnXPoint(lastIndex.base - 1), y: height - 20))
+                clippingPath.addLineToPoint(CGPoint(x: columnXPoint(firstIndex), y: height - 20))
+                clippingPath.closePath()
+                
+                //4 - add the clipping path to the context
+                clippingPath.addClip()
+                
+                let highestYPoint = columnYPoint(maxValue)
+                startPoint = CGPoint(x:margin, y: highestYPoint)
+                endPoint = CGPoint(x:margin, y:self.bounds.height)
+                
+                CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, CGGradientDrawingOptions())
+        }
+
         CGContextRestoreGState(context)
     }
     
@@ -177,11 +183,6 @@ import UIKit
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         guard !flattened.isEmpty else { return }
         guard let maxValue = flattened.maxElement() else { return }
-        
-        CGContextSaveGState(context)
-        
-        UIColor.whiteColor().setFill()
-        UIColor.whiteColor().setStroke()
         
         let width = self.frame.width
         let height = self.frame.height
@@ -217,15 +218,31 @@ import UIKit
                 var point = CGPoint(x:columnXPoint(i), y:columnYPoint(measurementValue))
                 point.x -= 5.0/2
                 point.y -= 5.0/2
-
-                let circle = UIBezierPath(ovalInRect:
-                    CGRect(origin: point,
-                        size: CGSize(width: 5.0, height: 5.0)))
+                
+                CGContextSaveGState(context)
+                UIColor.whiteColor().setFill()
+                UIColor.whiteColor().setStroke()
+                
+                let circle = UIBezierPath(ovalInRect: CGRect(origin: point, size: CGSize(width: 5.0, height: 5.0)))
                 circle.fill()
+                
+                CGContextRestoreGState(context)
+                
+                CGContextSaveGState(context)
+                endColor.setFill()
+                endColor.setStroke()
+                
+                point.x += 2.5 / 2
+                point.y += 2.5 / 2
+                
+                let innerCircle = UIBezierPath(ovalInRect: CGRect(origin: point, size: CGSize(width: 2.5, height: 2.5)))
+                innerCircle.fill()
+                
+                CGContextRestoreGState(context)
             }
         }
         
-        CGContextRestoreGState(context)
+        
     }
     
     private func drawGrid(context: CGContext) {
