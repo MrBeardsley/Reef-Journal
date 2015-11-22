@@ -12,16 +12,23 @@ import UIKit
     
     @IBOutlet weak var graphTitle: UILabel!
 
-    var weekMeasurements = [Measurement]()
-    var monthMeasurements = [Measurement]()
-    var yearMeasurements = [Measurement]()
+    var weekMeasurements = [Double?]()
+    var monthMeasurements = [Double?]()
+    var yearMeasurements = [Double?]()
     var scale: TimeScale = .Week
     var maxValue: CGFloat = 0
     var parameterType: Parameter?
     let calendar = NSCalendar.currentCalendar()
-    private var dataPoints:[Double] {
+    private var dataPoints:[Double?] {
         get {
-            return [0]
+            switch self.scale {
+            case .Week:
+                return weekMeasurements
+            case .Month:
+                return monthMeasurements
+            case .Year:
+                return yearMeasurements
+            }
         }
     }
     
@@ -44,6 +51,7 @@ import UIKit
         
         drawBackgroundWithContext(ctx, inRect: rect)
         drawLine(ctx)
+        drawDots(ctx)
         drawGrid(ctx)
         drawLabels(ctx)
     }
@@ -68,19 +76,21 @@ import UIKit
     }
     
     private func drawLine(context: CGContext) {
+        let flattened: [Double] = self.dataPoints.flatMap { $0 }
+        guard flattened.count > 1 else { return }
+        guard let maxValue = flattened.maxElement() else { return }
         
         let width = self.frame.width
         let height = self.frame.height
         
-        //Weekly sample data
-        var graphPoints:[Int] = [4, 2, 6, 4, 5, 8, 3]
+        let graphPoints = self.dataPoints
 
         //calculate the x point
         
         let margin:CGFloat = 20.0
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
-            let spacer = (width - margin*2 - 4) /
+            let spacer = (width - margin * 2 - 4) /
                 CGFloat((graphPoints.count - 1))
             var x:CGFloat = CGFloat(column) * spacer
             x += margin + 2
@@ -92,31 +102,34 @@ import UIKit
         let topBorder:CGFloat = 60
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
-        let maxValue = graphPoints.maxElement()!
-        let columnYPoint = { (graphPoint:Int) -> CGFloat in
+        let columnYPoint = { (graphPoint: Double) -> CGFloat in
             var y:CGFloat = CGFloat(graphPoint) /
                 CGFloat(maxValue) * graphHeight
             y = graphHeight + topBorder - y // Flip the graph
             return y
         }
   
-        // draw the line graph
-        
+        // Set the color of the lines to white
         UIColor.whiteColor().setFill()
         UIColor.whiteColor().setStroke()
         
-        //set up the points line
         let graphPath = UIBezierPath()
-        //go to start of line
-        graphPath.moveToPoint(CGPoint(x:columnXPoint(0),
-            y:columnYPoint(graphPoints[0])))
+        
+        // Find the first non-nil value and start drawing from there. We know there is at least one
+        for i in 0..<graphPoints.count {
+            if let measurementValue = graphPoints[i] {
+                graphPath.moveToPoint(CGPoint(x:columnXPoint(i), y:columnYPoint(measurementValue)))
+                break
+            }
+        }
         
         //add points for each item in the graphPoints array
         //at the correct (x, y) for the point
         for i in 1..<graphPoints.count {
-            let nextPoint = CGPoint(x:columnXPoint(i), 
-                y:columnYPoint(graphPoints[i]))
-            graphPath.addLineToPoint(nextPoint)
+            if let measurementValue = graphPoints[i] {
+                let nextPoint = CGPoint(x:columnXPoint(i), y:columnYPoint(measurementValue))
+                graphPath.addLineToPoint(nextPoint)
+            }
         }
         
         graphPath.stroke()
@@ -158,18 +171,61 @@ import UIKit
         
         CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, CGGradientDrawingOptions())
         CGContextRestoreGState(context)
+    }
+    
+    private func drawDots(context: CGContext) {
+        let flattened: [Double] = self.dataPoints.flatMap { $0 }
+        guard !flattened.isEmpty else { return }
+        guard let maxValue = flattened.maxElement() else { return }
         
-        //Draw the circles on top of graph stroke
-        for i in 0..<graphPoints.count {
-            var point = CGPoint(x:columnXPoint(i), y:columnYPoint(graphPoints[i]))
-            point.x -= 5.0/2
-            point.y -= 5.0/2
-            
-            let circle = UIBezierPath(ovalInRect:
-                CGRect(origin: point,
-                    size: CGSize(width: 5.0, height: 5.0)))
-            circle.fill()
+        CGContextSaveGState(context)
+        
+        UIColor.whiteColor().setFill()
+        UIColor.whiteColor().setStroke()
+        
+        let width = self.frame.width
+        let height = self.frame.height
+        
+        let graphPoints = self.dataPoints
+        
+        //calculate the x point
+        
+        let margin:CGFloat = 20.0
+        let columnXPoint = { (column:Int) -> CGFloat in
+            //Calculate gap between points
+            let spacer = (width - margin * 2 - 4) /
+                CGFloat((graphPoints.count - 1))
+            var x:CGFloat = CGFloat(column) * spacer
+            x += margin + 2
+            return x
         }
+        
+        // calculate the y point
+        
+        let topBorder:CGFloat = 60
+        let bottomBorder:CGFloat = 50
+        let graphHeight = height - topBorder - bottomBorder
+        let columnYPoint = { (graphPoint: Double) -> CGFloat in
+            var y:CGFloat = CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight
+            y = graphHeight + topBorder - y // Flip the graph
+            return y
+        }
+        
+        // Draw the circles on top of graph stroke
+        for i in 0 ..< dataPoints.count {
+            if let measurementValue = dataPoints[i] {
+                var point = CGPoint(x:columnXPoint(i), y:columnYPoint(measurementValue))
+                point.x -= 5.0/2
+                point.y -= 5.0/2
+
+                let circle = UIBezierPath(ovalInRect:
+                    CGRect(origin: point,
+                        size: CGSize(width: 5.0, height: 5.0)))
+                circle.fill()
+            }
+        }
+        
+        CGContextRestoreGState(context)
     }
     
     private func drawGrid(context: CGContext) {

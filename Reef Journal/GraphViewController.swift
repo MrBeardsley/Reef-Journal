@@ -50,26 +50,53 @@ class GraphViewController: UIViewController {
         let calendar = NSCalendar.currentCalendar()
         let dateComponets = NSDateComponents()
         
-        self.graphView.weekMeasurements = allMeasurements.filter {
-            dateComponets.day = -7
-            guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return true }
-            let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
-            return measurementDate.compare(startDate) == .OrderedDescending
+        var weekly = [Double?]()
+        var monthly = [Double?]()
+        var yearly = [Double?]()
+        
+        for day in -365 ... 0 {
+            let index = allMeasurements.indexOf {
+                dateComponets.day = day
+                guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return false }
+                let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
+                return measurementDate.compare(startDate) == .OrderedSame
+            }
+            
+            if let i = index {
+                switch day {
+                case -6...0:
+                    weekly.append(allMeasurements[i].value)
+                    monthly.append(allMeasurements[i].value)
+                    yearly.append(allMeasurements[i].value)
+                    break
+                case -27...0:
+                    monthly.append(allMeasurements[i].value)
+                    yearly.append(allMeasurements[i].value)
+                    break
+                default:
+                    yearly.append(allMeasurements[i].value)
+                }
+            }
+            else {
+                switch day {
+                case -6...0:
+                    weekly.append(nil)
+                    monthly.append(nil)
+                    yearly.append(nil)
+                    break
+                case -27...0:
+                    monthly.append(nil)
+                    yearly.append(nil)
+                    break
+                default:
+                    yearly.append(nil)
+                }
+            }
         }
         
-        self.graphView.monthMeasurements = allMeasurements.filter {
-            dateComponets.day = -28
-            guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return true }
-            let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
-            return measurementDate.compare(startDate) == .OrderedDescending
-        }
-        
-        self.graphView.yearMeasurements = allMeasurements.filter {
-            dateComponets.day = -365
-            guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return true }
-            let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
-            return measurementDate.compare(startDate) == .OrderedDescending
-        }
+        self.graphView.weekMeasurements = weekly
+        self.graphView.monthMeasurements = monthly
+        self.graphView.yearMeasurements = yearly
         
         switch segmentControl.selectedSegmentIndex {
         case 0:
@@ -97,7 +124,6 @@ class GraphViewController: UIViewController {
 //    }
     
     @IBAction func timeScaleChanged(sender: UISegmentedControl) {
-        print("Time Scale Changed")
         switch sender.selectedSegmentIndex {
         case 0:
             self.graphView.scale = .Week
@@ -108,5 +134,7 @@ class GraphViewController: UIViewController {
         default:
             self.graphView.scale = .Week
         }
+        
+        self.graphView.setNeedsDisplay()
     }
 }
