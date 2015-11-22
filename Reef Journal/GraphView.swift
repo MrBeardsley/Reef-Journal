@@ -99,7 +99,7 @@ import UIKit
 
         // calculate the y point
         
-        let topBorder:CGFloat = 60
+        let topBorder:CGFloat = 40
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
         let columnYPoint = { (graphPoint: Double) -> CGFloat in
@@ -160,10 +160,8 @@ import UIKit
             firstIndex = graphPoints.indexOf({ $0 == firstVal }),
             lastIndex = graphPoints.reverse().indexOf({ $0 == lastVal }) {
                 
-                print(lastIndex.base)
-                
-                clippingPath.addLineToPoint(CGPoint(x: columnXPoint(lastIndex.base - 1), y: height - 20))
-                clippingPath.addLineToPoint(CGPoint(x: columnXPoint(firstIndex), y: height - 20))
+                clippingPath.addLineToPoint(CGPoint(x: columnXPoint(lastIndex.base - 1), y: height - 50))
+                clippingPath.addLineToPoint(CGPoint(x: columnXPoint(firstIndex), y: height - 50))
                 clippingPath.closePath()
                 
                 //4 - add the clipping path to the context
@@ -203,7 +201,7 @@ import UIKit
         
         // calculate the y point
         
-        let topBorder:CGFloat = 60
+        let topBorder:CGFloat = 40
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
         let columnYPoint = { (graphPoint: Double) -> CGFloat in
@@ -250,7 +248,7 @@ import UIKit
         let margin:CGFloat = 20.0
         let width = self.frame.width
         let height = self.frame.height
-        let topBorder:CGFloat = 60
+        let topBorder:CGFloat = 40
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
         

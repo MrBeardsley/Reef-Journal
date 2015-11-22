@@ -274,6 +274,9 @@
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="-47.5" y="-108" width="43.5" height="20.5"/>
+                                        </variation>
                                     </label>
                                 </subviews>
                                 <animations/>
@@ -281,7 +284,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="BX7-mm-fPM"/>
                                     <constraint firstAttribute="width" secondItem="icw-3e-Yoy" secondAttribute="height" multiplier="16:9" id="d58-0h-GVg"/>
-                                    <constraint firstAttribute="width" secondItem="icw-3e-Yoy" secondAttribute="height" multiplier="16:9" id="lPQ-sQ-tra"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
@@ -294,13 +296,11 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="BX7-mm-fPM"/>
-                                        <exclude reference="lPQ-sQ-tra"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <exclude reference="BX7-mm-fPM"/>
-                                        <include reference="lPQ-sQ-tra"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -317,24 +317,31 @@
                             <constraint firstItem="icw-3e-Yoy" firstAttribute="leading" secondItem="88F-y8-xTX" secondAttribute="leadingMargin" constant="8" id="YJa-n9-8yK"/>
                             <constraint firstItem="wd5-q9-Fs1" firstAttribute="top" secondItem="icw-3e-Yoy" secondAttribute="bottom" constant="8" symbolic="YES" id="ZgP-Nt-8z4"/>
                             <constraint firstItem="GLy-5u-0Vm" firstAttribute="top" secondItem="JyI-iK-Wde" secondAttribute="bottom" constant="8" id="eK7-x8-rSk"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="icw-3e-Yoy" secondAttribute="bottom" constant="8" id="jWh-Vm-ADk"/>
                             <constraint firstAttribute="bottomMargin" secondItem="icw-3e-Yoy" secondAttribute="bottom" constant="8" id="p6b-LA-zyW"/>
                             <constraint firstItem="GLy-5u-0Vm" firstAttribute="centerX" secondItem="88F-y8-xTX" secondAttribute="centerX" id="tH3-uh-01m"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="icw-3e-Yoy" secondAttribute="trailing" constant="8" id="uN9-8M-ZZX"/>
                             <constraint firstItem="icw-3e-Yoy" firstAttribute="top" secondItem="GLy-5u-0Vm" secondAttribute="bottom" constant="8" symbolic="YES" id="ucG-hE-xhv"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="JV4-mq-791"/>
+                                <exclude reference="jWh-Vm-ADk"/>
                                 <exclude reference="p6b-LA-zyW"/>
                                 <exclude reference="ucG-hE-xhv"/>
                                 <exclude reference="ZgP-Nt-8z4"/>
                             </mask>
                         </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="YJa-n9-8yK"/>
+                                <include reference="jWh-Vm-ADk"/>
+                            </mask>
+                        </variation>
                         <variation key="heightClass=compact-widthClass=regular">
                             <mask key="constraints">
                                 <exclude reference="YJa-n9-8yK"/>
+                                <exclude reference="jWh-Vm-ADk"/>
                                 <include reference="p6b-LA-zyW"/>
-                                <exclude reference="uN9-8M-ZZX"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
