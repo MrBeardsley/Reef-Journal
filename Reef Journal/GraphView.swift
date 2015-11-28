@@ -8,6 +8,13 @@
 
 import UIKit
 
+private struct Dimensions {
+    static let labelWidth: CGFloat = 21.0
+    static let labelHeight: CGFloat = 14.0
+    static let labelBottomMargin: CGFloat = 10.0
+    static let margin: CGFloat = 20.0
+}
+
 @IBDesignable class GraphView: UIView {
     
     @IBOutlet weak var graphTitle: UILabel!
@@ -19,6 +26,8 @@ import UIKit
     var maxValue: CGFloat = 0
     var parameterType: Parameter?
     let calendar = NSCalendar.currentCalendar()
+    
+    
     private var dataPoints:[Double?] {
         get {
             switch self.scale {
@@ -32,12 +41,38 @@ import UIKit
         }
     }
     
+    private var label1: UILabel = UILabel()
+    private var label2: UILabel = UILabel()
+    private var label3: UILabel = UILabel()
+    private var label4: UILabel = UILabel()
+    private var label5: UILabel = UILabel()
+    private var label6: UILabel = UILabel()
+    private var label7: UILabel = UILabel()
+    
     // Colors
     @IBInspectable var startColor: UIColor = UIColor.redColor()
     @IBInspectable var endColor: UIColor = UIColor.greenColor()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        label1.textAlignment = .Center
+        label2.textAlignment = .Center
+        label3.textAlignment = .Center
+        label4.textAlignment = .Center
+        label5.textAlignment = .Center
+        label6.textAlignment = .Center
+        label7.textAlignment = .Center
+        
+        let color = UIColor.whiteColor()
+        
+        label1.textColor = color
+        label2.textColor = color
+        label3.textColor = color
+        label4.textColor = color
+        label5.textColor = color
+        label6.textColor = color
+        label7.textColor = color
     }
     
     override init(frame: CGRect) {
@@ -86,14 +121,12 @@ import UIKit
         let graphPoints = self.dataPoints
 
         //calculate the x point
-        
-        let margin:CGFloat = 20.0
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
-            let spacer = (width - margin * 2 - 4) /
+            let spacer = (width - Dimensions.margin * 2 - 4) /
                 CGFloat((graphPoints.count - 1))
             var x:CGFloat = CGFloat(column) * spacer
-            x += margin + 2
+            x += Dimensions.margin + 2
             return x
         }
 
@@ -168,8 +201,8 @@ import UIKit
                 clippingPath.addClip()
                 
                 let highestYPoint = columnYPoint(maxValue)
-                startPoint = CGPoint(x:margin, y: highestYPoint)
-                endPoint = CGPoint(x:margin, y:self.bounds.height)
+                startPoint = CGPoint(x:Dimensions.margin, y: highestYPoint)
+                endPoint = CGPoint(x:Dimensions.margin, y:self.bounds.height)
                 
                 CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, CGGradientDrawingOptions())
         }
@@ -189,13 +222,12 @@ import UIKit
         
         //calculate the x point
         
-        let margin:CGFloat = 20.0
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
-            let spacer = (width - margin * 2 - 4) /
+            let spacer = (width - Dimensions.margin * 2 - 4) /
                 CGFloat((graphPoints.count - 1))
             var x:CGFloat = CGFloat(column) * spacer
-            x += margin + 2
+            x += Dimensions.margin + 2
             return x
         }
         
@@ -245,7 +277,6 @@ import UIKit
     
     private func drawGrid(context: CGContext) {
         //Draw horizontal graph lines on the top of everything
-        let margin:CGFloat = 20.0
         let width = self.frame.width
         let height = self.frame.height
         let topBorder:CGFloat = 40
@@ -255,21 +286,17 @@ import UIKit
         let linePath = UIBezierPath()
         
         //top line
-        linePath.moveToPoint(CGPoint(x:margin, y: topBorder))
-        linePath.addLineToPoint(CGPoint(x: width - margin,
+        linePath.moveToPoint(CGPoint(x:Dimensions.margin, y: topBorder))
+        linePath.addLineToPoint(CGPoint(x: width - Dimensions.margin,
             y:topBorder))
         
         //center line
-        linePath.moveToPoint(CGPoint(x:margin,
-            y: graphHeight/2 + topBorder))
-        linePath.addLineToPoint(CGPoint(x:width - margin,
-            y:graphHeight/2 + topBorder))
+        linePath.moveToPoint(CGPoint(x: Dimensions.margin, y: graphHeight/2 + topBorder))
+        linePath.addLineToPoint(CGPoint(x:width - Dimensions.margin, y:graphHeight/2 + topBorder))
         
         //bottom line
-        linePath.moveToPoint(CGPoint(x:margin,
-            y:height - bottomBorder))
-        linePath.addLineToPoint(CGPoint(x:width - margin,
-            y:height - bottomBorder))
+        linePath.moveToPoint(CGPoint(x: Dimensions.margin, y:height - bottomBorder))
+        linePath.addLineToPoint(CGPoint(x: width - Dimensions.margin, y:height - bottomBorder))
         let color = UIColor(white: 1.0, alpha: 0.3)
         color.setStroke()
         
@@ -278,7 +305,59 @@ import UIKit
     }
     
     private func drawLabels(context: CGContext) {
+        let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
+        let width = self.frame.width - Dimensions.margin * 2 - Dimensions.labelWidth * 2
+        let emptySpace = width - Dimensions.labelWidth * 5
+        let spacing = emptySpace / 6
         
+        let today = NSDate()
+        
+        
+        let getDay = { (date: NSDate, number: Int) -> Int in
+            let calendar = NSCalendar.currentCalendar()
+            if let newDate = calendar.dateByAddingUnit(.Day, value: number, toDate: date, options: .MatchStrictly) {
+                let components = calendar.components([.Day], fromDate: newDate)
+                return components.day
+            }
+            return 0
+        }
+        
+        switch scale {
+        case .Week:
+            
+            let components = calendar.components([.Day], fromDate: today)
+            
+            label1.text = "\(getDay(today, -6))"
+            label2.text = "\(getDay(today, -5))"
+            label3.text = "\(getDay(today, -4))"
+            label4.text = "\(getDay(today, -3))"
+            label5.text = "\(getDay(today, -2))"
+            label6.text = "\(getDay(today, -1))"
+            label7.text = "\(components.day)"
+            
+            label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label2.frame = CGRect(x: label1.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label3.frame = CGRect(x: label2.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label4.frame = CGRect(x: label3.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label5.frame = CGRect(x: label4.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label6.frame = CGRect(x: label5.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label7.frame = CGRect(x: self.frame.width - Dimensions.margin - Dimensions.labelWidth, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            
+            self.addSubview(label1)
+            self.addSubview(label2)
+            self.addSubview(label3)
+            self.addSubview(label4)
+            self.addSubview(label5)
+            self.addSubview(label6)
+            self.addSubview(label7)
+            break
+        case .Month:
+            
+            break
+        case .Year:
+            
+            break
+        }
     }
 
     private func differenceBetweenRecentDate(recentDate: NSDate, olderDate: NSDate) -> Int {

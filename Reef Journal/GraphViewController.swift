@@ -94,6 +94,8 @@ class GraphViewController: UIViewController {
             }
         }
         
+        
+        
         self.graphView.weekMeasurements = weekly
         self.graphView.monthMeasurements = monthly
         self.graphView.yearMeasurements = yearly
