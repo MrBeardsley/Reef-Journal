@@ -114,6 +114,11 @@ class GraphViewController: UIViewController {
         self.graphView.graphTitle.text = self.parameterType.rawValue
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.graphView.layoutLabels()
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         guard let svc = self.splitViewController else { return }
         svc.preferredDisplayMode = .Automatic

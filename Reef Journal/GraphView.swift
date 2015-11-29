@@ -63,6 +63,7 @@ private struct Dimensions {
         for label in self.axisLabels {
             label.textAlignment = .Center
             label.textColor = labelColor
+            self.addSubview(label)
         }
     }
     
@@ -75,6 +76,15 @@ private struct Dimensions {
         for label in self.axisLabels {
             label.textAlignment = .Center
             label.textColor = labelColor
+            self.addSubview(label)
+        }
+    }
+    
+    func layoutLabels() {
+        let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
+        
+        for label in axisLabels {
+            label.frame = CGRect(x: 0.0, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
         }
     }
 
@@ -114,7 +124,7 @@ private struct Dimensions {
         guard flattened.count > 1 else { return }
         guard let maxValue = flattened.maxElement() else { return }
         
-        let width = self.frame.width
+        let width = self.frame.width - Dimensions.labelWidth
         let height = self.frame.height
         
         let graphPoints = self.dataPoints
@@ -122,10 +132,9 @@ private struct Dimensions {
         //calculate the x point
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
-            let spacer = (width - Dimensions.margin * 2 - 4) /
-                CGFloat((graphPoints.count - 1))
-            var x:CGFloat = CGFloat(column) * spacer
-            x += Dimensions.margin + 2
+            let spacer = (width - Dimensions.margin * 2 - 4) / CGFloat((graphPoints.count - 1))
+            var x: CGFloat = CGFloat(column) * spacer
+            x += Dimensions.margin + 2 + Dimensions.labelWidth / 2
             return x
         }
 
@@ -135,8 +144,7 @@ private struct Dimensions {
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
         let columnYPoint = { (graphPoint: Double) -> CGFloat in
-            var y:CGFloat = CGFloat(graphPoint) /
-                CGFloat(maxValue) * graphHeight
+            var y:CGFloat = CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight
             y = graphHeight + topBorder - y // Flip the graph
             return y
         }
@@ -214,7 +222,7 @@ private struct Dimensions {
         guard !flattened.isEmpty else { return }
         guard let maxValue = flattened.maxElement() else { return }
         
-        let width = self.frame.width
+        let width = self.frame.width - Dimensions.labelWidth
         let height = self.frame.height
         
         let graphPoints = self.dataPoints
@@ -223,10 +231,9 @@ private struct Dimensions {
         
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
-            let spacer = (width - Dimensions.margin * 2 - 4) /
-                CGFloat((graphPoints.count - 1))
-            var x:CGFloat = CGFloat(column) * spacer
-            x += Dimensions.margin + 2
+            let spacer = (width - Dimensions.margin * 2 - 4) / CGFloat((graphPoints.count - 1))
+            var x = CGFloat(column) * spacer
+            x += Dimensions.margin + 2 + Dimensions.labelWidth / 2
             return x
         }
         
@@ -306,7 +313,7 @@ private struct Dimensions {
     private func drawLabels(context: CGContext) {
         // Remove all of the labels in case some are not needed later
         for label in self.axisLabels {
-            label.removeFromSuperview()
+            label.hidden = true
         }
         
         let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
@@ -329,29 +336,28 @@ private struct Dimensions {
             let emptySpace = width - Dimensions.labelWidth * 5
             let spacing = emptySpace / 6
             
-            label1.text = "\(getDay(today, -6))"
-            label2.text = "\(getDay(today, -5))"
-            label3.text = "\(getDay(today, -4))"
-            label4.text = "\(getDay(today, -3))"
-            label5.text = "\(getDay(today, -2))"
-            label6.text = "\(getDay(today, -1))"
-            label7.text = "\(components.day)"
+            UIView.animateWithDuration(0.7, animations: { [unowned self] in
             
-            label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label2.frame = CGRect(x: label1.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label3.frame = CGRect(x: label2.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label4.frame = CGRect(x: label3.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label5.frame = CGRect(x: label4.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label6.frame = CGRect(x: label5.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label7.frame = CGRect(x: self.frame.width - Dimensions.margin - Dimensions.labelWidth, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            
-            self.addSubview(label1)
-            self.addSubview(label2)
-            self.addSubview(label3)
-            self.addSubview(label4)
-            self.addSubview(label5)
-            self.addSubview(label6)
-            self.addSubview(label7)
+                self.label1.text = "\(getDay(today, -6))"
+                self.label2.text = "\(getDay(today, -5))"
+                self.label3.text = "\(getDay(today, -4))"
+                self.label4.text = "\(getDay(today, -3))"
+                self.label5.text = "\(getDay(today, -2))"
+                self.label6.text = "\(getDay(today, -1))"
+                self.label7.text = "\(components.day)"
+                
+                self.label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label2.frame = CGRect(x: self.label1.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label3.frame = CGRect(x: self.label2.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label4.frame = CGRect(x: self.label3.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label5.frame = CGRect(x: self.label4.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label6.frame = CGRect(x: self.label5.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label7.frame = CGRect(x: self.frame.width - Dimensions.margin - Dimensions.labelWidth, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                
+                for label in self.axisLabels {
+                    label.hidden = false
+                }
+            })
             
             break
             
@@ -360,25 +366,31 @@ private struct Dimensions {
             let components = calendar.components([.Day], fromDate: today)
             let width = self.frame.width - Dimensions.margin * 2 - Dimensions.labelWidth * 2
             let emptySpace = width - Dimensions.labelWidth * 3
-            let spacing = emptySpace / 4
+            let spacing = emptySpace / 4 + Dimensions.labelWidth
             
-            label1.text = "\(getDay(today, -28))"
-            label2.text = "\(getDay(today, -21))"
-            label3.text = "\(getDay(today, -14))"
-            label4.text = "\(getDay(today, -7))"
-            label5.text = "\(components.day)"
+            UIView.animateWithDuration(0.7, animations: { [unowned self] in
             
-            label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label2.frame = CGRect(x: label1.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label3.frame = CGRect(x: label2.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label4.frame = CGRect(x: label3.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label5.frame = CGRect(x: label4.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            
-            self.addSubview(label1)
-            self.addSubview(label2)
-            self.addSubview(label3)
-            self.addSubview(label4)
-            self.addSubview(label5)
+                self.label2.text = "\(getDay(today, -28))"
+                self.label3.text = "\(getDay(today, -21))"
+                self.label4.text = "\(getDay(today, -14))"
+                self.label5.text = "\(getDay(today, -7))"
+                self.label6.text = "\(components.day)"
+                
+                self.label2.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label3.frame = CGRect(x: self.label2.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label4.frame = CGRect(x: self.label3.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label5.frame = CGRect(x: self.label4.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label6.frame = CGRect(x: self.label5.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                
+                
+                self.label1.hidden = true
+                self.label2.hidden = false
+                self.label3.hidden = false
+                self.label4.hidden = false
+                self.label5.hidden = false
+                self.label6.hidden = false
+                self.label7.hidden = true
+            })
             
             break
             
@@ -387,7 +399,7 @@ private struct Dimensions {
             let components = calendar.components([.Month], fromDate: today)
             let width = self.frame.width - Dimensions.margin * 2 - Dimensions.labelWidth * 2
             let emptySpace = width - Dimensions.labelWidth * 2
-            let spacing = emptySpace / 3
+            let spacing = emptySpace / 3 + Dimensions.labelWidth
             
             let getMonth = { (date: NSDate, number: Int) -> Int in
                 let calendar = NSCalendar.currentCalendar()
@@ -398,20 +410,25 @@ private struct Dimensions {
                 return 0
             }
             
-            label1.text = "\(calendar.shortMonthSymbols[getMonth(today, -9) - 1])"
-            label2.text = "\(calendar.shortMonthSymbols[getMonth(today, -6) - 1])"
-            label3.text = "\(calendar.shortMonthSymbols[getMonth(today, -3) - 1])"
-            label4.text = "\(calendar.shortMonthSymbols[components.month - 1])"
-            
-            label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label2.frame = CGRect(x: label1.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label3.frame = CGRect(x: label2.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            label4.frame = CGRect(x: label3.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-            
-            self.addSubview(label1)
-            self.addSubview(label2)
-            self.addSubview(label3)
-            self.addSubview(label4)
+            UIView.animateWithDuration(0.7, animations: { [unowned self] in
+                self.label2.text = "\(calendar.shortMonthSymbols[getMonth(today, -9) - 1])"
+                self.label3.text = "\(calendar.shortMonthSymbols[getMonth(today, -6) - 1])"
+                self.label4.text = "\(calendar.shortMonthSymbols[getMonth(today, -3) - 1])"
+                self.label5.text = "\(calendar.shortMonthSymbols[components.month - 1])"
+                
+                self.label2.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label3.frame = CGRect(x: self.label2.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label4.frame = CGRect(x: self.label3.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label5.frame = CGRect(x: self.label4.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                
+                self.label1.hidden = true
+                self.label2.hidden = false
+                self.label3.hidden = false
+                self.label4.hidden = false
+                self.label5.hidden = false
+                self.label6.hidden = true
+                self.label7.hidden = true
+            })
             
             break
         }
