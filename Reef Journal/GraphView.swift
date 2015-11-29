@@ -9,9 +9,9 @@
 import UIKit
 
 private struct Dimensions {
-    static let labelWidth: CGFloat = 21.0
-    static let labelHeight: CGFloat = 14.0
-    static let labelBottomMargin: CGFloat = 10.0
+    static let labelWidth: CGFloat = 32.0
+    static let labelHeight: CGFloat = 20.0
+    static let labelBottomMargin: CGFloat = 15.0
     static let margin: CGFloat = 20.0
 }
 
@@ -48,35 +48,34 @@ private struct Dimensions {
     private var label5: UILabel = UILabel()
     private var label6: UILabel = UILabel()
     private var label7: UILabel = UILabel()
+    private let axisLabels: [UILabel]
     
     // Colors
     @IBInspectable var startColor: UIColor = UIColor.redColor()
     @IBInspectable var endColor: UIColor = UIColor.greenColor()
 
     required init?(coder aDecoder: NSCoder) {
+        self.axisLabels = [label1, label2, label3, label4, label5, label6, label7]
         super.init(coder: aDecoder)
         
-        label1.textAlignment = .Center
-        label2.textAlignment = .Center
-        label3.textAlignment = .Center
-        label4.textAlignment = .Center
-        label5.textAlignment = .Center
-        label6.textAlignment = .Center
-        label7.textAlignment = .Center
+        let labelColor = UIColor.whiteColor()
         
-        let color = UIColor.whiteColor()
-        
-        label1.textColor = color
-        label2.textColor = color
-        label3.textColor = color
-        label4.textColor = color
-        label5.textColor = color
-        label6.textColor = color
-        label7.textColor = color
+        for label in self.axisLabels {
+            label.textAlignment = .Center
+            label.textColor = labelColor
+        }
     }
     
     override init(frame: CGRect) {
+        self.axisLabels = [label1, label2, label3, label4, label5, label6, label7]
         super.init(frame: frame)
+        
+        let labelColor = UIColor.whiteColor()
+        
+        for label in self.axisLabels {
+            label.textAlignment = .Center
+            label.textColor = labelColor
+        }
     }
 
     override func drawRect(rect: CGRect) {
@@ -305,13 +304,13 @@ private struct Dimensions {
     }
     
     private func drawLabels(context: CGContext) {
+        // Remove all of the labels in case some are not needed later
+        for label in self.axisLabels {
+            label.removeFromSuperview()
+        }
+        
         let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
-        let width = self.frame.width - Dimensions.margin * 2 - Dimensions.labelWidth * 2
-        let emptySpace = width - Dimensions.labelWidth * 5
-        let spacing = emptySpace / 6
-        
         let today = NSDate()
-        
         
         let getDay = { (date: NSDate, number: Int) -> Int in
             let calendar = NSCalendar.currentCalendar()
@@ -326,6 +325,9 @@ private struct Dimensions {
         case .Week:
             
             let components = calendar.components([.Day], fromDate: today)
+            let width = self.frame.width - Dimensions.margin * 2 - Dimensions.labelWidth * 2
+            let emptySpace = width - Dimensions.labelWidth * 5
+            let spacing = emptySpace / 6
             
             label1.text = "\(getDay(today, -6))"
             label2.text = "\(getDay(today, -5))"
@@ -350,11 +352,66 @@ private struct Dimensions {
             self.addSubview(label5)
             self.addSubview(label6)
             self.addSubview(label7)
-            break
-        case .Month:
             
             break
+            
+        case .Month:
+            
+            let components = calendar.components([.Day], fromDate: today)
+            let width = self.frame.width - Dimensions.margin * 2 - Dimensions.labelWidth * 2
+            let emptySpace = width - Dimensions.labelWidth * 3
+            let spacing = emptySpace / 4
+            
+            label1.text = "\(getDay(today, -28))"
+            label2.text = "\(getDay(today, -21))"
+            label3.text = "\(getDay(today, -14))"
+            label4.text = "\(getDay(today, -7))"
+            label5.text = "\(components.day)"
+            
+            label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label2.frame = CGRect(x: label1.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label3.frame = CGRect(x: label2.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label4.frame = CGRect(x: label3.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label5.frame = CGRect(x: label4.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            
+            self.addSubview(label1)
+            self.addSubview(label2)
+            self.addSubview(label3)
+            self.addSubview(label4)
+            self.addSubview(label5)
+            
+            break
+            
         case .Year:
+            let calendar = NSCalendar.currentCalendar()
+            let components = calendar.components([.Month], fromDate: today)
+            let width = self.frame.width - Dimensions.margin * 2 - Dimensions.labelWidth * 2
+            let emptySpace = width - Dimensions.labelWidth * 2
+            let spacing = emptySpace / 3
+            
+            let getMonth = { (date: NSDate, number: Int) -> Int in
+                let calendar = NSCalendar.currentCalendar()
+                if let newDate = calendar.dateByAddingUnit(.Month, value: number, toDate: date, options: .MatchStrictly) {
+                    let components = calendar.components([.Month], fromDate: newDate)
+                    return components.month
+                }
+                return 0
+            }
+            
+            label1.text = "\(calendar.shortMonthSymbols[getMonth(today, -9) - 1])"
+            label2.text = "\(calendar.shortMonthSymbols[getMonth(today, -6) - 1])"
+            label3.text = "\(calendar.shortMonthSymbols[getMonth(today, -3) - 1])"
+            label4.text = "\(calendar.shortMonthSymbols[components.month - 1])"
+            
+            label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label2.frame = CGRect(x: label1.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label3.frame = CGRect(x: label2.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            label4.frame = CGRect(x: label3.frame.origin.x + Dimensions.labelWidth + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+            
+            self.addSubview(label1)
+            self.addSubview(label2)
+            self.addSubview(label3)
+            self.addSubview(label4)
             
             break
         }
