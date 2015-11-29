@@ -268,9 +268,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icw-3e-Yoy" customClass="GraphView" customModule="Reef_Journal" customModuleProvider="target">
                                 <rect key="frame" x="28" y="108" width="544" height="306"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMr-Uc-Tol">
-                                        <rect key="frame" x="8" y="8" width="101" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMr-Uc-Tol">
+                                        <rect key="frame" x="435" y="8" width="101" height="21"/>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="101" id="2Vn-0o-gpg"/>
+                                            <constraint firstAttribute="height" constant="21" id="4uS-oR-A8N"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -284,6 +288,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="BX7-mm-fPM"/>
                                     <constraint firstAttribute="width" secondItem="icw-3e-Yoy" secondAttribute="height" multiplier="16:9" id="d58-0h-GVg"/>
+                                    <constraint firstAttribute="trailing" secondItem="JMr-Uc-Tol" secondAttribute="trailing" constant="8" id="nEc-UO-KhN"/>
+                                    <constraint firstItem="JMr-Uc-Tol" firstAttribute="top" secondItem="icw-3e-Yoy" secondAttribute="top" constant="8" id="yox-gN-DDa"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">

@@ -135,13 +135,17 @@ class GraphViewController: UIViewController {
         default:
             self.graphView.scale = .Week
         }
-        
-        self.graphView.graphTitle.text = self.parameterType.rawValue
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.graphView.layoutLabels()
+        //self.graphView.layoutLabels()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.graphView.setNeedsDisplay()
+        self.graphView.drawLabels()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -168,5 +172,6 @@ class GraphViewController: UIViewController {
         }
         
         self.graphView.setNeedsDisplay()
+        self.graphView.drawLabels()
     }
 }

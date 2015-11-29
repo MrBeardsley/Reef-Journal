@@ -97,7 +97,6 @@ private struct Dimensions {
         drawLine(ctx)
         drawDots(ctx)
         drawGrid(ctx)
-        drawLabels(ctx)
     }
     
     private func drawBackgroundWithContext(context: CGContext, inRect rect: CGRect) {
@@ -310,7 +309,7 @@ private struct Dimensions {
         linePath.stroke()
     }
     
-    private func drawLabels(context: CGContext) {
+    func drawLabels() {
         // Remove all of the labels in case some are not needed later
         for label in self.axisLabels {
             label.hidden = true
@@ -336,7 +335,9 @@ private struct Dimensions {
             let emptySpace = width - Dimensions.labelWidth * 5
             let spacing = emptySpace / 6
             
-            UIView.animateWithDuration(0.7, animations: { [unowned self] in
+            graphTitle.text = calendar.monthSymbols[calendar.component(.Month, fromDate: today) - 1]
+            
+            UIView.animateWithDuration(0.5, animations: { [unowned self] in
             
                 self.label1.text = "\(getDay(today, -6))"
                 self.label2.text = "\(getDay(today, -5))"
@@ -368,7 +369,9 @@ private struct Dimensions {
             let emptySpace = width - Dimensions.labelWidth * 3
             let spacing = emptySpace / 4 + Dimensions.labelWidth
             
-            UIView.animateWithDuration(0.7, animations: { [unowned self] in
+            graphTitle.text = calendar.monthSymbols[calendar.component(.Month, fromDate: today) - 1]
+            
+            UIView.animateWithDuration(0.5, animations: { [unowned self] in
             
                 self.label2.text = "\(getDay(today, -28))"
                 self.label3.text = "\(getDay(today, -21))"
@@ -410,7 +413,9 @@ private struct Dimensions {
                 return 0
             }
             
-            UIView.animateWithDuration(0.7, animations: { [unowned self] in
+            graphTitle.text = "\(calendar.component(.Year, fromDate: today))"
+            
+            UIView.animateWithDuration(0.5, animations: { [unowned self] in
                 self.label2.text = "\(calendar.shortMonthSymbols[getMonth(today, -9) - 1])"
                 self.label3.text = "\(calendar.shortMonthSymbols[getMonth(today, -6) - 1])"
                 self.label4.text = "\(calendar.shortMonthSymbols[getMonth(today, -3) - 1])"
@@ -432,10 +437,5 @@ private struct Dimensions {
             
             break
         }
-    }
-
-    private func differenceBetweenRecentDate(recentDate: NSDate, olderDate: NSDate) -> Int {
-        let difference = calendar.components([.Year, .Month, .Day], fromDate: olderDate, toDate: recentDate, options: [.WrapComponents])
-        return difference.day
     }
 }
