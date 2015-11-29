@@ -52,9 +52,9 @@ class GraphViewController: UIViewController {
         
         var weekly = [Double?]()
         var monthly = [Double?]()
-        var yearly = [Double?]()
+        var allYear = [Double?]()
         
-        for day in -365 ... 0 {
+        for day in -27 ... 0 {
             let index = allMeasurements.indexOf {
                 dateComponets.day = day
                 guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return false }
@@ -67,14 +67,12 @@ class GraphViewController: UIViewController {
                 case -6...0:
                     weekly.append(allMeasurements[i].value)
                     monthly.append(allMeasurements[i].value)
-                    yearly.append(allMeasurements[i].value)
                     break
                 case -27...0:
                     monthly.append(allMeasurements[i].value)
-                    yearly.append(allMeasurements[i].value)
                     break
                 default:
-                    yearly.append(allMeasurements[i].value)
+                    break
                 }
             }
             else {
@@ -82,23 +80,50 @@ class GraphViewController: UIViewController {
                 case -6...0:
                     weekly.append(nil)
                     monthly.append(nil)
-                    yearly.append(nil)
                     break
                 case -27...0:
                     monthly.append(nil)
-                    yearly.append(nil)
                     break
                 default:
-                    yearly.append(nil)
+                    break
                 }
             }
         }
         
+        // Need to get an average for all of the previous 10 months
+        let getMonth = { (date: NSDate, number: Int) -> Int in
+            if let newDate = calendar.dateByAddingUnit(.Month, value: number, toDate: date, options: .MatchStrictly) {
+                let components = calendar.components([.Month], fromDate: newDate)
+                return components.month
+            }
+            return 0
+        }
         
+        for i in -9 ... 0 {
+            let month = getMonth(today, i)
+            
+            let temp = allMeasurements.filter({
+                let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
+                let measurementMonth = calendar.component([.Month], fromDate: measurementDate)
+                if measurementMonth == month {
+                    return true
+                }
+                return false
+            })
+            
+            if !temp.isEmpty {
+                let values = temp.map({ $0.value })
+                let average = values.reduce(0.0) { $0 + $1 / Double(values.count) }
+                allYear.append(average)
+            }
+            else {
+                allYear.append(nil)
+            }
+        }
         
         self.graphView.weekMeasurements = weekly
         self.graphView.monthMeasurements = monthly
-        self.graphView.yearMeasurements = yearly
+        self.graphView.yearMeasurements = allYear
         
         switch segmentControl.selectedSegmentIndex {
         case 0:
