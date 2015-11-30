@@ -282,13 +282,40 @@
                                             <rect key="frame" x="-47.5" y="-108" width="43.5" height="20.5"/>
                                         </variation>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Id-9o-gUu">
+                                        <rect key="frame" x="498" y="142.5" width="42" height="21"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="42" id="b08-Iw-OgU"/>
+                                            <constraint firstAttribute="height" constant="21" id="stB-WY-dXC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spg-N4-bon">
+                                        <rect key="frame" x="498" y="35" width="42" height="21"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="42" id="1Eg-fZ-TdM"/>
+                                            <constraint firstAttribute="height" constant="21" id="cFj-U4-ypq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="spg-N4-bon" secondAttribute="trailing" constant="4" id="400-3J-Q1z"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Id-9o-gUu" secondAttribute="trailing" constant="4" id="BIH-Ya-aVk"/>
                                     <constraint firstAttribute="height" constant="200" id="BX7-mm-fPM"/>
+                                    <constraint firstItem="spg-N4-bon" firstAttribute="top" secondItem="JMr-Uc-Tol" secondAttribute="bottom" constant="6" id="MQi-8m-geA"/>
                                     <constraint firstAttribute="width" secondItem="icw-3e-Yoy" secondAttribute="height" multiplier="16:9" id="d58-0h-GVg"/>
+                                    <constraint firstItem="3Id-9o-gUu" firstAttribute="centerY" secondItem="icw-3e-Yoy" secondAttribute="centerY" id="lFA-jj-M1i"/>
                                     <constraint firstAttribute="trailing" secondItem="JMr-Uc-Tol" secondAttribute="trailing" constant="8" id="nEc-UO-KhN"/>
+                                    <constraint firstAttribute="bottom" secondItem="3Id-9o-gUu" secondAttribute="bottom" constant="50" id="rlw-z2-7wp"/>
                                     <constraint firstItem="JMr-Uc-Tol" firstAttribute="top" secondItem="icw-3e-Yoy" secondAttribute="top" constant="8" id="yox-gN-DDa"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -302,6 +329,7 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="BX7-mm-fPM"/>
+                                        <exclude reference="rlw-z2-7wp"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -311,6 +339,8 @@
                                 </variation>
                                 <connections>
                                     <outlet property="graphTitle" destination="JMr-Uc-Tol" id="zJz-Wu-P7E"/>
+                                    <outlet property="maxValueLabel" destination="spg-N4-bon" id="rPv-iq-oEc"/>
+                                    <outlet property="minValueLabel" destination="3Id-9o-gUu" id="ZPR-pM-ekY"/>
                                 </connections>
                             </view>
                         </subviews>

@@ -18,6 +18,8 @@ private struct Dimensions {
 @IBDesignable class GraphView: UIView {
     
     @IBOutlet weak var graphTitle: UILabel!
+    @IBOutlet weak var maxValueLabel: UILabel!
+    @IBOutlet weak var minValueLabel: UILabel!
 
     var weekMeasurements = [Double?]()
     var monthMeasurements = [Double?]()
@@ -25,8 +27,8 @@ private struct Dimensions {
     var scale: TimeScale = .Week
     var maxValue: CGFloat = 0
     var parameterType: Parameter?
-    let calendar = NSCalendar.currentCalendar()
-    
+    private let calendar = NSCalendar.currentCalendar()
+    private let formatter = NSNumberFormatter()
     
     private var dataPoints:[Double?] {
         get {
@@ -327,6 +329,30 @@ private struct Dimensions {
             return 0
         }
         
+        if let param = self.parameterType {
+            formatter.maximumFractionDigits = decimalPlacesForParameter(param)
+        }
+        
+        let flattened: [Double] = self.dataPoints.flatMap { $0 }
+        
+        if let maxValue = flattened.maxElement() {
+            if let
+                maxString = formatter.stringFromNumber(maxValue),
+                midString = formatter.stringFromNumber(maxValue / 2) {
+                    
+                self.maxValueLabel.text = "\(maxString)"
+                self.minValueLabel.text = "\(midString)"
+            }
+            else {
+                self.maxValueLabel.text = ""
+                self.minValueLabel.text = ""
+            }
+        }
+        else {
+            self.maxValueLabel.text = ""
+            self.minValueLabel.text = ""
+        }
+        
         switch scale {
         case .Week:
             
@@ -335,9 +361,9 @@ private struct Dimensions {
             let emptySpace = width - Dimensions.labelWidth * 5
             let spacing = emptySpace / 6
             
-            graphTitle.text = calendar.monthSymbols[calendar.component(.Month, fromDate: today) - 1]
-            
             UIView.animateWithDuration(0.5, animations: { [unowned self] in
+                
+                self.graphTitle.text = self.calendar.monthSymbols[self.calendar.component(.Month, fromDate: today) - 1]
             
                 self.label1.text = "\(getDay(today, -6))"
                 self.label2.text = "\(getDay(today, -5))"
@@ -369,9 +395,9 @@ private struct Dimensions {
             let emptySpace = width - Dimensions.labelWidth * 3
             let spacing = emptySpace / 4 + Dimensions.labelWidth
             
-            graphTitle.text = calendar.monthSymbols[calendar.component(.Month, fromDate: today) - 1]
-            
             UIView.animateWithDuration(0.5, animations: { [unowned self] in
+                
+                self.graphTitle.text = self.calendar.monthSymbols[self.calendar.component(.Month, fromDate: today) - 1]
             
                 self.label2.text = "\(getDay(today, -28))"
                 self.label3.text = "\(getDay(today, -21))"
@@ -413,9 +439,10 @@ private struct Dimensions {
                 return 0
             }
             
-            graphTitle.text = "\(calendar.component(.Year, fromDate: today))"
-            
             UIView.animateWithDuration(0.5, animations: { [unowned self] in
+                
+                self.graphTitle.text = "\(calendar.component(.Year, fromDate: today))"
+                
                 self.label2.text = "\(calendar.shortMonthSymbols[getMonth(today, -9) - 1])"
                 self.label3.text = "\(calendar.shortMonthSymbols[getMonth(today, -6) - 1])"
                 self.label4.text = "\(calendar.shortMonthSymbols[getMonth(today, -3) - 1])"
