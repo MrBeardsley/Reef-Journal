@@ -124,6 +124,7 @@ private struct Dimensions {
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         guard flattened.count > 1 else { return }
         guard let maxValue = flattened.maxElement() else { return }
+        guard let param = self.parameterType else { return }
         
         let width = self.frame.width - Dimensions.labelWidth
         let height = self.frame.height
@@ -144,8 +145,18 @@ private struct Dimensions {
         let topBorder:CGFloat = 40
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
+        
         let columnYPoint = { (graphPoint: Double) -> CGFloat in
-            var y:CGFloat = CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight
+            
+            var y: CGFloat
+            
+            if param == .Salinity && unitLabelForParameterType(param) == "SG" {
+                y = CGFloat(graphPoint - 1) / CGFloat(maxValue - 1) * graphHeight
+            }
+            else {
+                y = CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight
+            }
+            
             y = graphHeight + topBorder - y // Flip the graph
             return y
         }
@@ -222,6 +233,7 @@ private struct Dimensions {
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         guard !flattened.isEmpty else { return }
         guard let maxValue = flattened.maxElement() else { return }
+        guard let param = self.parameterType else { return }
         
         let width = self.frame.width - Dimensions.labelWidth
         let height = self.frame.height
@@ -244,7 +256,16 @@ private struct Dimensions {
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
         let columnYPoint = { (graphPoint: Double) -> CGFloat in
-            var y:CGFloat = CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight
+            
+            var y: CGFloat
+            
+            if param == .Salinity && unitLabelForParameterType(param) == "SG" {
+                y = CGFloat(graphPoint - 1) / CGFloat(maxValue - 1) * graphHeight
+            }
+            else {
+                y = CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight
+            }
+            
             y = graphHeight + topBorder - y // Flip the graph
             return y
         }
@@ -312,6 +333,8 @@ private struct Dimensions {
     }
     
     func drawLabels() {
+        guard let param = self.parameterType else { return }
+        
         // Remove all of the labels in case some are not needed later
         for label in self.axisLabels {
             label.hidden = true
@@ -329,28 +352,33 @@ private struct Dimensions {
             return 0
         }
         
-        if let param = self.parameterType {
-            formatter.maximumFractionDigits = decimalPlacesForParameter(param)
-        }
+        formatter.maximumFractionDigits = decimalPlacesForParameter(param)
         
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         
+        self.maxValueLabel.text = ""
+        self.minValueLabel.text = ""
+        
         if let maxValue = flattened.maxElement() {
-            if let
-                maxString = formatter.stringFromNumber(maxValue),
-                midString = formatter.stringFromNumber(maxValue / 2) {
-                    
-                self.maxValueLabel.text = "\(maxString)"
-                self.minValueLabel.text = "\(midString)"
+            
+            if param == .Salinity && unitLabelForParameterType(param) == "SG" {
+                if let
+                    maxString = formatter.stringFromNumber(maxValue),
+                    midString = formatter.stringFromNumber((maxValue - 1) / 2 + 1) {
+                        
+                        self.maxValueLabel.text = "\(maxString)"
+                        self.minValueLabel.text = "\(midString)"
+                }
             }
             else {
-                self.maxValueLabel.text = ""
-                self.minValueLabel.text = ""
+                if let
+                    maxString = formatter.stringFromNumber(maxValue),
+                    midString = formatter.stringFromNumber(maxValue / 2) {
+                        
+                        self.maxValueLabel.text = "\(maxString)"
+                        self.minValueLabel.text = "\(midString)"
+                }
             }
-        }
-        else {
-            self.maxValueLabel.text = ""
-            self.minValueLabel.text = ""
         }
         
         switch scale {
