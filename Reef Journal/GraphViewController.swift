@@ -31,19 +31,71 @@ class GraphViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
     }
 
     deinit {
-//        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let param = self.parameterType else { return }
+        
+        fetchMeasurementData()
+        
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            self.graphView.scale = .Week
+        case 1:
+            self.graphView.scale = .Month
+        case 2:
+            self.graphView.scale = .Year
+        default:
+            self.graphView.scale = .Week
+        }
+        
+        self.graphView.parameterType = param
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.graphView.setNeedsDisplay()
+        self.graphView.drawLabels()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        guard let svc = self.splitViewController else { return }
+        svc.preferredDisplayMode = .Automatic
+        
+        super.viewWillDisappear(animated)
+    }
+
+    func preferencesDidChange(notification: NSNotification?) {
+        fetchMeasurementData()
+        self.graphView.setNeedsDisplay()
+    }
+    
+    @IBAction func timeScaleChanged(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.graphView.scale = .Week
+        case 1:
+            self.graphView.scale = .Month
+        case 2:
+            self.graphView.scale = .Year
+        default:
+            self.graphView.scale = .Week
+        }
+        
+        self.graphView.setNeedsDisplay()
+        self.graphView.drawLabels()
+    }
+    
+    private func fetchMeasurementData() {
         guard let model = self.dataModel else { return }
-        guard let parameterType = self.parameterType else { return }
         
         let allMeasurements = model.measurementsForParameter(parameterType)
         let today = NSDate().dayFromDate()
@@ -65,11 +117,11 @@ class GraphViewController: UIViewController {
             if let i = index {
                 switch day {
                 case -6...0:
-                    weekly.append(allMeasurements[i].value)
-                    monthly.append(allMeasurements[i].value)
+                    weekly.append(allMeasurements[i].convertedMeasurementValue)
+                    monthly.append(allMeasurements[i].convertedMeasurementValue)
                     break
                 case -27...0:
-                    monthly.append(allMeasurements[i].value)
+                    monthly.append(allMeasurements[i].convertedMeasurementValue)
                     break
                 default:
                     break
@@ -112,7 +164,7 @@ class GraphViewController: UIViewController {
             })
             
             if !temp.isEmpty {
-                let values = temp.map({ $0.value })
+                let values = temp.map({ $0.convertedMeasurementValue })
                 let average = values.reduce(0.0) { $0 + $1 / Double(values.count) }
                 allYear.append(average)
             }
@@ -124,51 +176,5 @@ class GraphViewController: UIViewController {
         self.graphView.weekMeasurements = weekly
         self.graphView.monthMeasurements = monthly
         self.graphView.yearMeasurements = allYear
-        
-        switch segmentControl.selectedSegmentIndex {
-        case 0:
-            self.graphView.scale = .Week
-        case 1:
-            self.graphView.scale = .Month
-        case 2:
-            self.graphView.scale = .Year
-        default:
-            self.graphView.scale = .Week
-        }
-        
-        self.graphView.parameterType = self.parameterType
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.graphView.setNeedsDisplay()
-        self.graphView.drawLabels()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        guard let svc = self.splitViewController else { return }
-        svc.preferredDisplayMode = .Automatic
-        
-        super.viewWillDisappear(animated)
-    }
-
-//    func preferencesDidChange(notification: NSNotification?) {
-//        print("Reload the graph in graph view Controller")
-//    }
-    
-    @IBAction func timeScaleChanged(sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            self.graphView.scale = .Week
-        case 1:
-            self.graphView.scale = .Month
-        case 2:
-            self.graphView.scale = .Year
-        default:
-            self.graphView.scale = .Week
-        }
-        
-        self.graphView.setNeedsDisplay()
-        self.graphView.drawLabels()
     }
 }
