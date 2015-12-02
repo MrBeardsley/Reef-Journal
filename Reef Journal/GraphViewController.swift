@@ -16,8 +16,6 @@ enum TimeScale {
 }
 
 class GraphViewController: UIViewController {
-    
-    
 
     // MARK: - Interface Outlets
     @IBOutlet weak var graphView: GraphView!
@@ -57,6 +55,7 @@ class GraphViewController: UIViewController {
             self.graphView.scale = .Week
         }
         
+        self.graphView.unitsLabel.text = unitLabelForParameterType(param)
         self.graphView.parameterType = param
     }
     
@@ -76,6 +75,10 @@ class GraphViewController: UIViewController {
     func preferencesDidChange(notification: NSNotification?) {
         fetchMeasurementData()
         self.graphView.setNeedsDisplay()
+        
+        guard let param = self.parameterType else { return }
+        
+        self.graphView.unitsLabel.text = unitLabelForParameterType(param)
     }
     
     @IBAction func timeScaleChanged(sender: UISegmentedControl) {

@@ -17,10 +17,13 @@ private struct Dimensions {
 
 @IBDesignable class GraphView: UIView {
     
+    // MARK: - Interface Outlets
     @IBOutlet weak var graphTitle: UILabel!
+    @IBOutlet weak var unitsLabel: UILabel!
     @IBOutlet weak var maxValueLabel: UILabel!
     @IBOutlet weak var minValueLabel: UILabel!
-
+    
+    // MARK: - Properties
     var weekMeasurements = [Double?]()
     var monthMeasurements = [Double?]()
     var yearMeasurements = [Double?]()
