@@ -109,17 +109,22 @@ class DetailViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        guard let parameterType = self.parameterType else { return }
-        
+        guard let param = self.parameterType else { return }
         slider.layoutControl()
-
-        if let lastValue = dataAccess.lastMeasurementValueForParameter(parameterType) {
-            slider.value = lastValue.convertedMeasurementValue
-            self.currentMeasurement = lastValue
+        
+        
+        if let current =  self.currentMeasurement {
+            datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: current.day), animated: false)
+            slider.value = current.convertedMeasurementValue
         }
         else {
-            slider.value = slider.minValue
+            if let lastValue = dataAccess.measurementForDate(NSDate(), param: param) {
+                slider.value = lastValue.convertedMeasurementValue
+                self.currentMeasurement = lastValue
+            }
+            else {
+                slider.value = slider.minValue
+            }
         }
     }
     
@@ -421,12 +426,12 @@ class DetailViewController: UIViewController {
             slider.valueFormat = DecimalFormat.None
         }
         
-        let range = measurementRangeForParameterType(self.parameterType)
+        let range = measurementRangeForParameterType(parameterType)
         
         slider.minValue = range.0
         slider.maxValue = range.1
         
-        self.measurements = dataAccess.measurementsForParameter(self.parameterType)
+        self.measurements = dataAccess.measurementsForParameter(parameterType)
         
         if self.measurements.count == 0 {
             previousItem.enabled = false
@@ -435,9 +440,8 @@ class DetailViewController: UIViewController {
             slider.value = slider.minValue
         }
         
-        if let lastValue = dataAccess.measurementForDate(today, param: parameterType) {
-            slider.value = lastValue.convertedMeasurementValue
-            self.currentMeasurement = lastValue
+        if !dataAccess.dateHasMeasurement(today, param: parameterType) {
+            deleteItem.enabled = false
         }
         
         if pastMeasurementsExist(today.timeIntervalSinceReferenceDate) {

@@ -205,7 +205,7 @@ class DataPersistence {
     }
 
     func dateHasMeasurement(date: NSDate, param: Parameter) -> Bool {
-        return self.measurementForDate(date, param: param) == nil ? true : false
+        return self.measurementForDate(date, param: param) == nil ? false : true
     }
 
     // MARK: - Core Data stack
