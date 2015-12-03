@@ -420,12 +420,13 @@ private struct Dimensions {
                 self.label5.text = "\(getDay(today, -7))"
                 self.label6.text = "\(components.day)"
                 
+                self.label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label2.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label3.frame = CGRect(x: self.label2.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label4.frame = CGRect(x: self.label3.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label5.frame = CGRect(x: self.label4.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label6.frame = CGRect(x: self.label5.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-                
+                self.label7.frame = CGRect(x: self.label5.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 
                 self.label1.hidden = true
                 self.label2.hidden = false
@@ -463,10 +464,13 @@ private struct Dimensions {
                 self.label4.text = "\(calendar.shortMonthSymbols[getMonth(today, -3) - 1])"
                 self.label5.text = "\(calendar.shortMonthSymbols[components.month - 1])"
                 
+                self.label1.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label2.frame = CGRect(x: Dimensions.margin, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label3.frame = CGRect(x: self.label2.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label4.frame = CGRect(x: self.label3.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 self.label5.frame = CGRect(x: self.label4.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label6.frame = CGRect(x: self.label4.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+                self.label7.frame = CGRect(x: self.label4.frame.origin.x + spacing, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
                 
                 self.label1.hidden = true
                 self.label2.hidden = false
