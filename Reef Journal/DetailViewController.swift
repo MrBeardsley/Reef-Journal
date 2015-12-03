@@ -310,7 +310,6 @@ class DetailViewController: UIViewController {
             if let graphViewController = segue.destinationViewController as? GraphViewController {
                 graphViewController.parameterType = self.parameterType
                 graphViewController.dataModel = self.dataAccess
-                graphViewController.navigationItem.title = self.parameterType.rawValue
             }
                 
             if let svc = self.splitViewController {

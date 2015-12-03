@@ -241,10 +241,10 @@
             </objects>
             <point key="canvasLocation" x="708" y="129"/>
         </scene>
-        <!--Graph View Controller-->
+        <!--Graph-->
         <scene sceneID="vT7-Ki-U0I">
             <objects>
-                <viewController id="O5r-rQ-bUJ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Graph" id="O5r-rQ-bUJ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JyI-iK-Wde"/>
                         <viewControllerLayoutGuide type="bottom" id="wd5-q9-Fs1"/>
