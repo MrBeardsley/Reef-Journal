@@ -22,8 +22,7 @@ private struct Dimensions {
     @IBOutlet weak var unitsLabel: UILabel!
     @IBOutlet weak var maxValueLabel: UILabel!
     @IBOutlet weak var midValueLabel: UILabel!
-    @IBOutlet weak var minValueLabel: UILabel!
-    
+    @IBOutlet weak var minValueLabel: UILabel!    
     
     // MARK: - Properties
     var weekMeasurements = [Double?]()
@@ -288,8 +287,6 @@ private struct Dimensions {
                 CGContextRestoreGState(context)
             }
         }
-        
-        
     }
     
     private func drawGrid(context: CGContext) {
@@ -324,12 +321,18 @@ private struct Dimensions {
     func drawLabels() {
         guard let param = self.parameterType else { return }
         
+        let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
+        let originX: CGFloat = self.frame.origin.x + self.frame.size.width / 2.0 - Dimensions.labelWidth / 2.0
+        let startingRect = CGRect(x: originX, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+        
         // Remove all of the labels in case some are not needed later
         for label in self.axisLabels {
             label.hidden = true
+            if label.frame.origin.x == 0 {
+                label.frame = startingRect
+            }
         }
         
-        let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
         let today = NSDate()
         
         let getDay = { (date: NSDate, number: Int) -> Int in
