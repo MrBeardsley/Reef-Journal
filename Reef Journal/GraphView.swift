@@ -21,7 +21,9 @@ private struct Dimensions {
     @IBOutlet weak var graphTitle: UILabel!
     @IBOutlet weak var unitsLabel: UILabel!
     @IBOutlet weak var maxValueLabel: UILabel!
+    @IBOutlet weak var midValueLabel: UILabel!
     @IBOutlet weak var minValueLabel: UILabel!
+    
     
     // MARK: - Properties
     var weekMeasurements = [Double?]()
@@ -127,12 +129,12 @@ private struct Dimensions {
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         guard flattened.count > 1 else { return }
         guard let maxValue = flattened.maxElement() else { return }
-        guard let param = self.parameterType else { return }
         
         let width = self.frame.width - Dimensions.labelWidth
         let height = self.frame.height
         
         let graphPoints = self.dataPoints
+        let minGraphValue = self.bottomOfGraphRange()
 
         //calculate the x point
         let columnXPoint = { (column:Int) -> CGFloat in
@@ -150,15 +152,7 @@ private struct Dimensions {
         let graphHeight = height - topBorder - bottomBorder
         
         let columnYPoint = { (graphPoint: Double) -> CGFloat in
-            
-            var y: CGFloat
-            
-            if param == .Salinity && unitLabelForParameterType(param) == "SG" {
-                y = CGFloat(graphPoint - 1) / CGFloat(maxValue - 1) * graphHeight
-            }
-            else {
-                y = CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight
-            }
+            var y = CGFloat(graphPoint - minGraphValue) / CGFloat(maxValue - minGraphValue) * graphHeight
             
             y = graphHeight + topBorder - y // Flip the graph
             return y
@@ -236,12 +230,12 @@ private struct Dimensions {
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         guard !flattened.isEmpty else { return }
         guard let maxValue = flattened.maxElement() else { return }
-        guard let param = self.parameterType else { return }
         
         let width = self.frame.width - Dimensions.labelWidth
         let height = self.frame.height
         
         let graphPoints = self.dataPoints
+        let minGraphValue = self.bottomOfGraphRange()
         
         //calculate the x point
         
@@ -259,15 +253,7 @@ private struct Dimensions {
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
         let columnYPoint = { (graphPoint: Double) -> CGFloat in
-            
-            var y: CGFloat
-            
-            if param == .Salinity && unitLabelForParameterType(param) == "SG" {
-                y = CGFloat(graphPoint - 1) / CGFloat(maxValue - 1) * graphHeight
-            }
-            else {
-                y = CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight
-            }
+            var y = CGFloat(graphPoint - minGraphValue) / CGFloat(maxValue - minGraphValue) * graphHeight
             
             y = graphHeight + topBorder - y // Flip the graph
             return y
@@ -360,27 +346,22 @@ private struct Dimensions {
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         
         self.maxValueLabel.text = ""
+        self.midValueLabel.text = ""
         self.minValueLabel.text = ""
         
         if let maxValue = flattened.maxElement() {
+            let bottomOfGraph = bottomOfGraphRange()
+            let graphRange = maxValue - bottomOfGraph
+            let midValue = graphRange / 2.0 + bottomOfGraph
             
-            if param == .Salinity && unitLabelForParameterType(param) == "SG" {
-                if let
-                    maxString = formatter.stringFromNumber(maxValue),
-                    midString = formatter.stringFromNumber((maxValue - 1) / 2 + 1) {
-                        
-                        self.maxValueLabel.text = "\(maxString)"
-                        self.minValueLabel.text = "\(midString)"
-                }
-            }
-            else {
-                if let
-                    maxString = formatter.stringFromNumber(maxValue),
-                    midString = formatter.stringFromNumber(maxValue / 2) {
-                        
-                        self.maxValueLabel.text = "\(maxString)"
-                        self.minValueLabel.text = "\(midString)"
-                }
+            if let
+                maxString = formatter.stringFromNumber(maxValue),
+                midString = formatter.stringFromNumber(midValue),
+                minString = formatter.stringFromNumber(bottomOfGraph) {
+                    
+                self.maxValueLabel.text = "\(maxString)"
+                self.midValueLabel.text = "\(midString)"
+                self.minValueLabel.text = "\(minString)"
             }
         }
         
@@ -494,6 +475,22 @@ private struct Dimensions {
             })
             
             break
+        }
+    }
+    
+    private func bottomOfGraphRange() -> Double {
+        let flattened: [Double] = dataPoints.flatMap { $0 }
+        
+        guard !flattened.isEmpty else { return 0 }
+        guard let minValue = flattened.minElement() else { return 0 }
+        
+        let floored = floor(minValue)
+        
+        if floored < 2 {
+            return floored
+        }
+        else {
+            return floor(floored - (floored / 5.0))
         }
     }
 }

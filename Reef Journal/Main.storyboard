@@ -282,6 +282,28 @@
                                             <rect key="frame" x="-47.5" y="-108" width="43.5" height="20.5"/>
                                         </variation>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cq5-dx-NFz">
+                                        <rect key="frame" x="8" y="8" width="39" height="21"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="8ID-6t-7Ka"/>
+                                            <constraint firstAttribute="width" constant="101" id="Rs3-Xl-eMq"/>
+                                            <constraint firstAttribute="height" constant="21" id="hbV-HS-3Ag"/>
+                                            <constraint firstAttribute="width" constant="39" id="mvg-Yx-a6D"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Rs3-Xl-eMq"/>
+                                                <exclude reference="hbV-HS-3Ag"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="-47.5" y="-108" width="43.5" height="20.5"/>
+                                        </variation>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Id-9o-gUu">
                                         <rect key="frame" x="498" y="142.5" width="42" height="21"/>
                                         <animations/>
@@ -315,27 +337,18 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cq5-dx-NFz">
-                                        <rect key="frame" x="8" y="8" width="39" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYW-3d-gsr">
+                                        <rect key="frame" x="498" y="240" width="42" height="21"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="8ID-6t-7Ka"/>
-                                            <constraint firstAttribute="width" constant="101" id="Rs3-Xl-eMq"/>
-                                            <constraint firstAttribute="height" constant="21" id="hbV-HS-3Ag"/>
-                                            <constraint firstAttribute="width" constant="39" id="mvg-Yx-a6D"/>
+                                            <constraint firstAttribute="width" constant="42" id="SqP-Ug-04W"/>
+                                            <constraint firstAttribute="height" constant="21" id="Z9O-OJ-QSi"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="mWL-lx-6qk"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="t8u-ii-ifT"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Rs3-Xl-eMq"/>
-                                                <exclude reference="hbV-HS-3Ag"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=compact" fixedFrame="YES">
-                                            <rect key="frame" x="-47.5" y="-108" width="43.5" height="20.5"/>
-                                        </variation>
                                     </label>
                                 </subviews>
                                 <animations/>
@@ -348,9 +361,11 @@
                                     <constraint firstAttribute="height" constant="200" id="BX7-mm-fPM"/>
                                     <constraint firstItem="spg-N4-bon" firstAttribute="top" secondItem="JMr-Uc-Tol" secondAttribute="bottom" constant="6" id="MQi-8m-geA"/>
                                     <constraint firstItem="Pex-Wb-8Qg" firstAttribute="leading" secondItem="cq5-dx-NFz" secondAttribute="trailing" constant="8" id="X0Q-is-txc"/>
+                                    <constraint firstAttribute="trailing" secondItem="lYW-3d-gsr" secondAttribute="trailing" constant="4" id="a5J-wk-SlI"/>
                                     <constraint firstAttribute="width" secondItem="icw-3e-Yoy" secondAttribute="height" multiplier="16:9" id="d58-0h-GVg"/>
                                     <constraint firstItem="3Id-9o-gUu" firstAttribute="centerY" secondItem="icw-3e-Yoy" secondAttribute="centerY" id="lFA-jj-M1i"/>
                                     <constraint firstAttribute="trailing" secondItem="JMr-Uc-Tol" secondAttribute="trailing" constant="8" id="nEc-UO-KhN"/>
+                                    <constraint firstAttribute="bottom" secondItem="lYW-3d-gsr" secondAttribute="bottom" constant="45" id="qgm-HP-roI"/>
                                     <constraint firstAttribute="bottom" secondItem="3Id-9o-gUu" secondAttribute="bottom" constant="50" id="rlw-z2-7wp"/>
                                     <constraint firstItem="cq5-dx-NFz" firstAttribute="top" secondItem="icw-3e-Yoy" secondAttribute="top" constant="8" id="ug1-kg-o8z"/>
                                     <constraint firstItem="JMr-Uc-Tol" firstAttribute="top" secondItem="icw-3e-Yoy" secondAttribute="top" constant="8" id="yox-gN-DDa"/>
@@ -377,7 +392,8 @@
                                 <connections>
                                     <outlet property="graphTitle" destination="JMr-Uc-Tol" id="zJz-Wu-P7E"/>
                                     <outlet property="maxValueLabel" destination="spg-N4-bon" id="rPv-iq-oEc"/>
-                                    <outlet property="minValueLabel" destination="3Id-9o-gUu" id="ZPR-pM-ekY"/>
+                                    <outlet property="midValueLabel" destination="3Id-9o-gUu" id="Eju-X4-icX"/>
+                                    <outlet property="minValueLabel" destination="lYW-3d-gsr" id="knR-K0-Qll"/>
                                     <outlet property="unitsLabel" destination="Pex-Wb-8Qg" id="FMM-DD-doI"/>
                                 </connections>
                             </view>
