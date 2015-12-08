@@ -9,7 +9,7 @@
         <!--Parameters-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
-                <navigationController title="Parameters" id="RMx-3f-FxP" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="ParametersListView" title="Parameters" id="RMx-3f-FxP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Pmd-2v-anx">
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
@@ -25,7 +25,7 @@
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="DetailView" title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SYR-Wa-9uf"/>
                         <viewControllerLayoutGuide type="bottom" id="GAO-Cl-Wes"/>
@@ -244,7 +244,7 @@
         <!--Graph-->
         <scene sceneID="vT7-Ki-U0I">
             <objects>
-                <viewController title="Graph" id="O5r-rQ-bUJ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="GraphView" title="Graph" id="O5r-rQ-bUJ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JyI-iK-Wde"/>
                         <viewControllerLayoutGuide type="bottom" id="wd5-q9-Fs1"/>
