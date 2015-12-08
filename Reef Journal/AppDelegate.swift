@@ -15,15 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // MARK: - Properties
 
     var window: UIWindow?
-    var dataLayer: DataPersistence = DataPersistence()
+    var measurementsDataModel: DataPersistence = DataPersistence()
 
-    // MARK: - Application Delegate Protocol Methods
+    // MARK: - Application Lifecycle
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        guard let window = self.window else { return false }
 
         // Handle setting up the split view
-        let splitViewController = self.window!.rootViewController as! UISplitViewController
+        let splitViewController = window.rootViewController as! UISplitViewController
         splitViewController.delegate = self
 
         let detailNavController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
@@ -33,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         for controller in parametersNavContoller.viewControllers {
             if controller is ParametersTableViewController {
                 if let parametersController = controller as? ParametersTableViewController {
-                    parametersController.dataAccess = dataLayer
+                    parametersController.measurementsDataModel = measurementsDataModel
                 }
             }
         }
@@ -41,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         for controller in detailNavController.viewControllers {
             if controller is DetailViewController {
                 if let detailViewController = controller as? DetailViewController {
-                    detailViewController.dataAccess = dataLayer
+                    detailViewController.dataAccess = measurementsDataModel
                 }
             }
         }
@@ -94,7 +95,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.synchronize()
-        self.dataLayer.saveContext()
+        self.measurementsDataModel.saveContext()
+    }
+    
+    // MARK: - State restoration
+    
+    func application(application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        return true
     }
 }
 

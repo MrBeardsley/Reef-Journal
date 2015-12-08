@@ -17,7 +17,7 @@ class ParametersTableViewController: UITableViewController {
 
     // MARK: - Properties
 
-    var dataAccess: DataPersistence!
+    var measurementsDataModel: DataPersistence!
 
     // MARK: - Private Properties
 
@@ -79,7 +79,7 @@ class ParametersTableViewController: UITableViewController {
             }
         }
         
-        recentMeasurements = dataAccess.mostRecentMeasurements()
+        recentMeasurements = measurementsDataModel.mostRecentMeasurements()
         tableView?.reloadData()
     }
 
@@ -91,7 +91,7 @@ class ParametersTableViewController: UITableViewController {
                let detailViewController = navController.topViewController as? DetailViewController,
                let svc = self.splitViewController   {
                 detailViewController.parameterType = Parameter(rawValue: title)
-                detailViewController.dataAccess = self.dataAccess
+                detailViewController.dataAccess = self.measurementsDataModel
                 detailViewController.navigationItem.title = title
                 detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
                 detailViewController.navigationItem.leftItemsSupplementBackButton = true
