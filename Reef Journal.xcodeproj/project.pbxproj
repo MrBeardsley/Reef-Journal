@@ -142,6 +142,8 @@
 				83D3DE241B85743A001B41DC /* Measurement+CoreDataProperties.swift */,
 				83D3DE251B85743A001B41DC /* Measurement.swift */,
 				837C8E5A1B7D8F000008533F /* DataPersistence.swift */,
+				83C010E319DCE7BB0073BE5F /* Functions.swift */,
+				8395474E19C890EA00529B8B /* Types.swift */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -169,15 +171,13 @@
 		83AA7E9E1947D63A00CB9D0F /* Reef Journal */ = {
 			isa = PBXGroup;
 			children = (
-				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
-				83C010E319DCE7BB0073BE5F /* Functions.swift */,
-				8395474E19C890EA00529B8B /* Types.swift */,
+				83FCC4D91C16742B005FA524 /* Main App */,
 				8328E4F51B7190CC009A57EB /* Parameter List View */,
 				83E5E06F1A9D57A100ECA17E /* Detail View */,
 				83AE76081B31102500C48C0E /* Graph View */,
 				833D4AE61A3E17C300FF6B96 /* Parameters */,
-				835476D819646E9500D1994E /* Interface */,
 				835476D919646EB100D1994E /* Data Model */,
+				835476D819646E9500D1994E /* Interface */,
 				83AA7E9F1947D63A00CB9D0F /* Supporting Files */,
 			);
 			path = "Reef Journal";
@@ -237,6 +237,14 @@
 				83EF57D41B52A2570071D29C /* Info.plist */,
 			);
 			path = "Reef JournalUITests";
+			sourceTree = "<group>";
+		};
+		83FCC4D91C16742B005FA524 /* Main App */ = {
+			isa = PBXGroup;
+			children = (
+				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
+			);
+			name = "Main App";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
