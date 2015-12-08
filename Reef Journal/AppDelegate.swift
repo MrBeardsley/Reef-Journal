@@ -69,8 +69,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object:nil)
-
         return true
     }
 
@@ -97,12 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.synchronize()
         self.dataLayer.saveContext()
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-
-    func preferencesDidChange(notification: NSNotification?) {
-        NSUserDefaults.standardUserDefaults().synchronize()
-        NSNotificationCenter.defaultCenter().postNotificationName("PreferencesChanged", object: nil)
     }
 }
 

@@ -33,7 +33,7 @@ class ParametersTableViewController: UITableViewController {
         dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = self.dateFormat
         super.init(coder: aDecoder)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "PreferencesChanged", object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
     }
 

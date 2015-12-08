@@ -107,12 +107,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8328E4F51B7190CC009A57EB /* Master View */ = {
+		8328E4F51B7190CC009A57EB /* Parameter List View */ = {
 			isa = PBXGroup;
 			children = (
 				83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */,
 			);
-			name = "Master View";
+			name = "Parameter List View";
 			sourceTree = "<group>";
 		};
 		833D4AE61A3E17C300FF6B96 /* Parameters */ = {
@@ -172,7 +172,7 @@
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
 				83C010E319DCE7BB0073BE5F /* Functions.swift */,
 				8395474E19C890EA00529B8B /* Types.swift */,
-				8328E4F51B7190CC009A57EB /* Master View */,
+				8328E4F51B7190CC009A57EB /* Parameter List View */,
 				83E5E06F1A9D57A100ECA17E /* Detail View */,
 				83AE76081B31102500C48C0E /* Graph View */,
 				833D4AE61A3E17C300FF6B96 /* Parameters */,

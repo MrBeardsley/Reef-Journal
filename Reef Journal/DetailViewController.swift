@@ -49,7 +49,7 @@ class DetailViewController: UIViewController {
         
         guard let svc = self.splitViewController else { return }
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: "PreferencesChanged", object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
         let userDefaults = NSUserDefaults.standardUserDefaults()
 
         // If the paramterType is nil, it is because we are on an iPad and this view controller was loaded directly without selecting
