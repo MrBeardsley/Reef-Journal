@@ -512,3 +512,10 @@ class DetailViewController: UIViewController {
         return self.defaultsParameterList().first
     }
 }
+
+//extension DetailViewController: UIViewControllerRestoration {
+//    static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
+//        
+//        return nil
+//    }
+//}

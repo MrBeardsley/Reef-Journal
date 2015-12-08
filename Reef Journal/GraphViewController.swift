@@ -181,3 +181,10 @@ class GraphViewController: UIViewController {
         self.graphView.yearMeasurements = allYear
     }
 }
+
+//extension GraphViewController: UIViewControllerRestoration {
+//    static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
+//        
+//        return nil
+//    }
+//}

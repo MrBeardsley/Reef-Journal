@@ -10,7 +10,7 @@ import UIKit
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Properties
 
@@ -104,11 +104,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return true
     }
     
-    // MARK: - SplitViewController 
+    func application(application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+}
+
+extension AppDelegate: UISplitViewControllerDelegate {
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
         // Called for iPhone screen sizes, but not iPads
         // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
         return true
     }
 }
-

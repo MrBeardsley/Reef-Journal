@@ -25,14 +25,15 @@ class ParametersTableViewController: UITableViewController {
     private var nutrientsSection: [String] = []
     private var recentMeasurements: [String : Measurement]?
     private let dateFormat = "MMMM dd ',' yyyy"
-    private let dateFormatter: NSDateFormatter
+    private let dateFormatter = NSDateFormatter()
 
     // MARK: - Init/Deinit
 
     required init?(coder aDecoder: NSCoder) {
-        dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = self.dateFormat
         super.init(coder: aDecoder)
+        
+        dateFormatter.dateFormat = self.dateFormat
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
     }
@@ -43,23 +44,19 @@ class ParametersTableViewController: UITableViewController {
 
     // MARK: - View Management
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        reloadTableView(nil)
-    }
-
     override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
-        self.refreshData()
+        guard let svc = self.splitViewController else {
+            super.viewWillAppear(animated)
+            return
+        }
+        
+        self.clearsSelectionOnViewWillAppear = svc.collapsed
+        reloadTableView(nil)
+        
         super.viewWillAppear(animated)
     }
 
-
     // MARK: - Reloading the data in the table view
-
-    func refreshData() {
-        reloadTableView(nil)
-    }
 
     func reloadTableView(aNotification: NSNotification?) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -83,6 +80,8 @@ class ParametersTableViewController: UITableViewController {
         tableView?.reloadData()
     }
 
+    // MARK: - Prepare for Segue
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "showDetail" {
             if let path = self.tableView.indexPathForSelectedRow,
@@ -181,3 +180,10 @@ class ParametersTableViewController: UITableViewController {
         }
     }
 }
+
+//extension ParametersTableViewController: UIViewControllerRestoration {
+//    static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
+//        
+//        return nil
+//    }
+//}
