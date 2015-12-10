@@ -15,22 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Properties
 
     var window: UIWindow?
-    var measurementsDataModel: DataPersistence = DataPersistence()
+    var measurementsDataModel = DataPersistence()
 
     // MARK: - Application Lifecycle
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
         guard let window = self.window else { return false }
+        guard let svc = window.rootViewController as? UISplitViewController else { return false }
 
-        // Handle setting up the split view
-        let splitViewController = window.rootViewController as! UISplitViewController
-        splitViewController.delegate = self
-
-        let detailNavController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+        svc.delegate = self
 
         // Inject the data access object into the first view controller
-        let parametersNavContoller = splitViewController.viewControllers[0] as! UINavigationController
+        let parametersNavContoller = svc.viewControllers[0] as! UINavigationController
         for controller in parametersNavContoller.viewControllers {
             if controller is ParametersTableViewController {
                 if let parametersController = controller as? ParametersTableViewController {
@@ -38,7 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-
+        
+        // Do the same for the second view controller
+        let detailNavController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
         for controller in detailNavController.viewControllers {
             if controller is DetailViewController {
                 if let detailViewController = controller as? DetailViewController {
@@ -47,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        // Get the preferences setup
+        // Register settings from a plist
         let mainBundlePath = NSBundle.mainBundle().bundlePath as NSString
         let settingsPropertyListPath = mainBundlePath.stringByAppendingPathComponent("Settings.bundle/Root.plist");
 
@@ -66,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 registerableDictionary["LastParameter"] = "Default"
 
                 NSUserDefaults.standardUserDefaults().registerDefaults(registerableDictionary)
-
             }
         }
 
@@ -93,8 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.synchronize()
+        
+        NSUserDefaults.standardUserDefaults().synchronize()
         self.measurementsDataModel.saveContext()
     }
     
