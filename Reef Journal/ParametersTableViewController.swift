@@ -31,11 +31,7 @@ class ParametersTableViewController: UITableViewController {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         dateFormatter.dateFormat = self.dateFormat
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
     }
 
     deinit {
@@ -43,6 +39,12 @@ class ParametersTableViewController: UITableViewController {
     }
 
     // MARK: - View Management
+    
+    override func viewDidLoad() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
+        super.viewDidLoad()
+    }
 
     override func viewWillAppear(animated: Bool) {
         guard let svc = self.splitViewController else {
@@ -89,7 +91,9 @@ class ParametersTableViewController: UITableViewController {
                let navController = segue.destinationViewController as? UINavigationController,
                let detailViewController = navController.topViewController as? DetailViewController,
                let svc = self.splitViewController   {
-                detailViewController.parameterType = Parameter(rawValue: title)
+                detailViewController.currentParameter = Parameter(rawValue: title)
+                detailViewController.currentDate = NSDate()
+                detailViewController.measurementsDataModel = measurementsDataModel
                 detailViewController.navigationItem.title = title
                 detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
                 detailViewController.navigationItem.leftItemsSupplementBackButton = true
