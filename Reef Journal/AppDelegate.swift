@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for controller in detailNavController.viewControllers {
             if controller is DetailViewController {
                 if let detailViewController = controller as? DetailViewController {
-                    detailViewController.dataAccess = measurementsDataModel
+                    detailViewController.measurementsDataModel = measurementsDataModel
                 }
             }
         }

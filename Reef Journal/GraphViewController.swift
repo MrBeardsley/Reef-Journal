@@ -182,9 +182,21 @@ class GraphViewController: UIViewController {
     }
 }
 
-//extension GraphViewController: UIViewControllerRestoration {
-//    static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
-//        
-//        return nil
-//    }
-//}
+// MARK: - State Restoration
+
+extension GraphViewController {
+    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+        super.encodeRestorableStateWithCoder(coder)
+        
+        coder.encodeInteger(self.segmentControl.selectedSegmentIndex, forKey: "TimeScaleIndex")
+        
+    }
+    
+    override func decodeRestorableStateWithCoder(coder: NSCoder) {
+        super.decodeRestorableStateWithCoder(coder)
+        
+        self.segmentControl.selectedSegmentIndex = coder.decodeIntegerForKey("TimeScaleIndex")
+    }
+}
+
+

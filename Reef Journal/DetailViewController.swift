@@ -24,7 +24,7 @@ class DetailViewController: UIViewController {
     // MARK: - Properties
 
     var parameterType: Parameter!
-    var dataAccess: DataPersistence!
+    var measurementsDataModel: DataPersistence!
     var measurements: [Measurement]
     var currentMeasurement: Measurement?
     var emptyLabel: UILabel? = nil
@@ -48,9 +48,12 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         guard let svc = self.splitViewController else { return }
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
+        
         let userDefaults = NSUserDefaults.standardUserDefaults()
+        
+        let today = NSDate().dayFromDate()
+        datePicker.setDate(today, animated: false)
+        datePicker.maximumDate = today
 
         // If the paramterType is nil, it is because we are on an iPad and this view controller was loaded directly without selecting
         // it from the parameter list.
@@ -69,7 +72,6 @@ class DetailViewController: UIViewController {
             }
         }
         
-        
         // This is for the iPhone 6 Plus because it can start in landscape mode and needs to display
         // the control to show and hide the parameter list. 
         //
@@ -84,6 +86,7 @@ class DetailViewController: UIViewController {
         }
         
         setupControls()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -118,7 +121,7 @@ class DetailViewController: UIViewController {
             slider.value = current.convertedMeasurementValue
         }
         else {
-            if let lastValue = dataAccess.measurementForDate(NSDate(), param: param) {
+            if let lastValue = measurementsDataModel.measurementForDate(NSDate(), param: param) {
                 slider.value = lastValue.convertedMeasurementValue
                 self.currentMeasurement = lastValue
             }
@@ -146,7 +149,7 @@ class DetailViewController: UIViewController {
     @IBAction func pickerDidChange(sender: UIDatePicker) {
         guard let type = self.parameterType else { return }
         
-        if let aMeasurement = dataAccess.measurementForDate(self.datePicker.date.dayFromDate(), param: type) {
+        if let aMeasurement = measurementsDataModel.measurementForDate(self.datePicker.date.dayFromDate(), param: type) {
             self.currentMeasurement = aMeasurement
             slider.value = aMeasurement.convertedMeasurementValue
             deleteItem.enabled = true
@@ -174,10 +177,10 @@ class DetailViewController: UIViewController {
     @IBAction func sliderDidChange(sender: CircularSlider) {
         guard let type = self.parameterType else { return }
 
-        dataAccess.saveMeasurement(slider.value, date: datePicker.date.dayFromDate(), param: type)
-        self.measurements = dataAccess.measurementsForParameter(type)
+        measurementsDataModel.saveMeasurement(slider.value, date: datePicker.date.dayFromDate(), param: type)
+        self.measurements = measurementsDataModel.measurementsForParameter(type)
         self.deleteItem.enabled = true
-        self.currentMeasurement = dataAccess.measurementForDate(datePicker.date.dayFromDate(), param: type)
+        self.currentMeasurement = measurementsDataModel.measurementForDate(datePicker.date.dayFromDate(), param: type)
         
         NSNotificationCenter.defaultCenter().postNotificationName("SavedValue", object: nil)
     }
@@ -185,8 +188,8 @@ class DetailViewController: UIViewController {
     @IBAction func deleteCurrentMeasurement(sender: UIBarButtonItem) {
         guard let currentMeasurement = self.currentMeasurement else { return }
         
-        dataAccess.deleteMeasurementOnDay(currentMeasurement.day, param: self.parameterType)
-        self.measurements = dataAccess.measurementsForParameter(self.parameterType)
+        measurementsDataModel.deleteMeasurementOnDay(currentMeasurement.day, param: self.parameterType)
+        self.measurements = measurementsDataModel.measurementsForParameter(self.parameterType)
         
         NSNotificationCenter.defaultCenter().postNotificationName("SavedValue", object: nil)
         
@@ -215,7 +218,7 @@ class DetailViewController: UIViewController {
         for measurement in self.measurements {
             
             if measurement.day < currentDay {
-                if let data = dataAccess.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
+                if let data = measurementsDataModel.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
                     datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
                     slider.value = data.convertedMeasurementValue
                     deleteItem.enabled = true
@@ -250,7 +253,7 @@ class DetailViewController: UIViewController {
         
         for measurement in self.measurements.reverse() {
             if measurement.day > currentDay {
-                if let data = dataAccess.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
+                if let data = measurementsDataModel.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
                     datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
                     slider.value = data.convertedMeasurementValue
                     deleteItem.enabled = true
@@ -309,7 +312,7 @@ class DetailViewController: UIViewController {
         if segue.identifier == "ShowGraph" {
             if let graphViewController = segue.destinationViewController as? GraphViewController {
                 graphViewController.parameterType = self.parameterType
-                graphViewController.dataModel = self.dataAccess
+                graphViewController.dataModel = self.measurementsDataModel
             }
                 
             if let svc = self.splitViewController {
@@ -406,13 +409,9 @@ class DetailViewController: UIViewController {
     }
     
     private func setupControls() -> Void {
-        guard let parameterType = self.parameterType else { return }
+        guard let currentParameter = self.parameterType else { return }
         
-        let today = NSDate().dayFromDate()
-        datePicker.setDate(today, animated: false)
-        datePicker.maximumDate = today
-        
-        switch decimalPlacesForParameter(parameterType) {
+        switch decimalPlacesForParameter(currentParameter) {
         case 0:
             slider.valueFormat = DecimalFormat.None
         case 1:
@@ -425,12 +424,12 @@ class DetailViewController: UIViewController {
             slider.valueFormat = DecimalFormat.None
         }
         
-        let range = measurementRangeForParameterType(parameterType)
+        let range = measurementRangeForParameterType(currentParameter)
         
         slider.minValue = range.0
         slider.maxValue = range.1
         
-        self.measurements = dataAccess.measurementsForParameter(parameterType)
+        self.measurements = measurementsDataModel.measurementsForParameter(currentParameter)
         
         if self.measurements.count == 0 {
             previousItem.enabled = false
@@ -439,11 +438,18 @@ class DetailViewController: UIViewController {
             slider.value = slider.minValue
         }
         
-        if !dataAccess.dateHasMeasurement(today, param: parameterType) {
+        let currentDate = datePicker.date
+        
+        if !measurementsDataModel.dateHasMeasurement(currentDate, param: currentParameter) {
             deleteItem.enabled = false
         }
+        else {
+            if let measurementValue = measurementsDataModel.measurementForDate(currentDate, param: currentParameter)?.convertedMeasurementValue{
+                slider.value = measurementValue
+            }
+        }
         
-        if pastMeasurementsExist(today.timeIntervalSinceReferenceDate) {
+        if pastMeasurementsExist(currentDate.timeIntervalSinceReferenceDate) {
             previousItem.enabled = true
         }
         else {
@@ -513,9 +519,28 @@ class DetailViewController: UIViewController {
     }
 }
 
-//extension DetailViewController: UIViewControllerRestoration {
-//    static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
-//        
-//        return nil
-//    }
-//}
+// MARK: - State Restoration
+
+extension DetailViewController {
+    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+        super.encodeRestorableStateWithCoder(coder)
+        
+        guard let currentParam = self.parameterType else { return }
+        
+        coder.encodeObject(currentParam.rawValue, forKey: "CurrentParameter")
+        coder.encodeObject(self.datePicker.date, forKey: "CurrentDate")
+    }
+    
+    override func decodeRestorableStateWithCoder(coder: NSCoder) {
+        super.decodeRestorableStateWithCoder(coder)
+        
+        if let
+            currentParameter = coder.decodeObjectForKey("CurrentParameter") as? String,
+            currentDate = coder.decodeObjectForKey("CurrentDate") as? NSDate {
+            self.parameterType = Parameter(rawValue: currentParameter)
+            self.datePicker.setDate(currentDate, animated: false)
+            self.navigationItem.title = self.parameterType.rawValue
+            setupControls()
+        }
+    }
+}

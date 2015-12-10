@@ -90,15 +90,17 @@ class ParametersTableViewController: UITableViewController {
                let detailViewController = navController.topViewController as? DetailViewController,
                let svc = self.splitViewController   {
                 detailViewController.parameterType = Parameter(rawValue: title)
-                detailViewController.dataAccess = self.measurementsDataModel
                 detailViewController.navigationItem.title = title
                 detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
                 detailViewController.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }
+}
 
-    // MARK: - Tableview Datasource methods
+// MARK: - Tableview Datasource methods
+    
+extension ParametersTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -156,8 +158,11 @@ class ParametersTableViewController: UITableViewController {
 
         return cell
     }
+}
 
-    // MARK: - UITableView delegate Methods
+// MARK: - UITableView delegate Methods
+
+extension ParametersTableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -181,9 +186,16 @@ class ParametersTableViewController: UITableViewController {
     }
 }
 
-//extension ParametersTableViewController: UIViewControllerRestoration {
-//    static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
-//        
-//        return nil
-//    }
-//}
+// MARK: - State Restoration
+
+extension ParametersTableViewController {
+    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+        super.encodeRestorableStateWithCoder(coder)
+        
+    }
+    
+    override func decodeRestorableStateWithCoder(coder: NSCoder) {
+        super.decodeRestorableStateWithCoder(coder)
+        
+    }
+}
