@@ -23,18 +23,18 @@ class DetailViewController: UIViewController {
 
     // MARK: - Properties
 
-    var parameterType: Parameter!
+    let dateFormatter = NSDateFormatter()
     var measurementsDataModel: DataPersistence!
-    var measurements: [Measurement]
+    var currentParameter: Parameter!
+    var currentDate: NSDate? = nil
+    var measurements = [Measurement]()
     var currentMeasurement: Measurement?
     var emptyLabel: UILabel? = nil
     var settingsButton: UIButton? = nil
-    let dateFormatter = NSDateFormatter()
 
     // MARK: - Init/Deinit
 
     required init?(coder aDecoder: NSCoder) {
-        self.measurements = [Measurement]()
         super.init(coder: aDecoder)
     }
     
@@ -45,33 +45,36 @@ class DetailViewController: UIViewController {
     // MARK: - View Management
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        guard let svc = self.splitViewController else { return }
-        
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        
-        let today = NSDate().dayFromDate()
-        datePicker.setDate(today, animated: false)
-        datePicker.maximumDate = today
-
+        guard let svc = self.splitViewController else {
+            super.viewDidLoad()
+            return
+        }
+    
         // If the paramterType is nil, it is because we are on an iPad and this view controller was loaded directly without selecting
-        // it from the parameter list.
-        if self.parameterType == nil {
+        // it from the parameter list, or it is because the view is being restored via state restoration
+        if self.currentParameter == nil {
             
-            if let
-                defaultsString = userDefaults.stringForKey("LastParameter"),
-                parameterFromDefaults = Parameter(rawValue: defaultsString)
-                where defaultsParameterList().contains(defaultsString)      {
-                    parameterType = parameterFromDefaults
-                    self.navigationItem.title = defaultsString
-            }
-            else {
-                changeToNewParameter()
-                return
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            // Find the first enabled parameter and use that
+            for item in parameterEnabledSettings {
+                let enabled = defaults.boolForKey(item.rawValue)
+                if enabled {
+                    self.currentParameter = parameterForPreference(item)
+                    self.navigationItem.title = currentParameter.rawValue
+                    break
+                }
             }
         }
-        
+    
+        // If the parameterType is still nil, then no parameters were enabled
+        if currentParameter == nil {
+            changeToNewParameter()
+            super.viewDidLoad()
+            return
+        }
+    
         // This is for the iPhone 6 Plus because it can start in landscape mode and needs to display
         // the control to show and hide the parameter list. 
         //
@@ -87,6 +90,7 @@ class DetailViewController: UIViewController {
         
         setupControls()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -105,30 +109,14 @@ class DetailViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
-        guard let type = self.parameterType else { return }
+        guard let type = self.currentParameter else { return }
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(type.rawValue, forKey: "LastParameter")
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        guard let param = self.parameterType else { return }
         slider.layoutControl()
-        
-        
-        if let current =  self.currentMeasurement {
-            datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: current.day), animated: false)
-            slider.value = current.convertedMeasurementValue
-        }
-        else {
-            if let lastValue = measurementsDataModel.measurementForDate(NSDate(), param: param) {
-                slider.value = lastValue.convertedMeasurementValue
-                self.currentMeasurement = lastValue
-            }
-            else {
-                slider.value = slider.minValue
-            }
-        }
     }
     
     override func traitCollectionDidChange( previousTraitCollection: UITraitCollection?) {
@@ -147,9 +135,9 @@ class DetailViewController: UIViewController {
     // MARK: - Interface Actions
 
     @IBAction func pickerDidChange(sender: UIDatePicker) {
-        guard let type = self.parameterType else { return }
+        guard let type = self.currentParameter else { return }
         
-        if let aMeasurement = measurementsDataModel.measurementForDate(self.datePicker.date.dayFromDate(), param: type) {
+        if let aMeasurement = measurementsDataModel.measurementForDate(datePicker.date, param: type) {
             self.currentMeasurement = aMeasurement
             slider.value = aMeasurement.convertedMeasurementValue
             deleteItem.enabled = true
@@ -159,23 +147,12 @@ class DetailViewController: UIViewController {
             deleteItem.enabled = false
         }
         
-        if pastMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
-            previousItem.enabled = true
-        }
-        else {
-            previousItem.enabled = false
-        }
-        
-        if futureMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
-            nextItem.enabled = true
-        }
-        else {
-            nextItem.enabled = false
-        }
+        previousItem.enabled = pastMeasurementsExist(datePicker.date)
+        nextItem.enabled = futureMeasurementsExist(datePicker.date)
     }
 
     @IBAction func sliderDidChange(sender: CircularSlider) {
-        guard let type = self.parameterType else { return }
+        guard let type = self.currentParameter else { return }
 
         measurementsDataModel.saveMeasurement(slider.value, date: datePicker.date.dayFromDate(), param: type)
         self.measurements = measurementsDataModel.measurementsForParameter(type)
@@ -188,17 +165,17 @@ class DetailViewController: UIViewController {
     @IBAction func deleteCurrentMeasurement(sender: UIBarButtonItem) {
         guard let currentMeasurement = self.currentMeasurement else { return }
         
-        measurementsDataModel.deleteMeasurementOnDay(currentMeasurement.day, param: self.parameterType)
-        self.measurements = measurementsDataModel.measurementsForParameter(self.parameterType)
+        measurementsDataModel.deleteMeasurementOnDay(currentMeasurement.day, param: self.currentParameter)
+        self.measurements = measurementsDataModel.measurementsForParameter(self.currentParameter)
         
         NSNotificationCenter.defaultCenter().postNotificationName("SavedValue", object: nil)
         
-        if pastMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
+        if pastMeasurementsExist(datePicker.date) {
             self.loadPreviousMeasurement(previousItem)
             return
         }
         
-        if futureMeasurementsExist(datePicker.date.dayFromDate().timeIntervalSinceReferenceDate) {
+        if futureMeasurementsExist(datePicker.date) {
             self.loadNextMeasurement(nextItem)
             return
         }
@@ -210,34 +187,32 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func loadPreviousMeasurement(sender: UIBarButtonItem) {
-        let currentDay = datePicker.date.dayFromDate().timeIntervalSinceReferenceDate
         
-        guard let type = self.parameterType else { return }
-        guard pastMeasurementsExist(currentDay) else { return }
+        guard let type = self.currentParameter else { return }
+        guard pastMeasurementsExist(datePicker.date) else { return }
         
         for measurement in self.measurements {
             
-            if measurement.day < currentDay {
+            if measurement.day < datePicker.date.timeIntervalSinceReferenceDate {
                 if let data = measurementsDataModel.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
                     datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
                     slider.value = data.convertedMeasurementValue
                     deleteItem.enabled = true
                     self.currentMeasurement = data
                     
-                    if pastMeasurementsExist(measurement.day) {
+                    if pastMeasurementsExist(NSDate(timeIntervalSinceReferenceDate: measurement.day)) {
                         previousItem.enabled = true
                     }
                     else {
                         previousItem.enabled = false
                     }
                     
-                    if futureMeasurementsExist(measurement.day) {
+                    if futureMeasurementsExist(NSDate(timeIntervalSinceReferenceDate: measurement.day)) {
                         nextItem.enabled = true
                     }
                     else {
                         nextItem.enabled = false
                     }
-                    
                 }
                 
                 break
@@ -246,27 +221,26 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func loadNextMeasurement(sender: UIBarButtonItem) {
-        let currentDay = datePicker.date.dayFromDate().timeIntervalSinceReferenceDate
         
-        guard let type = self.parameterType else { return }
-        guard futureMeasurementsExist(currentDay) else { return }
+        guard let type = self.currentParameter else { return }
+        guard futureMeasurementsExist(datePicker.date) else { return }
         
         for measurement in self.measurements.reverse() {
-            if measurement.day > currentDay {
+            if measurement.day > datePicker.date.dayFromDate().timeIntervalSinceReferenceDate {
                 if let data = measurementsDataModel.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
                     datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
                     slider.value = data.convertedMeasurementValue
                     deleteItem.enabled = true
                     self.currentMeasurement = data
                     
-                    if pastMeasurementsExist(measurement.day) {
+                    if pastMeasurementsExist(NSDate(timeIntervalSinceReferenceDate: measurement.day)) {
                         previousItem.enabled = true
                     }
                     else {
                         previousItem.enabled = false
                     }
                     
-                    if futureMeasurementsExist(measurement.day) {
+                    if futureMeasurementsExist(NSDate(timeIntervalSinceReferenceDate: measurement.day)) {
                         nextItem.enabled = true
                     }
                     else {
@@ -290,13 +264,13 @@ class DetailViewController: UIViewController {
 
     func preferencesDidChange(notification: NSNotification?) {
         // All parameters were previously disabled, but now we need to switch to a newly enabled one.
-        guard parameterType != nil else {
+        guard currentParameter != nil else {
             changeToNewParameter()
             return
         }
         
         // The parameter we were previously viewing might have been disabled. If so we need to switch to another parameter
-        guard self.defaultsParameterList().contains(parameterType.rawValue) else {
+        guard self.defaultsParameterList().contains(currentParameter.rawValue) else {
             // Handle changing to another parameter
             changeToNewParameter()
             return
@@ -311,7 +285,7 @@ class DetailViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "ShowGraph" {
             if let graphViewController = segue.destinationViewController as? GraphViewController {
-                graphViewController.parameterType = self.parameterType
+                graphViewController.parameterType = self.currentParameter
                 graphViewController.dataModel = self.measurementsDataModel
             }
                 
@@ -323,11 +297,11 @@ class DetailViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    private func pastMeasurementsExist(day: NSTimeInterval) -> Bool {
+    private func pastMeasurementsExist(date: NSDate) -> Bool {
         guard !self.measurements.isEmpty else { return false }
         
         for measurement in self.measurements {
-            if measurement.day < day {
+            if measurement.day < date.dayFromDate().timeIntervalSinceReferenceDate {
                 return true
             }
         }
@@ -335,11 +309,11 @@ class DetailViewController: UIViewController {
         return false
     }
     
-    private func futureMeasurementsExist(day: NSTimeInterval) -> Bool {
+    private func futureMeasurementsExist(date: NSDate) -> Bool {
         guard !self.measurements.isEmpty else { return false }
         
         for measurement in self.measurements {
-            if measurement.day > day {
+            if measurement.day > date.dayFromDate().timeIntervalSinceReferenceDate {
                 return true
             }
         }
@@ -358,7 +332,7 @@ class DetailViewController: UIViewController {
         self.navigationItem.title = ""
         
         // Make sure the parameter type is removed
-        self.parameterType = nil
+        self.currentParameter = nil
 
         // Add some text and a button to settings explaining to the user what they should do.
         let label = UILabel()
@@ -409,9 +383,19 @@ class DetailViewController: UIViewController {
     }
     
     private func setupControls() -> Void {
-        guard let currentParameter = self.parameterType else { return }
+        guard let param = self.currentParameter else { return }
         
-        switch decimalPlacesForParameter(currentParameter) {
+        let today = NSDate().dayFromDate()
+        datePicker.maximumDate = today
+        
+        if let date = self.currentDate {
+            datePicker.setDate(date, animated: false)
+        }
+        else {
+            datePicker.setDate(today, animated: false)
+        }
+        
+        switch decimalPlacesForParameter(param) {
         case 0:
             slider.valueFormat = DecimalFormat.None
         case 1:
@@ -424,12 +408,12 @@ class DetailViewController: UIViewController {
             slider.valueFormat = DecimalFormat.None
         }
         
-        let range = measurementRangeForParameterType(currentParameter)
+        let range = measurementRangeForParameterType(param)
         
         slider.minValue = range.0
         slider.maxValue = range.1
         
-        self.measurements = measurementsDataModel.measurementsForParameter(currentParameter)
+        self.measurements = measurementsDataModel.measurementsForParameter(param)
         
         if self.measurements.count == 0 {
             previousItem.enabled = false
@@ -437,26 +421,17 @@ class DetailViewController: UIViewController {
             nextItem.enabled = false
             slider.value = slider.minValue
         }
+ 
+        deleteItem.enabled = measurementsDataModel.dateHasMeasurement(datePicker.date, param: param)
+        previousItem.enabled = pastMeasurementsExist(datePicker.date)
+        nextItem.enabled = futureMeasurementsExist(datePicker.date)
         
-        let currentDate = datePicker.date
-        
-        if !measurementsDataModel.dateHasMeasurement(currentDate, param: currentParameter) {
-            deleteItem.enabled = false
+        if let measurementValue = measurementsDataModel.measurementForDate(datePicker.date, param: param)?.convertedMeasurementValue{
+            slider.value = measurementValue
         }
         else {
-            if let measurementValue = measurementsDataModel.measurementForDate(currentDate, param: currentParameter)?.convertedMeasurementValue{
-                slider.value = measurementValue
-            }
+            slider.value = slider.minValue
         }
-        
-        if pastMeasurementsExist(currentDate.timeIntervalSinceReferenceDate) {
-            previousItem.enabled = true
-        }
-        else {
-            previousItem.enabled = false
-        }
-        
-        nextItem.enabled = false
     }
     
     private func changeToNewParameter() -> Void {
@@ -485,10 +460,10 @@ class DetailViewController: UIViewController {
             parameterFromDefaults = Parameter(rawValue: defaultsString)
             where defaultsParameterList().contains(defaultsString)      {
                 
-                self.parameterType = parameterFromDefaults
+                self.currentParameter = parameterFromDefaults
         }
         else {
-            self.parameterType = Parameter(rawValue: firstEnabledParameter)
+            self.currentParameter = Parameter(rawValue: firstEnabledParameter)
         }
         
         self.navigationItem.title = firstEnabledParameter
@@ -525,21 +500,21 @@ extension DetailViewController {
     override func encodeRestorableStateWithCoder(coder: NSCoder) {
         super.encodeRestorableStateWithCoder(coder)
         
-        guard let currentParam = self.parameterType else { return }
+        guard let currentParam = self.currentParameter else { return }
         
         coder.encodeObject(currentParam.rawValue, forKey: "CurrentParameter")
-        coder.encodeObject(self.datePicker.date, forKey: "CurrentDate")
+        coder.encodeObject(self.datePicker.date.dayFromDate(), forKey: "CurrentDate")
     }
     
     override func decodeRestorableStateWithCoder(coder: NSCoder) {
         super.decodeRestorableStateWithCoder(coder)
         
         if let
-            currentParameter = coder.decodeObjectForKey("CurrentParameter") as? String,
-            currentDate = coder.decodeObjectForKey("CurrentDate") as? NSDate {
-            self.parameterType = Parameter(rawValue: currentParameter)
-            self.datePicker.setDate(currentDate, animated: false)
-            self.navigationItem.title = self.parameterType.rawValue
+            restoredParamter = coder.decodeObjectForKey("CurrentParameter") as? String,
+            restoredDate = coder.decodeObjectForKey("CurrentDate") as? NSDate {
+            self.currentParameter = Parameter(rawValue: restoredParamter)
+            self.currentDate = restoredDate
+            self.navigationItem.title = restoredParamter
             setupControls()
         }
     }

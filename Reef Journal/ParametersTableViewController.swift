@@ -9,10 +9,6 @@
 import UIKit
 import CoreData
 
-let chemistryParameters: [SettingIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
-let nutrientParameters: [SettingIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
-
-
 class ParametersTableViewController: UITableViewController {
 
     // MARK: - Properties
@@ -92,7 +88,7 @@ class ParametersTableViewController: UITableViewController {
                let detailViewController = navController.topViewController as? DetailViewController,
                let svc = self.splitViewController   {
                 detailViewController.currentParameter = Parameter(rawValue: title)
-                detailViewController.currentDate = NSDate()
+                detailViewController.currentDate = NSDate().dayFromDate()
                 detailViewController.measurementsDataModel = measurementsDataModel
                 detailViewController.navigationItem.title = title
                 detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
