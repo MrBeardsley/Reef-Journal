@@ -71,6 +71,7 @@ class GraphViewController: UIViewController {
 
     func preferencesDidChange(notification: NSNotification?) {
         fetchMeasurementData()
+        graphView.drawLabels()
         graphView.setNeedsDisplay()
     }
     

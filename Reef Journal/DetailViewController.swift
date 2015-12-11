@@ -85,7 +85,8 @@ class DetailViewController: UIViewController {
                 
             svc.preferredPrimaryColumnWidthFraction = 0.2
         }
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -278,6 +279,7 @@ class DetailViewController: UIViewController {
         
         // One of the units might have changed, so we need to re-setup the controls to account for the differences when a value is converted.
         setupControls()
+        self.view.setNeedsLayout()
     }
     
     // MARK: - Seque
