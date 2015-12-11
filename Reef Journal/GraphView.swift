@@ -85,14 +85,6 @@ private struct Dimensions {
             self.addSubview(label)
         }
     }
-    
-//    func layoutLabels() {
-//        let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
-//        
-//        for label in axisLabels {
-//            label.frame = CGRect(x: 0.0, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-//        }
-//    }
 
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
@@ -332,6 +324,9 @@ private struct Dimensions {
                 label.frame = startingRect
             }
         }
+        
+        unitsLabel.text = unitLabelForParameterType(param)
+
         
         let today = NSDate()
         

@@ -42,6 +42,7 @@ class GraphViewController: UIViewController {
         
         guard let param = self.currentParameter else { return }
         
+        self.graphView.currentParameter = param
         fetchMeasurementData()
         
         switch segmentControl.selectedSegmentIndex {
@@ -54,15 +55,11 @@ class GraphViewController: UIViewController {
         default:
             self.graphView.scale = .Week
         }
-        
-        self.graphView.unitsLabel.text = unitLabelForParameterType(param)
-        self.graphView.currentParameter = param
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.graphView.setNeedsDisplay()
-        self.graphView.drawLabels()
+        graphView.drawLabels()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -74,11 +71,7 @@ class GraphViewController: UIViewController {
 
     func preferencesDidChange(notification: NSNotification?) {
         fetchMeasurementData()
-        self.graphView.setNeedsDisplay()
-        
-        guard let param = self.currentParameter else { return }
-        
-        self.graphView.unitsLabel.text = unitLabelForParameterType(param)
+        graphView.setNeedsDisplay()
     }
     
     @IBAction func timeScaleChanged(sender: UISegmentedControl) {
@@ -93,8 +86,8 @@ class GraphViewController: UIViewController {
             self.graphView.scale = .Week
         }
         
-        self.graphView.setNeedsDisplay()
-        self.graphView.drawLabels()
+        graphView.setNeedsDisplay()
+        graphView.drawLabels()
     }
     
     private func fetchMeasurementData() {
@@ -190,7 +183,6 @@ extension GraphViewController {
         
         coder.encodeInteger(segmentControl.selectedSegmentIndex, forKey: "TimeScaleIndex")
         coder.encodeObject(currentParameter.rawValue, forKey: "CurrentParameter")
-        
     }
     
     override func decodeRestorableStateWithCoder(coder: NSCoder) {
@@ -219,8 +211,6 @@ extension GraphViewController {
             self.currentParameter = Parameter(rawValue: restoredParamter)
             graphView.currentParameter = self.currentParameter
             fetchMeasurementData()
-//            graphView.setNeedsDisplay()
-            graphView.drawLabels()
         }
     }
 }
