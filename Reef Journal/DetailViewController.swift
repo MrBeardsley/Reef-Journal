@@ -285,8 +285,8 @@ class DetailViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "ShowGraph" {
             if let graphViewController = segue.destinationViewController as? GraphViewController {
-                graphViewController.parameterType = self.currentParameter
-                graphViewController.dataModel = self.measurementsDataModel
+                graphViewController.currentParameter = self.currentParameter
+                graphViewController.measurementDateModel = self.measurementsDataModel
             }
                 
             if let svc = self.splitViewController {

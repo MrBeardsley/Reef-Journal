@@ -22,8 +22,8 @@ class GraphViewController: UIViewController {
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     // MARK: - Properties
-    var parameterType: Parameter!
-    var dataModel: DataPersistence!
+    var currentParameter: Parameter!
+    var measurementDateModel: DataPersistence!
 
     // MARK: - Init/Deinit
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +40,7 @@ class GraphViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let param = self.parameterType else { return }
+        guard let param = self.currentParameter else { return }
         
         fetchMeasurementData()
         
@@ -56,7 +56,7 @@ class GraphViewController: UIViewController {
         }
         
         self.graphView.unitsLabel.text = unitLabelForParameterType(param)
-        self.graphView.parameterType = param
+        self.graphView.currentParameter = param
     }
     
     override func viewDidLayoutSubviews() {
@@ -76,7 +76,7 @@ class GraphViewController: UIViewController {
         fetchMeasurementData()
         self.graphView.setNeedsDisplay()
         
-        guard let param = self.parameterType else { return }
+        guard let param = self.currentParameter else { return }
         
         self.graphView.unitsLabel.text = unitLabelForParameterType(param)
     }
@@ -98,9 +98,9 @@ class GraphViewController: UIViewController {
     }
     
     private func fetchMeasurementData() {
-        guard let model = self.dataModel else { return }
+        guard let model = self.measurementDateModel else { return }
         
-        let allMeasurements = model.measurementsForParameter(parameterType)
+        let allMeasurements = model.measurementsForParameter(currentParameter)
         let today = NSDate().dayFromDate()
         let calendar = NSCalendar.currentCalendar()
         let dateComponets = NSDateComponents()
@@ -188,14 +188,40 @@ extension GraphViewController {
     override func encodeRestorableStateWithCoder(coder: NSCoder) {
         super.encodeRestorableStateWithCoder(coder)
         
-        coder.encodeInteger(self.segmentControl.selectedSegmentIndex, forKey: "TimeScaleIndex")
+        coder.encodeInteger(segmentControl.selectedSegmentIndex, forKey: "TimeScaleIndex")
+        coder.encodeObject(currentParameter.rawValue, forKey: "CurrentParameter")
         
     }
     
     override func decodeRestorableStateWithCoder(coder: NSCoder) {
         super.decodeRestorableStateWithCoder(coder)
         
+        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            self.measurementDateModel = appDelegate.measurementsDataModel
+        }
+        
         self.segmentControl.selectedSegmentIndex = coder.decodeIntegerForKey("TimeScaleIndex")
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            graphView.scale = .Week
+            break
+        case 1:
+            graphView.scale = .Month
+            break
+        case 2:
+            graphView.scale = .Year
+            break
+        default:
+            graphView.scale = .Week
+        }
+        
+        if let restoredParamter = coder.decodeObjectForKey("CurrentParameter") as? String {
+            self.currentParameter = Parameter(rawValue: restoredParamter)
+            graphView.currentParameter = self.currentParameter
+            fetchMeasurementData()
+//            graphView.setNeedsDisplay()
+            graphView.drawLabels()
+        }
     }
 }
 

@@ -29,20 +29,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Inject the data access object into the first view controller
         let parametersNavContoller = svc.viewControllers[0] as! UINavigationController
         for controller in parametersNavContoller.viewControllers {
-            if controller is ParametersTableViewController {
-                if let parametersController = controller as? ParametersTableViewController {
-                    parametersController.measurementsDataModel = measurementsDataModel
-                }
+            if let parametersController = controller as? ParametersTableViewController {
+                parametersController.measurementsDataModel = measurementsDataModel
             }
         }
         
         // Do the same for the second view controller
         let detailNavController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
         for controller in detailNavController.viewControllers {
-            if controller is DetailViewController {
-                if let detailViewController = controller as? DetailViewController {
-                    detailViewController.measurementsDataModel = measurementsDataModel
-                }
+            if let detailViewController = controller as? DetailViewController {
+                detailViewController.measurementsDataModel = measurementsDataModel
             }
         }
 

@@ -30,7 +30,7 @@ private struct Dimensions {
     var yearMeasurements = [Double?]()
     var scale: TimeScale = .Week
     var maxValue: CGFloat = 0
-    var parameterType: Parameter?
+    var currentParameter: Parameter?
     private let calendar = NSCalendar.currentCalendar()
     private let formatter = NSNumberFormatter()
     
@@ -86,13 +86,13 @@ private struct Dimensions {
         }
     }
     
-    func layoutLabels() {
-        let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
-        
-        for label in axisLabels {
-            label.frame = CGRect(x: 0.0, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
-        }
-    }
+//    func layoutLabels() {
+//        let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
+//        
+//        for label in axisLabels {
+//            label.frame = CGRect(x: 0.0, y: originY, width: Dimensions.labelWidth, height: Dimensions.labelHeight)
+//        }
+//    }
 
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
@@ -319,7 +319,7 @@ private struct Dimensions {
     }
     
     func drawLabels() {
-        guard let param = self.parameterType else { return }
+        guard let param = self.currentParameter else { return }
         
         let originY: CGFloat = self.frame.height - Dimensions.labelHeight - Dimensions.labelBottomMargin
         let originX: CGFloat = self.frame.origin.x + self.frame.size.width / 2.0 - Dimensions.labelWidth / 2.0
