@@ -37,9 +37,9 @@ class ParametersTableViewController: UITableViewController {
     // MARK: - View Management
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
-        super.viewDidLoad()
     }
 
     override func viewWillAppear(animated: Bool) {

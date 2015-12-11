@@ -45,10 +45,9 @@ private func Square(value: CGFloat) -> CGFloat {
 //Sourcecode from Apple example clockControl
 //Calculate the direction in degrees from a center point to an arbitrary position.
 private func AngleFromNorth(p1: CGPoint, p2: CGPoint, flipped: Bool) -> Double {
-    if p1 == p2 {
-        return 0.0
-    }
-    var v: CGPoint  = CGPointMake(p2.x - p1.x, p2.y - p1.y)
+    guard p1 != p2 else { return 0.0 }
+    
+    var v = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)
     let vmag: CGFloat = Square(Square(v.x) + Square(v.y))
     var result: Double = 0.0
     v.x /= vmag

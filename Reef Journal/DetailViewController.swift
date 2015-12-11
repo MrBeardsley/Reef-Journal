@@ -45,11 +45,9 @@ class DetailViewController: UIViewController {
     // MARK: - View Management
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         
-        guard let svc = self.splitViewController else {
-            super.viewDidLoad()
-            return
-        }
+        guard let svc = self.splitViewController else { return }
     
         // If the paramterType is nil, it is because we are on an iPad and this view controller was loaded directly without selecting
         // it from the parameter list, or it is because the view is being restored via state restoration
@@ -87,10 +85,7 @@ class DetailViewController: UIViewController {
                 
             svc.preferredPrimaryColumnWidthFraction = 0.2
         }
-        
-        setupControls()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
-        super.viewDidLoad()
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -101,6 +96,8 @@ class DetailViewController: UIViewController {
         // graph view. The split view needs to be relaid out in order to take into acount the
         // parameter list being added back to the view.
         guard let svc = self.splitViewController else { return }
+        
+        setupControls()
         
         svc.view.setNeedsLayout()
         svc.view.layoutIfNeeded()
@@ -117,6 +114,9 @@ class DetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         slider.layoutControl()
+        if let measurementValue = currentMeasurement?.convertedMeasurementValue {
+            slider.value = measurementValue
+        }
     }
     
     override func traitCollectionDidChange( previousTraitCollection: UITraitCollection?) {
@@ -426,11 +426,8 @@ class DetailViewController: UIViewController {
         previousItem.enabled = pastMeasurementsExist(datePicker.date)
         nextItem.enabled = futureMeasurementsExist(datePicker.date)
         
-        if let measurementValue = measurementsDataModel.measurementForDate(datePicker.date, param: param)?.convertedMeasurementValue{
-            slider.value = measurementValue
-        }
-        else {
-            slider.value = slider.minValue
+        if let measurement = measurementsDataModel.measurementForDate(datePicker.date, param: param) {
+            self.currentMeasurement = measurement
         }
     }
     
@@ -515,7 +512,6 @@ extension DetailViewController {
             self.currentParameter = Parameter(rawValue: restoredParamter)
             self.currentDate = restoredDate
             self.navigationItem.title = restoredParamter
-            setupControls()
         }
     }
 }
