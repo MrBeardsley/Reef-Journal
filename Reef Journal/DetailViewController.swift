@@ -46,8 +46,6 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let svc = self.splitViewController else { return }
     
         // If the paramterType is nil, it is because we are on an iPad and this view controller was loaded directly without selecting
         // it from the parameter list, or it is because the view is being restored via state restoration
@@ -66,10 +64,10 @@ class DetailViewController: UIViewController {
             }
         }
     
-        // If the parameterType is still nil, then no parameters were enabled
-        if currentParameter == nil {
+        // If the parameterType is still nil, then no parameters were enabled in settings and we need to handle showing a default
+        // view
+        guard currentParameter != nil  else {
             changeToNewParameter()
-            super.viewDidLoad()
             return
         }
     
@@ -77,12 +75,12 @@ class DetailViewController: UIViewController {
         // the control to show and hide the parameter list. 
         //
         // It also needs to be narrower in order to fit all the controls in landscape mode.
+        guard let svc = self.splitViewController else { return }
+        
         self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
         self.navigationItem.leftItemsSupplementBackButton = true
         
-        if self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
-            self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
-                
+        if self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
             svc.preferredPrimaryColumnWidthFraction = 0.2
         }
         
@@ -97,19 +95,11 @@ class DetailViewController: UIViewController {
         // graph view. The split view needs to be relaid out in order to take into acount the
         // parameter list being added back to the view.
         guard let svc = self.splitViewController else { return }
-        
-        setupControls()
-        
+
         svc.view.setNeedsLayout()
         svc.view.layoutIfNeeded()
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
         
-        guard let type = self.currentParameter else { return }
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(type.rawValue, forKey: "LastParameter")
+        setupControls()
     }
 
     override func viewDidLayoutSubviews() {
@@ -454,18 +444,11 @@ class DetailViewController: UIViewController {
         self.slider.hidden = false
         self.toolbar.hidden = false
         
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let
-            defaultsString = userDefaults.stringForKey("LastParameter"),
-            parameterFromDefaults = Parameter(rawValue: defaultsString)
-            where defaultsParameterList().contains(defaultsString)      {
-                
-                self.currentParameter = parameterFromDefaults
-        }
-        else {
-            self.currentParameter = Parameter(rawValue: firstEnabledParameter)
-        }
+        let today = NSDate().dayFromDate()
+        datePicker.date = today
+        currentDate = today
         
+        self.currentParameter = Parameter(rawValue: firstEnabledParameter)
         self.navigationItem.title = firstEnabledParameter
         setupControls()
     }
@@ -512,8 +495,15 @@ extension DetailViewController {
         if let
             restoredParamter = coder.decodeObjectForKey("CurrentParameter") as? String,
             restoredDate = coder.decodeObjectForKey("CurrentDate") as? NSDate {
-            self.currentParameter = Parameter(rawValue: restoredParamter)
+                
             self.currentDate = restoredDate
+                
+            guard defaultsParameterList().contains(restoredParamter) else {
+                changeToNewParameter()
+                return
+            }
+                
+            self.currentParameter = Parameter(rawValue: restoredParamter)
             self.navigationItem.title = restoredParamter
         }
     }
