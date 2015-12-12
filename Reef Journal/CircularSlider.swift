@@ -13,10 +13,12 @@ import UIKit
 
     // MARK: - Properties
 
+    // Colors
     @IBInspectable var startColor: UIColor = UIColor.blackColor()
     @IBInspectable var endColor: UIColor = UIColor.blackColor()
     @IBInspectable var lineColor: UIColor = UIColor.blackColor()
-    @IBInspectable var textColor: UIColor = UIColor.blackColor()
+
+    // Control Value
     var maxValue: Double = 0
     var minValue: Double = 0
     var valueFormat: String = DecimalFormat.None
@@ -94,10 +96,9 @@ import UIKit
         self.backgroundColor = UIColor.clearColor()
         self.opaque = true
 
-        valueLabel.textColor = textColor
+        valueLabel.textColor = UIColor.grayColor()
         valueLabel.textAlignment = .Center
-        valueLabel.backgroundColor = UIColor.clearColor()
-        valueLabel.numberOfLines = 1
+        
         addSubview(valueLabel)
     }
     
@@ -108,16 +109,19 @@ import UIKit
         handlePosition = pointFromAngle(angle)
 
         // Position the text in the center of the control
-        
         let center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
-        let width = frame.width - DrawingConstants.padding - DrawingConstants.backgroundLineWidth * 2
-        let height = frame.height - DrawingConstants.padding - DrawingConstants.backgroundLineWidth * 2
-        valueLabel.frame = CGRect(x: center.x - width / 2.0, y: center.y / 2.0, width: width, height: height)
-        //valueLabel.sizeToFit()
+        let fontSize = fontSizeForWidth(frame.width)
         
-        print("Frame: \(frame)")
-        print("Bounds: \(bounds)")
-        print("Center: \(center)")
+        valueLabel.frame.origin.x = center.x - valueLabel.frame.width / 2.0
+        valueLabel.frame.origin.y = center.y - valueLabel.frame.height / 2.0
+        valueLabel.font = UIFont.systemFontOfSize(fontSize, weight: UIFontWeightLight)
+        
+        let sizeString = NSString(string: "0.000")
+        let labelSize = sizeString.sizeWithAttributes([NSFontAttributeName:valueLabel.font])
+        
+        valueLabel.frame.size = labelSize
+        
+        print(bounds.width)
         
         self.setNeedsDisplay()
     }
@@ -166,7 +170,7 @@ import UIKit
         CGContextAddArc(ctx, CGFloat(frame.size.width / 2.0), CGFloat(frame.size.height / 2.0), radius, 0, CGFloat(M_PI * 2), 0)
         lineColor.set()
         
-        CGContextSetLineWidth(ctx, DrawingConstants.backgroundLineWidth)
+        CGContextSetLineWidth(ctx, backgroundLindeWidthForWidth(bounds.width))
         CGContextSetLineCap(ctx, CGLineCap.Butt)
         
         CGContextDrawPath(ctx, CGPathDrawingMode.Stroke)
@@ -186,7 +190,7 @@ import UIKit
         CGContextSetShadowWithColor(imageCtx, CGSizeMake(0, 0), CGFloat(15), UIColor.blackColor().CGColor);
        
         //define the path
-        CGContextSetLineWidth(imageCtx, DrawingParameters.LineWidth.rawValue)
+        CGContextSetLineWidth(imageCtx, lineWidthForWidth(bounds.width))
         CGContextDrawPath(imageCtx, CGPathDrawingMode.Stroke)
         
         //save the context content into the image mask
@@ -229,9 +233,11 @@ import UIKit
     private func drawHandle(ctx: CGContextRef) {
         CGContextSaveGState(ctx)
         CGContextSetShadowWithColor(ctx, CGSize(width: 0, height: 0), 3, UIColor.blackColor().CGColor)
+        
+        let rad = handleRadiusForWidth(bounds.width)
 
         UIColor(white:1.0, alpha:DrawingConstants.handleAlpha).set()
-        CGContextFillEllipseInRect(ctx, CGRect(x: handlePosition.x - DrawingConstants.handleRadius / 2.0, y: handlePosition.y - DrawingConstants.handleRadius / 2.0, width: DrawingConstants.handleRadius, height: DrawingConstants.handleRadius))
+        CGContextFillEllipseInRect(ctx, CGRect(x: handlePosition.x - rad / 2.0, y: handlePosition.y - rad / 2.0, width: rad, height: rad))
         CGContextRestoreGState(ctx)
     }
     
@@ -284,11 +290,37 @@ import UIKit
     }
     
     private func isPointInHandle(point: CGPoint) -> Bool {
-        let radiusSquared = Square(DrawingConstants.handleRadius)
+        let rad = handleRadiusForWidth(bounds.width)
+        let radiusSquared = Square(rad)
         let xCom = Square(point.x - handlePosition.x)
         let yCom = Square(point.y - handlePosition.y)
         
         return (xCom + yCom < radiusSquared)
+    }
+    
+    private func fontSizeForWidth(width: CGFloat) -> CGFloat {
+        
+        switch width {
+        case let w where w < 295.0:
+            return DrawingConstants.fontSizeSmall
+        case let w where w < 400.0:
+            return DrawingConstants.fontSizeMedium
+        default:
+            return DrawingConstants.fontSizeLarge
+            
+        }
+    }
+    
+    private func lineWidthForWidth(width: CGFloat) -> CGFloat {
+        return width < 295.0 ? DrawingConstants.lineWidthSmall : DrawingConstants.lineWidth
+    }
+    
+    private func backgroundLindeWidthForWidth(width: CGFloat) -> CGFloat {
+        return width < 295.0 ? DrawingConstants.backgroundLineWidthSmall : DrawingConstants.backgroundLineWidth
+    }
+    
+    private func handleRadiusForWidth(width: CGFloat) -> CGFloat {
+        return width < 295.0 ? DrawingConstants.handleRadiusSmall : DrawingConstants.handleRadius
     }
 }
 
@@ -310,17 +342,16 @@ private func Square(value: CGFloat) -> CGFloat {
 
 private struct DrawingConstants {
     static let handleRadius: CGFloat = 40.0
+    static let handleRadiusSmall: CGFloat = 25.0
     static let handleAlpha: CGFloat = 0.8
     static let padding: CGFloat = 40.0
     static let lineWidth: CGFloat = 40.0
+    static let lineWidthSmall: CGFloat = 25.0
+    static let backgroundLineWidthSmall: CGFloat = 30.0
     static let backgroundLineWidth: CGFloat = 48.0
-    static let FontSize: CGFloat = 48.0
-}
-
-private enum DrawingParameters: CGFloat {
-    case Padding = 30.0
-    case LineWidth = 40.0
-    case FontSize = 48.0
+    static let fontSizeSmall: CGFloat = 36.0
+    static let fontSizeMedium: CGFloat = 60.0
+    static let fontSizeLarge: CGFloat = 84.0
 }
 
 struct DecimalFormat {
