@@ -8,12 +8,6 @@
 
 import UIKit
 
-private struct Dimensions {
-    static let labelWidth: CGFloat = 32.0
-    static let labelHeight: CGFloat = 20.0
-    static let labelBottomMargin: CGFloat = 15.0
-    static let margin: CGFloat = 20.0
-}
 
 @IBDesignable class GraphView: UIView {
     
@@ -60,6 +54,7 @@ private struct Dimensions {
     @IBInspectable var startColor: UIColor = UIColor.redColor()
     @IBInspectable var endColor: UIColor = UIColor.greenColor()
 
+    // MARK: - Init/Deinit
     required init?(coder aDecoder: NSCoder) {
         self.axisLabels = [label1, label2, label3, label4, label5, label6, label7]
         super.init(coder: aDecoder)
@@ -86,6 +81,7 @@ private struct Dimensions {
         }
     }
 
+    // MARK: - Drawing
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         
@@ -480,6 +476,8 @@ private struct Dimensions {
         }
     }
     
+    // MARK: - Private helper functions
+    
     private func bottomOfGraphRange() -> Double {
         let flattened: [Double] = dataPoints.flatMap { $0 }
         
@@ -495,4 +493,12 @@ private struct Dimensions {
             return floor(floored - (floored / 5.0))
         }
     }
+}
+
+// MARK: - Constants
+private struct Dimensions {
+    static let labelWidth: CGFloat = 32.0
+    static let labelHeight: CGFloat = 20.0
+    static let labelBottomMargin: CGFloat = 15.0
+    static let margin: CGFloat = 20.0
 }

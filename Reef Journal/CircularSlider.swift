@@ -9,8 +9,6 @@
 import UIKit
 
 
-// MARK: - CircularSlider Class
-
 class CircularSlider: UIControl {
 
     // MARK: - Properties

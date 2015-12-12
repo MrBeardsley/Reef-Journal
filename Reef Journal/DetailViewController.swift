@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class DetailViewController: UIViewController {
 
     // MARK: - Interface Outlets
