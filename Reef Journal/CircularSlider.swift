@@ -15,7 +15,6 @@ class CircularSlider: UIControl {
 
     var startColor: UIColor = ColorPalette.lightBlue
     var endColor: UIColor = ColorPalette.darkBlue
-
     var maxValue: Double = 0
     var minValue: Double = 0
     var valueFormat: String = DecimalFormat.None
@@ -109,11 +108,8 @@ class CircularSlider: UIControl {
     }
 
     func layoutControl() {
-        //Define the circle radius taking into account the safe area
-        let center = CGPoint(x: bounds.size.width / 2.0 - DrawingConstants.LineWidth / 2.0, y: bounds.size.height / 2.0 - DrawingConstants.LineWidth / 2.0)
-        
-        radius = self.frame.size.width / 2 - DrawingParameters.Padding.rawValue
-        handlePosition = CGPoint(x: frame.size.width - DrawingConstants.Padding - DrawingConstants.LineWidth / 2.0, y: center.y)
+        radius = frame.size.width / 2 - DrawingParameters.Padding.rawValue
+        handlePosition = pointFromAngle(angle)
 
         // Position the text in the center of the control
         textField?.frame = CGRectMake(frame.width / 2 - fontSize.width / 2, frame.height / 2 - fontSize.height / 2, fontSize.width, fontSize.height)
@@ -136,7 +132,7 @@ class CircularSlider: UIControl {
         let lastPoint = touch.locationInView(self)
         if shouldMoveHandle {
             let center = CGPoint(x: bounds.size.width / 2.0 - DrawingConstants.LineWidth / 2.0, y: bounds.size.height / 2.0 - DrawingConstants.LineWidth / 2.0)
-            angle = 360.0 - AngleFromNorth(center, p2: lastPoint )
+            angle = 360.0 - angleFromPoints(center, p2: lastPoint )
             handlePosition = pointFromAngle(angle)
             _value = valueFromAngle(angle)
             self.setNeedsDisplay()
@@ -223,7 +219,6 @@ class CircularSlider: UIControl {
     }
     
     private func drawHandle(ctx: CGContextRef) {
-        
         CGContextSaveGState(ctx)
         CGContextSetShadowWithColor(ctx, CGSize(width: 0, height: 0), 3, UIColor.blackColor().CGColor)
 
@@ -232,8 +227,22 @@ class CircularSlider: UIControl {
         CGContextRestoreGState(ctx)
     }
     
-    // MARK: - Private functions
+    // MARK: - Private Helper Functions
 
+    private func angleFromPoints(p1: CGPoint, p2: CGPoint) -> Double {
+        guard p1 != p2 else { return 0.0 }
+        
+        var v = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)
+        let vmag: CGFloat = Square(Square(v.x) + Square(v.y))
+        var result: Double = 0.0
+        v.x /= vmag
+        v.y /= vmag
+        let radians = Double(atan2(v.y, v.x))
+        result = RadiansToDegrees(radians)
+        
+        return (result >= 0  ? result : result + 360.0)
+    }
+    
     private func pointFromAngle(angle: Double) -> CGPoint {
     
         let center = CGPoint(x: bounds.size.width / 2.0 - DrawingConstants.LineWidth / 2.0, y: bounds.size.height / 2.0 - DrawingConstants.LineWidth / 2.0)
@@ -243,14 +252,6 @@ class CircularSlider: UIControl {
         let x = Double(radius) * cos(DegreesToRadians(Double(-angle))) + Double(center.x)
 
         return CGPoint(x: x, y: y)
-    }
-    
-    private func isPointInHandle(point: CGPoint) -> Bool {
-        let radiusSquared = Square(DrawingConstants.handleRadius)
-        let xCom = Square(point.x - handlePosition.x)
-        let yCom = Square(point.y - handlePosition.y)
-                
-        return (xCom + yCom < radiusSquared)
     }
 
     private func valueFromAngle(angle: Double) -> Double {
@@ -278,6 +279,14 @@ class CircularSlider: UIControl {
         default:
             return 0.0
         }
+    }
+    
+    private func isPointInHandle(point: CGPoint) -> Bool {
+        let radiusSquared = Square(DrawingConstants.handleRadius)
+        let xCom = Square(point.x - handlePosition.x)
+        let yCom = Square(point.y - handlePosition.y)
+        
+        return (xCom + yCom < radiusSquared)
     }
 }
 
@@ -332,15 +341,4 @@ private func Square(value: CGFloat) -> CGFloat {
     return value * value
 }
 
-private func AngleFromNorth(p1: CGPoint, p2: CGPoint) -> Double {
-    guard p1 != p2 else { return 0.0 }
-    
-    var v = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)
-    let vmag: CGFloat = Square(Square(v.x) + Square(v.y))
-    var result: Double = 0.0
-    v.x /= vmag
-    v.y /= vmag
-    let radians = Double(atan2(v.y, v.x))
-    result = RadiansToDegrees(radians)
-    return (result >= 0  ? result : result + 360.0);
-}
+
