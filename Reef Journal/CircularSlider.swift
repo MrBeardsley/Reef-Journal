@@ -9,12 +9,14 @@
 import UIKit
 
 
-class CircularSlider: UIControl {
+@IBDesignable class CircularSlider: UIControl {
 
     // MARK: - Properties
 
-    var startColor: UIColor = ColorPalette.lightBlue
-    var endColor: UIColor = ColorPalette.darkBlue
+    @IBInspectable var startColor: UIColor = UIColor.blackColor()
+    @IBInspectable var endColor: UIColor = UIColor.blackColor()
+    @IBInspectable var lineColor: UIColor = UIColor.blackColor()
+    @IBInspectable var textColor: UIColor = UIColor.blackColor()
     var maxValue: Double = 0
     var minValue: Double = 0
     var valueFormat: String = DecimalFormat.None
@@ -56,15 +58,16 @@ class CircularSlider: UIControl {
     
     private var _value: Double = 0 {
         didSet {
-            self.textField?.text = String(format: self.valueFormat, _value)
+            valueLabel.text = String(format: self.valueFormat, _value)
         }
     }
 
     private var handlePosition = CGPointZero
     private var shouldMoveHandle = false
     private var textField: UITextField?
+    private var valueLabel = UILabel()
     private var fontSize: CGSize = CGSize(width: 0, height: 0)
-    private var radius: CGFloat = 0
+    private var radius: CGFloat = 100
     private var angle: Double = 0
 
     // MARK: - Init/Deinit
@@ -91,28 +94,31 @@ class CircularSlider: UIControl {
         self.backgroundColor = UIColor.clearColor()
         self.opaque = true
 
-        //Using a TextField area we can easily modify the control to get user input from this field
-        //Calculate font size needed to display 3 numbers
-        let str = "0.000" as NSString
-        let font = UIFont.systemFontOfSize(DrawingParameters.FontSize.rawValue)
-        self.fontSize = str.sizeWithAttributes([NSFontAttributeName:font])
-
-        textField = UITextField(frame: CGRectZero)
-        textField?.delegate = self
-        textField?.backgroundColor = UIColor.clearColor()
-        textField?.textColor = ColorPalette.textGrey
-        textField?.textAlignment = .Center
-        textField?.font = font
-
-        addSubview(textField!)
+        valueLabel.textColor = textColor
+        valueLabel.textAlignment = .Center
+        valueLabel.backgroundColor = UIColor.clearColor()
+        valueLabel.numberOfLines = 1
+        addSubview(valueLabel)
     }
+    
+    // MARK: - Control Layout
 
     func layoutControl() {
-        radius = frame.size.width / 2 - DrawingParameters.Padding.rawValue
+        radius = frame.size.width / 2 - DrawingConstants.padding
         handlePosition = pointFromAngle(angle)
 
         // Position the text in the center of the control
-        textField?.frame = CGRectMake(frame.width / 2 - fontSize.width / 2, frame.height / 2 - fontSize.height / 2, fontSize.width, fontSize.height)
+        
+        let center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
+        let width = frame.width - DrawingConstants.padding - DrawingConstants.backgroundLineWidth * 2
+        let height = frame.height - DrawingConstants.padding - DrawingConstants.backgroundLineWidth * 2
+        valueLabel.frame = CGRect(x: center.x - width / 2.0, y: center.y / 2.0, width: width, height: height)
+        //valueLabel.sizeToFit()
+        
+        print("Frame: \(frame)")
+        print("Bounds: \(bounds)")
+        print("Center: \(center)")
+        
         self.setNeedsDisplay()
     }
     
@@ -131,7 +137,7 @@ class CircularSlider: UIControl {
         
         let lastPoint = touch.locationInView(self)
         if shouldMoveHandle {
-            let center = CGPoint(x: bounds.size.width / 2.0 - DrawingConstants.LineWidth / 2.0, y: bounds.size.height / 2.0 - DrawingConstants.LineWidth / 2.0)
+            let center = CGPoint(x: bounds.size.width / 2.0, y: bounds.size.height / 2.0)
             angle = 360.0 - angleFromPoints(center, p2: lastPoint )
             handlePosition = pointFromAngle(angle)
             _value = valueFromAngle(angle)
@@ -155,15 +161,17 @@ class CircularSlider: UIControl {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
         /** Draw the Background **/
+        CGContextSaveGState(ctx)
         
-        CGContextAddArc(ctx, CGFloat(self.frame.size.width / 2.0), CGFloat(self.frame.size.height / 2.0), radius, 0, CGFloat(M_PI * 2), 0)
-        UIColor(red: 0.25, green: 0.25, blue: 0.25, alpha: 1.0).set()
+        CGContextAddArc(ctx, CGFloat(frame.size.width / 2.0), CGFloat(frame.size.height / 2.0), radius, 0, CGFloat(M_PI * 2), 0)
+        lineColor.set()
         
-        CGContextSetLineWidth(ctx, 48)
+        CGContextSetLineWidth(ctx, DrawingConstants.backgroundLineWidth)
         CGContextSetLineCap(ctx, CGLineCap.Butt)
         
         CGContextDrawPath(ctx, CGPathDrawingMode.Stroke)
         
+        CGContextRestoreGState(ctx)
         
         /** Draw the circle **/
         
@@ -223,7 +231,7 @@ class CircularSlider: UIControl {
         CGContextSetShadowWithColor(ctx, CGSize(width: 0, height: 0), 3, UIColor.blackColor().CGColor)
 
         UIColor(white:1.0, alpha:DrawingConstants.handleAlpha).set()
-        CGContextFillEllipseInRect(ctx, CGRect(x: handlePosition.x, y: handlePosition.y, width: DrawingConstants.handleRadius, height: DrawingConstants.handleRadius))
+        CGContextFillEllipseInRect(ctx, CGRect(x: handlePosition.x - DrawingConstants.handleRadius / 2.0, y: handlePosition.y - DrawingConstants.handleRadius / 2.0, width: DrawingConstants.handleRadius, height: DrawingConstants.handleRadius))
         CGContextRestoreGState(ctx)
     }
     
@@ -244,25 +252,19 @@ class CircularSlider: UIControl {
     }
     
     private func pointFromAngle(angle: Double) -> CGPoint {
-    
-        let center = CGPoint(x: bounds.size.width / 2.0 - DrawingConstants.LineWidth / 2.0, y: bounds.size.height / 2.0 - DrawingConstants.LineWidth / 2.0)
-
+        let center = CGPoint(x: bounds.size.width / 2.0, y: bounds.size.height / 2.0)
+        
         //The point position on the circumference
-        let y = Double(radius) * sin(DegreesToRadians(Double(-angle))) + Double(center.y)
-        let x = Double(radius) * cos(DegreesToRadians(Double(-angle))) + Double(center.x)
+        let x = Double(radius) * cos(DegreesToRadians(-angle)) + Double(center.x)
+        let y = Double(radius) * sin(DegreesToRadians(-angle)) + Double(center.y)
 
         return CGPoint(x: x, y: y)
     }
 
     private func valueFromAngle(angle: Double) -> Double {
+        let value = (angle / 360.0) * (self.maxValue - self.minValue)
 
-        var adjustedRange = Double(angle) * (self.maxValue - self.minValue) / 360
-
-        if self.minValue > 0 {
-            adjustedRange += self.minValue
-        }
-
-        return adjustedRange
+        return minValue > 0 ? value + minValue : value
     }
     
     private func angleFromValue(value: Double) -> Double {
@@ -290,27 +292,28 @@ class CircularSlider: UIControl {
     }
 }
 
-// MARK: - Conformance to UITextFieldDelegate
+// MARK: - Math Helpers
 
-extension CircularSlider: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        return false
-    }
+private func DegreesToRadians(value: Double) -> Double {
+    return value * M_PI / 180.0
+}
+
+private func RadiansToDegrees(value: Double) -> Double {
+    return value * 180.0 / M_PI
+}
+
+private func Square(value: CGFloat) -> CGFloat {
+    return value * value
 }
 
 // MARK: - Constants
 
-private struct ColorPalette {
-    static let lightBlue = UIColor.cyanColor()
-    static let darkBlue = UIColor(red: 0, green: 0, blue: 0.5, alpha: 1)
-    static let textGrey = UIColor(white: 0.5, alpha: 1.0)
-}
-
 private struct DrawingConstants {
     static let handleRadius: CGFloat = 40.0
     static let handleAlpha: CGFloat = 0.8
-    static let Padding: CGFloat = 30.0
-    static let LineWidth: CGFloat = 40.0
+    static let padding: CGFloat = 40.0
+    static let lineWidth: CGFloat = 40.0
+    static let backgroundLineWidth: CGFloat = 48.0
     static let FontSize: CGFloat = 48.0
 }
 
@@ -326,19 +329,3 @@ struct DecimalFormat {
     static let Two = "%.2f"
     static let Three = "%.3f"
 }
-
-// MARK: - Math Helpers
-
-private func DegreesToRadians(value: Double) -> Double {
-    return value * M_PI / 180.0
-}
-
-private func RadiansToDegrees(value: Double) -> Double {
-    return value * 180.0 / M_PI
-}
-
-private func Square(value: CGFloat) -> CGFloat {
-    return value * value
-}
-
-
