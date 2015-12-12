@@ -115,9 +115,6 @@ class DetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         slider.layoutControl()
-        if let measurementValue = currentMeasurement?.convertedMeasurementValue {
-            slider.value = measurementValue
-        }
     }
     
     override func traitCollectionDidChange( previousTraitCollection: UITraitCollection?) {
@@ -430,6 +427,10 @@ class DetailViewController: UIViewController {
         
         if let measurement = measurementsDataModel.measurementForDate(datePicker.date, param: param) {
             self.currentMeasurement = measurement
+            slider.value = measurement.convertedMeasurementValue
+        }
+        else {
+            slider.value = slider.minValue
         }
     }
     

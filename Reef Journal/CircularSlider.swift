@@ -120,9 +120,7 @@ import UIKit
         let labelSize = sizeString.sizeWithAttributes([NSFontAttributeName:valueLabel.font])
         
         valueLabel.frame.size = labelSize
-        
-        print(bounds.width)
-        
+            
         self.setNeedsDisplay()
     }
     
