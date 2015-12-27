@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Properties
 
     var window: UIWindow?
-    var measurementsDataModel = DataPersistence()
+    var dataModel = MeasurementsData()
 
     // MARK: - Application Lifecycle
 
@@ -27,19 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         svc.delegate = self
 
-        // Inject the data access object into the first view controller
+        // Inject the measurements data model into the first view controller
         let parametersNavContoller = svc.viewControllers[0] as! UINavigationController
         for controller in parametersNavContoller.viewControllers {
             if let parametersController = controller as? ParametersTableViewController {
-                parametersController.measurementsDataModel = measurementsDataModel
+                parametersController.measurementsDataModel = dataModel
             }
         }
         
-        // Do the same for the second view controller
+        // Inject the measurements data model into the second view controller
         let detailNavController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
         for controller in detailNavController.viewControllers {
             if let detailViewController = controller as? DetailViewController {
-                detailViewController.measurementsDataModel = measurementsDataModel
+                detailViewController.measurementsDataModel = dataModel
             }
         }
 
@@ -64,6 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NSUserDefaults.standardUserDefaults().registerDefaults(registerableDictionary)
             }
         }
+        
+        // Create the dynamic Quick Actions
+        
+        
 
         return true
     }
@@ -90,11 +94,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
         NSUserDefaults.standardUserDefaults().synchronize()
-        self.measurementsDataModel.saveContext()
+        dataModel.saveContext()
     }
-    
-    // MARK: - State restoration
-    
+}
+
+// MARK: - State restoration
+
+extension AppDelegate {
     func application(application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         return true
     }
@@ -103,6 +109,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
+
+// MARK: - 3D Touch Quick Actions
+
+extension AppDelegate {
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+        
+    }
+}
+
+
+// MARK: - Split View Controller Delegate Conformance
 
 extension AppDelegate: UISplitViewControllerDelegate {
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {

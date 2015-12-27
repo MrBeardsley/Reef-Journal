@@ -13,7 +13,7 @@ class ParametersTableViewController: UITableViewController {
 
     // MARK: - Properties
 
-    var measurementsDataModel: DataPersistence!
+    var measurementsDataModel: MeasurementsData!
 
     // MARK: - Private Properties
 

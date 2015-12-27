@@ -1,5 +1,5 @@
 //
-//  DataPersistence.swift
+//  MeasurementsData.swift
 //  Reef Journal
 //
 //  Created by Christopher Harding on 8/13/15.
@@ -20,7 +20,7 @@ extension NSDate {
     }
 }
 
-class DataPersistence {
+class MeasurementsData {
 
     // MARK: - Data persistence operations
 

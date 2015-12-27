@@ -23,7 +23,7 @@ class GraphViewController: UIViewController {
     
     // MARK: - Properties
     var currentParameter: Parameter!
-    var measurementDateModel: DataPersistence!
+    var measurementDateModel: MeasurementsData!
 
     // MARK: - Init/Deinit
     required init?(coder aDecoder: NSCoder) {
@@ -190,7 +190,7 @@ extension GraphViewController {
         super.decodeRestorableStateWithCoder(coder)
         
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-            self.measurementDateModel = appDelegate.measurementsDataModel
+            self.measurementDateModel = appDelegate.dataModel
         }
         
         self.segmentControl.selectedSegmentIndex = coder.decodeIntegerForKey("TimeScaleIndex")
