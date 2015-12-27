@@ -72,7 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mostUsed = dataModel.mostUsedParameters()
         
         for item in mostUsed {
-            quickActions.append(UIApplicationShortcutItem(type: "com.ReefJournal.Add\(item)Measurement", localizedTitle: item))
+            let addIcon = UIApplicationShortcutIcon(type: .Add)
+            quickActions.append(UIApplicationShortcutItem(type: "Add\(item)", localizedTitle: "\(item) Measurement", localizedSubtitle: nil, icon: addIcon, userInfo: nil))
         }
         
         UIApplication.sharedApplication().shortcutItems = quickActions
@@ -122,7 +123,7 @@ extension AppDelegate {
 
 extension AppDelegate {
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-        
+        print(shortcutItem)
     }
 }
 
