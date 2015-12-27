@@ -25,6 +25,7 @@ class DetailViewController: UIViewController {
 
     let dateFormatter = NSDateFormatter()
     var measurementsDataModel: MeasurementsData!
+    var dataPersistence: DataPersistence!
     var currentParameter: Parameter!
     var currentDate: NSDate? = nil
     var measurements = [Measurement]()

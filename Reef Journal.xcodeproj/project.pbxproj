@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831386B0196F4A2900F0D0DD /* GraphViewController.swift */; };
 		833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D4AE41A3E17AA00FF6B96 /* Salinity.swift */; };
+		83585B6D1C308206002DABC7 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83585B6C1C308206002DABC7 /* AppData.swift */; };
+		83585B6F1C30824C002DABC7 /* DataPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83585B6E1C30824C002DABC7 /* DataPersistence.swift */; };
 		835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EFCEA1961EFB900214EE4 /* DetailViewController.swift */; };
 		837C8E5B1B7D8F000008533F /* MeasurementsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837C8E5A1B7D8F000008533F /* MeasurementsData.swift */; };
 		838BB1931B521B7F00D317B9 /* Reef_Journal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 838BB1911B521B7F00D317B9 /* Reef_Journal.xcdatamodeld */; };
@@ -52,6 +54,8 @@
 /* Begin PBXFileReference section */
 		831386B0196F4A2900F0D0DD /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		833D4AE41A3E17AA00FF6B96 /* Salinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Salinity.swift; sourceTree = "<group>"; };
+		83585B6C1C308206002DABC7 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		83585B6E1C30824C002DABC7 /* DataPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPersistence.swift; sourceTree = "<group>"; };
 		835EFCEA1961EFB900214EE4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		837C8E5A1B7D8F000008533F /* MeasurementsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsData.swift; sourceTree = "<group>"; };
 		838BB1921B521B7F00D317B9 /* Reef_Journal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reef_Journal.xcdatamodel; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 				837C8E5A1B7D8F000008533F /* MeasurementsData.swift */,
 				83C010E319DCE7BB0073BE5F /* Functions.swift */,
 				8395474E19C890EA00529B8B /* Types.swift */,
+				83585B6E1C30824C002DABC7 /* DataPersistence.swift */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
+				83585B6C1C308206002DABC7 /* AppData.swift */,
 			);
 			name = "Main App";
 			sourceTree = "<group>";
@@ -387,7 +393,9 @@
 			files = (
 				83B9B65D19E0C2090040BBF3 /* Alkalinity.swift in Sources */,
 				83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */,
+				83585B6F1C30824C002DABC7 /* DataPersistence.swift in Sources */,
 				83D3DE271B85743A001B41DC /* Measurement.swift in Sources */,
+				83585B6D1C308206002DABC7 /* AppData.swift in Sources */,
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
 				83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */,
 				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,

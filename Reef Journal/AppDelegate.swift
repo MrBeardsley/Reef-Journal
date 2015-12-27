@@ -16,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Properties
 
     var window: UIWindow?
-    var dataModel = MeasurementsData()
+    var dataPersistence = DataPersistence()
+    var dataModel = AppData()
 
     // MARK: - Application Lifecycle
 
@@ -25,21 +26,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let window = self.window else { return false }
         guard let svc = window.rootViewController as? UISplitViewController else { return false }
 
+        dataModel.dataPersistence = dataPersistence
         svc.delegate = self
 
-        // Inject the measurements data model into the first view controller
+        // Inject the core data stack into the first view controller
         let parametersNavContoller = svc.viewControllers[0] as! UINavigationController
         for controller in parametersNavContoller.viewControllers {
             if let parametersController = controller as? ParametersTableViewController {
-                parametersController.measurementsDataModel = dataModel
+                parametersController.dataPersistence = dataPersistence
             }
         }
         
-        // Inject the measurements data model into the second view controller
+        // Inject the core data stack into the second view controller
         let detailNavController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
         for controller in detailNavController.viewControllers {
             if let detailViewController = controller as? DetailViewController {
-                detailViewController.measurementsDataModel = dataModel
+                detailViewController.dataPersistence = dataPersistence
             }
         }
 
@@ -66,8 +68,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Create the dynamic Quick Actions
+        var quickActions = [UIApplicationShortcutItem]()
+        let mostUsed = dataModel.mostUsedParameters()
         
+        for item in mostUsed {
+            quickActions.append(UIApplicationShortcutItem(type: "com.ReefJournal.Add\(item)Measurement", localizedTitle: item))
+        }
         
+        UIApplication.sharedApplication().shortcutItems = quickActions
 
         return true
     }
@@ -94,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
         NSUserDefaults.standardUserDefaults().synchronize()
-        dataModel.saveContext()
+        dataPersistence.saveContext()
     }
 }
 

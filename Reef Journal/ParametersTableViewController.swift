@@ -14,6 +14,7 @@ class ParametersTableViewController: UITableViewController {
     // MARK: - Properties
 
     var measurementsDataModel: MeasurementsData!
+    var dataPersistence: DataPersistence!
 
     // MARK: - Private Properties
 
@@ -38,6 +39,8 @@ class ParametersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.measurementsDataModel = MeasurementsData()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
     }
