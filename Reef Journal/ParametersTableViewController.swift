@@ -13,8 +13,7 @@ class ParametersTableViewController: UITableViewController {
 
     // MARK: - Properties
 
-    var measurementsDataModel: MeasurementsData!
-    var dataPersistence: DataPersistence!
+    var measurementsDataModel = MeasurementsData()
 
     // MARK: - Private Properties
 
@@ -92,7 +91,6 @@ class ParametersTableViewController: UITableViewController {
                let svc = self.splitViewController   {
                 detailViewController.currentParameter = Parameter(rawValue: title)
                 detailViewController.currentDate = NSDate().dayFromDate()
-                detailViewController.measurementsDataModel = measurementsDataModel
                 detailViewController.navigationItem.title = title
                 detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
                 detailViewController.navigationItem.leftItemsSupplementBackButton = true

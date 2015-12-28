@@ -23,7 +23,7 @@ class GraphViewController: UIViewController {
     
     // MARK: - Properties
     var currentParameter: Parameter!
-    var measurementDateModel: MeasurementsData!
+    var measurementDateModel = MeasurementsData()
 
     // MARK: - Init/Deinit
     required init?(coder aDecoder: NSCoder) {
@@ -92,9 +92,8 @@ class GraphViewController: UIViewController {
     }
     
     private func fetchMeasurementData() {
-        guard let model = self.measurementDateModel else { return }
         
-        let allMeasurements = model.measurementsForParameter(currentParameter)
+        let allMeasurements = measurementDateModel.measurementsForParameter(currentParameter)
         let today = NSDate().dayFromDate()
         let calendar = NSCalendar.currentCalendar()
         let dateComponets = NSDateComponents()
@@ -188,10 +187,6 @@ extension GraphViewController {
     
     override func decodeRestorableStateWithCoder(coder: NSCoder) {
         super.decodeRestorableStateWithCoder(coder)
-        
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-            self.measurementDateModel = appDelegate.dataModel
-        }
         
         self.segmentControl.selectedSegmentIndex = coder.decodeIntegerForKey("TimeScaleIndex")
         switch segmentControl.selectedSegmentIndex {

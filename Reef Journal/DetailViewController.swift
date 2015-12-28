@@ -24,8 +24,7 @@ class DetailViewController: UIViewController {
     // MARK: - Properties
 
     let dateFormatter = NSDateFormatter()
-    var measurementsDataModel: MeasurementsData!
-    var dataPersistence: DataPersistence!
+    var measurementsDataModel = MeasurementsData()
     var currentParameter: Parameter!
     var currentDate: NSDate? = nil
     var measurements = [Measurement]()
@@ -276,7 +275,6 @@ class DetailViewController: UIViewController {
         if segue.identifier == "ShowGraph" {
             if let graphViewController = segue.destinationViewController as? GraphViewController {
                 graphViewController.currentParameter = self.currentParameter
-                graphViewController.measurementDateModel = self.measurementsDataModel
             }
                 
             if let svc = self.splitViewController {

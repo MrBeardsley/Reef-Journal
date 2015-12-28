@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-struct AppData {
+class AppData {
     
     var dataPersistence: DataPersistence!
     

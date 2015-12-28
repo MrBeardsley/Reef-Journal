@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 
 class DataPersistence {
+    
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: NSURL = {

@@ -26,24 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let window = self.window else { return false }
         guard let svc = window.rootViewController as? UISplitViewController else { return false }
 
-        dataModel.dataPersistence = dataPersistence
+        dataModel.dataPersistence = self.dataPersistence
         svc.delegate = self
-
-        // Inject the core data stack into the first view controller
-        let parametersNavContoller = svc.viewControllers[0] as! UINavigationController
-        for controller in parametersNavContoller.viewControllers {
-            if let parametersController = controller as? ParametersTableViewController {
-                parametersController.dataPersistence = dataPersistence
-            }
-        }
-        
-        // Inject the core data stack into the second view controller
-        let detailNavController = svc.viewControllers[svc.viewControllers.count-1] as! UINavigationController
-        for controller in detailNavController.viewControllers {
-            if let detailViewController = controller as? DetailViewController {
-                detailViewController.dataPersistence = dataPersistence
-            }
-        }
 
         // Register settings from a plist
         let mainBundlePath = NSBundle.mainBundle().bundlePath as NSString
@@ -71,9 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var quickActions = [UIApplicationShortcutItem]()
         let mostUsed = dataModel.mostUsedParameters()
         
-        for item in mostUsed {
+        for param in mostUsed {
             let addIcon = UIApplicationShortcutIcon(type: .Add)
-            quickActions.append(UIApplicationShortcutItem(type: "Add\(item)", localizedTitle: "\(item) Measurement", localizedSubtitle: nil, icon: addIcon, userInfo: nil))
+            quickActions.append(UIApplicationShortcutItem(type: "\(param)", localizedTitle: "\(param) Measurement", localizedSubtitle: nil, icon: addIcon, userInfo: nil))
         }
         
         UIApplication.sharedApplication().shortcutItems = quickActions
@@ -101,9 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        
-        NSUserDefaults.standardUserDefaults().synchronize()
         dataPersistence.saveContext()
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
 }
 
@@ -123,7 +106,20 @@ extension AppDelegate {
 
 extension AppDelegate {
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-        print(shortcutItem)
+        
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        if let detailView =  sb.instantiateViewControllerWithIdentifier("DetailView") as? DetailViewController {
+            
+            detailView.measurementsDataModel.dataPersistence = dataPersistence
+            detailView.currentParameter = Parameter(rawValue: shortcutItem.type)
+            detailView.currentDate = NSDate()
+            
+            let root = UIApplication.sharedApplication().keyWindow?.rootViewController
+            
+            root?.presentViewController(detailView, animated: false, completion: { () -> Void in
+                completionHandler(true)
+            })
+        }
     }
 }
 
