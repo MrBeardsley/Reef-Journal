@@ -9,9 +9,6 @@
 import UIKit
 import CoreData
 
-let measurementEntityName = "Measurement"
-
-
 extension NSDate {    
     func dayFromDate() -> NSDate {
         let calendar = NSCalendar.currentCalendar()
@@ -103,7 +100,7 @@ class MeasurementsData {
             aMesurement.day = date.dayFromDate().timeIntervalSinceReferenceDate
         }
         else {
-            if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(measurementEntityName, inManagedObjectContext: context) as? Measurement {
+            if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(Measurement.entityName, inManagedObjectContext: context) as? Measurement {
                 newEntity.value = valueToSave
                 newEntity.parameter = param.rawValue
                 newEntity.day = date.dayFromDate().timeIntervalSinceReferenceDate
@@ -127,10 +124,10 @@ class MeasurementsData {
         var recentMeasurements = [String : Measurement]()
 
         for item in parameterList {
-            let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
+            let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
             let predicate = NSPredicate(format: "parameter = %@", argumentArray: [item])
             fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+            fetchRequest.sortDescriptors = Measurement.defaultSortDescriptors
             fetchRequest.fetchLimit = 1
 
             do {
@@ -154,7 +151,7 @@ class MeasurementsData {
         guard let context = self.managedObjectContext else { return nil }
         
         let day = date.dayFromDate()
-        let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
+        let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
         let predicate = NSPredicate(format: "parameter == %@ AND day == %@", argumentArray: [param.rawValue, day])
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
@@ -178,10 +175,10 @@ class MeasurementsData {
     func measurementsForParameter(param: Parameter) -> [Measurement] {
         guard let context = self.managedObjectContext else { return [] }
         
-        let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
+        let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
         let predicate = NSPredicate(format: "parameter == %@", argumentArray: [param.rawValue])
         fetchRequest.predicate = predicate
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+        fetchRequest.sortDescriptors = Measurement.defaultSortDescriptors
 
         do {
             let results = try context.executeFetchRequest(fetchRequest)
@@ -200,10 +197,10 @@ class MeasurementsData {
     func lastMeasurementValueForParameter(param: Parameter) -> Measurement? {
         guard let context = self.managedObjectContext else { return nil }
         
-        let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
+        let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
         let predicate = NSPredicate(format: "parameter = %@", argumentArray: [param.rawValue])
         fetchRequest.predicate = predicate
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "day", ascending: false)]
+        fetchRequest.sortDescriptors = Measurement.defaultSortDescriptors
         fetchRequest.fetchLimit = 1
 
         do {

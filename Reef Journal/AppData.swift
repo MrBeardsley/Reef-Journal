@@ -33,7 +33,7 @@ class AppData {
         // Count the number of saved
         
         for param in enabledParameters {
-            let fetchRequest = NSFetchRequest(entityName: measurementEntityName)
+            let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
             let pred = NSPredicate(format: "parameter == %@", argumentArray: [param.rawValue])
             fetchRequest.predicate = pred
             fetchRequest.includesPropertyValues = false
