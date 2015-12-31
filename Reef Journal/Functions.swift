@@ -24,7 +24,7 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
     case .Phosphate:
         return 2
     case .Alkalinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.AlkalinityUnits.rawValue) as? Int,
            let alkUnit = AlkalinityUnit(rawValue: intValue) {
             switch alkUnit {
             case .DKH, .MeqL: return 1
@@ -35,7 +35,7 @@ func decimalPlacesForParameter(type: Parameter) -> Int {
             return 0
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.SalinityUnits.rawValue) as? Int,
            let salUnit = SalinityUnit(rawValue: intValue) {
             switch salUnit {
             case .SG: return 3
@@ -71,7 +71,7 @@ func unitLabelForParameterType(type: Parameter) -> String {
     case .Calcium, .Magnesium, .Strontium, .Potasium, .Phosphate, .Ammonia, .Nitrite, .Nitrate:
         return "ppm"
     case .Alkalinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.AlkalinityUnits.rawValue) as? Int,
            let alkUnit = AlkalinityUnit(rawValue: intValue) {
             switch alkUnit {
             case .DKH:
@@ -86,7 +86,7 @@ func unitLabelForParameterType(type: Parameter) -> String {
             return ""
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.SalinityUnits.rawValue) as? Int,
             let salUnit = SalinityUnit(rawValue: intValue) {
                 switch salUnit {
                 case .SG: return SalinityLabel.SG.rawValue
@@ -99,7 +99,7 @@ func unitLabelForParameterType(type: Parameter) -> String {
     case .pH:
         return ""
     case .Temperature:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.TemperatureUnits.rawValue) as? Int,
            let tempUnit = TemperatureUnit(rawValue: intValue) {
             switch tempUnit {
             case .Fahrenheit:
@@ -132,7 +132,7 @@ func measurementRangeForParameterType(type: Parameter) -> (Double, Double) {
     case .Nitrite: return (min: 0, max: 20)
     case .Nitrate: return (min: 0, max: 200)
     case .Alkalinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.AlkalinityUnits.rawValue) as? Int,
             let alkUnit = AlkalinityUnit(rawValue: intValue) {
                 switch alkUnit {
                 case .DKH: return (min: 0, max: 22.4)
@@ -144,7 +144,7 @@ func measurementRangeForParameterType(type: Parameter) -> (Double, Double) {
             return (min: 0, max: 22.4)
         }
     case .Salinity:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.SalinityUnits.rawValue) as? Int,
             let salUnit = SalinityUnit(rawValue: intValue) {
                 switch salUnit {
                 case .SG: return (min: 1.0, max: 1.040)
@@ -156,7 +156,7 @@ func measurementRangeForParameterType(type: Parameter) -> (Double, Double) {
         }
     case .pH: return (min: 0, max: 14)
     case .Temperature:
-        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+        if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.TemperatureUnits.rawValue) as? Int,
             let tempUnit = TemperatureUnit(rawValue: intValue) {
                 switch tempUnit {
                 case .Fahrenheit: return (min: 32, max: 100)

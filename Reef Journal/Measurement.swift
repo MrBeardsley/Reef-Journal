@@ -50,7 +50,7 @@ extension Measurement {
         
         switch param {
         case .Alkalinity:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.AlkalinityUnits.rawValue) as? Int,
                 let alkUnit = AlkalinityUnit(rawValue: intValue) {
                     switch alkUnit {
                     case .DKH:
@@ -68,7 +68,7 @@ extension Measurement {
                 return value
             }
         case .Salinity:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.SalinityUnits.rawValue) as? Int,
                 let salUnit = SalinityUnit(rawValue: intValue) {
                     switch salUnit {
                     case .SG:
@@ -83,7 +83,7 @@ extension Measurement {
                 return value
             }
         case .Temperature:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.TemperatureUnits.rawValue) as? Int,
                 let tempUnit = TemperatureUnit(rawValue: intValue) {
                     switch tempUnit {
                     case .Fahrenheit:

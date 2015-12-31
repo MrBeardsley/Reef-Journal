@@ -22,20 +22,41 @@ enum Parameter: String {
     case Nitrate
     case Phosphate
     
-    static var allParameters: Set<Parameter> {
-        return [.Salinity, .Temperature, .Alkalinity, .Calcium, .Magnesium, .pH, .Strontium, .Potasium, .Ammonia, .Nitrite, .Nitrate, .Phosphate]
+    static var allParameters: [Parameter] {
+        return self.chemistryParameters + self.nutrientParameters
     }
     
-    static var chemistryParameters: Set<Parameter> {
+    static var chemistryParameters: [Parameter] {
         return [.Salinity, .Temperature, .Alkalinity, .Calcium, .Magnesium, .pH, .Strontium, .Potasium]
     }
     
-    static var nutrientParameters: Set<Parameter> {
+    static var nutrientParameters: [Parameter] {
         return [.Ammonia, .Nitrite, .Nitrate, .Phosphate]
+    }
+    
+    static func parameterForSetting(setting: AppSetting) -> Parameter {
+        
+        switch setting {
+        case .TemperatureUnits: return Parameter.Temperature
+        case .SalinityUnits: return Parameter.Salinity
+        case .AlkalinityUnits: return Parameter.Alkalinity
+        case .EnableTemperature: return Parameter.Temperature
+        case .EnableSalinity: return Parameter.Salinity
+        case .EnablePH: return Parameter.pH
+        case .EnableAlkalinity: return Parameter.Alkalinity
+        case .EnableCalcium: return Parameter.Calcium
+        case .EnableMagnesium: return Parameter.Magnesium
+        case .EnableStrontium: return Parameter.Strontium
+        case .EnablePotassium: return Parameter.Potasium
+        case .EnableAmmonia: return Parameter.Ammonia
+        case .EnableNitrite: return Parameter.Nitrite
+        case .EnableNitrate: return Parameter.Nitrate
+        case .EnablePhosphate: return Parameter.Phosphate
+        }
     }
 }
 
-enum SettingIdentifier: String {
+enum AppSetting: String {
     case TemperatureUnits
     case SalinityUnits
     case AlkalinityUnits
@@ -52,40 +73,17 @@ enum SettingIdentifier: String {
     case EnableNitrate
     case EnablePhosphate
     
-    static var chemistrySettings: Set<SettingIdentifier> {
+    static var allParameterSettings: [AppSetting] {
+        return self.chemistrySettings + self.nutrientSettings
+    }
+    
+    static var chemistrySettings: [AppSetting] {
         return [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
     }
     
-    static var nutrientSettings: Set<SettingIdentifier> {
+    static var nutrientSettings: [AppSetting] {
         return [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
     }
 }
 
-//let parameterList = [Parameter.Salinity.rawValue, Parameter.Temperature.rawValue, Parameter.Alkalinity.rawValue, Parameter.Calcium.rawValue, Parameter.Magnesium.rawValue, Parameter.pH.rawValue, Parameter.Strontium.rawValue, Parameter.Potasium.rawValue, Parameter.Ammonia.rawValue, Parameter.Nitrite.rawValue, Parameter.Nitrate.rawValue, Parameter.Phosphate.rawValue]
 
-//let chemistryParameters: [SettingIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
-//
-//let nutrientParameters: [SettingIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
-
-//let parameterEnabledSettings = chemistryParameters + nutrientParameters
-
-func parameterForPreference(preference: SettingIdentifier) -> Parameter {
-
-    switch preference {
-    case .TemperatureUnits: return Parameter.Temperature
-    case .SalinityUnits: return Parameter.Salinity
-    case .AlkalinityUnits: return Parameter.Alkalinity
-    case .EnableTemperature: return Parameter.Temperature
-    case .EnableSalinity: return Parameter.Salinity
-    case .EnablePH: return Parameter.pH
-    case .EnableAlkalinity: return Parameter.Alkalinity
-    case .EnableCalcium: return Parameter.Calcium
-    case .EnableMagnesium: return Parameter.Magnesium
-    case .EnableStrontium: return Parameter.Strontium
-    case .EnablePotassium: return Parameter.Potasium
-    case .EnableAmmonia: return Parameter.Ammonia
-    case .EnableNitrite: return Parameter.Nitrite
-    case .EnableNitrate: return Parameter.Nitrate
-    case .EnablePhosphate: return Parameter.Phosphate
-    }
-}

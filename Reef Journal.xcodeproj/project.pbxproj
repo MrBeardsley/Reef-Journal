@@ -142,7 +142,6 @@
 			children = (
 				838BB1911B521B7F00D317B9 /* Reef_Journal.xcdatamodeld */,
 				83D3DE251B85743A001B41DC /* Measurement.swift */,
-				837C8E5A1B7D8F000008533F /* MeasurementsData.swift */,
 				83C010E319DCE7BB0073BE5F /* Functions.swift */,
 				8395474E19C890EA00529B8B /* Types.swift */,
 				83585B6E1C30824C002DABC7 /* DataPersistence.swift */,
@@ -228,6 +227,7 @@
 			children = (
 				835EFCEA1961EFB900214EE4 /* DetailViewController.swift */,
 				83BF08DD1B54B2530036549D /* CircularSlider.swift */,
+				837C8E5A1B7D8F000008533F /* MeasurementsData.swift */,
 			);
 			name = "Detail View";
 			sourceTree = "<group>";

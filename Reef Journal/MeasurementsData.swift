@@ -42,7 +42,7 @@ class MeasurementsData {
         
         switch param {
         case .Alkalinity:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.AlkalinityUnits.rawValue) as? Int,
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.AlkalinityUnits.rawValue) as? Int,
                 let alkUnit = AlkalinityUnit(rawValue: intValue) {
                 switch alkUnit {
                 case .DKH:
@@ -60,7 +60,7 @@ class MeasurementsData {
                 valueToSave = value
             }
         case .Salinity:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.SalinityUnits.rawValue) as? Int,
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.SalinityUnits.rawValue) as? Int,
                 let salUnit = SalinityUnit(rawValue: intValue) {
                 switch salUnit {
                 case .SG:
@@ -75,7 +75,7 @@ class MeasurementsData {
                 valueToSave = value
             }
         case .Temperature:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingIdentifier.TemperatureUnits.rawValue) as? Int,
+            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.TemperatureUnits.rawValue) as? Int,
                 let tempUnit = TemperatureUnit(rawValue: intValue) {
                 switch tempUnit {
                 case .Fahrenheit:
@@ -123,9 +123,9 @@ class MeasurementsData {
         guard let context = self.managedObjectContext else { return [:] }
         var recentMeasurements = [String : Measurement]()
 
-        for item in parameterList {
+        for item in Parameter.allParameters {
             let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
-            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [item])
+            let predicate = NSPredicate(format: "parameter = %@", argumentArray: [item.rawValue])
             fetchRequest.predicate = predicate
             fetchRequest.sortDescriptors = Measurement.defaultSortDescriptors
             fetchRequest.fetchLimit = 1
