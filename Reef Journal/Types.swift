@@ -21,6 +21,18 @@ enum Parameter: String {
     case Nitrite
     case Nitrate
     case Phosphate
+    
+    static var allParameters: Set<Parameter> {
+        return [.Salinity, .Temperature, .Alkalinity, .Calcium, .Magnesium, .pH, .Strontium, .Potasium, .Ammonia, .Nitrite, .Nitrate, .Phosphate]
+    }
+    
+    static var chemistryParameters: Set<Parameter> {
+        return [.Salinity, .Temperature, .Alkalinity, .Calcium, .Magnesium, .pH, .Strontium, .Potasium]
+    }
+    
+    static var nutrientParameters: Set<Parameter> {
+        return [.Ammonia, .Nitrite, .Nitrate, .Phosphate]
+    }
 }
 
 enum SettingIdentifier: String {
@@ -39,15 +51,23 @@ enum SettingIdentifier: String {
     case EnableNitrite
     case EnableNitrate
     case EnablePhosphate
+    
+    static var chemistrySettings: Set<SettingIdentifier> {
+        return [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
+    }
+    
+    static var nutrientSettings: Set<SettingIdentifier> {
+        return [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
+    }
 }
 
-let parameterList = [Parameter.Salinity.rawValue, Parameter.Temperature.rawValue, Parameter.Alkalinity.rawValue, Parameter.Calcium.rawValue, Parameter.Magnesium.rawValue, Parameter.pH.rawValue, Parameter.Strontium.rawValue, Parameter.Potasium.rawValue, Parameter.Ammonia.rawValue, Parameter.Nitrite.rawValue, Parameter.Nitrate.rawValue, Parameter.Phosphate.rawValue]
+//let parameterList = [Parameter.Salinity.rawValue, Parameter.Temperature.rawValue, Parameter.Alkalinity.rawValue, Parameter.Calcium.rawValue, Parameter.Magnesium.rawValue, Parameter.pH.rawValue, Parameter.Strontium.rawValue, Parameter.Potasium.rawValue, Parameter.Ammonia.rawValue, Parameter.Nitrite.rawValue, Parameter.Nitrate.rawValue, Parameter.Phosphate.rawValue]
 
-let chemistryParameters: [SettingIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
+//let chemistryParameters: [SettingIdentifier] = [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
+//
+//let nutrientParameters: [SettingIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
 
-let nutrientParameters: [SettingIdentifier] = [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
-
-let parameterEnabledSettings = chemistryParameters + nutrientParameters
+//let parameterEnabledSettings = chemistryParameters + nutrientParameters
 
 func parameterForPreference(preference: SettingIdentifier) -> Parameter {
 
