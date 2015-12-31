@@ -2,7 +2,7 @@
 //  MeasurementsData.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 8/13/15.
+//  Created by Christopher Harding on 8/13/15
 //  Copyright © 2015 Epic Kiwi Interactive
 //
 
