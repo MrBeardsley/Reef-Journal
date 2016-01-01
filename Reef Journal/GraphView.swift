@@ -321,7 +321,7 @@ import UIKit
             }
         }
         
-        unitsLabel.text = unitLabelForParameterType(param)
+        unitsLabel.text = param.unitLabel
 
         
         let today = NSDate()
@@ -335,7 +335,7 @@ import UIKit
             return 0
         }
         
-        formatter.maximumFractionDigits = decimalPlacesForParameter(param)
+        formatter.maximumFractionDigits = param.decimalPlaces
         
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         

@@ -54,7 +54,7 @@ class DetailViewController: UIViewController {
             let defaults = NSUserDefaults.standardUserDefaults()
             
             // Find the first enabled parameter and use that
-            for item in AppSetting.allParameterSettings {
+            for item in AppSettingKey.allParameterSettings {
                 let enabled = defaults.boolForKey(item.rawValue)
                 if enabled {
                     self.currentParameter = Parameter.parameterForSetting(item)
@@ -383,7 +383,7 @@ class DetailViewController: UIViewController {
             datePicker.setDate(today, animated: false)
         }
         
-        switch decimalPlacesForParameter(param) {
+        switch param.decimalPlaces {
         case 0:
             slider.valueFormat = DecimalFormat.None
         case 1:
@@ -456,13 +456,13 @@ class DetailViewController: UIViewController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         var defaultParameterList = [String]()
         
-        for item in AppSetting.chemistrySettings {
+        for item in AppSettingKey.chemistrySettings {
             if userDefaults.boolForKey(item.rawValue) {
                 defaultParameterList.append(Parameter.parameterForSetting(item).rawValue)
             }
         }
         
-        for item in AppSetting.nutrientSettings {
+        for item in AppSettingKey.nutrientSettings {
             if userDefaults.boolForKey(item.rawValue) {
                 defaultParameterList.append(Parameter.parameterForSetting(item).rawValue)
             }

@@ -8,55 +8,7 @@
 
 import Foundation
 
-enum Parameter: String {
-    case Salinity
-    case Temperature
-    case Alkalinity
-    case Calcium
-    case Magnesium
-    case pH
-    case Strontium
-    case Potasium
-    case Ammonia
-    case Nitrite
-    case Nitrate
-    case Phosphate
-    
-    static var allParameters: [Parameter] {
-        return self.chemistryParameters + self.nutrientParameters
-    }
-    
-    static var chemistryParameters: [Parameter] {
-        return [.Salinity, .Temperature, .Alkalinity, .Calcium, .Magnesium, .pH, .Strontium, .Potasium]
-    }
-    
-    static var nutrientParameters: [Parameter] {
-        return [.Ammonia, .Nitrite, .Nitrate, .Phosphate]
-    }
-    
-    static func parameterForSetting(setting: AppSetting) -> Parameter {
-        
-        switch setting {
-        case .TemperatureUnits: return Parameter.Temperature
-        case .SalinityUnits: return Parameter.Salinity
-        case .AlkalinityUnits: return Parameter.Alkalinity
-        case .EnableTemperature: return Parameter.Temperature
-        case .EnableSalinity: return Parameter.Salinity
-        case .EnablePH: return Parameter.pH
-        case .EnableAlkalinity: return Parameter.Alkalinity
-        case .EnableCalcium: return Parameter.Calcium
-        case .EnableMagnesium: return Parameter.Magnesium
-        case .EnableStrontium: return Parameter.Strontium
-        case .EnablePotassium: return Parameter.Potasium
-        case .EnableAmmonia: return Parameter.Ammonia
-        case .EnableNitrite: return Parameter.Nitrite
-        case .EnableNitrate: return Parameter.Nitrate
-        case .EnablePhosphate: return Parameter.Phosphate
-        }
-    }
-}
-
-enum AppSetting: String {
+enum AppSettingKey: String {
     case TemperatureUnits
     case SalinityUnits
     case AlkalinityUnits
@@ -73,15 +25,15 @@ enum AppSetting: String {
     case EnableNitrate
     case EnablePhosphate
     
-    static var allParameterSettings: [AppSetting] {
+    static var allParameterSettings: [AppSettingKey] {
         return self.chemistrySettings + self.nutrientSettings
     }
     
-    static var chemistrySettings: [AppSetting] {
+    static var chemistrySettings: [AppSettingKey] {
         return [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
     }
     
-    static var nutrientSettings: [AppSetting] {
+    static var nutrientSettings: [AppSettingKey] {
         return [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
     }
 }
