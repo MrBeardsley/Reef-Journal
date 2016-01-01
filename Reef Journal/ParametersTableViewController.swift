@@ -131,7 +131,7 @@ extension ParametersTableViewController {
                     
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
-                    let dateString = dateFormatter.stringFromDate(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day))
+                    let dateString = dateFormatter.stringFromDate(aMeasurement.day)
                     
                     cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedMeasurementValue) + " " + unitLabelForParameterType(parameter) + " on " + dateString
                 }
@@ -146,7 +146,7 @@ extension ParametersTableViewController {
                 if let aMeasurement = recentMeasurements?[nutrientsSection[indexPath.row]] {
                     let decimalPlaces = decimalPlacesForParameter(parameter)
                     let format = "%." + String(decimalPlaces) + "f"
-                    let dateString = dateFormatter.stringFromDate(NSDate(timeIntervalSinceReferenceDate: aMeasurement.day))
+                    let dateString = dateFormatter.stringFromDate(aMeasurement.day)
                     cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedMeasurementValue) + " " + unitLabelForParameterType(parameter) + " on " + dateString
                 }
                 else {

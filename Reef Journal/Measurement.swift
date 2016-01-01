@@ -16,9 +16,30 @@ public protocol ManagedObjectType: class {
 
 public final class Measurement: NSManagedObject {
 
-    @NSManaged public var day: NSTimeInterval
-    @NSManaged public var parameter: String?
-    @NSManaged public var value: Double
+    @NSManaged var day: NSDate
+    @NSManaged var value: Double
+    @NSManaged private var primitiveParameter: String?
+    
+    var parameter: Parameter {
+        get {
+            willAccessValueForKey("parameter")
+            let tempString = primitiveParameter
+            didAccessValueForKey("parameter")
+            
+            guard let paramString = tempString,
+                param = Parameter(rawValue: paramString) else {
+                    return .Salinity
+            }
+            
+            return param
+            
+        }
+        set {
+            willChangeValueForKey("parameter")
+            primitiveParameter = newValue.rawValue
+            didChangeValueForKey("parameter")
+        }
+    }
 }
 
 extension Measurement: ManagedObjectType {
@@ -35,20 +56,15 @@ extension Measurement: ManagedObjectType {
 extension Measurement: CustomDebugStringConvertible {
     override public var debugDescription: String {
         get {
-            let date = NSDate(timeIntervalSinceReferenceDate: self.day)
-            if let param = self.parameter {
-                return "Parameter: \(param), Value: \(self.value), Date: \(date)"
-            }
-            else { return "Invalid Measurement" }
+            return "Parameter: \(parameter.rawValue), Value: \(value), Date: \(day)"
         }
     }
 }
 
 extension Measurement {
     var convertedMeasurementValue: Double {
-        guard let type = self.parameter, param = Parameter(rawValue: type) else { return 0 }
         
-        switch param {
+        switch parameter {
         case .Alkalinity:
             if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSetting.AlkalinityUnits.rawValue) as? Int,
                 let alkUnit = AlkalinityUnit(rawValue: intValue) {
@@ -101,4 +117,5 @@ extension Measurement {
             return value
         }
     }
+    
 }

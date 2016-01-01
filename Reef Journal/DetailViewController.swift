@@ -181,21 +181,21 @@ class DetailViewController: UIViewController {
         
         for measurement in self.measurements {
             
-            if measurement.day < datePicker.date.timeIntervalSinceReferenceDate {
-                if let data = measurementsDataModel.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
-                    datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
+            if measurement.day.compare(datePicker.date) == .OrderedAscending {
+                if let data = measurementsDataModel.measurementForDate(measurement.day, param: type) {
+                    datePicker.setDate(measurement.day, animated: true)
                     slider.value = data.convertedMeasurementValue
                     deleteItem.enabled = true
                     self.currentMeasurement = data
                     
-                    if pastMeasurementsExist(NSDate(timeIntervalSinceReferenceDate: measurement.day)) {
+                    if pastMeasurementsExist(measurement.day) {
                         previousItem.enabled = true
                     }
                     else {
                         previousItem.enabled = false
                     }
                     
-                    if futureMeasurementsExist(NSDate(timeIntervalSinceReferenceDate: measurement.day)) {
+                    if futureMeasurementsExist(measurement.day) {
                         nextItem.enabled = true
                     }
                     else {
@@ -214,21 +214,21 @@ class DetailViewController: UIViewController {
         guard futureMeasurementsExist(datePicker.date) else { return }
         
         for measurement in self.measurements.reverse() {
-            if measurement.day > datePicker.date.dayFromDate().timeIntervalSinceReferenceDate {
-                if let data = measurementsDataModel.measurementForDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), param: type) {
-                    datePicker.setDate(NSDate(timeIntervalSinceReferenceDate: measurement.day), animated: true)
+            if measurement.day.compare(datePicker.date.dayFromDate()) == .OrderedDescending {
+                if let data = measurementsDataModel.measurementForDate(measurement.day, param: type) {
+                    datePicker.setDate(measurement.day, animated: true)
                     slider.value = data.convertedMeasurementValue
                     deleteItem.enabled = true
                     self.currentMeasurement = data
                     
-                    if pastMeasurementsExist(NSDate(timeIntervalSinceReferenceDate: measurement.day)) {
+                    if pastMeasurementsExist(measurement.day) {
                         previousItem.enabled = true
                     }
                     else {
                         previousItem.enabled = false
                     }
                     
-                    if futureMeasurementsExist(NSDate(timeIntervalSinceReferenceDate: measurement.day)) {
+                    if futureMeasurementsExist(measurement.day) {
                         nextItem.enabled = true
                     }
                     else {
@@ -289,7 +289,7 @@ class DetailViewController: UIViewController {
         guard !self.measurements.isEmpty else { return false }
         
         for measurement in self.measurements {
-            if measurement.day < date.dayFromDate().timeIntervalSinceReferenceDate {
+            if measurement.day.compare(date.dayFromDate()) == .OrderedAscending {
                 return true
             }
         }
@@ -301,7 +301,7 @@ class DetailViewController: UIViewController {
         guard !self.measurements.isEmpty else { return false }
         
         for measurement in self.measurements {
-            if measurement.day > date.dayFromDate().timeIntervalSinceReferenceDate {
+            if measurement.day.compare(date.dayFromDate()) == .OrderedDescending {
                 return true
             }
         }

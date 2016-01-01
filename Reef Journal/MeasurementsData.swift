@@ -96,24 +96,24 @@ class MeasurementsData {
 
         if let aMesurement = self.measurementForDate(date, param: param) {
             aMesurement.value = valueToSave
-            aMesurement.parameter = param.rawValue
-            aMesurement.day = date.dayFromDate().timeIntervalSinceReferenceDate
+            aMesurement.parameter = param
+            aMesurement.day = date.dayFromDate()
         }
         else {
             if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(Measurement.entityName, inManagedObjectContext: context) as? Measurement {
                 newEntity.value = valueToSave
-                newEntity.parameter = param.rawValue
-                newEntity.day = date.dayFromDate().timeIntervalSinceReferenceDate
+                newEntity.parameter = param
+                newEntity.day = date.dayFromDate()
             }
         }
         
         dataPersistence?.saveContext()
     }
 
-    func deleteMeasurementOnDay(day: NSTimeInterval, param: Parameter) {
+    func deleteMeasurementOnDay(day: NSDate, param: Parameter) {
         guard let context = self.managedObjectContext else { return }
-        let date = NSDate(timeIntervalSinceReferenceDate: day)
-        if let aMesurement = self.measurementForDate(date, param: param) {
+
+        if let aMesurement = self.measurementForDate(day, param: param) {
             context.deleteObject(aMesurement)
             dataPersistence?.saveContext()
         }
@@ -133,9 +133,8 @@ class MeasurementsData {
             do {
                 let results = try context.executeFetchRequest(fetchRequest)
 
-                if let aMeasurement = results.last as? Measurement,
-                   let param = aMeasurement.parameter {
-                    recentMeasurements[param] = aMeasurement
+                if let aMeasurement = results.last as? Measurement {
+                    recentMeasurements[aMeasurement.parameter.rawValue] = aMeasurement
                 }
             }
             catch {

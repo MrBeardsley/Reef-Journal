@@ -106,8 +106,7 @@ class GraphViewController: UIViewController {
             let index = allMeasurements.indexOf {
                 dateComponets.day = day
                 guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return false }
-                let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
-                return measurementDate.compare(startDate) == .OrderedSame
+                return $0.day.compare(startDate) == .OrderedSame
             }
             
             if let i = index {
@@ -151,8 +150,7 @@ class GraphViewController: UIViewController {
             let month = getMonth(today, i)
             
             let temp = allMeasurements.filter({
-                let measurementDate = NSDate(timeIntervalSinceReferenceDate: $0.day)
-                let measurementMonth = calendar.component([.Month], fromDate: measurementDate)
+                let measurementMonth = calendar.component([.Month], fromDate: $0.day)
                 if measurementMonth == month {
                     return true
                 }
