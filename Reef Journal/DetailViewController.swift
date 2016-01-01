@@ -54,7 +54,7 @@ class DetailViewController: UIViewController {
             let defaults = NSUserDefaults.standardUserDefaults()
             
             // Find the first enabled parameter and use that
-            for item in AppSettingKey.allParameterSettings {
+            for item in AppSettingsKey.enabledParameterKeys {
                 let enabled = defaults.boolForKey(item.rawValue)
                 if enabled {
                     self.currentParameter = Parameter.parameterForSetting(item)
@@ -454,13 +454,13 @@ class DetailViewController: UIViewController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         var defaultParameterList = [String]()
         
-        for item in AppSettingKey.chemistrySettings {
+        for item in AppSettingsKey.enabledChemistryKeys {
             if userDefaults.boolForKey(item.rawValue) {
                 defaultParameterList.append(Parameter.parameterForSetting(item).rawValue)
             }
         }
         
-        for item in AppSettingKey.nutrientSettings {
+        for item in AppSettingsKey.enabledNutrientKeys {
             if userDefaults.boolForKey(item.rawValue) {
                 defaultParameterList.append(Parameter.parameterForSetting(item).rawValue)
             }

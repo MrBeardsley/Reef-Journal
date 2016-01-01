@@ -64,13 +64,13 @@ class ParametersTableViewController: UITableViewController {
         chemistrySection = []
         nutrientsSection = []
 
-        for item in AppSettingKey.chemistrySettings {
+        for item in AppSettingsKey.enabledChemistryKeys {
             if userDefaults.boolForKey(item.rawValue) {
                 chemistrySection.append(Parameter.parameterForSetting(item).rawValue)
             }
         }
 
-        for item in AppSettingKey.nutrientSettings {
+        for item in AppSettingsKey.enabledNutrientKeys {
             if userDefaults.boolForKey(item.rawValue) {
                 nutrientsSection.append(Parameter.parameterForSetting(item).rawValue)
             }

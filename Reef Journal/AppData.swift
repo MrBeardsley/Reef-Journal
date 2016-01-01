@@ -23,7 +23,7 @@ class AppData {
         // Get a list of all enabled parameters
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        for item in AppSettingKey.allParameterSettings {
+        for item in AppSettingsKey.enabledParameterKeys {
             let enabled = defaults.boolForKey(item.rawValue)
             if enabled {
                 enabledParameters.append(Parameter.parameterForSetting(item))
