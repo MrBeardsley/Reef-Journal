@@ -18,21 +18,15 @@ public final class Measurement: NSManagedObject {
 
     @NSManaged var day: NSDate
     @NSManaged var value: Double
-    @NSManaged private var primitiveParameter: String?
+    @NSManaged private var primitiveParameter: String
     
     var parameter: Parameter {
         get {
             willAccessValueForKey("parameter")
-            let tempString = primitiveParameter
+            let paramString = primitiveParameter
             didAccessValueForKey("parameter")
             
-            guard let paramString = tempString,
-                param = Parameter(rawValue: paramString) else {
-                    return .Salinity
-            }
-            
-            return param
-            
+            return Parameter(rawValue: paramString)!
         }
         set {
             willChangeValueForKey("parameter")
@@ -117,5 +111,4 @@ extension Measurement {
             return value
         }
     }
-    
 }
