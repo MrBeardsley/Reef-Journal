@@ -396,10 +396,8 @@ class DetailViewController: UIViewController {
             slider.valueFormat = DecimalFormat.None
         }
         
-        let range = measurementRangeForParameterType(param)
-        
-        slider.minValue = range.0
-        slider.maxValue = range.1
+        slider.minValue = param.measurementRange.0
+        slider.maxValue = param.measurementRange.1
         
         self.measurements = measurementsDataModel.measurementsForParameter(param)
         

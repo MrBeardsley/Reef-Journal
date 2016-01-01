@@ -129,6 +129,56 @@ enum Parameter: String {
         }
     }
     
+    var measurementRange: (Double, Double) {
+        get {
+            switch self {
+            case .Calcium: return (min: 0, max: 600)
+            case .Magnesium: return (min: 800, max: 2000)
+            case .Strontium: return (min: 0, max: 30)
+            case .Potasium: return (min: 0, max: 600)
+            case .Phosphate: return (min: 0, max: 1)
+            case .Ammonia: return (min: 0, max: 5)
+            case .Nitrite: return (min: 0, max: 20)
+            case .Nitrate: return (min: 0, max: 200)
+            case .Alkalinity:
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingKey.AlkalinityUnits.rawValue) as? Int,
+                    let alkUnit = AlkalinityUnit(rawValue: intValue) {
+                        switch alkUnit {
+                        case .DKH: return (min: 0, max: 22.4)
+                        case .MeqL: return (min: 0, max: 8)
+                        case .PPM: return (min: 0, max: 400)
+                        }
+                }
+                else {
+                    return (min: 0, max: 22.4)
+                }
+            case .Salinity:
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingKey.SalinityUnits.rawValue) as? Int,
+                    let salUnit = SalinityUnit(rawValue: intValue) {
+                        switch salUnit {
+                        case .SG: return (min: 1.0, max: 1.040)
+                        case .PSU: return (min: 0, max: 53)
+                        }
+                }
+                else {
+                    return (min: 1.0, max: 1.040)
+                }
+            case .pH: return (min: 0, max: 14)
+            case .Temperature:
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingKey.TemperatureUnits.rawValue) as? Int,
+                    let tempUnit = TemperatureUnit(rawValue: intValue) {
+                        switch tempUnit {
+                        case .Fahrenheit: return (min: 32, max: 100)
+                        case.Celcius: return (min: 0, max: 37.7)
+                        }
+                }
+                else {
+                    return (min: 32, max: 100)
+                }
+            }
+        }
+    }
+    
     // MARK: - Static Functions
     
     static func parameterForSetting(setting: AppSettingKey) -> Parameter {

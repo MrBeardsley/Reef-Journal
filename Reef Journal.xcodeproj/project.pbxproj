@@ -17,13 +17,12 @@
 		838BB1961B521C2300D317B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 838BB1941B521C2300D317B9 /* LaunchScreen.storyboard */; };
 		838BB1971B521C2300D317B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 838BB1951B521C2300D317B9 /* Main.storyboard */; };
 		8395474F19C890EA00529B8B /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395474E19C890EA00529B8B /* Types.swift */; };
-		83A33C991C373DF700204A91 /* Paramter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A33C981C373DF700204A91 /* Paramter.swift */; };
+		83A33C991C373DF700204A91 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A33C981C373DF700204A91 /* Parameter.swift */; };
 		83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */; };
 		83AA7EB71947D63B00CB9D0F /* TemperatureStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EB61947D63B00CB9D0F /* TemperatureStruct.swift */; };
 		83B9B65D19E0C2090040BBF3 /* Alkalinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9B65C19E0C2090040BBF3 /* Alkalinity.swift */; };
 		83B9B65F19E0CAA70040BBF3 /* AlkalinityStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9B65E19E0CAA70040BBF3 /* AlkalinityStruct.swift */; };
 		83BF08DF1B54B2530036549D /* CircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF08DD1B54B2530036549D /* CircularSlider.swift */; };
-		83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C010E319DCE7BB0073BE5F /* Functions.swift */; };
 		83C99868196F80C9008E23B1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C99867196F80C9008E23B1 /* GraphView.swift */; };
 		83D3DE271B85743A001B41DC /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3DE251B85743A001B41DC /* Measurement.swift */; };
 		83D3DE291B857C8B001B41DC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83D3DE281B857C8B001B41DC /* Settings.bundle */; };
@@ -62,7 +61,7 @@
 		838BB1941B521C2300D317B9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		838BB1951B521C2300D317B9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		8395474E19C890EA00529B8B /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
-		83A33C981C373DF700204A91 /* Paramter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paramter.swift; sourceTree = "<group>"; };
+		83A33C981C373DF700204A91 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
 		83AA7E9C1947D63A00CB9D0F /* Reef Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reef Journal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AA7EA01947D63A00CB9D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +72,6 @@
 		83B9B65C19E0C2090040BBF3 /* Alkalinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alkalinity.swift; sourceTree = "<group>"; };
 		83B9B65E19E0CAA70040BBF3 /* AlkalinityStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlkalinityStruct.swift; sourceTree = "<group>"; };
 		83BF08DD1B54B2530036549D /* CircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularSlider.swift; sourceTree = "<group>"; };
-		83C010E319DCE7BB0073BE5F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		83C99867196F80C9008E23B1 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		83D3DE251B85743A001B41DC /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		83D3DE281B857C8B001B41DC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -144,8 +142,7 @@
 			children = (
 				838BB1911B521B7F00D317B9 /* Reef_Journal.xcdatamodeld */,
 				83D3DE251B85743A001B41DC /* Measurement.swift */,
-				83C010E319DCE7BB0073BE5F /* Functions.swift */,
-				83A33C981C373DF700204A91 /* Paramter.swift */,
+				83A33C981C373DF700204A91 /* Parameter.swift */,
 				8395474E19C890EA00529B8B /* Types.swift */,
 				83585B6E1C30824C002DABC7 /* DataPersistence.swift */,
 			);
@@ -397,7 +394,6 @@
 				83D3DE271B85743A001B41DC /* Measurement.swift in Sources */,
 				83585B6D1C308206002DABC7 /* AppData.swift in Sources */,
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
-				83C010E419DCE7BB0073BE5F /* Functions.swift in Sources */,
 				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,
 				833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */,
 				8395474F19C890EA00529B8B /* Types.swift in Sources */,
@@ -405,7 +401,7 @@
 				83BF08DF1B54B2530036549D /* CircularSlider.swift in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,
 				835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */,
-				83A33C991C373DF700204A91 /* Paramter.swift in Sources */,
+				83A33C991C373DF700204A91 /* Parameter.swift in Sources */,
 				83C99868196F80C9008E23B1 /* GraphView.swift in Sources */,
 				838BB1931B521B7F00D317B9 /* Reef_Journal.xcdatamodeld in Sources */,
 			);
