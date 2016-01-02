@@ -112,11 +112,11 @@ class GraphViewController: UIViewController {
             if let i = index {
                 switch day {
                 case -6...0:
-                    weekly.append(allMeasurements[i].convertedMeasurementValue)
-                    monthly.append(allMeasurements[i].convertedMeasurementValue)
+                    weekly.append(allMeasurements[i].convertedValue)
+                    monthly.append(allMeasurements[i].convertedValue)
                     break
                 case -27...0:
-                    monthly.append(allMeasurements[i].convertedMeasurementValue)
+                    monthly.append(allMeasurements[i].convertedValue)
                     break
                 default:
                     break
@@ -158,7 +158,7 @@ class GraphViewController: UIViewController {
             })
             
             if !temp.isEmpty {
-                let values = temp.map({ $0.convertedMeasurementValue })
+                let values = temp.map({ $0.convertedValue })
                 let average = values.reduce(0.0) { $0 + $1 / Double(values.count) }
                 allYear.append(average)
             }

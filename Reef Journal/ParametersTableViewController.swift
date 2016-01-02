@@ -132,7 +132,7 @@ extension ParametersTableViewController {
                     let format = "%." + String(decimalPlaces) + "f"
                     let dateString = dateFormatter.stringFromDate(aMeasurement.day)
                     
-                    cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedMeasurementValue) + " " + aMeasurement.parameter.unitLabel + " on " + dateString
+                    cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedValue) + " " + aMeasurement.parameter.unitLabel + " on " + dateString
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"
@@ -145,7 +145,7 @@ extension ParametersTableViewController {
                     let decimalPlaces = aMeasurement.parameter.decimalPlaces
                     let format = "%." + String(decimalPlaces) + "f"
                     let dateString = dateFormatter.stringFromDate(aMeasurement.day)
-                    cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedMeasurementValue) + " " + aMeasurement.parameter.unitLabel + " on " + dateString
+                    cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedValue) + " " + aMeasurement.parameter.unitLabel + " on " + dateString
                 }
                 else {
                     cell.detailTextLabel?.text = "No Measurement"

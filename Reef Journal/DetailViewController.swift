@@ -127,7 +127,7 @@ class DetailViewController: UIViewController {
         
         if let aMeasurement = measurementsDataModel.measurementForDate(datePicker.date, param: type) {
             self.currentMeasurement = aMeasurement
-            slider.value = aMeasurement.convertedMeasurementValue
+            slider.value = aMeasurement.convertedValue
             deleteItem.enabled = true
         }
         else {
@@ -184,7 +184,7 @@ class DetailViewController: UIViewController {
             if measurement.day.compare(datePicker.date) == .OrderedAscending {
                 if let data = measurementsDataModel.measurementForDate(measurement.day, param: type) {
                     datePicker.setDate(measurement.day, animated: true)
-                    slider.value = data.convertedMeasurementValue
+                    slider.value = data.convertedValue
                     deleteItem.enabled = true
                     self.currentMeasurement = data
                     
@@ -217,7 +217,7 @@ class DetailViewController: UIViewController {
             if measurement.day.compare(datePicker.date.dayFromDate()) == .OrderedDescending {
                 if let data = measurementsDataModel.measurementForDate(measurement.day, param: type) {
                     datePicker.setDate(measurement.day, animated: true)
-                    slider.value = data.convertedMeasurementValue
+                    slider.value = data.convertedValue
                     deleteItem.enabled = true
                     self.currentMeasurement = data
                     
@@ -414,7 +414,7 @@ class DetailViewController: UIViewController {
         
         if let measurement = measurementsDataModel.measurementForDate(datePicker.date, param: param) {
             self.currentMeasurement = measurement
-            slider.value = measurement.convertedMeasurementValue
+            slider.value = measurement.convertedValue
         }
         else {
             slider.value = slider.minValue

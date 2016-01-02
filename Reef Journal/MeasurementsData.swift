@@ -37,72 +37,15 @@ class MeasurementsData {
 
     func saveMeasurement(value: Double, date: NSDate, param: Parameter) {
         guard let context = self.managedObjectContext else { return }
-        
-        var valueToSave: Double
-        
-        switch param {
-        case .Alkalinity:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.AlkalinityUnits.rawValue) as? Int,
-                let alkUnit = AlkalinityUnit(rawValue: intValue) {
-                switch alkUnit {
-                case .DKH:
-                    let alk = Alkalinity(value, unit: .DKH)
-                    valueToSave = alk.dkh
-                case .MeqL:
-                    let alk = Alkalinity(value, unit: .MeqL)
-                    valueToSave = alk.dkh
-                case .PPM:
-                    let alk = Alkalinity(value, unit: .PPM)
-                    valueToSave = alk.dkh
-                }
-            }
-            else {
-                valueToSave = value
-            }
-        case .Salinity:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.SalinityUnits.rawValue) as? Int,
-                let salUnit = SalinityUnit(rawValue: intValue) {
-                switch salUnit {
-                case .SG:
-                    let salinity = Salinity(value, unit: .SG)
-                    valueToSave = salinity.sg
-                case .PSU:
-                    let salinity = Salinity(value, unit: .PSU)
-                    valueToSave = salinity.sg
-                }
-            }
-            else {
-                valueToSave = value
-            }
-        case .Temperature:
-            if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.TemperatureUnits.rawValue) as? Int,
-                let tempUnit = TemperatureUnit(rawValue: intValue) {
-                switch tempUnit {
-                case .Fahrenheit:
-                    let temp = Temperature(value, unit: .Fahrenheit)
-                    valueToSave = temp.fahrenheit
-                case.Celcius:
-                    let temp = Temperature(value, unit: .Celcius)
-                    valueToSave = temp.fahrenheit
-                }
-            }
-            else {
-                valueToSave = value
-            }
-        default:
-            valueToSave = value
-            
-        }
 
         if let aMesurement = self.measurementForDate(date, param: param) {
-            aMesurement.value = valueToSave
-            aMesurement.parameter = param
-            aMesurement.day = date.dayFromDate()
-        }
-        else {
+            aMesurement.convertedValue = value
+        } else {
+            
             if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(Measurement.entityName, inManagedObjectContext: context) as? Measurement {
-                newEntity.value = valueToSave
+                
                 newEntity.parameter = param
+                newEntity.convertedValue = value
                 newEntity.day = date.dayFromDate()
             }
         }
