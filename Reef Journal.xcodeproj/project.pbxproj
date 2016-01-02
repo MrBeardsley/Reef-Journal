@@ -27,6 +27,7 @@
 		83D3DE271B85743A001B41DC /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3DE251B85743A001B41DC /* Measurement.swift */; };
 		83D3DE291B857C8B001B41DC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83D3DE281B857C8B001B41DC /* Settings.bundle */; };
 		83D569B81C382B9600CF73CE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D569B71C382B9600CF73CE /* Protocols.swift */; };
+		83D569BA1C382E7A00CF73CE /* ParameterListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D569B91C382E7A00CF73CE /* ParameterListData.swift */; };
 		83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C7119DCFF63005B99A4 /* Temperature.swift */; };
 		83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */; };
 		83EF57D31B52A2570071D29C /* Reef_JournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EF57D21B52A2570071D29C /* Reef_JournalUITests.swift */; };
@@ -77,6 +78,7 @@
 		83D3DE251B85743A001B41DC /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		83D3DE281B857C8B001B41DC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		83D569B71C382B9600CF73CE /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		83D569B91C382E7A00CF73CE /* ParameterListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterListData.swift; sourceTree = "<group>"; };
 		83DA1C7119DCFF63005B99A4 /* Temperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		83E0D5841947DA3400DE1779 /* Reef Journal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Reef Journal.entitlements"; sourceTree = "<group>"; };
 		83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersTableViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				83E69775195DCC8D006DDE81 /* ParametersTableViewController.swift */,
+				83D569B91C382E7A00CF73CE /* ParameterListData.swift */,
 			);
 			name = "Parameter List View";
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				83B9B65D19E0C2090040BBF3 /* Alkalinity.swift in Sources */,
 				83E69776195DCC8D006DDE81 /* ParametersTableViewController.swift in Sources */,
 				83585B6F1C30824C002DABC7 /* DataPersistence.swift in Sources */,
+				83D569BA1C382E7A00CF73CE /* ParameterListData.swift in Sources */,
 				83D3DE271B85743A001B41DC /* Measurement.swift in Sources */,
 				83585B6D1C308206002DABC7 /* AppData.swift in Sources */,
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,

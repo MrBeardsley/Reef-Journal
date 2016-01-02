@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var dataPersistence = DataPersistence()
-    var dataModel = AppData()
+    
+    // MARK: - Private Properties
+    private var dataModel: AppData!
 
     // MARK: - Application Lifecycle
 
@@ -26,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let window = self.window else { return false }
         guard let svc = window.rootViewController as? UISplitViewController else { return false }
 
-        dataModel.managedObjectContext = managedObjectContext
+        dataModel = AppData(context: dataPersistence.managedObjectContext)
         svc.delegate = self
 
         // Register settings from a plist
@@ -131,14 +133,5 @@ extension AppDelegate: UISplitViewControllerDelegate {
         // Called for iPhone screen sizes, but not iPads
         // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
         return true
-    }
-}
-
-// MARK: - ManagedObjectContextSettable Conformance
-
-extension AppDelegate: ManagedObjectContextSettable {
-    var managedObjectContext: NSManagedObjectContext! {
-        get { return dataPersistence.managedObjectContext }
-        set { return }
     }
 }

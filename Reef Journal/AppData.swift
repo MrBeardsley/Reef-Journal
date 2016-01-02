@@ -11,10 +11,13 @@ import CoreData
 
 class AppData {
     
-    var moc: NSManagedObjectContext!
+    private var _moc: NSManagedObjectContext
+    
+    required init(context: NSManagedObjectContext) {
+        _moc = context
+    }
     
     func mostUsedParameters() -> [String] {
-        guard let context = moc else { return [] }
         
         // Keep track of the counts as we get them from the data store
         var runningTotals = [String : Int]()
@@ -39,7 +42,7 @@ class AppData {
             fetchRequest.includesPropertyValues = false
             fetchRequest.includesSubentities = false
             var error: NSError? = nil
-            let count = context.countForFetchRequest(fetchRequest, error:&error)
+            let count = managedObjectContext.countForFetchRequest(fetchRequest, error:&error)
             
             runningTotals[param.rawValue] = count
         }
@@ -59,9 +62,9 @@ class AppData {
 
 // MARK: - ManagedObjectContextSettable Conformance
 
-extension AppData: ManagedObjectContextSettable {
-    var managedObjectContext: NSManagedObjectContext! {
-        get { return moc }
-        set { moc = newValue }
+extension AppData: DataModel {
+    
+    var managedObjectContext: NSManagedObjectContext {
+        get { return _moc }
     }
 }

@@ -11,12 +11,9 @@ import UIKit
 
 class ParametersTableViewController: UITableViewController {
 
-    // MARK: - Properties
-
-    var measurementsDataModel = MeasurementsData()
-
     // MARK: - Private Properties
 
+    private var parameterListDataModel: ParameterListData
     private var chemistrySection: [String] = []
     private var nutrientsSection: [String] = []
     private var recentMeasurements: [String : Measurement]?
@@ -26,6 +23,9 @@ class ParametersTableViewController: UITableViewController {
     // MARK: - Init/Deinit
 
     required init?(coder aDecoder: NSCoder) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        parameterListDataModel = ParameterListData(context: appDelegate.dataPersistence.managedObjectContext)
+        
         super.init(coder: aDecoder)
         dateFormatter.dateFormat = self.dateFormat
     }
@@ -38,7 +38,6 @@ class ParametersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.measurementsDataModel = MeasurementsData()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: NSUserDefaultsDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
@@ -76,7 +75,7 @@ class ParametersTableViewController: UITableViewController {
             }
         }
         
-        recentMeasurements = measurementsDataModel.mostRecentMeasurements()
+        recentMeasurements = parameterListDataModel.mostRecentMeasurements()
         tableView?.reloadData()
     }
 

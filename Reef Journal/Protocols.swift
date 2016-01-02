@@ -9,8 +9,9 @@
 import Foundation
 import CoreData
 
-protocol ManagedObjectContextSettable: class {
-    var managedObjectContext: NSManagedObjectContext! { get set }
+protocol DataModel: class {
+    var managedObjectContext: NSManagedObjectContext { get }
+    init(context: NSManagedObjectContext)
 }
 
 protocol ManagedObjectType: class {
