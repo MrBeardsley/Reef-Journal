@@ -336,6 +336,7 @@ import UIKit
         }
         
         formatter.maximumFractionDigits = param.decimalPlaces
+        formatter.minimumFractionDigits = param.decimalPlaces
         
         let flattened: [Double] = self.dataPoints.flatMap { $0 }
         
