@@ -11,10 +11,10 @@ import CoreData
 
 class AppData {
     
-    var dataPersistence: DataPersistence!
+    var moc: NSManagedObjectContext!
     
     func mostUsedParameters() -> [String] {
-        guard let context = dataPersistence?.managedObjectContext else { return [] }
+        guard let context = moc else { return [] }
         
         // Keep track of the counts as we get them from the data store
         var runningTotals = [String : Int]()
@@ -54,5 +54,14 @@ class AppData {
         else {
             return sortedKeys
         }
+    }
+}
+
+// MARK: - ManagedObjectContextSettable Conformance
+
+extension AppData: ManagedObjectContextSettable {
+    var managedObjectContext: NSManagedObjectContext! {
+        get { return moc }
+        set { moc = newValue }
     }
 }
