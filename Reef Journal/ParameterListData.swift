@@ -10,12 +10,64 @@ import UIKit
 import CoreData
 
 class ParameterListData {
-    private var _moc: NSManagedObjectContext
-    
-    required init(context: NSManagedObjectContext) {
-        _moc = context
+    private var enabledChemistryParameters: [Parameter] {
+        
+        get {
+            var enabled = [Parameter]()
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            
+            for item in AppSettingsKey.enabledChemistryKeys {
+                if userDefaults.boolForKey(item.rawValue) {
+                    enabled.append(Parameter.parameterForSetting(item))
+                }
+            }
+            
+            return enabled
+        }
     }
     
+    private var enabledNutrientParameters: [Parameter] {
+        
+        get {
+            var enabled = [Parameter]()
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            
+            for item in AppSettingsKey.enabledNutrientKeys {
+                if userDefaults.boolForKey(item.rawValue) {
+                    enabled.append(Parameter.parameterForSetting(item))
+                }
+            }
+            
+            return enabled
+        }
+    }
+    
+    func latestMeasurementForParameter(param: Parameter) -> Measurement? {
+        
+        let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
+        let predicate = NSPredicate(format: "parameter = %@", argumentArray: [param.rawValue])
+        fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = Measurement.defaultSortDescriptors
+        fetchRequest.fetchLimit = 1
+        
+        var latest: Measurement? = nil
+        
+        do {
+            if let
+                results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Measurement],
+                first = results.first {
+                latest = first
+            }
+            
+        }
+        catch {
+            let nserror = error as NSError
+            NSLog("Error in fetch of measurements for enabled paramters: \(nserror), \(nserror.userInfo)")
+        }
+        
+        return latest
+    }
+
     func mostRecentMeasurements() -> [String : Measurement] {
         var recentMeasurements = [String : Measurement]()
         
@@ -45,8 +97,4 @@ class ParameterListData {
 
 // MARK: - ManagedObjectContextSettable Conformance
 
-extension ParameterListData: DataModel {
-    var managedObjectContext: NSManagedObjectContext {
-        get { return _moc }
-    }
-}
+extension ParameterListData: DataModel { }

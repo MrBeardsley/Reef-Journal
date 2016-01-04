@@ -19,30 +19,20 @@ extension NSDate {
 
 class MeasurementsData {
     
-    var dataPersistence: DataPersistence?
-    
-    var managedObjectContext: NSManagedObjectContext? {
-        get {
-            return dataPersistence?.managedObjectContext
-        }
-    }
-    
-    init() {
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-            self.dataPersistence = appDelegate.dataPersistence
-        }
-    }
+    private lazy var dataPersistence: DataPersistence = {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return appDelegate.dataPersistence
+    }()
 
     // MARK: - Data persistence operations
 
     func saveMeasurement(value: Double, date: NSDate, param: Parameter) {
-        guard let context = self.managedObjectContext else { return }
 
         if let aMesurement = self.measurementForDate(date, param: param) {
             aMesurement.convertedValue = value
         } else {
             
-            if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(Measurement.entityName, inManagedObjectContext: context) as? Measurement {
+            if let newEntity = NSEntityDescription.insertNewObjectForEntityForName(Measurement.entityName, inManagedObjectContext: managedObjectContext) as? Measurement {
                 
                 newEntity.parameter = param
                 newEntity.convertedValue = value
@@ -50,20 +40,19 @@ class MeasurementsData {
             }
         }
         
-        dataPersistence?.saveContext()
+        dataPersistence.saveContext()
     }
 
     func deleteMeasurementOnDay(day: NSDate, param: Parameter) {
-        guard let context = self.managedObjectContext else { return }
+
 
         if let aMesurement = self.measurementForDate(day, param: param) {
-            context.deleteObject(aMesurement)
-            dataPersistence?.saveContext()
+            managedObjectContext.deleteObject(aMesurement)
+            dataPersistence.saveContext()
         }
     }
 
     func mostRecentMeasurements() -> [String : Measurement] {
-        guard let context = self.managedObjectContext else { return [:] }
         var recentMeasurements = [String : Measurement]()
 
         for item in Parameter.allParameters {
@@ -74,7 +63,7 @@ class MeasurementsData {
             fetchRequest.fetchLimit = 1
 
             do {
-                let results = try context.executeFetchRequest(fetchRequest)
+                let results = try managedObjectContext.executeFetchRequest(fetchRequest)
 
                 if let aMeasurement = results.last as? Measurement {
                     recentMeasurements[aMeasurement.parameter.rawValue] = aMeasurement
@@ -90,7 +79,6 @@ class MeasurementsData {
     }
 
     func measurementForDate(date: NSDate, param: Parameter) -> Measurement? {
-        guard let context = self.managedObjectContext else { return nil }
         
         let day = date.dayFromDate()
         let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
@@ -99,7 +87,7 @@ class MeasurementsData {
         fetchRequest.fetchLimit = 1
 
         do {
-            let results = try context.executeFetchRequest(fetchRequest)
+            let results = try managedObjectContext.executeFetchRequest(fetchRequest)
             if let aMeasurement = results.last as? Measurement {
                 return aMeasurement
             }
@@ -115,7 +103,6 @@ class MeasurementsData {
     }
 
     func measurementsForParameter(param: Parameter) -> [Measurement] {
-        guard let context = self.managedObjectContext else { return [] }
         
         let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
         let predicate = NSPredicate(format: "parameter == %@", argumentArray: [param.rawValue])
@@ -123,7 +110,7 @@ class MeasurementsData {
         fetchRequest.sortDescriptors = Measurement.defaultSortDescriptors
 
         do {
-            let results = try context.executeFetchRequest(fetchRequest)
+            let results = try managedObjectContext.executeFetchRequest(fetchRequest)
             if let results = results as? [Measurement] {
                 return results
             }
@@ -137,7 +124,6 @@ class MeasurementsData {
     }
 
     func lastMeasurementValueForParameter(param: Parameter) -> Measurement? {
-        guard let context = self.managedObjectContext else { return nil }
         
         let fetchRequest = NSFetchRequest(entityName: Measurement.entityName)
         let predicate = NSPredicate(format: "parameter = %@", argumentArray: [param.rawValue])
@@ -146,7 +132,7 @@ class MeasurementsData {
         fetchRequest.fetchLimit = 1
 
         do {
-            let results = try context.executeFetchRequest(fetchRequest)
+            let results = try managedObjectContext.executeFetchRequest(fetchRequest)
             if let aMeasurement = results.last as? Measurement {
                 return aMeasurement
 
@@ -166,3 +152,7 @@ class MeasurementsData {
         return self.measurementForDate(date, param: param) == nil ? false : true
     }
 }
+
+// MARK: - ManagedObjectContextSettable Conformance
+
+extension MeasurementsData: DataModel { }

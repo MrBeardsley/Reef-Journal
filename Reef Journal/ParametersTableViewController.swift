@@ -13,7 +13,7 @@ class ParametersTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var parameterListDataModel: ParameterListData
+    private var parameterListDataModel = ParameterListData()
     private var chemistrySection: [String] = []
     private var nutrientsSection: [String] = []
     private var recentMeasurements: [String : Measurement]?
@@ -23,9 +23,6 @@ class ParametersTableViewController: UITableViewController {
     // MARK: - Init/Deinit
 
     required init?(coder aDecoder: NSCoder) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        parameterListDataModel = ParameterListData(context: appDelegate.dataPersistence.managedObjectContext)
-        
         super.init(coder: aDecoder)
         dateFormatter.dateFormat = self.dateFormat
     }
@@ -77,6 +74,12 @@ class ParametersTableViewController: UITableViewController {
         
         recentMeasurements = parameterListDataModel.mostRecentMeasurements()
         tableView?.reloadData()
+    }
+    
+    @IBAction func editParameterList(sender: UIBarButtonItem) {
+        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+            UIApplication.sharedApplication().openURL(appSettings)
+        }
     }
 
     // MARK: - Prepare for Segue
@@ -174,12 +177,6 @@ extension ParametersTableViewController {
             return "Nutrients"
         default:
             return "Error"
-        }
-    }
-    
-    @IBAction func editParameterList(sender: UIBarButtonItem) {
-        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
-            UIApplication.sharedApplication().openURL(appSettings)
         }
     }
 }

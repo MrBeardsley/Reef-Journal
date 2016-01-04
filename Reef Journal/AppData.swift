@@ -11,12 +11,6 @@ import CoreData
 
 class AppData {
     
-    private var _moc: NSManagedObjectContext
-    
-    required init(context: NSManagedObjectContext) {
-        _moc = context
-    }
-    
     func mostUsedParameters() -> [String] {
         
         // Keep track of the counts as we get them from the data store
@@ -62,9 +56,4 @@ class AppData {
 
 // MARK: - ManagedObjectContextSettable Conformance
 
-extension AppData: DataModel {
-    
-    var managedObjectContext: NSManagedObjectContext {
-        get { return _moc }
-    }
-}
+extension AppData: DataModel { }

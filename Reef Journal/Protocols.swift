@@ -6,12 +6,20 @@
 //  Copyright © 2016 Epic Kiwi Interactive. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreData
 
 protocol DataModel: class {
     var managedObjectContext: NSManagedObjectContext { get }
-    init(context: NSManagedObjectContext)
+}
+
+extension DataModel {
+    var managedObjectContext: NSManagedObjectContext {
+        get {
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            return appDelegate.dataPersistence.managedObjectContext
+        }
+    }
 }
 
 protocol ManagedObjectType: class {

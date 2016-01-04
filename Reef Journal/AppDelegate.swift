@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let window = self.window else { return false }
         guard let svc = window.rootViewController as? UISplitViewController else { return false }
 
-        dataModel = AppData(context: dataPersistence.managedObjectContext)
+        dataModel = AppData()
         svc.delegate = self
 
         // Register settings from a plist
