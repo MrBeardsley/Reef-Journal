@@ -95,6 +95,6 @@ class ParameterListData {
     }
 }
 
-// MARK: - ManagedObjectContextSettable Conformance
+// MARK: - Data Model Conformance
 
 extension ParameterListData: DataModel { }

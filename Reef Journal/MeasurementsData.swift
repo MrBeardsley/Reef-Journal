@@ -153,6 +153,6 @@ class MeasurementsData {
     }
 }
 
-// MARK: - ManagedObjectContextSettable Conformance
+// MARK: - Data Model Conformance
 
 extension MeasurementsData: DataModel { }

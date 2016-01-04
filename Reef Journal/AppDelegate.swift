@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Create the dynamic Quick Actions
         var quickActions = [UIApplicationShortcutItem]()
-        let mostUsed = dataModel.mostUsedParameters()
+        let mostUsed = dataModel.mostUsedParameters
         
         for param in mostUsed {
             let addIcon = UIApplicationShortcutIcon(type: .Add)
@@ -112,7 +112,6 @@ extension AppDelegate {
         let sb = UIStoryboard(name: "Main", bundle: nil)
         if let detailView =  sb.instantiateViewControllerWithIdentifier("DetailView") as? DetailViewController {
             
-            detailView.measurementsDataModel.dataPersistence = dataPersistence
             detailView.currentParameter = Parameter(rawValue: shortcutItem.type)
             detailView.currentDate = NSDate()
             

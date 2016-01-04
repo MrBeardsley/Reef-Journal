@@ -2,8 +2,8 @@
 //  Protocols.swift
 //  Reef Journal
 //
-//  Created by Christopher Harding on 1/2/16.
-//  Copyright © 2016 Epic Kiwi Interactive. All rights reserved.
+//  Created by Christopher Harding on 1/2/16
+//  Copyright © 2016 Epic Kiwi Interactive
 //
 
 import UIKit
