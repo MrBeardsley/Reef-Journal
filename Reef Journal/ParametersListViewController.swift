@@ -1,5 +1,5 @@
 //
-//  ParametersTableViewController.swift
+//  ParametersListViewController.swift
 //  Reef Journal
 //
 //  Created by Christopher Harding on 7/10/14
@@ -9,13 +9,16 @@
 import UIKit
 
 
-class ParametersTableViewController: UIViewController {
+class ParametersListViewController: UIViewController {
 
     // MARK: - IBOutlets
-    @IBOutlet var parameterListDataModel: ParameterListData!
     @IBOutlet var tableView: UITableView!
     
     // MARK: - Init / Deinit
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -61,19 +64,5 @@ class ParametersTableViewController: UIViewController {
                 detailViewController.navigationItem.leftItemsSupplementBackButton = true
             }
         }
-    }
-}
-
-// MARK: - State Restoration
-
-extension ParametersTableViewController {
-    override func encodeRestorableStateWithCoder(coder: NSCoder) {
-        super.encodeRestorableStateWithCoder(coder)
-        
-    }
-    
-    override func decodeRestorableStateWithCoder(coder: NSCoder) {
-        super.decodeRestorableStateWithCoder(coder)
-        
     }
 }

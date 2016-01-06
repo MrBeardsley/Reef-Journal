@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="7bK-jq-Zjz" kind="relationship" relationship="rootViewController" id="tsl-Nk-0bq"/>
+                        <segue destination="bfG-0g-55O" kind="relationship" relationship="rootViewController" id="pGh-rE-SW9"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
@@ -464,65 +464,80 @@
             <point key="canvasLocation" x="-856" y="-330"/>
         </scene>
         <!--Parameters-->
-        <scene sceneID="smW-Zh-WAh">
+        <scene sceneID="W2B-TU-gRL">
             <objects>
-                <tableViewController restorationIdentifier="ParametersTableViewConroller" title="Parameters" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="ParametersTableViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ParametersTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="r7i-6Z-zg0">
+                <viewController restorationIdentifier="ParamterListViewController" title="Parameters" id="bfG-0g-55O" customClass="ParametersListViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="reG-xB-wzC"/>
+                        <viewControllerLayoutGuide type="bottom" id="tfW-BE-gnI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Z7V-Xo-aYk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="ParameterCell" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ParameterCell" textLabel="Arm-wq-HPj" detailTextLabel="Dqv-8M-zmM" style="IBUITableViewCellStyleSubtitle" id="WCw-Qf-5nD">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ParameterCellContentView" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="ParameterCellTitle" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Arm-wq-HPj">
-                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ParametersTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="r7i-6Z-zg0">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="ParameterCell" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ParameterCell" textLabel="Arm-wq-HPj" detailTextLabel="Dqv-8M-zmM" style="IBUITableViewCellStyleSubtitle" id="WCw-Qf-5nD">
+                                        <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ParameterCellContentView" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="ParameterCellSubtitle" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dqv-8M-zmM">
-                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="ParameterCellTitle" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Arm-wq-HPj">
+                                                    <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="ParameterCellSubtitle" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dqv-8M-zmM">
+                                                    <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="6S0-TO-JiA"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
                                 <connections>
-                                    <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="6S0-TO-JiA"/>
+                                    <outlet property="dataSource" destination="68Y-fw-FP2" id="Nh4-bM-50l"/>
+                                    <outlet property="delegate" destination="68Y-fw-FP2" id="UQ4-TU-Toh"/>
                                 </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="BdY-dD-qwc" id="sHU-vB-dEw"/>
-                            <outlet property="delegate" destination="BdY-dD-qwc" id="CTS-lz-8Uu"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Parameters" id="Zdf-7t-Un8">
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tfW-BE-gnI" firstAttribute="top" secondItem="r7i-6Z-zg0" secondAttribute="bottom" id="3wU-Jn-ROH"/>
+                            <constraint firstItem="r7i-6Z-zg0" firstAttribute="leading" secondItem="Z7V-Xo-aYk" secondAttribute="leadingMargin" constant="-20" id="7UG-ut-Y3c"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r7i-6Z-zg0" secondAttribute="trailing" constant="-20" id="UUj-kD-2th"/>
+                            <constraint firstItem="r7i-6Z-zg0" firstAttribute="top" secondItem="Z7V-Xo-aYk" secondAttribute="topMargin" id="gty-ge-WDW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Parameters" id="y5t-dN-JQO">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="zpT-ML-Jc5">
                             <connections>
-                                <action selector="editParameterList:" destination="7bK-jq-Zjz" id="anH-bN-ooy"/>
+                                <action selector="editParameterList:" destination="bfG-0g-55O" id="aMO-MZ-o0u"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="parameterListDataModel" destination="BdY-dD-qwc" id="flD-fW-Yyj"/>
-                        <outlet property="tableView" destination="r7i-6Z-zg0" id="85g-ba-4bH"/>
+                        <outlet property="tableView" destination="r7i-6Z-zg0" id="A79-Ae-uZs"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
-                <customObject id="BdY-dD-qwc" customClass="ParameterListData" customModule="Reef_Journal" customModuleProvider="target"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CE8-1w-ZFq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="68Y-fw-FP2" customClass="ParameterListData" customModule="Reef_Journal" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="709" y="-630"/>
+            <point key="canvasLocation" x="708" y="-630"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7l-gg-dq7">

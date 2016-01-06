@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ParameterListData: UITableViewController {
+class ParameterListData: NSObject {
     
     // MARK: - Private Properties
     
@@ -50,13 +50,8 @@ class ParameterListData: UITableViewController {
     
     // MARK: - Init/Deinit
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        dateFormatter.dateFormat = self.dateFormat
-    }
-    
-    override init(style: UITableViewStyle) {
-        super.init(style: style)
+    override init() {
+        super.init()
         dateFormatter.dateFormat = self.dateFormat
     }
     
@@ -97,7 +92,7 @@ extension ParameterListData: DataModel { }
 
 extension ParameterListData {
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
         case 0:
@@ -109,7 +104,7 @@ extension ParameterListData {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cellIdentifier = "ParameterCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as UITableViewCell
@@ -157,11 +152,11 @@ extension ParameterListData {
 
 extension ParameterListData {
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return "Chemistry"
@@ -177,7 +172,7 @@ extension ParameterListData {
 
 extension ParameterListData: UIDataSourceModelAssociation {
 
-    func modelIdentifierForElementAtIndexPath(idx: NSIndexPath, inView view: UIView) -> String? {
+    @objc func modelIdentifierForElementAtIndexPath(idx: NSIndexPath, inView view: UIView) -> String? {
         switch idx.section {
         case 0:
             return enabledChemistryParameters[idx.row].rawValue
@@ -190,7 +185,7 @@ extension ParameterListData: UIDataSourceModelAssociation {
         }
     }
 
-    func indexPathForElementWithModelIdentifier(identifier: String, inView view: UIView) -> NSIndexPath? {
+    @objc func indexPathForElementWithModelIdentifier(identifier: String, inView view: UIView) -> NSIndexPath? {
         guard let param = Parameter(rawValue: identifier) else { return nil }
         
         if let index = enabledChemistryParameters.indexOf(param) {
