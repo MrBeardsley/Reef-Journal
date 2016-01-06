@@ -9,23 +9,13 @@
 import UIKit
 
 
-class ParametersTableViewController: UITableViewController {
+class ParametersTableViewController: UIViewController {
 
-    // MARK: - Private Properties
-
-    private var parameterListDataModel = ParameterListData()
-    private var chemistrySection: [String] = []
-    private var nutrientsSection: [String] = []
-    private var recentMeasurements: [String : Measurement]?
-    private let dateFormat = "MMMM dd ',' yyyy"
-    private let dateFormatter = NSDateFormatter()
-
-    // MARK: - Init/Deinit
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        dateFormatter.dateFormat = self.dateFormat
-    }
+    // MARK: - IBOutlets
+    @IBOutlet var parameterListDataModel: ParameterListData!
+    @IBOutlet var tableView: UITableView!
+    
+    // MARK: - Init / Deinit
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -40,41 +30,14 @@ class ParametersTableViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView:", name: "SavedValue", object:nil)
     }
 
-    override func viewWillAppear(animated: Bool) {
-        guard let svc = self.splitViewController else {
-            super.viewWillAppear(animated)
-            return
-        }
-        
-        self.clearsSelectionOnViewWillAppear = svc.collapsed
-        reloadTableView(nil)
-        
-        super.viewWillAppear(animated)
-    }
-
     // MARK: - Reloading the data in the table view
 
     func reloadTableView(aNotification: NSNotification?) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-
-        chemistrySection = []
-        nutrientsSection = []
-
-        for item in AppSettingsKey.enabledChemistryKeys {
-            if userDefaults.boolForKey(item.rawValue) {
-                chemistrySection.append(Parameter.parameterForSetting(item).rawValue)
-            }
-        }
-
-        for item in AppSettingsKey.enabledNutrientKeys {
-            if userDefaults.boolForKey(item.rawValue) {
-                nutrientsSection.append(Parameter.parameterForSetting(item).rawValue)
-            }
-        }
-        
-        recentMeasurements = parameterListDataModel.mostRecentMeasurements()
         tableView?.reloadData()
     }
+    
+    
+    // MARK: - Interface Actions
     
     @IBAction func editParameterList(sender: UIBarButtonItem) {
         if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
@@ -97,86 +60,6 @@ class ParametersTableViewController: UITableViewController {
                 detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
                 detailViewController.navigationItem.leftItemsSupplementBackButton = true
             }
-        }
-    }
-}
-
-// MARK: - Tableview Datasource methods
-    
-extension ParametersTableViewController {
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        switch section {
-        case 0:
-            return chemistrySection.count
-        case 1:
-            return nutrientsSection.count
-        default:
-            return 0
-        }
-    }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-        let cellIdentifier = "ParameterCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as UITableViewCell
-        
-        if let textLabel = cell.textLabel {
-            
-            switch indexPath.section {
-            case 0:
-                textLabel.text = chemistrySection[indexPath.row]
-                
-                if let aMeasurement = recentMeasurements?[chemistrySection[indexPath.row]] {
-                    
-                    let decimalPlaces = aMeasurement.parameter.decimalPlaces
-                    let format = "%." + String(decimalPlaces) + "f"
-                    let dateString = dateFormatter.stringFromDate(aMeasurement.day)
-                    
-                    cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedValue) + " " + aMeasurement.parameter.unitLabel + " on " + dateString
-                }
-                else {
-                    cell.detailTextLabel?.text = "No Measurement"
-                }
-                
-            case 1:
-                textLabel.text = nutrientsSection[indexPath.row]
-
-                if let aMeasurement = recentMeasurements?[nutrientsSection[indexPath.row]] {
-                    let decimalPlaces = aMeasurement.parameter.decimalPlaces
-                    let format = "%." + String(decimalPlaces) + "f"
-                    let dateString = dateFormatter.stringFromDate(aMeasurement.day)
-                    cell.detailTextLabel?.text = String(format: format, aMeasurement.convertedValue) + " " + aMeasurement.parameter.unitLabel + " on " + dateString
-                }
-                else {
-                    cell.detailTextLabel?.text = "No Measurement"
-                }
-            default:
-                textLabel.text = "Not found"
-            }
-        }
-
-        return cell
-    }
-}
-
-// MARK: - UITableView delegate Methods
-
-extension ParametersTableViewController {
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
-    }
-
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Chemistry"
-        case 1:
-            return "Nutrients"
-        default:
-            return "Error"
         }
     }
 }

@@ -503,8 +503,8 @@
                         </prototypes>
                         <sections/>
                         <connections>
-                            <outlet property="dataSource" destination="7bK-jq-Zjz" id="Gho-Na-rnu"/>
-                            <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
+                            <outlet property="dataSource" destination="BdY-dD-qwc" id="sHU-vB-dEw"/>
+                            <outlet property="delegate" destination="BdY-dD-qwc" id="CTS-lz-8Uu"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Parameters" id="Zdf-7t-Un8">
@@ -514,8 +514,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="parameterListDataModel" destination="BdY-dD-qwc" id="flD-fW-Yyj"/>
+                        <outlet property="tableView" destination="r7i-6Z-zg0" id="85g-ba-4bH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
+                <customObject id="BdY-dD-qwc" customClass="ParameterListData" customModule="Reef_Journal" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="709" y="-630"/>
         </scene>
