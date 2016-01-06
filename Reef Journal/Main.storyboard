@@ -466,7 +466,7 @@
         <!--Parameters-->
         <scene sceneID="W2B-TU-gRL">
             <objects>
-                <viewController restorationIdentifier="ParamterListViewController" title="Parameters" id="bfG-0g-55O" customClass="ParametersListViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="ParamterListViewController" title="Parameters" id="bfG-0g-55O" customClass="ParameterListViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="reG-xB-wzC"/>
                         <viewControllerLayoutGuide type="bottom" id="tfW-BE-gnI"/>
@@ -526,12 +526,12 @@
                     <navigationItem key="navigationItem" title="Parameters" id="y5t-dN-JQO">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="zpT-ML-Jc5">
                             <connections>
-                                <action selector="editParameterList:" destination="bfG-0g-55O" id="aMO-MZ-o0u"/>
+                                <action selector="editParameterList:" destination="bfG-0g-55O" id="uvl-Jn-uVy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="r7i-6Z-zg0" id="A79-Ae-uZs"/>
+                        <outlet property="tableView" destination="r7i-6Z-zg0" id="pPZ-9f-53F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CE8-1w-ZFq" userLabel="First Responder" sceneMemberID="firstResponder"/>

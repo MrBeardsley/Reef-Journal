@@ -1,5 +1,5 @@
 //
-//  ParametersListViewController.swift
+//  ParameterListViewController.swift
 //  Reef Journal
 //
 //  Created by Christopher Harding on 7/10/14
@@ -9,9 +9,10 @@
 import UIKit
 
 
-class ParametersListViewController: UIViewController {
+class ParameterListViewController: UIViewController {
 
     // MARK: - IBOutlets
+    
     @IBOutlet var tableView: UITableView!
     
     // MARK: - Init / Deinit

@@ -19,6 +19,8 @@ extension NSDate {
 
 class MeasurementsData {
     
+    // MARK: - Private Properties
+    
     private lazy var dataPersistence: DataPersistence = {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.dataPersistence
