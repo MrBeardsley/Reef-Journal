@@ -388,6 +388,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <outlet property="graphData" destination="x3V-Gc-lct" id="1gK-Pv-xGd"/>
                                     <outlet property="graphTitle" destination="JMr-Uc-Tol" id="zJz-Wu-P7E"/>
                                     <outlet property="maxValueLabel" destination="spg-N4-bon" id="rPv-iq-oEc"/>
                                     <outlet property="midValueLabel" destination="3Id-9o-gUu" id="Eju-X4-icX"/>
@@ -446,6 +447,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Cw-7c-eb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="x3V-Gc-lct" customClass="GraphData" customModule="Reef_Journal" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="1386" y="129"/>
         </scene>

@@ -12,6 +12,7 @@ import UIKit
 @IBDesignable class GraphView: UIView {
     
     // MARK: - Interface Outlets
+    @IBOutlet weak var graphData: GraphData!
     @IBOutlet weak var graphTitle: UILabel!
     @IBOutlet weak var unitsLabel: UILabel!
     @IBOutlet weak var maxValueLabel: UILabel!

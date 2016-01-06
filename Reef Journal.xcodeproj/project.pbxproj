@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831386B0196F4A2900F0D0DD /* GraphViewController.swift */; };
 		833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D4AE41A3E17AA00FF6B96 /* Salinity.swift */; };
+		834307161C3CC95000BA42DF /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834307151C3CC95000BA42DF /* GraphData.swift */; };
 		83585B6D1C308206002DABC7 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83585B6C1C308206002DABC7 /* AppData.swift */; };
 		83585B6F1C30824C002DABC7 /* DataPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83585B6E1C30824C002DABC7 /* DataPersistence.swift */; };
 		835EFCEB1961EFB900214EE4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EFCEA1961EFB900214EE4 /* DetailViewController.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		831386B0196F4A2900F0D0DD /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		833D4AE41A3E17AA00FF6B96 /* Salinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Salinity.swift; sourceTree = "<group>"; };
+		834307151C3CC95000BA42DF /* GraphData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
 		83585B6C1C308206002DABC7 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		83585B6E1C30824C002DABC7 /* DataPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPersistence.swift; sourceTree = "<group>"; };
 		835EFCEA1961EFB900214EE4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			children = (
 				831386B0196F4A2900F0D0DD /* GraphViewController.swift */,
 				83C99867196F80C9008E23B1 /* GraphView.swift */,
+				834307151C3CC95000BA42DF /* GraphData.swift */,
 			);
 			name = "Graph View";
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				83A33C991C373DF700204A91 /* Parameter.swift in Sources */,
 				83C99868196F80C9008E23B1 /* GraphView.swift in Sources */,
 				83D569B81C382B9600CF73CE /* Protocols.swift in Sources */,
+				834307161C3CC95000BA42DF /* GraphData.swift in Sources */,
 				838BB1931B521B7F00D317B9 /* Reef_Journal.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
