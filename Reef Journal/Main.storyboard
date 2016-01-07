@@ -388,7 +388,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <outlet property="graphData" destination="x3V-Gc-lct" id="1gK-Pv-xGd"/>
+                                    <outlet property="graphData" destination="x3V-Gc-lct" id="Hzg-az-1K9"/>
                                     <outlet property="graphTitle" destination="JMr-Uc-Tol" id="zJz-Wu-P7E"/>
                                     <outlet property="maxValueLabel" destination="spg-N4-bon" id="rPv-iq-oEc"/>
                                     <outlet property="midValueLabel" destination="3Id-9o-gUu" id="Eju-X4-icX"/>
@@ -442,6 +442,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="graphData" destination="x3V-Gc-lct" id="LoA-m0-YcN"/>
                         <outlet property="graphView" destination="icw-3e-Yoy" id="8ys-2r-z8b"/>
                         <outlet property="segmentControl" destination="GLy-5u-0Vm" id="cfl-Mn-5za"/>
                     </connections>
@@ -477,25 +478,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ParametersTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="r7i-6Z-zg0">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ParameterListTableView" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="19" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="edC-I1-lgK">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="ParameterCell" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ParameterCell" textLabel="Arm-wq-HPj" detailTextLabel="Dqv-8M-zmM" style="IBUITableViewCellStyleSubtitle" id="WCw-Qf-5nD">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ParameterCell" textLabel="cm8-RT-5Xo" detailTextLabel="lzi-4q-sGM" style="IBUITableViewCellStyleSubtitle" id="Op2-b6-bUs">
                                         <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ParameterCellContentView" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Op2-b6-bUs" id="NPK-Ue-oP5">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="ParameterCellTitle" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Arm-wq-HPj">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cm8-RT-5Xo">
                                                     <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="ParameterCellSubtitle" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dqv-8M-zmM">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lzi-4q-sGM">
                                                     <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -504,25 +505,23 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="6S0-TO-JiA"/>
+                                            <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="Jp9-he-l2N"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <sections/>
                                 <connections>
-                                    <outlet property="dataSource" destination="68Y-fw-FP2" id="Nh4-bM-50l"/>
-                                    <outlet property="delegate" destination="68Y-fw-FP2" id="UQ4-TU-Toh"/>
+                                    <outlet property="dataSource" destination="68Y-fw-FP2" id="wp3-YV-ile"/>
+                                    <outlet property="delegate" destination="68Y-fw-FP2" id="Wac-Tn-eJt"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tfW-BE-gnI" firstAttribute="top" secondItem="r7i-6Z-zg0" secondAttribute="bottom" id="3wU-Jn-ROH"/>
-                            <constraint firstItem="r7i-6Z-zg0" firstAttribute="leading" secondItem="Z7V-Xo-aYk" secondAttribute="leadingMargin" constant="-20" id="7UG-ut-Y3c"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="r7i-6Z-zg0" secondAttribute="trailing" constant="-20" id="UUj-kD-2th"/>
-                            <constraint firstItem="r7i-6Z-zg0" firstAttribute="top" secondItem="Z7V-Xo-aYk" secondAttribute="topMargin" id="gty-ge-WDW"/>
+                            <constraint firstAttribute="trailing" secondItem="edC-I1-lgK" secondAttribute="trailing" id="Dvd-hM-L7i"/>
+                            <constraint firstItem="edC-I1-lgK" firstAttribute="top" secondItem="reG-xB-wzC" secondAttribute="bottom" constant="-64" id="Vtz-PU-xea"/>
+                            <constraint firstItem="edC-I1-lgK" firstAttribute="leading" secondItem="Z7V-Xo-aYk" secondAttribute="leading" id="o2o-m1-osB"/>
+                            <constraint firstItem="edC-I1-lgK" firstAttribute="bottom" secondItem="tfW-BE-gnI" secondAttribute="top" id="rTZ-A2-LAJ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Parameters" id="y5t-dN-JQO">
@@ -533,7 +532,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="r7i-6Z-zg0" id="pPZ-9f-53F"/>
+                        <outlet property="tableView" destination="edC-I1-lgK" id="rTm-4D-n0R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CE8-1w-ZFq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -541,10 +540,10 @@
             </objects>
             <point key="canvasLocation" x="708" y="-630"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--DetailNavigation-->
         <scene sceneID="r7l-gg-dq7">
             <objects>
-                <navigationController restorationIdentifier="DetailNavController" id="vC3-pB-5Vb" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="DetailNavController" title="DetailNavigation" id="vC3-pB-5Vb" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="DetailNavBar" id="DjV-YW-jjY">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -558,6 +557,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Jp9-he-l2N"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -18,14 +18,18 @@ enum TimeScale {
 class GraphViewController: UIViewController {
 
     // MARK: - Interface Outlets
+    
     @IBOutlet weak var graphView: GraphView!
+    @IBOutlet weak var graphData: GraphData!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     // MARK: - Properties
+    
     var currentParameter: Parameter!
     var measurementDateModel = MeasurementsData()
 
     // MARK: - Init/Deinit
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
@@ -37,12 +41,15 @@ class GraphViewController: UIViewController {
     }
 
     // MARK: - Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard let param = self.currentParameter else { return }
         
-        self.graphView.currentParameter = param
+        graphView.currentParameter = param
+        graphData.currentParameter = param
+        
         fetchMeasurementData()
         
         switch segmentControl.selectedSegmentIndex {
@@ -201,9 +208,13 @@ extension GraphViewController {
             graphView.scale = .Week
         }
         
-        if let restoredParamter = coder.decodeObjectForKey("CurrentParameter") as? String {
-            self.currentParameter = Parameter(rawValue: restoredParamter)
-            graphView.currentParameter = self.currentParameter
+        if let
+            restoredParamter = coder.decodeObjectForKey("CurrentParameter") as? String,
+            param = Parameter(rawValue: restoredParamter) {
+                
+            currentParameter = param
+            graphView.currentParameter = param
+            graphData.currentParameter = param
             fetchMeasurementData()
         }
     }
