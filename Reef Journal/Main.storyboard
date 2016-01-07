@@ -450,7 +450,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Cw-7c-eb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="x3V-Gc-lct" customClass="GraphData" customModule="Reef_Journal" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="1386" y="129"/>
+            <point key="canvasLocation" x="1438" y="129"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -464,7 +464,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZU-Oi-B1e" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-856" y="-330"/>
+            <point key="canvasLocation" x="-856" y="-272"/>
         </scene>
         <!--Parameters-->
         <scene sceneID="W2B-TU-gRL">
@@ -557,6 +557,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Jp9-he-l2N"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,9 +20,10 @@ import UIKit
     @IBOutlet weak var minValueLabel: UILabel!    
     
     // MARK: - Properties
-    var weekMeasurements = [Double?]()
-    var monthMeasurements = [Double?]()
-    var yearMeasurements = [Double?]()
+    
+//    var weekMeasurements = [Double?]()
+//    var monthMeasurements = [Double?]()
+//    var yearMeasurements = [Double?]()
     var scale: TimeScale = .Week
     var maxValue: CGFloat = 0
     var currentParameter: Parameter?
@@ -33,11 +34,11 @@ import UIKit
         get {
             switch self.scale {
             case .Week:
-                return weekMeasurements
+                return graphData.weekMeasurements
             case .Month:
-                return monthMeasurements
+                return graphData.monthMeasurements
             case .Year:
-                return yearMeasurements
+                return graphData.yearMeasurements
             }
         }
     }
@@ -498,6 +499,7 @@ import UIKit
 }
 
 // MARK: - Constants
+
 private struct Dimensions {
     static let labelWidth: CGFloat = 32.0
     static let labelHeight: CGFloat = 20.0

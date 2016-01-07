@@ -50,7 +50,7 @@ class GraphViewController: UIViewController {
         graphView.currentParameter = param
         graphData.currentParameter = param
         
-        fetchMeasurementData()
+        graphData.fetchMeasurementData()
         
         switch segmentControl.selectedSegmentIndex {
         case 0:
@@ -77,7 +77,7 @@ class GraphViewController: UIViewController {
     }
 
     func preferencesDidChange(notification: NSNotification?) {
-        fetchMeasurementData()
+        graphData.fetchMeasurementData()
         graphView.drawLabels()
         graphView.setNeedsDisplay()
     }
@@ -96,87 +96,6 @@ class GraphViewController: UIViewController {
         
         graphView.setNeedsDisplay()
         graphView.drawLabels()
-    }
-    
-    private func fetchMeasurementData() {
-        
-        let allMeasurements = measurementDateModel.measurementsForParameter(currentParameter)
-        let today = NSDate().dayFromDate()
-        let calendar = NSCalendar.currentCalendar()
-        let dateComponets = NSDateComponents()
-        
-        var weekly = [Double?]()
-        var monthly = [Double?]()
-        var allYear = [Double?]()
-        
-        for day in -27 ... 0 {
-            let index = allMeasurements.indexOf {
-                dateComponets.day = day
-                guard let startDate = calendar.dateByAddingComponents(dateComponets, toDate: today, options: .MatchStrictly) else { return false }
-                return $0.day.compare(startDate) == .OrderedSame
-            }
-            
-            if let i = index {
-                switch day {
-                case -6...0:
-                    weekly.append(allMeasurements[i].convertedValue)
-                    monthly.append(allMeasurements[i].convertedValue)
-                    break
-                case -27...0:
-                    monthly.append(allMeasurements[i].convertedValue)
-                    break
-                default:
-                    break
-                }
-            }
-            else {
-                switch day {
-                case -6...0:
-                    weekly.append(nil)
-                    monthly.append(nil)
-                    break
-                case -27...0:
-                    monthly.append(nil)
-                    break
-                default:
-                    break
-                }
-            }
-        }
-        
-        // Need to get an average for all of the previous 10 months
-        let getMonth = { (date: NSDate, number: Int) -> Int in
-            if let newDate = calendar.dateByAddingUnit(.Month, value: number, toDate: date, options: .MatchStrictly) {
-                let components = calendar.components([.Month], fromDate: newDate)
-                return components.month
-            }
-            return 0
-        }
-        
-        for i in -9 ... 0 {
-            let month = getMonth(today, i)
-            
-            let temp = allMeasurements.filter({
-                let measurementMonth = calendar.component([.Month], fromDate: $0.day)
-                if measurementMonth == month {
-                    return true
-                }
-                return false
-            })
-            
-            if !temp.isEmpty {
-                let values = temp.map({ $0.convertedValue })
-                let average = values.reduce(0.0) { $0 + $1 / Double(values.count) }
-                allYear.append(average)
-            }
-            else {
-                allYear.append(nil)
-            }
-        }
-        
-        self.graphView.weekMeasurements = weekly
-        self.graphView.monthMeasurements = monthly
-        self.graphView.yearMeasurements = allYear
     }
 }
 
@@ -215,7 +134,7 @@ extension GraphViewController {
             currentParameter = param
             graphView.currentParameter = param
             graphData.currentParameter = param
-            fetchMeasurementData()
+            graphData.fetchMeasurementData()
         }
     }
 }

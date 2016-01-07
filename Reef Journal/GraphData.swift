@@ -15,8 +15,7 @@ class GraphData: NSObject {
     var monthMeasurements = [Double?]()
     var yearMeasurements = [Double?]()
     var currentParameter: Parameter?
-    
-    
+        
     func fetchMeasurementData() {
         guard let param = currentParameter else { return }
         
@@ -124,3 +123,7 @@ class GraphData: NSObject {
 // MARK: - Data Model Conformance
 
 extension GraphData: DataModel { }
+
+// MARK: - EnableParametersType Conformance
+
+extension GraphData: EnableParametersType {}
