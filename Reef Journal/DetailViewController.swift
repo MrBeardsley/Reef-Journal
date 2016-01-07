@@ -389,6 +389,8 @@ class DetailViewController: UIViewController {
             currentDate = today
         }
         
+        navigationItem.title = param.rawValue
+        
         switch param.decimalPlaces {
         case 0:
             slider.valueFormat = DecimalFormat.None
