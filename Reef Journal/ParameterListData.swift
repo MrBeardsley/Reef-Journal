@@ -16,38 +16,6 @@ class ParameterListData: NSObject {
     private let dateFormat = "MMMM dd ',' yyyy"
     private let dateFormatter = NSDateFormatter()
     
-    private var enabledChemistryParameters: [Parameter] {
-        
-        get {
-            var enabled = [Parameter]()
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            
-            for item in AppSettingsKey.enabledChemistryKeys {
-                if userDefaults.boolForKey(item.rawValue) {
-                    enabled.append(Parameter.parameterForSetting(item))
-                }
-            }
-            
-            return enabled
-        }
-    }
-    
-    private var enabledNutrientParameters: [Parameter] {
-        
-        get {
-            var enabled = [Parameter]()
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            
-            for item in AppSettingsKey.enabledNutrientKeys {
-                if userDefaults.boolForKey(item.rawValue) {
-                    enabled.append(Parameter.parameterForSetting(item))
-                }
-            }
-            
-            return enabled
-        }
-    }
-    
     // MARK: - Init/Deinit
     
     override init() {
@@ -200,5 +168,6 @@ extension ParameterListData: UIDataSourceModelAssociation {
     }
 }
 
+// MARK: - EnableParametersType Conformance
 
-
+extension ParameterListData: EnableParametersType { }

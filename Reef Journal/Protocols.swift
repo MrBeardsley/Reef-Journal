@@ -38,3 +38,43 @@ extension ManagedObjectType {
         return request
     }
 }
+
+
+protocol EnableParametersType: class {
+    var enabledChemistryParameters: [Parameter] { get }
+    var enabledNutrientParameters: [Parameter] { get }
+}
+
+extension EnableParametersType {
+    var enabledChemistryParameters: [Parameter] {
+        
+        get {
+            var enabled = [Parameter]()
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            
+            for item in AppSettingsKey.enabledChemistryKeys {
+                if userDefaults.boolForKey(item.rawValue) {
+                    enabled.append(Parameter.parameterForSetting(item))
+                }
+            }
+            
+            return enabled
+        }
+    }
+    
+    var enabledNutrientParameters: [Parameter] {
+        
+        get {
+            var enabled = [Parameter]()
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            
+            for item in AppSettingsKey.enabledNutrientKeys {
+                if userDefaults.boolForKey(item.rawValue) {
+                    enabled.append(Parameter.parameterForSetting(item))
+                }
+            }
+            
+            return enabled
+        }
+    }
+}

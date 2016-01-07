@@ -158,3 +158,7 @@ class MeasurementsData {
 // MARK: - Data Model Conformance
 
 extension MeasurementsData: DataModel { }
+
+// MARK: - EnableParametersType Conformance
+
+extension MeasurementsData: EnableParametersType {}
