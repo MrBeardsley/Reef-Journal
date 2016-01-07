@@ -21,9 +21,6 @@ import UIKit
     
     // MARK: - Properties
     
-//    var weekMeasurements = [Double?]()
-//    var monthMeasurements = [Double?]()
-//    var yearMeasurements = [Double?]()
     var scale: TimeScale = .Week
     var maxValue: CGFloat = 0
     var currentParameter: Parameter?
