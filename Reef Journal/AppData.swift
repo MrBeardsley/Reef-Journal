@@ -50,10 +50,10 @@ class AppData {
             
             // If there are more than 4 remove the extras
             if sortedKeys.count > 4 {
-                return Array(sortedKeys[0..<4])
+                return Array(sortedKeys[0..<4].reverse())
             }
             else {
-                return sortedKeys
+                return Array(sortedKeys.reverse())
             }
         }
     }

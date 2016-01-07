@@ -52,17 +52,29 @@ class ParameterListViewController: UIViewController {
     // MARK: - Prepare for Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if segue.identifier == "showDetail" {
+        guard segue.identifier == "showDetail",
+              let navController = segue.destinationViewController as? UINavigationController,
+              let detailViewController = navController.topViewController as? DetailViewController,
+              let svc = self.splitViewController else { return }
+        
+        detailViewController.currentDate = NSDate().dayFromDate()
+        detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
+        detailViewController.navigationItem.leftItemsSupplementBackButton = true
+        
+        if !(sender is NSDictionary) {
             if let path = self.tableView.indexPathForSelectedRow,
-               let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text,
-               let navController = segue.destinationViewController as? UINavigationController,
-               let detailViewController = navController.topViewController as? DetailViewController,
-               let svc = self.splitViewController   {
+               let title = self.tableView.cellForRowAtIndexPath(path)?.textLabel?.text {
                 detailViewController.currentParameter = Parameter(rawValue: title)
-                detailViewController.currentDate = NSDate().dayFromDate()
                 detailViewController.navigationItem.title = title
-                detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
-                detailViewController.navigationItem.leftItemsSupplementBackButton = true
+            }
+            
+        } else {
+            if let dict = sender as? NSDictionary,
+                   value = dict["currentParamter"] as? String,
+                   param = Parameter(rawValue: value) {
+                    
+                detailViewController.currentParameter = param
+                detailViewController.navigationItem.title = param.rawValue
             }
         }
     }

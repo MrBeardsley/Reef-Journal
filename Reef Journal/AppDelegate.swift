@@ -109,18 +109,42 @@ extension AppDelegate {
 extension AppDelegate {
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
         
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        if let detailView =  sb.instantiateViewControllerWithIdentifier("DetailView") as? DetailViewController {
+        guard let window = UIApplication.sharedApplication().keyWindow,
+                  svc = window.rootViewController as? UISplitViewController,
+                  navController = svc.viewControllers.first as? UINavigationController,
+                  param = Parameter(rawValue: shortcutItem.type) where
+                  enabledChemistryParameters.contains(param) || enabledNutrientParameters.contains(param) else { return }
+        
+        switch navController.topViewController {
+        case let paramList as ParameterListViewController:
+            let dict: NSDictionary = ["currentParamter" : param.rawValue]
+            paramList.performSegueWithIdentifier("showDetail", sender: dict)
+        case let nav as UINavigationController:
+            switch nav.topViewController {
+            case let detail as DetailViewController:
+                detail.currentParameter = param
+                detail.currentDate = NSDate().dayFromDate()
+                detail.navigationItem.title = param.rawValue
+            case is GraphViewController:
+                nav.popViewControllerAnimated(false)
+                if let detail = nav.topViewController as? DetailViewController {
+                    print("graph")
+                    detail.currentParameter = param
+                    detail.currentDate = NSDate().dayFromDate()
+                    detail.navigationItem.title = param.rawValue
+                }
+                
+            default:
+                completionHandler(false)
+                return
+            }
             
-            detailView.currentParameter = Parameter(rawValue: shortcutItem.type)
-            detailView.currentDate = NSDate()
-            
-            let root = UIApplication.sharedApplication().keyWindow?.rootViewController
-            
-            root?.presentViewController(detailView, animated: false, completion: { () -> Void in
-                completionHandler(true)
-            })
+        default:
+            completionHandler(false)
+            return
         }
+        
+        completionHandler(true)
     }
 }
 
@@ -134,3 +158,7 @@ extension AppDelegate: UISplitViewControllerDelegate {
         return true
     }
 }
+
+// MARK: - EnableParametersType Conformance
+
+extension AppDelegate: EnableParametersType { }

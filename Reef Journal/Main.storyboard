@@ -9,7 +9,7 @@
         <!--Parameters-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
-                <navigationController restorationIdentifier="ParametersNavController" title="Parameters" id="RMx-3f-FxP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ParameterListNavController" title="Parameters" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RMx-3f-FxP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="ParametersListNavBar" id="Pmd-2v-anx">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -24,7 +24,7 @@
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController restorationIdentifier="DetailView" storyboardIdentifier="DetailView" title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" title="Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JEX-9P-axG" customClass="DetailViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SYR-Wa-9uf"/>
                         <viewControllerLayoutGuide type="bottom" id="GAO-Cl-Wes"/>
@@ -250,7 +250,7 @@
         <!--Graph-->
         <scene sceneID="vT7-Ki-U0I">
             <objects>
-                <viewController restorationIdentifier="GraphView" title="Graph" id="O5r-rQ-bUJ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GraphViewController" title="Graph" useStoryboardIdentifierAsRestorationIdentifier="YES" id="O5r-rQ-bUJ" customClass="GraphViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JyI-iK-Wde"/>
                         <viewControllerLayoutGuide type="bottom" id="wd5-q9-Fs1"/>
@@ -455,7 +455,7 @@
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
-                <splitViewController restorationIdentifier="SplitViewController" id="H1p-Uh-vWS" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="SplitViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H1p-Uh-vWS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <connections>
                         <segue destination="RMx-3f-FxP" kind="relationship" relationship="masterViewController" id="BlO-5A-QYV"/>
@@ -469,7 +469,7 @@
         <!--Parameters-->
         <scene sceneID="W2B-TU-gRL">
             <objects>
-                <viewController restorationIdentifier="ParamterListViewController" title="Parameters" id="bfG-0g-55O" customClass="ParameterListViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ParamterListViewController" title="Parameters" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bfG-0g-55O" customClass="ParameterListViewController" customModule="Reef_Journal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="reG-xB-wzC"/>
                         <viewControllerLayoutGuide type="bottom" id="tfW-BE-gnI"/>
@@ -532,7 +532,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="edC-I1-lgK" id="rTm-4D-n0R"/>
+                        <outlet property="tableView" destination="edC-I1-lgK" id="slB-I2-2bE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CE8-1w-ZFq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -543,7 +543,7 @@
         <!--DetailNavigation-->
         <scene sceneID="r7l-gg-dq7">
             <objects>
-                <navigationController restorationIdentifier="DetailNavController" title="DetailNavigation" id="vC3-pB-5Vb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="DetailViewNavController" title="DetailNavigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vC3-pB-5Vb" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="DetailNavBar" id="DjV-YW-jjY">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -557,6 +557,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="Jp9-he-l2N"/>
     </inferredMetricsTieBreakers>
 </document>
