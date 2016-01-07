@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         dataModel = AppData()
         svc.delegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuickActions:", name: "SavedValue", object:nil)
 
         // Register settings from a plist
         let mainBundlePath = NSBundle.mainBundle().bundlePath as NSString
@@ -54,15 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Create the dynamic Quick Actions
-        var quickActions = [UIApplicationShortcutItem]()
-        let mostUsed = dataModel.mostUsedParameters
-        
-        for param in mostUsed {
-            let addIcon = UIApplicationShortcutIcon(type: .Add)
-            quickActions.append(UIApplicationShortcutItem(type: "\(param)", localizedTitle: "\(param) Measurement", localizedSubtitle: nil, icon: addIcon, userInfo: nil))
-        }
-        
-        UIApplication.sharedApplication().shortcutItems = quickActions
+        refreshQuickActions(nil)
 
         return true
     }
@@ -87,8 +80,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        dataPersistence.saveContext()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         NSUserDefaults.standardUserDefaults().synchronize()
+    }
+}
+
+// MARK: - Notification Handlers
+
+extension AppDelegate {
+    
+    func refreshQuickActions(aNotification: NSNotification?) {
+        guard let model = dataModel else { return }
+        
+        var quickActions = [UIApplicationShortcutItem]()
+        let mostUsed = model.mostUsedParameters
+        
+        for param in mostUsed {
+            let addIcon = UIApplicationShortcutIcon(type: .Add)
+            quickActions.append(UIApplicationShortcutItem(type: "\(param)", localizedTitle: "\(param)", localizedSubtitle: nil, icon: addIcon, userInfo: nil))
+        }
+        
+        UIApplication.sharedApplication().shortcutItems = quickActions
     }
 }
 
@@ -123,21 +135,19 @@ extension AppDelegate {
             switch nav.topViewController {
             case let detail as DetailViewController:
                 detail.currentParameter = param
-                detail.currentDate = NSDate().dayFromDate()
-                detail.navigationItem.title = param.rawValue
             case is GraphViewController:
                 nav.popViewControllerAnimated(false)
                 if let detail = nav.topViewController as? DetailViewController {
                     print("graph")
                     detail.currentParameter = param
-                    detail.currentDate = NSDate().dayFromDate()
-                    detail.navigationItem.title = param.rawValue
                 }
                 
             default:
                 completionHandler(false)
                 return
             }
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("RefreshDetailData", object: nil)
             
         default:
             completionHandler(false)

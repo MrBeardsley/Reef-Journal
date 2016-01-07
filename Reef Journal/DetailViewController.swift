@@ -85,6 +85,7 @@ class DetailViewController: UIViewController {
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: "RefreshDetailData", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -269,6 +270,10 @@ class DetailViewController: UIViewController {
         self.view.setNeedsLayout()
     }
     
+    func refreshData(notification: NSNotification?) {
+        setupControls()
+    }
+    
     // MARK: - Seque
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -381,6 +386,7 @@ class DetailViewController: UIViewController {
         }
         else {
             datePicker.setDate(today, animated: false)
+            currentDate = today
         }
         
         switch param.decimalPlaces {
