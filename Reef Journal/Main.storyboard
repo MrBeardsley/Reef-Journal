@@ -99,9 +99,7 @@
                                     <constraint firstAttribute="height" constant="320" id="9YD-iI-flH"/>
                                     <constraint firstAttribute="width" secondItem="Ct4-vf-pHX" secondAttribute="height" multiplier="1:1" id="EBC-89-GoE"/>
                                     <constraint firstAttribute="width" constant="400" id="EHX-Ef-0g4"/>
-                                    <constraint firstAttribute="width" secondItem="Ct4-vf-pHX" secondAttribute="height" multiplier="1:1" id="LcX-ZN-sRK"/>
                                     <constraint firstAttribute="height" constant="400" id="bpK-Tj-Xqa"/>
-                                    <constraint firstAttribute="width" secondItem="Ct4-vf-pHX" secondAttribute="height" multiplier="1:1" id="gRl-8R-9ZW"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
@@ -119,19 +117,7 @@
                                         <exclude reference="39J-GG-XWf"/>
                                         <exclude reference="9YD-iI-flH"/>
                                         <exclude reference="EHX-Ef-0g4"/>
-                                        <exclude reference="LcX-ZN-sRK"/>
                                         <exclude reference="bpK-Tj-Xqa"/>
-                                        <exclude reference="gRl-8R-9ZW"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="gRl-8R-9ZW"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="LcX-ZN-sRK"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
@@ -215,9 +201,9 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="3xt-7Z-7ha"/>
-                                <include reference="7mr-bL-o0b"/>
-                                <exclude reference="ZKQ-t7-gqh"/>
+                                <exclude reference="3xt-7Z-7ha"/>
+                                <exclude reference="7mr-bL-o0b"/>
+                                <include reference="ZKQ-t7-gqh"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">

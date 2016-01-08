@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Private Properties
     private var dataModel: AppData!
+    private var detailViewController: DetailViewController!
+    private var parameterListViewController: ParameterListViewController!
 
     // MARK: - Application Lifecycle
 
@@ -30,7 +32,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         dataModel = AppData()
         svc.delegate = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuickActions:", name: "SavedValue", object:nil)
+        
+//        if let paramListNav = svc.viewControllers.first as? UINavigationController,
+//               paramListView = paramListNav.topViewController as? ParameterListViewController {
+//               
+//           parameterListViewController = paramListView
+//        }
+//        
+//        if let detailNav = svc.viewControllers[1] as? UINavigationController,
+//               detailView = detailNav.topViewController as? DetailViewController {
+//            detailViewController = detailView
+//        }
 
         // Register settings from a plist
         let mainBundlePath = NSBundle.mainBundle().bundlePath as NSString
@@ -54,8 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        // Create the dynamic Quick Actions
-        refreshQuickActions(nil)
+        // Register for notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuickActions:", name: "SavedValue", object:nil)
 
         return true
     }
@@ -76,6 +88,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        refreshQuickActions(nil)
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -97,7 +111,17 @@ extension AppDelegate {
         
         for param in mostUsed {
             let addIcon = UIApplicationShortcutIcon(type: .Add)
-            quickActions.append(UIApplicationShortcutItem(type: "\(param)", localizedTitle: "\(param)", localizedSubtitle: nil, icon: addIcon, userInfo: nil))
+            var subtitle: String
+            switch param.1 {
+            case 0:
+                subtitle = "No Measurements"
+            case 1:
+                subtitle = "1 Measurement"
+            default:
+                subtitle = "\(param.1) Measurements"
+            }
+            
+            quickActions.append(UIApplicationShortcutItem(type: "\(param.0)", localizedTitle: "New \(param.0)", localizedSubtitle: subtitle, icon: addIcon, userInfo: nil))
         }
         
         UIApplication.sharedApplication().shortcutItems = quickActions
@@ -121,11 +145,12 @@ extension AppDelegate {
 extension AppDelegate {
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
         
-        guard let window = UIApplication.sharedApplication().keyWindow,
-                  svc = window.rootViewController as? UISplitViewController,
+        guard let svc = window?.rootViewController as? UISplitViewController,
                   navController = svc.viewControllers.first as? UINavigationController,
                   param = Parameter(rawValue: shortcutItem.type) where
-                  enabledChemistryParameters.contains(param) || enabledNutrientParameters.contains(param) else { return }
+                  enabledChemistryParameters.contains(param) || enabledNutrientParameters.contains(param)
+        else { return }
+        
         
         switch navController.topViewController {
         case let paramList as ParameterListViewController:
@@ -148,6 +173,7 @@ extension AppDelegate {
             }
             
             NSNotificationCenter.defaultCenter().postNotificationName("RefreshDetailData", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName("ClearSelection", object: nil)
             
         default:
             completionHandler(false)
@@ -162,9 +188,13 @@ extension AppDelegate {
 // MARK: - Split View Controller Delegate Conformance
 
 extension AppDelegate: UISplitViewControllerDelegate {
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
-        // Called for iPhone screen sizes, but not iPads
-        // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+        
+        if let detailNav = secondaryViewController as? UINavigationController,
+               detail = detailNav.topViewController as? DetailViewController where detail.currentParameter != nil {
+            return false
+        }
+        
         return true
     }
 }

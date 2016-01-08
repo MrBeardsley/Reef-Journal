@@ -13,7 +13,7 @@ class AppData {
     
     // MARK: - Properties
     
-    var mostUsedParameters: [String] {
+    var mostUsedParameters: [(String, Int)] {
         
         get {
         
@@ -46,15 +46,23 @@ class AppData {
             }
             
             let keys = Array(runningTotals.keys)
-            let sortedKeys = keys.sort() { return runningTotals[$0] > runningTotals[$1] }
+            var sortedKeys = keys.sort() { return runningTotals[$0] > runningTotals[$1] }
             
             // If there are more than 4 remove the extras
             if sortedKeys.count > 4 {
-                return Array(sortedKeys[0..<4].reverse())
+                sortedKeys = Array(sortedKeys[0..<4])
             }
-            else {
-                return Array(sortedKeys.reverse())
+            
+            sortedKeys = Array(sortedKeys.reverse())
+            
+            var results = [(String, Int)]()
+            
+            for key in sortedKeys {
+                results.append((key, runningTotals[key]!))
             }
+            
+            return results
+            
         }
     }
 }
