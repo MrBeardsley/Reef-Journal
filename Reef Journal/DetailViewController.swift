@@ -85,7 +85,6 @@ class DetailViewController: UIViewController {
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "preferencesDidChange:", name: NSUserDefaultsDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: "RefreshDetailData", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -108,18 +107,20 @@ class DetailViewController: UIViewController {
         slider.layoutControl()
     }
     
-    override func traitCollectionDidChange( previousTraitCollection: UITraitCollection?) {
-        guard let splitController = self.splitViewController else { return }
-        guard let mainWindow = self.view.window else { return }
-        
-        let traits = mainWindow.traitCollection
-        
-        // These traits signify and iPhone 6 Plus screen in landscape mode. In this instance we shrink the width of the parameter list in order to have enough room for the other controls.
-        if traits.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
-            traits.verticalSizeClass == UIUserInterfaceSizeClass.Compact         {
-                splitController.preferredPrimaryColumnWidthFraction = 0.2
-        }
-    }
+    
+    // TODO: - Causes a crash when rotating the graph view from portrait to landscape and coming back to the detail view
+//    override func traitCollectionDidChange( previousTraitCollection: UITraitCollection?) {
+//        guard let splitController = self.splitViewController else { return }
+//        guard let mainWindow = self.view.window else { return }
+//        
+//        let traits = mainWindow.traitCollection
+//        
+//        // These traits signify and iPhone 6 Plus screen in landscape mode. In this instance we shrink the width of the parameter list in order to have enough room for the other controls.
+//        if traits.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
+//            traits.verticalSizeClass == UIUserInterfaceSizeClass.Compact         {
+//                splitController.preferredPrimaryColumnWidthFraction = 0.2
+//        }
+//    }
 
     // MARK: - Interface Actions
 
@@ -270,7 +271,7 @@ class DetailViewController: UIViewController {
         self.view.setNeedsLayout()
     }
     
-    func refreshData(notification: NSNotification?) {
+    func refreshData() {
         setupControls()
     }
     
@@ -282,9 +283,9 @@ class DetailViewController: UIViewController {
                 graphViewController.currentParameter = self.currentParameter
             }
                 
-            if let svc = self.splitViewController {
-                svc.preferredDisplayMode = .PrimaryHidden
-            }
+//            if let svc = self.splitViewController {
+//                svc.preferredDisplayMode = .PrimaryHidden
+//            }
         }
     }
     

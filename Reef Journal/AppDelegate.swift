@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Private Properties
     private var dataModel: AppData!
-    private var detailViewController: DetailViewController!
     private var parameterListViewController: ParameterListViewController!
 
     // MARK: - Application Lifecycle
@@ -33,16 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dataModel = AppData()
         svc.delegate = self
         
-//        if let paramListNav = svc.viewControllers.first as? UINavigationController,
-//               paramListView = paramListNav.topViewController as? ParameterListViewController {
-//               
-//           parameterListViewController = paramListView
-//        }
-//        
-//        if let detailNav = svc.viewControllers[1] as? UINavigationController,
-//               detailView = detailNav.topViewController as? DetailViewController {
-//            detailViewController = detailView
-//        }
+        if let paramListNav = svc.viewControllers.first as? UINavigationController,
+               paramListView = paramListNav.topViewController as? ParameterListViewController {
+               
+           parameterListViewController = paramListView
+        }
 
         // Register settings from a plist
         let mainBundlePath = NSBundle.mainBundle().bundlePath as NSString
@@ -147,38 +141,51 @@ extension AppDelegate {
         
         guard let svc = window?.rootViewController as? UISplitViewController,
                   navController = svc.viewControllers.first as? UINavigationController,
+                  topViewController = navController.topViewController,
                   param = Parameter(rawValue: shortcutItem.type) where
                   enabledChemistryParameters.contains(param) || enabledNutrientParameters.contains(param)
         else { return }
         
-        
-        switch navController.topViewController {
-        case let paramList as ParameterListViewController:
+        switch topViewController {
+        case let list as ParameterListViewController:
             let dict: NSDictionary = ["currentParamter" : param.rawValue]
-            paramList.performSegueWithIdentifier("showDetail", sender: dict)
+            list.performSegueWithIdentifier("showDetail", sender: dict)
         case let nav as UINavigationController:
+            // If it is a navigation controller it is either the Detail or Graph view Controller
             switch nav.topViewController {
             case let detail as DetailViewController:
                 detail.currentParameter = param
+                detail.refreshData()
             case is GraphViewController:
                 nav.popViewControllerAnimated(false)
                 if let detail = nav.topViewController as? DetailViewController {
-                    print("graph")
                     detail.currentParameter = param
+                    detail.refreshData()
                 }
-                
             default:
-                completionHandler(false)
-                return
+                break
             }
-            
-            NSNotificationCenter.defaultCenter().postNotificationName("RefreshDetailData", object: nil)
-            NSNotificationCenter.defaultCenter().postNotificationName("ClearSelection", object: nil)
-            
         default:
-            completionHandler(false)
-            return
+            break
         }
+        
+        // Make sure we get the right selection for the parameter list table view controller
+        var section = 0
+        var row = 0
+        
+        if let index = enabledChemistryParameters.indexOf(param) {
+            section = 0
+            row = index
+        }
+        
+        if let index = enabledNutrientParameters.indexOf(param) {
+            section = 1
+            row = index
+        }
+        
+        let index = NSIndexPath(forRow: row, inSection: section)
+        parameterListViewController.tableView?.selectRowAtIndexPath(index, animated: false, scrollPosition: .Middle)
+        
         
         completionHandler(true)
     }
@@ -187,6 +194,7 @@ extension AppDelegate {
 
 // MARK: - Split View Controller Delegate Conformance
 
+// TODO: - This isn't working right when rotating in the graph view.
 extension AppDelegate: UISplitViewControllerDelegate {
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         
