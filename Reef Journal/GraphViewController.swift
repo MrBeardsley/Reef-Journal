@@ -70,10 +70,10 @@ class GraphViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         guard let svc = self.splitViewController else { return }
         svc.preferredDisplayMode = .Automatic
-        
-        super.viewWillDisappear(animated)
     }
 
     func preferencesDidChange(notification: NSNotification?) {
@@ -135,6 +135,16 @@ extension GraphViewController {
             graphView.currentParameter = param
             graphData.currentParameter = param
             graphData.fetchMeasurementData()
+        }
+    }
+}
+
+// MARK: - DisplaysInDetailViewType Conformance
+
+extension GraphViewController: DisplaysInDetailViewType {
+    var shouldCollapseSplitView: Bool {
+        get {
+            return false
         }
     }
 }

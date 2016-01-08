@@ -78,3 +78,7 @@ extension EnableParametersType {
         }
     }
 }
+
+protocol DisplaysInDetailViewType {
+    var shouldCollapseSplitView: Bool { get }
+}

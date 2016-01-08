@@ -94,10 +94,10 @@ class DetailViewController: UIViewController {
         // When an iPad is in landscape mode the parameter list is hidden when presenting the 
         // graph view. The split view needs to be relaid out in order to take into acount the
         // parameter list being added back to the view.
-        guard let svc = self.splitViewController else { return }
-
-        svc.view.setNeedsLayout()
-        svc.view.layoutIfNeeded()
+//        guard let svc = self.splitViewController else { return }
+//
+//        svc.view.setNeedsLayout()
+//        svc.view.layoutIfNeeded()
         
         setupControls()
     }
@@ -283,9 +283,9 @@ class DetailViewController: UIViewController {
                 graphViewController.currentParameter = self.currentParameter
             }
                 
-//            if let svc = self.splitViewController {
-//                svc.preferredDisplayMode = .PrimaryHidden
-//            }
+            if let svc = self.splitViewController {
+                svc.preferredDisplayMode = .PrimaryHidden
+            }
         }
     }
     
@@ -511,6 +511,16 @@ extension DetailViewController {
                 
             self.currentParameter = Parameter(rawValue: restoredParamter)
             self.navigationItem.title = restoredParamter
+        }
+    }
+}
+
+// MARK: - DisplaysInDetailViewType Conformance
+
+extension DetailViewController: DisplaysInDetailViewType {
+    var shouldCollapseSplitView: Bool {
+        get {
+            return currentParameter == nil
         }
     }
 }

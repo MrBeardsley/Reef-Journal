@@ -199,8 +199,8 @@ extension AppDelegate: UISplitViewControllerDelegate {
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         
         if let detailNav = secondaryViewController as? UINavigationController,
-               detail = detailNav.topViewController as? DetailViewController where detail.currentParameter != nil {
-            return false
+               detail = detailNav.topViewController as? DisplaysInDetailViewType {
+            return detail.shouldCollapseSplitView
         }
         
         return true
