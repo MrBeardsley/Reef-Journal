@@ -268,9 +268,6 @@
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=compact" fixedFrame="YES">
-                                            <rect key="frame" x="-47.5" y="-108" width="43.5" height="20.5"/>
-                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cq5-dx-NFz">
                                         <rect key="frame" x="8" y="8" width="39" height="21"/>
@@ -288,9 +285,6 @@
                                                 <exclude reference="Rs3-Xl-eMq"/>
                                                 <exclude reference="hbV-HS-3Ag"/>
                                             </mask>
-                                        </variation>
-                                        <variation key="heightClass=compact" fixedFrame="YES">
-                                            <rect key="frame" x="-47.5" y="-108" width="43.5" height="20.5"/>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Id-9o-gUu">

@@ -79,6 +79,7 @@ import UIKit
         
         self.startColor = startColor
         self.endColor = endColor
+        _initControl()
     }
     
     // Default initializer

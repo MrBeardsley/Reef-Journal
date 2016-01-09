@@ -54,12 +54,10 @@ class ParameterListViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         guard segue.identifier == "showDetail",
               let navController = segue.destinationViewController as? UINavigationController,
-              let detailViewController = navController.topViewController as? DetailViewController,
-              let svc = self.splitViewController else { return }
+              let detailViewController = navController.topViewController as? DetailViewController
+        else { return }
         
         detailViewController.currentDate = NSDate().dayFromDate()
-        detailViewController.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
-        detailViewController.navigationItem.leftItemsSupplementBackButton = true
         
         if !(sender is NSDictionary) {
             if let path = self.tableView.indexPathForSelectedRow,

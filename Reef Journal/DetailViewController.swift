@@ -19,7 +19,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var previousItem: UIBarButtonItem!
     @IBOutlet weak var nextItem: UIBarButtonItem!
     @IBOutlet weak var deleteItem: UIBarButtonItem!
-    @IBOutlet weak var splitController: UISplitViewController!
 
     // MARK: - Properties
 
@@ -80,7 +79,8 @@ class DetailViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem()
         self.navigationItem.leftItemsSupplementBackButton = true
         
-        if self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Regular && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.Compact {
+        if (traitCollection.horizontalSizeClass == .Regular && traitCollection.verticalSizeClass == .Compact) ||
+           (traitCollection.horizontalSizeClass == .Compact && traitCollection.verticalSizeClass == .Regular) {
             svc.preferredPrimaryColumnWidthFraction = 0.2
         }
         
@@ -94,19 +94,20 @@ class DetailViewController: UIViewController {
         // When an iPad is in landscape mode the parameter list is hidden when presenting the 
         // graph view. The split view needs to be relaid out in order to take into acount the
         // parameter list being added back to the view.
-//        guard let svc = self.splitViewController else { return }
-//
-//        svc.view.setNeedsLayout()
-//        svc.view.layoutIfNeeded()
+        guard let svc = self.splitViewController else { return }
+
+        svc.view.setNeedsLayout()
+        svc.view.layoutIfNeeded()
         
         setupControls()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        // All of the views have been laid out so now is a good time to position things in the slider control
         slider.layoutControl()
     }
-    
     
     // TODO: - Causes a crash when rotating the graph view from portrait to landscape and coming back to the detail view
 //    override func traitCollectionDidChange( previousTraitCollection: UITraitCollection?) {

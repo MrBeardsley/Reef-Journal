@@ -146,6 +146,14 @@ extension AppDelegate {
                   enabledChemistryParameters.contains(param) || enabledNutrientParameters.contains(param)
         else { return }
         
+        if svc.collapsed {
+            print("Collapsed")
+            print(svc.viewControllers.count)
+        } else {
+            print("Not Collapsed")
+            print(svc.viewControllers.count)
+        }
+        
         switch topViewController {
         case let list as ParameterListViewController:
             let dict: NSDictionary = ["currentParamter" : param.rawValue]
@@ -194,7 +202,6 @@ extension AppDelegate {
 
 // MARK: - Split View Controller Delegate Conformance
 
-// TODO: - This isn't working right when rotating in the graph view.
 extension AppDelegate: UISplitViewControllerDelegate {
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         
@@ -203,7 +210,7 @@ extension AppDelegate: UISplitViewControllerDelegate {
             return detail.shouldCollapseSplitView
         }
         
-        return true
+        return false
     }
 }
 
