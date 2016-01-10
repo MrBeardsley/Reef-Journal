@@ -146,14 +146,6 @@ extension AppDelegate {
                   enabledChemistryParameters.contains(param) || enabledNutrientParameters.contains(param)
         else { return }
         
-        if svc.collapsed {
-            print("Collapsed")
-            print(svc.viewControllers.count)
-        } else {
-            print("Not Collapsed")
-            print(svc.viewControllers.count)
-        }
-        
         switch topViewController {
         case let list as ParameterListViewController:
             let dict: NSDictionary = ["currentParamter" : param.rawValue]

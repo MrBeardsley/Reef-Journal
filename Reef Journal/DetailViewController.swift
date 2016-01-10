@@ -30,7 +30,7 @@ class DetailViewController: UIViewController {
     var currentMeasurement: Measurement?
     var emptyLabel: UILabel? = nil
     var settingsButton: UIButton? = nil
-
+    
     // MARK: - Init/Deinit
 
     required init?(coder aDecoder: NSCoder) {
@@ -108,20 +108,6 @@ class DetailViewController: UIViewController {
         // All of the views have been laid out so now is a good time to position things in the slider control
         slider.layoutControl()
     }
-    
-    // TODO: - Causes a crash when rotating the graph view from portrait to landscape and coming back to the detail view
-//    override func traitCollectionDidChange( previousTraitCollection: UITraitCollection?) {
-//        guard let splitController = self.splitViewController else { return }
-//        guard let mainWindow = self.view.window else { return }
-//        
-//        let traits = mainWindow.traitCollection
-//        
-//        // These traits signify and iPhone 6 Plus screen in landscape mode. In this instance we shrink the width of the parameter list in order to have enough room for the other controls.
-//        if traits.horizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
-//            traits.verticalSizeClass == UIUserInterfaceSizeClass.Compact         {
-//                splitController.preferredPrimaryColumnWidthFraction = 0.2
-//        }
-//    }
 
     // MARK: - Interface Actions
 
