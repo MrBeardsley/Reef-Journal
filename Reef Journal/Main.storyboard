@@ -33,7 +33,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="DetailStackView" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DbB-nJ-aEJ">
+                            <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="DetailStackView" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DbB-nJ-aEJ">
                                 <rect key="frame" x="154" y="52" width="426" height="516"/>
                                 <subviews>
                                     <datePicker contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" restorationIdentifier="DetailDateControl" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="LoY-Sw-dd2">
@@ -48,10 +48,6 @@
                                     <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="400" placeholderIntrinsicHeight="400" restorationIdentifier="DetailCircularControl" translatesAutoresizingMaskIntoConstraints="NO" id="Ct4-vf-pHX" customClass="CircularSlider" customModule="Reef_Journal" customModuleProvider="target">
                                         <rect key="frame" x="20" y="244" width="252" height="252"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="320" id="39J-GG-XWf"/>
-                                            <constraint firstAttribute="height" constant="320" id="9YD-iI-flH"/>
-                                        </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                                 <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,23 +59,13 @@
                                                 <color key="value" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="39J-GG-XWf"/>
-                                                <exclude reference="9YD-iI-flH"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <exclude reference="39J-GG-XWf"/>
-                                                <exclude reference="9YD-iI-flH"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="sliderDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="DZR-8M-fjH"/>
                                         </connections>
                                     </view>
                                 </subviews>
+                                <variation key="heightClass=compact" axis="horizontal"/>
+                                <variation key="heightClass=regular-widthClass=regular" spacing="40"/>
                             </stackView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpj-70-fKG">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -115,24 +101,6 @@
                             <constraint firstItem="DbB-nJ-aEJ" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="swa-6P-m9m"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xpj-70-fKG" secondAttribute="trailing" constant="-20" id="u0e-e7-7hd"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="DbB-nJ-aEJ"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="72v-QO-c9u"/>
-                                <exclude reference="swa-6P-m9m"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=regular">
-                            <mask key="subviews">
-                                <include reference="DbB-nJ-aEJ"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="72v-QO-c9u"/>
-                                <include reference="swa-6P-m9m"/>
-                            </mask>
-                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">

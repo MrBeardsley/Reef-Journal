@@ -129,16 +129,28 @@ import UIKit
         
         let traits = mainWindow.traitCollection
         
+        // If the device is an iPad, just return a large size.
         switch (traits.horizontalSizeClass, traits.verticalSizeClass) {
-        case (.Compact, .Unspecified):
-            return CGSize(width: 300, height: 300)
-        case (.Regular, .Compact):
-            return CGSize(width: 300, height: 300)
         case (.Regular, .Regular):
-            return CGSize(width: 400, height: 400)
-        default:
             return CGSize(width: 300, height: 300)
+        default:
+            break
         }
+        
+        let width = mainWindow.frame.size.width
+        let height = mainWindow.frame.size.height
+        let widest = width > height ? width : height
+        
+        switch widest {
+        case 0..<500:
+            return CGSize(width: 150, height: 150)
+        case 500..<580:
+            return CGSize(width: 200, height: 200)
+        case 580..<2000:
+            return CGSize(width: 250, height: 250)
+        default:
+            return CGSize(width: 150, height: 150)
+        }   
     }
     
     // MARK: - Touch Tracking
@@ -202,7 +214,7 @@ import UIKit
         UIColor.redColor().set()
         
         //Use shadow to create the Blur effect
-        CGContextSetShadowWithColor(imageCtx, CGSizeZero, CGFloat(15), UIColor.blackColor().CGColor)
+        CGContextSetShadowWithColor(imageCtx, CGSizeZero, CGFloat(8), UIColor.blackColor().CGColor)
        
         //define the path
         CGContextSetLineWidth(imageCtx, lineWidthForWidth(bounds.width))
@@ -316,13 +328,14 @@ import UIKit
     private func fontSizeForWidth(width: CGFloat) -> CGFloat {
         
         switch width {
-        case let w where w < 295.0:
+        case 0..<160:
+            return DrawingConstants.fontSizeTiny
+        case 160..<210:
             return DrawingConstants.fontSizeSmall
-        case let w where w < 400.0:
+        case 210..<260:
             return DrawingConstants.fontSizeMedium
         default:
             return DrawingConstants.fontSizeLarge
-            
         }
     }
     
@@ -359,12 +372,13 @@ private struct DrawingConstants {
     static let handleRadius: CGFloat = 40.0
     static let handleRadiusSmall: CGFloat = 25.0
     static let handleAlpha: CGFloat = 0.8
-    static let padding: CGFloat = 40.0
+    static let padding: CGFloat = 20
     static let lineWidth: CGFloat = 40.0
     static let lineWidthSmall: CGFloat = 25.0
     static let backgroundLineWidthSmall: CGFloat = 30.0
     static let backgroundLineWidth: CGFloat = 48.0
-    static let fontSizeSmall: CGFloat = 36.0
+    static let fontSizeTiny: CGFloat = 30
+    static let fontSizeSmall: CGFloat = 36
     static let fontSizeMedium: CGFloat = 60.0
     static let fontSizeLarge: CGFloat = 84.0
 }
