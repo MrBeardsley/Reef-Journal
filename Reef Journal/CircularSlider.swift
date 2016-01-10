@@ -106,7 +106,7 @@ import UIKit
     // MARK: - Control Layout
 
     func layoutControl() {
-        radius = intrinsicContentSize().width / 2 - DrawingConstants.padding
+        radius = intrinsicContentSize().width / 2 - paddingForWidth(intrinsicContentSize().width)
         handlePosition = pointFromAngle(angle)
 
         // Position the text in the center of the control
@@ -132,7 +132,7 @@ import UIKit
         // If the device is an iPad, just return a large size.
         switch (traits.horizontalSizeClass, traits.verticalSizeClass) {
         case (.Regular, .Regular):
-            return CGSize(width: 300, height: 300)
+            return CGSize(width: 400, height: 400)
         default:
             break
         }
@@ -339,6 +339,10 @@ import UIKit
         }
     }
     
+    private func paddingForWidth(width: CGFloat) -> CGFloat {
+        return width > 300 ? DrawingConstants.paddingLarge : DrawingConstants.paddingSmall
+    }
+    
     private func lineWidthForWidth(width: CGFloat) -> CGFloat {
         return width < 295.0 ? DrawingConstants.lineWidthSmall : DrawingConstants.lineWidth
     }
@@ -372,7 +376,8 @@ private struct DrawingConstants {
     static let handleRadius: CGFloat = 40.0
     static let handleRadiusSmall: CGFloat = 25.0
     static let handleAlpha: CGFloat = 0.8
-    static let padding: CGFloat = 20
+    static let paddingSmall: CGFloat = 20
+    static let paddingLarge: CGFloat = 40
     static let lineWidth: CGFloat = 40.0
     static let lineWidthSmall: CGFloat = 25.0
     static let backgroundLineWidthSmall: CGFloat = 30.0

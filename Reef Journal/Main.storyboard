@@ -45,7 +45,7 @@
                                             <action selector="pickerDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="1I9-4T-evQ"/>
                                         </connections>
                                     </datePicker>
-                                    <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="400" placeholderIntrinsicHeight="400" restorationIdentifier="DetailCircularControl" translatesAutoresizingMaskIntoConstraints="NO" id="Ct4-vf-pHX" customClass="CircularSlider" customModule="Reef_Journal" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="400" placeholderIntrinsicHeight="400" restorationIdentifier="DetailCircularControl" translatesAutoresizingMaskIntoConstraints="NO" id="Ct4-vf-pHX" customClass="CircularSlider" customModule="Reef_Journal" customModuleProvider="target">
                                         <rect key="frame" x="20" y="244" width="252" height="252"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
