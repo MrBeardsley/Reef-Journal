@@ -110,18 +110,16 @@ import UIKit
         handlePosition = pointFromAngle(angle)
 
         // Position the text in the center of the control
-        let center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
-        let fontSize = fontSizeForWidth(frame.width)
-        
-        valueLabel.frame.origin.x = center.x - valueLabel.frame.width / 2.0
-        valueLabel.frame.origin.y = center.y - valueLabel.frame.height / 2.0
-        valueLabel.font = UIFont.systemFontOfSize(fontSize, weight: UIFontWeightLight)
-        
+        let circleCenter = CGPoint(x: intrinsicContentSize().width / 2.0, y: intrinsicContentSize().height / 2.0)
+        let fontSize = fontSizeForWidth(intrinsicContentSize().width)
         let sizeString = NSString(string: "0.000")
-        let labelSize = sizeString.sizeWithAttributes([NSFontAttributeName:valueLabel.font])
+        let valueFont = UIFont.systemFontOfSize(fontSize, weight: UIFontWeightLight)
+        let labelSize = sizeString.sizeWithAttributes([NSFontAttributeName : valueFont])
         
-        valueLabel.frame.size = labelSize
-            
+        valueLabel.font = valueFont
+        valueLabel.frame = CGRect(x: circleCenter.x - labelSize.width / 2, y: circleCenter.y - labelSize.height / 2, width: labelSize.width, height: labelSize.height)
+
+        self.setNeedsLayout()
         self.setNeedsDisplay()
     }
     
