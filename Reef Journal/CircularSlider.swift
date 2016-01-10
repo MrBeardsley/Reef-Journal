@@ -68,7 +68,7 @@ import UIKit
     private var shouldMoveHandle = false
     private var textField: UITextField?
     private var valueLabel = UILabel()
-    private var fontSize: CGSize = CGSize(width: 0, height: 0)
+    private var fontSize: CGSize = CGSizeZero
     private var radius: CGFloat = 100
     private var angle: Double = 0
 
@@ -106,7 +106,7 @@ import UIKit
     // MARK: - Control Layout
 
     func layoutControl() {
-        radius = frame.size.width / 2 - DrawingConstants.padding
+        radius = intrinsicContentSize().width / 2 - DrawingConstants.padding
         handlePosition = pointFromAngle(angle)
 
         // Position the text in the center of the control
@@ -127,11 +127,9 @@ import UIKit
     
     override func intrinsicContentSize() -> CGSize {
         guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
-            mainWindow = appDelegate.window else { return CGSizeZero }
+                  mainWindow = appDelegate.window else { return CGSizeZero }
         
         let traits = mainWindow.traitCollection
-        
-        // These traits signify and iPhone 6 Plus screen in landscape mode. In this instance we shrink the width of the parameter list in order to have enough room for the other controls.
         
         switch (traits.horizontalSizeClass, traits.verticalSizeClass) {
         case (.Compact, .Unspecified):
@@ -186,7 +184,7 @@ import UIKit
         /** Draw the Background **/
         CGContextSaveGState(ctx)
         
-        CGContextAddArc(ctx, CGFloat(frame.size.width / 2.0), CGFloat(frame.size.height / 2.0), radius, 0, CGFloat(M_PI * 2), 0)
+        CGContextAddArc(ctx, CGFloat(bounds.width / 2.0), CGFloat(bounds.height / 2.0), radius, 0, CGFloat(M_PI * 2), 0)
         lineColor.set()
         
         CGContextSetLineWidth(ctx, backgroundLindeWidthForWidth(bounds.width))
@@ -199,27 +197,27 @@ import UIKit
         /** Draw the circle **/
         
         /** Create THE MASK Image **/
-        UIGraphicsBeginImageContext(CGSizeMake(self.bounds.size.width,self.bounds.size.height));
+        UIGraphicsBeginImageContext(CGSize(width: bounds.width, height: bounds.height))
+
         let imageCtx = UIGraphicsGetCurrentContext()
-        CGContextAddArc(imageCtx, CGFloat(self.frame.size.width/2)  , CGFloat(self.frame.size.height/2), radius, 0, CGFloat(DegreesToRadians(Double(angle))) , 0);
+        CGContextAddArc(imageCtx, CGFloat(bounds.width / 2.0), CGFloat(bounds.height / 2.0), radius, 0, CGFloat(DegreesToRadians(Double(angle))), 0)
         UIColor.redColor().set()
         
         //Use shadow to create the Blur effect
-        //CGContextSetShadowWithColor(imageCtx, CGSizeMake(0, 0), CGFloat(self.angle/15), UIColor.blackColor().CGColor);
-        CGContextSetShadowWithColor(imageCtx, CGSizeMake(0, 0), CGFloat(15), UIColor.blackColor().CGColor);
+        CGContextSetShadowWithColor(imageCtx, CGSizeZero, CGFloat(15), UIColor.blackColor().CGColor)
        
         //define the path
         CGContextSetLineWidth(imageCtx, lineWidthForWidth(bounds.width))
         CGContextDrawPath(imageCtx, CGPathDrawingMode.Stroke)
         
         //save the context content into the image mask
-        let mask:CGImageRef = CGBitmapContextCreateImage(UIGraphicsGetCurrentContext())!;
-        UIGraphicsEndImageContext();
+        let mask: CGImageRef = CGBitmapContextCreateImage(UIGraphicsGetCurrentContext())!
+        UIGraphicsEndImageContext()
         
         /** Clip Context to the mask **/
         CGContextSaveGState(ctx)
         
-        CGContextClipToMask(ctx, self.bounds, mask)
+        CGContextClipToMask(ctx, bounds, mask)
         
         
         /** The Gradient **/
@@ -238,8 +236,8 @@ import UIKit
         let gradient = CGGradientCreateWithColorComponents(baseSpace, components, nil, 2)
 
         // Gradient direction
-        let startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect))
-        let endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect))
+        let startPoint = CGPointMake(rect.midX, rect.minY)
+        let endPoint = CGPointMake(rect.midX, rect.maxY)
         
         // Draw the gradient
         CGContextDrawLinearGradient(ctx, gradient, startPoint, endPoint, CGGradientDrawingOptions())
@@ -277,11 +275,11 @@ import UIKit
     }
     
     private func pointFromAngle(angle: Double) -> CGPoint {
-        let center = CGPoint(x: bounds.size.width / 2.0, y: bounds.size.height / 2.0)
+        let circleCenter = CGPoint(x: intrinsicContentSize().width / 2.0, y: intrinsicContentSize().height / 2.0)
         
         //The point position on the circumference
-        let x = Double(radius) * cos(DegreesToRadians(-angle)) + Double(center.x)
-        let y = Double(radius) * sin(DegreesToRadians(-angle)) + Double(center.y)
+        let x = Double(radius) * cos(DegreesToRadians(angle)) + Double(circleCenter.x)
+        let y = Double(radius) * sin(DegreesToRadians(-angle)) + Double(circleCenter.y)
 
         return CGPoint(x: x, y: y)
     }

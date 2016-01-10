@@ -19,7 +19,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-38" y="-630"/>
+            <point key="canvasLocation" x="-107" y="-636"/>
         </scene>
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
@@ -33,21 +33,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" restorationIdentifier="DetailDateControl" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="LoY-Sw-dd2">
-                                <rect key="frame" x="140" y="72" width="320" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="458700086.47042799">
-                                    <!--2015-07-16 00:41:26 +0000-->
-                                </date>
-                                <connections>
-                                    <action selector="pickerDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="1I9-4T-evQ"/>
-                                </connections>
-                            </datePicker>
+                            <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="DetailStackView" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DbB-nJ-aEJ">
+                                <rect key="frame" x="154" y="52" width="426" height="516"/>
+                                <subviews>
+                                    <datePicker contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" restorationIdentifier="DetailDateControl" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="LoY-Sw-dd2">
+                                        <rect key="frame" x="86" y="20" width="320" height="216"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="458700086.47042799">
+                                            <!--2015-07-16 00:41:26 +0000-->
+                                        </date>
+                                        <connections>
+                                            <action selector="pickerDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="1I9-4T-evQ"/>
+                                        </connections>
+                                    </datePicker>
+                                    <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="400" placeholderIntrinsicHeight="400" restorationIdentifier="DetailCircularControl" translatesAutoresizingMaskIntoConstraints="NO" id="Ct4-vf-pHX" customClass="CircularSlider" customModule="Reef_Journal" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="244" width="252" height="252"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="320" id="39J-GG-XWf"/>
+                                            <constraint firstAttribute="height" constant="320" id="9YD-iI-flH"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                <color key="value" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="39J-GG-XWf"/>
+                                                <exclude reference="9YD-iI-flH"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <mask key="constraints">
+                                                <exclude reference="39J-GG-XWf"/>
+                                                <exclude reference="9YD-iI-flH"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="sliderDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="DZR-8M-fjH"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                            </stackView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpj-70-fKG">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="DUX-8c-PTd"/>
-                                    <constraint firstAttribute="height" constant="44" id="tIo-Gb-ve0"/>
-                                    <constraint firstAttribute="height" constant="44" id="wk0-8q-SyW"/>
                                 </constraints>
                                 <items>
                                     <barButtonItem title="Previous" id="Ibj-99-ulN">
@@ -68,147 +105,32 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="DUX-8c-PTd"/>
-                                        <exclude reference="tIo-Gb-ve0"/>
-                                        <exclude reference="wk0-8q-SyW"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="tIo-Gb-ve0"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="DUX-8c-PTd"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="wk0-8q-SyW"/>
-                                    </mask>
-                                </variation>
                             </toolbar>
-                            <view contentMode="scaleToFill" restorationIdentifier="DetailCircularControl" translatesAutoresizingMaskIntoConstraints="NO" id="Ct4-vf-pHX" customClass="CircularSlider" customModule="Reef_Journal" customModuleProvider="target">
-                                <rect key="frame" x="174" y="296" width="252" height="252"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="39J-GG-XWf"/>
-                                    <constraint firstAttribute="height" constant="320" id="9YD-iI-flH"/>
-                                    <constraint firstAttribute="width" secondItem="Ct4-vf-pHX" secondAttribute="height" multiplier="1:1" id="EBC-89-GoE"/>
-                                    <constraint firstAttribute="width" constant="400" id="EHX-Ef-0g4"/>
-                                    <constraint firstAttribute="height" constant="400" id="bpK-Tj-Xqa"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                        <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                        <color key="value" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="39J-GG-XWf"/>
-                                        <exclude reference="9YD-iI-flH"/>
-                                        <exclude reference="EHX-Ef-0g4"/>
-                                        <exclude reference="bpK-Tj-Xqa"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="EHX-Ef-0g4"/>
-                                        <include reference="bpK-Tj-Xqa"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="sliderDidChange:" destination="JEX-9P-axG" eventType="valueChanged" id="DZR-8M-fjH"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" id="3xt-7Z-7ha">
-                                <variation key="heightClass=regular-widthClass=compact" constant="20"/>
-                            </constraint>
-                            <constraint firstItem="LoY-Sw-dd2" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="5ee-7H-KsS"/>
                             <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="xpj-70-fKG" secondAttribute="bottom" id="6mL-JH-FHs"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ct4-vf-pHX" secondAttribute="trailing" id="7mr-bL-o0b">
-                                <variation key="heightClass=regular-widthClass=compact" constant="20"/>
-                            </constraint>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="leading" secondItem="LoY-Sw-dd2" secondAttribute="trailing" constant="8" symbolic="YES" id="8E3-Wg-zMR"/>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" priority="750" id="KA9-rc-Ii6"/>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" priority="750" constant="8" id="LQV-cm-FRx"/>
-                            <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" symbolic="YES" id="Oui-YU-jdf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ct4-vf-pHX" secondAttribute="trailing" constant="-20" id="Pcz-Mi-3B9"/>
-                            <constraint firstItem="LoY-Sw-dd2" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="Pnj-06-ROj"/>
-                            <constraint firstItem="LoY-Sw-dd2" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="QuG-wa-zlO"/>
+                            <constraint firstItem="DbB-nJ-aEJ" firstAttribute="centerY" secondItem="svH-Pt-448" secondAttribute="centerY" id="72v-QO-c9u"/>
                             <constraint firstItem="xpj-70-fKG" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-20" id="V3d-NU-HMZ"/>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="width" secondItem="LoY-Sw-dd2" secondAttribute="width" priority="750" id="WJK-z6-c8L">
-                                <variation key="heightClass=compact-widthClass=regular" constant="300"/>
-                            </constraint>
-                            <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" constant="8" id="WLA-U3-sWo"/>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="ZKQ-t7-gqh"/>
-                            <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" constant="8" id="dLR-17-Pkv"/>
-                            <constraint firstItem="Ct4-vf-pHX" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" constant="8" id="epS-6s-ska"/>
-                            <constraint firstItem="LoY-Sw-dd2" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="8" symbolic="YES" id="fdM-Hl-t9l"/>
-                            <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="LoY-Sw-dd2" secondAttribute="bottom" id="qRs-72-Hgm"/>
-                            <constraint firstItem="xpj-70-fKG" firstAttribute="top" secondItem="Ct4-vf-pHX" secondAttribute="bottom" id="tn0-Hk-3T1"/>
+                            <constraint firstItem="DbB-nJ-aEJ" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="swa-6P-m9m"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xpj-70-fKG" secondAttribute="trailing" constant="-20" id="u0e-e7-7hd"/>
                         </constraints>
                         <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="5ee-7H-KsS"/>
-                                <exclude reference="QuG-wa-zlO"/>
-                                <exclude reference="3xt-7Z-7ha"/>
-                                <exclude reference="7mr-bL-o0b"/>
-                                <exclude reference="8E3-Wg-zMR"/>
-                                <exclude reference="KA9-rc-Ii6"/>
-                                <exclude reference="Pcz-Mi-3B9"/>
-                                <exclude reference="WJK-z6-c8L"/>
-                                <exclude reference="epS-6s-ska"/>
-                                <exclude reference="Oui-YU-jdf"/>
-                                <exclude reference="WLA-U3-sWo"/>
-                                <exclude reference="qRs-72-Hgm"/>
-                                <exclude reference="tn0-Hk-3T1"/>
+                            <mask key="subviews">
+                                <exclude reference="DbB-nJ-aEJ"/>
                             </mask>
-                        </variation>
-                        <variation key="heightClass=compact">
                             <mask key="constraints">
-                                <include reference="5ee-7H-KsS"/>
-                                <exclude reference="Pnj-06-ROj"/>
-                                <include reference="QuG-wa-zlO"/>
-                                <exclude reference="fdM-Hl-t9l"/>
-                                <include reference="8E3-Wg-zMR"/>
-                                <include reference="KA9-rc-Ii6"/>
-                                <exclude reference="LQV-cm-FRx"/>
-                                <include reference="Pcz-Mi-3B9"/>
-                                <exclude reference="ZKQ-t7-gqh"/>
-                                <exclude reference="dLR-17-Pkv"/>
-                                <include reference="qRs-72-Hgm"/>
-                                <include reference="tn0-Hk-3T1"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=compact-widthClass=regular">
-                            <mask key="constraints">
-                                <exclude reference="WJK-z6-c8L"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <exclude reference="3xt-7Z-7ha"/>
-                                <exclude reference="7mr-bL-o0b"/>
-                                <include reference="ZKQ-t7-gqh"/>
+                                <exclude reference="72v-QO-c9u"/>
+                                <exclude reference="swa-6P-m9m"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="subviews">
+                                <include reference="DbB-nJ-aEJ"/>
+                            </mask>
                             <mask key="constraints">
-                                <exclude reference="LQV-cm-FRx"/>
+                                <include reference="72v-QO-c9u"/>
+                                <include reference="swa-6P-m9m"/>
                             </mask>
                         </variation>
                     </view>
@@ -231,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="708" y="129"/>
+            <point key="canvasLocation" x="850" y="319"/>
         </scene>
         <!--Graph-->
         <scene sceneID="vT7-Ki-U0I">
@@ -430,7 +352,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Cw-7c-eb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="x3V-Gc-lct" customClass="GraphData" customModule="Reef_Journal" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="1438" y="129"/>
+            <point key="canvasLocation" x="1802" y="319"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -444,7 +366,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZU-Oi-B1e" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-856" y="-272"/>
+            <point key="canvasLocation" x="-1278" y="-222"/>
         </scene>
         <!--Parameters-->
         <scene sceneID="W2B-TU-gRL">
@@ -518,7 +440,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CE8-1w-ZFq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="68Y-fw-FP2" customClass="ParameterListData" customModule="Reef_Journal" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="708" y="-630"/>
+            <point key="canvasLocation" x="850" y="-636"/>
         </scene>
         <!--DetailNavigation-->
         <scene sceneID="r7l-gg-dq7">
@@ -533,7 +455,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-45" y="129"/>
+            <point key="canvasLocation" x="-107" y="319"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
