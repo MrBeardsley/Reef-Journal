@@ -125,6 +125,26 @@ import UIKit
         self.setNeedsDisplay()
     }
     
+    override func intrinsicContentSize() -> CGSize {
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
+            mainWindow = appDelegate.window else { return CGSizeZero }
+        
+        let traits = mainWindow.traitCollection
+        
+        // These traits signify and iPhone 6 Plus screen in landscape mode. In this instance we shrink the width of the parameter list in order to have enough room for the other controls.
+        
+        switch (traits.horizontalSizeClass, traits.verticalSizeClass) {
+        case (.Compact, .Unspecified):
+            return CGSize(width: 300, height: 300)
+        case (.Regular, .Compact):
+            return CGSize(width: 300, height: 300)
+        case (.Regular, .Regular):
+            return CGSize(width: 400, height: 400)
+        default:
+            return CGSize(width: 300, height: 300)
+        }
+    }
+    
     // MARK: - Touch Tracking
 
     override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
