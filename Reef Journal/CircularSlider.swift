@@ -66,6 +66,7 @@ import UIKit
 
     private var handlePosition = CGPointZero
     private var shouldMoveHandle = false
+    private var allowPanGesture = true
     private var textField: UITextField?
     private var valueLabel = UILabel()
     private var fontSize: CGSize = CGSizeZero
@@ -159,6 +160,7 @@ import UIKit
         super.beginTrackingWithTouch(touch, withEvent: event)
         
         shouldMoveHandle = isPointInHandle(touch.locationInView(self))
+        allowPanGesture = !isPointInHandle(touch.locationInView(self))
         
         return true
     }
@@ -181,7 +183,17 @@ import UIKit
     override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
         super.endTrackingWithTouch(touch, withEvent: event)
         shouldMoveHandle = false
+        allowPanGesture = true
         self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
+    }
+    
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        switch gestureRecognizer {
+        case is UIPanGestureRecognizer:
+            return allowPanGesture
+        default:
+            return true
+        }
     }
 
     // MARK: - Drawing
