@@ -126,4 +126,4 @@ extension GraphData: DataModel { }
 
 // MARK: - EnableParametersType Conformance
 
-extension GraphData: EnableParametersType {}
+extension GraphData: EnabledParametersType {}

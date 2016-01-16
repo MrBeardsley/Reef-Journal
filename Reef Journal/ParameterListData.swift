@@ -170,4 +170,4 @@ extension ParameterListData: UIDataSourceModelAssociation {
 
 // MARK: - EnableParametersType Conformance
 
-extension ParameterListData: EnableParametersType { }
+extension ParameterListData: EnabledParametersType { }

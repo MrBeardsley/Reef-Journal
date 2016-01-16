@@ -208,4 +208,4 @@ extension AppDelegate: UISplitViewControllerDelegate {
 
 // MARK: - EnableParametersType Conformance
 
-extension AppDelegate: EnableParametersType { }
+extension AppDelegate: EnabledParametersType { }

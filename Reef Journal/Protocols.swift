@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+// MARK: - Data Model Protocol
+
 protocol DataModel: class {
     var managedObjectContext: NSManagedObjectContext { get }
 }
@@ -21,6 +23,8 @@ extension DataModel {
         }
     }
 }
+
+// MARK: - Managed Object Type Protocol
 
 protocol ManagedObjectType: class {
     static var entityName: String { get }
@@ -39,20 +43,22 @@ extension ManagedObjectType {
     }
 }
 
+// MARK: - Enabled Parameters Type Protocol
 
-protocol EnableParametersType: class {
+protocol EnabledParametersType: class {
     var enabledChemistryParameters: [Parameter] { get }
     var enabledNutrientParameters: [Parameter] { get }
+    var allEnabledParameters: [Parameter] { get }
 }
 
-extension EnableParametersType {
+extension EnabledParametersType {
     var enabledChemistryParameters: [Parameter] {
         
         get {
             var enabled = [Parameter]()
             let userDefaults = NSUserDefaults.standardUserDefaults()
             
-            for item in AppSettingsKey.enabledChemistryKeys {
+            for item in SettingsKey.enabledChemistryKeys {
                 if userDefaults.boolForKey(item.rawValue) {
                     enabled.append(Parameter.parameterForSetting(item))
                 }
@@ -68,13 +74,19 @@ extension EnableParametersType {
             var enabled = [Parameter]()
             let userDefaults = NSUserDefaults.standardUserDefaults()
             
-            for item in AppSettingsKey.enabledNutrientKeys {
+            for item in SettingsKey.enabledNutrientKeys {
                 if userDefaults.boolForKey(item.rawValue) {
                     enabled.append(Parameter.parameterForSetting(item))
                 }
             }
             
             return enabled
+        }
+    }
+    
+    var allEnabledParameters: [Parameter] {
+        get {
+            return enabledChemistryParameters + enabledNutrientParameters
         }
     }
 }

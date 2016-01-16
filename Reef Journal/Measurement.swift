@@ -45,7 +45,7 @@ public final class Measurement: NSManagedObject {
                 let alk = Alkalinity(primValue, unit: .DKH)
                 
                 if let
-                    intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.AlkalinityUnits.rawValue) as? Int,
+                    intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.AlkalinityUnits.rawValue) as? Int,
                     alkUnit = AlkalinityUnit(rawValue: intValue) {
                         
                     switch alkUnit {
@@ -61,7 +61,7 @@ public final class Measurement: NSManagedObject {
                 let salinity = Salinity(primValue, unit: .SG)
                 
                 if let
-                    intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.SalinityUnits.rawValue) as? Int,
+                    intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.SalinityUnits.rawValue) as? Int,
                     salUnit = SalinityUnit(rawValue: intValue) {
                     
                     switch salUnit {
@@ -76,7 +76,7 @@ public final class Measurement: NSManagedObject {
                 let temp = Temperature(primValue, unit: .Fahrenheit)
                 
                 if let
-                    intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.TemperatureUnits.rawValue) as? Int,
+                    intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.TemperatureUnits.rawValue) as? Int,
                     tempUnit = TemperatureUnit(rawValue: intValue) {
                         
                     switch tempUnit {
@@ -100,7 +100,7 @@ public final class Measurement: NSManagedObject {
             switch parameter {
             case .Alkalinity:
                 if let
-                    intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.AlkalinityUnits.rawValue) as? Int,
+                    intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.AlkalinityUnits.rawValue) as? Int,
                     alkUnit = AlkalinityUnit(rawValue: intValue) {
                         
                     switch alkUnit {
@@ -119,7 +119,7 @@ public final class Measurement: NSManagedObject {
                 }
                 
             case .Salinity:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.SalinityUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.SalinityUnits.rawValue) as? Int,
                     let salUnit = SalinityUnit(rawValue: intValue) {
                         switch salUnit {
                         case .SG:
@@ -134,7 +134,7 @@ public final class Measurement: NSManagedObject {
                 }
                 
             case .Temperature:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.TemperatureUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.TemperatureUnits.rawValue) as? Int,
                     let tempUnit = TemperatureUnit(rawValue: intValue) {
                         switch tempUnit {
                         case .Fahrenheit:

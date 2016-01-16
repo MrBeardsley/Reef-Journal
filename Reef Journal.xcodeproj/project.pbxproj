@@ -17,7 +17,7 @@
 		838BB1931B521B7F00D317B9 /* Reef_Journal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 838BB1911B521B7F00D317B9 /* Reef_Journal.xcdatamodeld */; };
 		838BB1961B521C2300D317B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 838BB1941B521C2300D317B9 /* LaunchScreen.storyboard */; };
 		838BB1971B521C2300D317B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 838BB1951B521C2300D317B9 /* Main.storyboard */; };
-		8395474F19C890EA00529B8B /* AppSettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395474E19C890EA00529B8B /* AppSettingsKey.swift */; };
+		8395474F19C890EA00529B8B /* SettingsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395474E19C890EA00529B8B /* SettingsKey.swift */; };
 		83A33C991C373DF700204A91 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A33C981C373DF700204A91 /* Parameter.swift */; };
 		83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */; };
 		83AA7EB71947D63B00CB9D0F /* TemperatureStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA7EB61947D63B00CB9D0F /* TemperatureStruct.swift */; };
@@ -64,7 +64,7 @@
 		838BB1921B521B7F00D317B9 /* Reef_Journal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reef_Journal.xcdatamodel; sourceTree = "<group>"; };
 		838BB1941B521C2300D317B9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		838BB1951B521C2300D317B9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		8395474E19C890EA00529B8B /* AppSettingsKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsKey.swift; sourceTree = "<group>"; };
+		8395474E19C890EA00529B8B /* SettingsKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsKey.swift; sourceTree = "<group>"; };
 		83A33C981C373DF700204A91 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
 		83AA7E9C1947D63A00CB9D0F /* Reef Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reef Journal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AA7EA01947D63A00CB9D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -149,10 +149,9 @@
 			children = (
 				838BB1911B521B7F00D317B9 /* Reef_Journal.xcdatamodeld */,
 				83D3DE251B85743A001B41DC /* Measurement.swift */,
-				83A33C981C373DF700204A91 /* Parameter.swift */,
-				8395474E19C890EA00529B8B /* AppSettingsKey.swift */,
 				83585B6E1C30824C002DABC7 /* DataPersistence.swift */,
-				83D569B71C382B9600CF73CE /* Protocols.swift */,
+				83A33C981C373DF700204A91 /* Parameter.swift */,
+				8395474E19C890EA00529B8B /* SettingsKey.swift */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -255,6 +254,7 @@
 			children = (
 				83AA7EA11947D63A00CB9D0F /* AppDelegate.swift */,
 				83585B6C1C308206002DABC7 /* AppData.swift */,
+				83D569B71C382B9600CF73CE /* Protocols.swift */,
 			);
 			name = "Main App";
 			sourceTree = "<group>";
@@ -406,7 +406,7 @@
 				831386B1196F4A2900F0D0DD /* GraphViewController.swift in Sources */,
 				83DA1C7219DCFF63005B99A4 /* Temperature.swift in Sources */,
 				833D4AE51A3E17AA00FF6B96 /* Salinity.swift in Sources */,
-				8395474F19C890EA00529B8B /* AppSettingsKey.swift in Sources */,
+				8395474F19C890EA00529B8B /* SettingsKey.swift in Sources */,
 				837C8E5B1B7D8F000008533F /* MeasurementsData.swift in Sources */,
 				83BF08DF1B54B2530036549D /* CircularSlider.swift in Sources */,
 				83AA7EA21947D63A00CB9D0F /* AppDelegate.swift in Sources */,

@@ -161,4 +161,4 @@ extension MeasurementsData: DataModel { }
 
 // MARK: - EnableParametersType Conformance
 
-extension MeasurementsData: EnableParametersType {}
+extension MeasurementsData: EnabledParametersType {}

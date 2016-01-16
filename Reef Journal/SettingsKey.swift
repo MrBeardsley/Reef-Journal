@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum AppSettingsKey: String {
+enum SettingsKey: String {
     case TemperatureUnits
     case SalinityUnits
     case AlkalinityUnits
@@ -26,17 +26,17 @@ enum AppSettingsKey: String {
     case EnablePhosphate
     
     
-    static var enabledParameterKeys: [AppSettingsKey] {
+    static var enabledParameterKeys: [SettingsKey] {
         get {
             return [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium, .EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
         }
     }
     
-    static var enabledChemistryKeys: [AppSettingsKey] {
+    static var enabledChemistryKeys: [SettingsKey] {
         return [.EnableTemperature, .EnableSalinity, .EnablePH, .EnableAlkalinity, .EnableCalcium, .EnableMagnesium, .EnableStrontium, .EnablePotassium]
     }
     
-    static var enabledNutrientKeys: [AppSettingsKey] {
+    static var enabledNutrientKeys: [SettingsKey] {
         return [.EnableAmmonia, .EnableNitrite, .EnableNitrate, .EnablePhosphate]
     }
 }

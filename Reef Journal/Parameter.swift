@@ -48,7 +48,7 @@ enum Parameter: String {
             case .Phosphate:
                 return 2
             case .Alkalinity:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.AlkalinityUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.AlkalinityUnits.rawValue) as? Int,
                     let alkUnit = AlkalinityUnit(rawValue: intValue) {
                         switch alkUnit {
                         case .DKH, .MeqL: return 1
@@ -59,7 +59,7 @@ enum Parameter: String {
                     return 0
                 }
             case .Salinity:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.SalinityUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.SalinityUnits.rawValue) as? Int,
                     let salUnit = SalinityUnit(rawValue: intValue) {
                         switch salUnit {
                         case .SG: return 3
@@ -85,7 +85,7 @@ enum Parameter: String {
             case .Calcium, .Magnesium, .Strontium, .Potasium, .Phosphate, .Ammonia, .Nitrite, .Nitrate:
                 return "ppm"
             case .Alkalinity:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.AlkalinityUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.AlkalinityUnits.rawValue) as? Int,
                     let alkUnit = AlkalinityUnit(rawValue: intValue) {
                         switch alkUnit {
                         case .DKH:
@@ -100,7 +100,7 @@ enum Parameter: String {
                     return ""
                 }
             case .Salinity:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.SalinityUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.SalinityUnits.rawValue) as? Int,
                     let salUnit = SalinityUnit(rawValue: intValue) {
                         switch salUnit {
                         case .SG: return SalinityLabel.SG.rawValue
@@ -113,7 +113,7 @@ enum Parameter: String {
             case .pH:
                 return ""
             case .Temperature:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.TemperatureUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.TemperatureUnits.rawValue) as? Int,
                     let tempUnit = TemperatureUnit(rawValue: intValue) {
                         switch tempUnit {
                         case .Fahrenheit:
@@ -141,7 +141,7 @@ enum Parameter: String {
             case .Nitrite: return (min: 0, max: 20)
             case .Nitrate: return (min: 0, max: 200)
             case .Alkalinity:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.AlkalinityUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.AlkalinityUnits.rawValue) as? Int,
                     let alkUnit = AlkalinityUnit(rawValue: intValue) {
                         switch alkUnit {
                         case .DKH: return (min: 0, max: 22.4)
@@ -153,7 +153,7 @@ enum Parameter: String {
                     return (min: 0, max: 22.4)
                 }
             case .Salinity:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.SalinityUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.SalinityUnits.rawValue) as? Int,
                     let salUnit = SalinityUnit(rawValue: intValue) {
                         switch salUnit {
                         case .SG: return (min: 1.0, max: 1.040)
@@ -165,7 +165,7 @@ enum Parameter: String {
                 }
             case .pH: return (min: 0, max: 14)
             case .Temperature:
-                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(AppSettingsKey.TemperatureUnits.rawValue) as? Int,
+                if let intValue = NSUserDefaults.standardUserDefaults().valueForKey(SettingsKey.TemperatureUnits.rawValue) as? Int,
                     let tempUnit = TemperatureUnit(rawValue: intValue) {
                         switch tempUnit {
                         case .Fahrenheit: return (min: 32, max: 100)
@@ -181,7 +181,7 @@ enum Parameter: String {
     
     // MARK: - Static Functions
     
-    static func parameterForSetting(setting: AppSettingsKey) -> Parameter {
+    static func parameterForSetting(setting: SettingsKey) -> Parameter {
         
         switch setting {
         case .TemperatureUnits:     return .Temperature
