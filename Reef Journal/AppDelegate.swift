@@ -54,8 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
 
-                registerableDictionary["LastParameter"] = "Default"
-
                 NSUserDefaults.standardUserDefaults().registerDefaults(registerableDictionary)
             }
         }
