@@ -1,5 +1,5 @@
 //
-//  Types.swift
+//  SettingsKey.swift
 //  Reef Journal
 //
 //  Created by Christopher Harding on 9/16/14

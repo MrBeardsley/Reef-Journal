@@ -1,5 +1,5 @@
 //
-//  Paramter.swift
+//  Parameter.swift
 //  Reef Journal
 //
 //  Created by Christopher Harding on 1/1/16

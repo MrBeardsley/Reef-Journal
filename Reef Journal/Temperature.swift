@@ -1,5 +1,5 @@
 //
-//  TemperatureValue.swift
+//  Temperature.swift
 //  Reef Journal
 //
 //  Created by Christopher Harding on 10/1/14
